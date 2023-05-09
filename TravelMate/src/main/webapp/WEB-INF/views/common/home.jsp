@@ -127,7 +127,7 @@
     
     <div class="jb-box">
         <video muted autoplay loop>
-          <source src="${root}/img/codes-23355.mp4" type="video/mp4">
+          <source src="${root}static/img/codes-23355.mp4" type="video/mp4">
         </video>
         <div class="jb-text">
           <p>TRAVLE MATE</p>
@@ -135,7 +135,7 @@
       </div>
       
       <div id="banner">
-        <a href="/app/test"><img id="img" src="${root}/img/banner.png" alt="이미지"></a> 
+        <a href="/app/test"><img id="img" src="${root}/static/img/banner.png" alt="이미지"></a> 
       </div>  
 
         <div id="search-area" >
@@ -147,9 +147,9 @@
 
       <div id="ranson">
        <a href=""><h1 align="center">랜선으로 여행을 즐겨보세요</h1></a>
-        <a href="https://www.youtube.com/watch?v=dEnBXRkDBUE"><img src="${root}/img/ranson.png" alt="이미지"></a>
-        <a href="https://www.youtube.com/watch?v=2BPLbTIpOZI"><img src="${root}/img/ranson2.png" alt="이미지"></a>
-        <a href="https://www.youtube.com/watch?v=t9gVHZlb3vA"><img src="${root}/img/ranson3.png" alt="이미지"></a>  
+        <a href="https://www.youtube.com/watch?v=dEnBXRkDBUE"><img src="${root}static/img/ranson.png" alt="이미지"></a>
+        <a href="https://www.youtube.com/watch?v=2BPLbTIpOZI"><img src="${root}static/img/ranson2.png" alt="이미지"></a>
+        <a href="https://www.youtube.com/watch?v=t9gVHZlb3vA"><img src="${root}static/img/ranson3.png" alt="이미지"></a>  
       </div>
 
       <div id="wrap">
@@ -157,8 +157,8 @@
         <a href=""><h4>지인에게 특산품을 선물해보세요!</h4></a>
         <a href=""><h4>여행 정보를 서로 공유해보세요!</h4></a>
         <a href="/app/test">
-          <img width="350px" height="300px" src="${root}/img/pr.png" alt="이미지"> 
-          <img width="350px" height="300px" src="${root}/img/pr2.png" alt="이미지">
+          <img width="350px" height="300px" src="${root}/static/img/pr.png" alt="이미지"> 
+          <img width="350px" height="300px" src="${root}/static/img/pr2.png" alt="이미지">
         </a>  
         <a href="/app/test">제주도 차박 여행 후기</a> 
       
