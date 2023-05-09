@@ -8,5 +8,18 @@
 </head>
 <body>
 
+	<div id="wrap">
+		<%@include file="/WEB-INF/views/common/header.jsp"  %>
+
+		<main>
+		
+            <img src="${root}/img/loginImg.png" alt="이미지" alt="">
+
+		</main>
+		
+	</div>
+		
+		
+
 </body>
 </html>
