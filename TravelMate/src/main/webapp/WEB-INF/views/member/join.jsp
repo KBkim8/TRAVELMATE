@@ -136,7 +136,6 @@
 
 				  <input type="checkbox" id="check3">
         		  <label for="check3"></label>
-
 				  
 				</div>
 				
