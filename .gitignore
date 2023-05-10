@@ -30,3 +30,4 @@ TravelMate/.settings/
 *.project
 TravelMate/src/main/webapp/META-INF/MANIFEST.MF
 TravelMate/src/main/webapp/WEB-INF/.gitignore
+/bin/
