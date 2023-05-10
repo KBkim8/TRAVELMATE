@@ -50,6 +50,11 @@
 		margin-left: 150px;
 		margin-top: 30px;
 	}
+
+	#a {
+		margin-left: 900px;
+		font-size: 1.5em;
+	}
 </style>
 </head>
 <body>
@@ -57,27 +62,25 @@
 	<div id="wrap">
 		<%@include file="/WEB-INF/views/common/header.jsp"  %>
 
-		<span id="span"></span><h1>로그인</h1>
+		<span id="span"></span><h1>아이디 찾기</h1>   
 		<hr>
 
 		<main>
             <img src="${root}/static/img/loginImg.png" alt="이미지" >
 		</main>
-
+		<a id="a" href="${root}/find-pwd">비밀번호 찾기</a>
 		<div id="login-area">
 			
 			<form action="" method="POST">
-				<span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
+				<span>이름</span><input type="text" name="memberName" placeholder="이름을 입력하세요" size="40">
 				<br>
-				<span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
-				<hr>
 				<br>
-				<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">로그인</button>
+				<span>생년월일</span><input type="text" name="memberBirthDate" placeholder="생년월일을 입력하세요" size="40">
 				<br>
+				<span>이메일</span><input type="password" name="memberEmail" placeholder="이메일 입력하세요" size="40">
 				<br>
 				<br>
 				<button type="submit" value="아이디 찾기" class="btn btn-primary btn-lg">아이디 찾기</button>
-				<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">비밀번호 찾기 </button>
 			</form>
 
 		</div>

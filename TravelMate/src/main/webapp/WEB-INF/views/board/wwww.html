@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +57,7 @@
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 		
 		<main>
-			<h1>게시글 조회</h1>
+			<h1>게시글 작성</h1>
             <hr>
 			<form action="${root}/board/write" method="post">
 				<div id="write-area">
@@ -73,6 +72,7 @@
 					<span>내용</span>
 					<textarea name="content" placeholder="내용을 입력하세요"></textarea>
 				</div>
+				<input class="btn btn-primary btn-lg" type="submit" value="작성하기">
 			</form>
 
             <div id="reply-area">
