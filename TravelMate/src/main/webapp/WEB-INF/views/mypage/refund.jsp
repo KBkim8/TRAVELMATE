@@ -8,16 +8,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <style>
 
-    #wrap{
-        width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-    }
 
     #square{
-        width: 20px;
-        height: 40px;
+        width: 25px;
+        height: 50px;
         background-color: rgba(115, 211, 142);
         margin-top: 20px;
     }
@@ -25,14 +19,10 @@
     .mem-info{
         margin-top: 30px;
         margin-left: 1%;
-        font-size: 1.5em;
+        font-size: 1.6em;
+        font-weight: bold;
     }
 
-    
-    #side-bar{
-        height: 100%;
-        background-color: rgb(108, 237, 156);
-    }
     
     main{
         width: 100%;
@@ -53,7 +43,7 @@
     }
 
     #info-area-box{
-        width: 800px;
+        width: 1000px;
         height: 70%;
         border: 1px solid rgba(115, 211, 142);
         background-color: rgba(220, 220, 220, 0.378);
@@ -72,16 +62,16 @@
 
 
     #refund-info-area{
-        margin-top: 15%;
+        margin-top: 10%;
         margin-left: 11%;
         margin-bottom: 3%;
-        font-size: 1.2em;
+        font-size: 1.6em;
     }
 
     button{
         background-color: rgba(115, 211, 142, 0.574);
-        width: 100px;
-        height: 40px;
+        width: 150px;
+        height: 50px;
         border-radius: 10%;
         padding: 10px;
         border: none;
@@ -138,7 +128,7 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <main>
         <div id="sidebar">
-
+			<%@include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
         </div>
         <div id="mypage-refund-area">
             <div id="title-area">

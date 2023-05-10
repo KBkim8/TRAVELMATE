@@ -12,7 +12,7 @@
         height: 100%;
     }
 
-    #wrap{
+    #wrapper{
         width: 100%;
         height: 100vh;
         display: grid;
@@ -20,8 +20,8 @@
     }
 
     #square{
-        width: 20px;
-        height: 40px;
+        width: 25px;
+        height: 50px;
         background-color: rgba(115, 211, 142);
         margin-top: 20px;
     }
@@ -33,12 +33,6 @@
     }
 
     
-    #side-bar{
-        height: 100%;
-        background-color: rgb(108, 237, 156);
-    }
-    
-   
     #title-area{
         display: flex;
     }
@@ -148,9 +142,9 @@
 
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <main>
-        <div id="wrap">
+        <div id="wrapper">
             <div id="sidebar">
-
+				<%@ include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
             </div>
             <div id="fav-list-area">
                 <div id="title-area">

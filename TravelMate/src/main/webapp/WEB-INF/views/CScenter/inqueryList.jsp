@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 <style>
 
-
     #square{
         width: 25px;
         height: 50px;
@@ -18,7 +17,8 @@
     .mem-info{
         margin-top: 30px;
         margin-left: 3%;
-        font-size: 1.5em;
+        font-size: 1.7em;
+        font-weight: bold;
     }
 
     
@@ -32,48 +32,35 @@
         height: 100vh;
     	display: grid;
         grid-template-columns: 1fr 4fr 1fr;
-        
+        grid-template-rows: 6fr 1fr;
     }
     #title-area{
         display: flex;
     }
 
-    
-    .refund{
-        background-color: rgba(115, 211, 142, 0.574);
-        width: 50px;
-        height: 30px;
-        border-radius: 10%;
-        border: none;
-    }
-
-    #order-list-box{
-        width: 800px;
+    #inq-list-box{
+        width: 1000px;
         height: 90%;
-        background-color: rgba(220, 220, 220, 0.378);
+        /* background-color: rgba(220, 220, 220, 0.378); */
         margin: auto;
         border-radius: 10%;
         display: flex;
     }
     
     .list-box-area{
+        width: 1000px;
+        height: 600px;
         margin-top: 10%;
         border-collapse: collapse;
         justify-content: center;
         align-items: center;
-        margin-left: auto;
-        margin-right: auto;
+        margin: auto;
+        text-align: center;
     }
 
     td img{
         width: 30px;
         height: 30px;
-    }
-
-    .list-box-area tr,th,td{
-        border-bottom: 1px solid black;
-        height: 40px;
-        text-align: center;
     }
 
     .list-box-area th,
@@ -90,16 +77,17 @@
         border-right: 0;
     }
 
-    td:nth-child(2){
-        width: 300px;
-    }
-
-    td:nth-child(3){
-        width: 100px;
-    }
-
     thead,tbody{
         text-align: center;
+    }
+
+    .paging-area{
+        width: 100%;
+        height: 50px;
+        border: 1px solid lightgray;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     
@@ -111,44 +99,50 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <main>
         <div id="sidebar">
-			<%@include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
+          <%@ include file="/WEB-INF/views/common/cs_sidebar.jsp" %>
         </div>
-        <div id="order-list-area">
+        <div id="inq-list-area">
             <div id="title-area">
                 <div id="square"></div>
-                <h3 class="mem-info">주문내역조회</h3>
+                <h3 class="mem-info">1:1 문의내역</h3>
             </div>
             <hr>
-                <div id="order-list-box">
+                <div id="inq-list-box">
                       <!-- table 로 만들기 -->
-                      <table class="list-box-area">
+                      <table class="list-box-area" align="center">
                         <thead>
                             <tr>
-                                <th>주문 번호</th>
-                                <th>주문 상세 내용</th>
-                                <th>주문 날짜</th>
-                                <th>주문 상태</th>
+                                <th>문의번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일시</th>
                             </tr>
                         </thead>
                         <!-- 나중에 반복문으로 페이징 처리 -->
                         <tbody>
                             <tr>
                                 <td>1</td>
-                                <td><img src="${root}/static/img/마음샌드.jpg" alt="">[파리바게트]제주 마음샌드</td>
-                                <td>2023.05.01</td>
-                                <td>결제완료<input type="button" class="refund" value="환불"></input></td>
+                                <td>게시글 삭제하고 나서 다시 되돌리는 방법이 있나요?</td>
+                                <td>마라탕</td>
+                                <td>2023.05.23</td>
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td><img src="${root}/static/img/d오메기떡.jpg" alt="">오메기떡</td>
-                                <td>2023.05.01</td>
-                                <td>배송중</td>
+                                <td>배송 중인 상품 환불 가능한가요?</td>
+                                <td>마이멜로디</td>
+                                <td>2023.05.22</td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>[파리바게트]제주 마음샌드</td>
-                                <td>2023.05.01</td>
-                                <td>배송완료</td>
+                                <td>배송 기간 얼마나 걸리는 지 궁금합니다.</td>
+                                <td>심투용</td>
+                                <td>2023.04.11</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>배송 기간 얼마나 걸리는 지 궁금합니다.</td>
+                                <td>심투용</td>
+                                <td>2023.04.11</td>
                             </tr>
                         </tbody>
                       </table>
@@ -156,6 +150,10 @@
             </div>
         <div id="fast-menu-bar">
 
+        </div>
+		<span></span>
+        <div class="paging-area">
+            1 ,  2 ,  3
         </div>
     </main>
 

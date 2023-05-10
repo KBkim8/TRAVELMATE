@@ -11,67 +11,51 @@
 <!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-<link rel="stylesheet" href="${root}/static/css/reset.css">
+<link rel="stylesheet" href="${root}/static/css/header.css">
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    body{
-      margin: auto;
-      background-color: rgb(255, 255, 255);
-    }
-    #shape{
-      margin: auto;
-    }
-    header{
-      background-color: #39ec93;
-      color: white;
-      height: 150px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    header > div{
-      display: flex;
-    }
-
-    nav{
-      width: 100%;
-      height: 150px;
-      border: 1px dashed gray;
-    }
-      
-    #logo{
-        width: 100%;
-        height: 100%;
-    }
-    #top{
-        position: fixed;
-        right: 5%;
-    }
-    
-    
-    </style>
+</style>
 </head>
 <body>
 
-<div id="top">
-     <a href="">로그인</a>
-     <a href="">회원가입</a>
-     <a href="">마이페이지</a>
-     <a href="">고객센터</a>
-      </div>
-    <header>
-      <img id="logo" src="${root}/static/img/로고.png" alt="로고">
-    </header>
+  <div id="wrap">
 
-    <!-- 메뉴바 -->
-    <nav>
-      메뉴바
+    <img id="logoImg" src="${root}/static/img/logo 복사.png" alt="로고이미지">
+    <a href=""><img id="mainLogo" src="${root}/static/img/mainLogo2.png" alt="홈로고"></a>
+    <div id="logoCategory">
+        <a href="">회원가입</a>
+        <a>|</a>
+        <a href="">로그인</a>
+        <a>|</a>
+        <a href="">장바구니</a>
+        <a>|</a>
+        <a href="">고객센터</a>
+    </div>
+    <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
+        <a data-hover="예약">예약</a>
+        <a href="">숙소</a>
+        <a href="">차량</a>
+        <a>|</a>
+        <a data-hover="커뮤니티">커뮤니티</a>
+        <a href="">정보</a>
+        <a href="">토론</a>
+        <a href="">리뷰</a>
+        <a href="">공지</a>
+        <a href="">여행일지</a>
+        <a>|</a>
+        <a href="" data-hover="랜선여행">랜선여행</a>
+        <a>|</a>   
+        <a href="" data-hover="전체메뉴">전체메뉴</a>
     </nav>
+    <div id="shape">
 
-     
+
+
+    </div>
+    
 
 </body>
 </html>

@@ -7,16 +7,10 @@
 <title>Insert title here</title>
 <style>
 
-    #wrap{
-        width: 100%;
-        height: 100%;
-        display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-    }
 
     #square{
-        width: 20px;
-        height: 40px;
+        width: 25px;
+        height: 50px;
         background-color: rgba(115, 211, 142);
         margin-top: 20px;
     }
@@ -25,12 +19,6 @@
         margin-top: 30px;
         margin-left: 3%;
         font-size: 1.5em;
-    }
-
-    
-    #side-bar{
-        height: 100%;
-        background-color: rgb(108, 237, 156);
     }
     
     main{
@@ -102,7 +90,7 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <main>
         <div id="sidebar">
-
+			<%@ include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
         </div>
         <div id="memberPwd-check-area">
             <div id="title-area">
