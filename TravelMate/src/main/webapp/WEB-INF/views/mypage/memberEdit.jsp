@@ -97,7 +97,7 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <main>
         <div id="sidebar">
-
+			<%@ include  file="/WEB-INF/views/common/mg_sidebar.jsp"%>
         </div>
         <div id="member-edit-area">
             <div id="title-area">
