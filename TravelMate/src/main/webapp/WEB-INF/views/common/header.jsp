@@ -21,41 +21,35 @@
 </head>
 <body>
 
-  <div id="wrap">
-
-    <img id="logoImg" src="${root}/static/img/logo 복사.png" alt="로고이미지">
-    <a href=""><img id="mainLogo" src="${root}/static/img/mainLogo2.png" alt="홈로고"></a>
-    <div id="logoCategory">
-        <a href="">회원가입</a>
-        <a>|</a>
-        <a href="">로그인</a>
-        <a>|</a>
-        <a href="">장바구니</a>
-        <a>|</a>
-        <a href="">고객센터</a>
-    </div>
-    <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
-        <a data-hover="예약">예약</a>
-        <a href="">숙소</a>
-        <a href="">차량</a>
-        <a>|</a>
-        <a data-hover="커뮤니티">커뮤니티</a>
-        <a href="">정보</a>
-        <a href="">토론</a>
-        <a href="">리뷰</a>
-        <a href="">공지</a>
-        <a href="">여행일지</a>
-        <a>|</a>
-        <a href="" data-hover="랜선여행">랜선여행</a>
-        <a>|</a>   
-        <a href="" data-hover="전체메뉴">전체메뉴</a>
-    </nav>
-    <div id="shape">
-
-
-
-    </div>
-    
-
+    <div id="wrap">
+        <!-- 헤더영역 -->
+        <img id="logoImg" src="${root}/static/img/logo 복사.png" alt="로고이미지">
+        <a href="#"><img id="mainLogo" src="${root}/static/img/mainLogo2.png" alt="홈로고"></a>
+        <div id="logoCategory">
+            <a href="">회원가입</a>
+            <a>|</a>
+            <a href="">로그인</a>
+            <a>|</a>
+            <a href="">장바구니</a>
+            <a>|</a>
+            <a href="">고객센터</a>
+        </div>
+        <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
+            <a data-hover="예약">예약</a>
+            <a href="">숙소</a>
+            <a href="">차량</a>
+            <a>|</a>
+            <a data-hover="커뮤니티">커뮤니티</a>
+            <a href="">정보</a>
+            <a href="">토론</a>
+            <a href="">리뷰</a>
+            <a href="">공지</a>
+            <a href="">여행일지</a>
+            <a>|</a>
+            <a href="" data-hover="랜선여행">랜선여행</a>
+            <a>|</a>   
+            <a href="" data-hover="전체메뉴">전체메뉴</a>
+        </nav>
+        
 </body>
 </html>
