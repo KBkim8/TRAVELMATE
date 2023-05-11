@@ -164,8 +164,16 @@ nav{
     color: black;
     position: relative;
     bottom: 290px;
-    left: 1400px;
-    font-size: 12px;
+    left: 2200px;
+    font-size: 24px;
+}
+
+#mainLogo{
+    position: absolute;
+    width: 500px;
+    height: 230px;
+    bottom: 1200px;
+    left: 1200px;
 }
 
 .SMN_effect-45 a:nth-child(2), .SMN_effect-45 a:nth-child(3),

@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 <style>
 
+	main{
+		width: 100%;
+		height: 90%;
+		display: grid;
+		grid-template-columns: 1fr 4fr 1fr;
+	}
+
 	#write-area{
 		width: 900px;
 		display: grid;
@@ -33,7 +40,12 @@
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 		
 		<main>
-			<h1>게시글 작성</h1>
+		<div id="left-sidebar">
+			<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
+		</div>
+		
+			<div id="content-area1">
+				<h1>게시글 작성</h1>
             <hr>
 			<form action="${root}/board/write" method="post">
 				<div id="write-area">
@@ -50,6 +62,11 @@
 				</div>
 				<input class="btn btn-primary btn-lg" type="submit" value="작성하기">
 			</form>
+			</div>
+			
+			<div id="right-sidebar">
+				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
+			</div>
 			
 		</main>
 		
