@@ -7,13 +7,14 @@
 #side-bar>img{
     position: absolute;
     width: 70px;
-    height: 50px;
+    height: 60px;
     left: 120px;
-    top: 347px;
-    z-index: 5;
+    top: 380px;
+    z-index: 100;
 }
 
 #side{
+    margin-top: 20%;
     width: 100%;
     height: 1300px;
     background-color: #96c378;
@@ -174,11 +175,6 @@
     height: 80px;
 }
 
-#admin-private{
-    margin-top: 80px;
-    color: black;
-}
-
 #sidebar-menu,
 #sidebar-menu ul,
 #sidebar-menu li,
@@ -197,7 +193,7 @@
 /* 사이드 메뉴 */
 .left_sub_menu {
     position: absolute;
-    top: 300px;
+    top: 390px;
     width: 200px;
     z-index: 3;
     left: 45px;

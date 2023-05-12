@@ -7,18 +7,17 @@
 <title>Insert title here</title>
 <style>
 
-
     #square{
+        position: absolute;
+        left: 500px;
+        top: 470px;
         width: 25px;
         height: 50px;
-        background-color: rgba(115, 211, 142);
-        margin-top: 20px;
     }
 
-    .mem-info{
-        margin-top: 30px;
-        margin-left: 3%;
-        font-size: 1.5em;
+    #first-content > a{
+        margin-left: 30px;
+        font-size: 50px;
     }
     
     main{
@@ -28,12 +27,20 @@
         grid-template-columns: 1fr 4fr 1fr;
         
     }
+
     #title-area{
         display: flex;
+        margin-top: 5%;
     }
+
+    #memberPwd-check-area{
+        width: 1300px;
+        height: 90%;
+    }
+
     #pwd-input{
         margin: auto;
-        width: 100%;
+        width: 1300px;
         height: 90%;
         display: grid;
         grid-template-rows: 1fr 3fr 1fr;
@@ -42,43 +49,59 @@
     }
 
     #pwd-area-box{
-        width: 600px;
+        z-index: 2;
+        width: 1300px;
         height: 100%;
-        border: 1px solid rgba(115, 211, 142);
-        background-color: rgba(220, 220, 220, 0.378);
+        border: 2px solid rgba(115, 211, 142);
+        border-radius: 20px;
         margin: auto;
         place-items: center center;
     }
 
     #btn-area{
         margin: auto;
+        margin-top: 10%;
         place-items: center center;
+        z-index: 2;
     }
 
     #memberPwd{
-        border-style: hidden;
-        border-radius: 5%;
-        background-color: white;
+        width: 500px;
+        height: 70px;
+        background-color: #d8f1c7;
+        border: none;
+        border-radius: 20px;
     }
 
     #pwd-wrap{
-        margin-top: 30%;
-        margin-left: 25%;        
+        margin-top: 23%;
+        margin-left: 20%;
+        font-size: 2em;        
     }
 
     #pwd-input-info{
-        margin-top: 15%;
-        margin-left: 18%;
+        margin-top: 10%;
+        margin-left: 3%;
+        font-size: 2em;
     }
 
-    button{
-        background-color: rgba(115, 211, 142, 0.574);
-        width: 100px;
-        height: 40px;
-        border-radius: 10%;
-        padding: 10px;
-        border: none;
+    
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
     }
+
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
 
 
 
@@ -90,12 +113,14 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
     <main>
         <div id="sidebar">
-			<%@ include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
+			<%@ include file="/WEB-INF/views/common/left_sidebar.jsp" %>
         </div>
         <div id="memberPwd-check-area">
             <div id="title-area">
-                <div id="square"></div>
-                <h3 class="mem-info">회원정보</h3>
+                <div id="first-content">
+                    <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
+                    <a>마이페이지</a>
+                </div>
             </div>
             <hr>
             <div id="pwd-input">
@@ -108,14 +133,14 @@
                     </div>
                     </form>
                 </div>
-               <div id="btn-area">
-                    <button id="confirm">확인</button>
-                    <button id="cancel">취소</button>
+                <div id="btn-area">
+                    <input type="submit" id="btn01" value="확인"></input>
+                    <button id="btn01">취소</button>
                 </div>
             </div>
         </div>
-        <div id="fast-menu-bar">
-
+        <div id="right_sidebar">
+			<%@include file="/WEB-INF/views/common/right_sidebar.jsp" %>
         </div>
     </main>
 
