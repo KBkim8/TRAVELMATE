@@ -7,85 +7,85 @@
 <title>Insert title here</title>
 <style>
 
-    #square{
-        position: absolute;
-        left: 500px;
-        top: 470px;
-        width: 25px;
-        height: 50px;
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
     }
 
-    #first-content > a{
-        margin-left: 30px;
-        font-size: 50px;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 125px;
+        width: 40px;
+        height: 60px;
+    }
+
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
+
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #edit-area{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+        display: grid;
+        grid-template-rows: 3fr 1fr;
     }
     
-    main{
-        width: 100%;
-        height: 100vh;
-    	display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-        
-    }
-
-    #title-area{
-        display: flex;
-        margin-top: 5%;
-    }
-
-    #memberPwd-check-area{
+    #edit-input-box{
         width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
         height: 90%;
-    }
-
-    #pwd-input{
         margin: auto;
-        width: 1300px;
-        height: 90%;
-        display: grid;
-        grid-template-rows: 1fr 3fr 1fr;
+        font-size: 30px;
+        display: flex;
         justify-content: center;
         align-items: center;
     }
-
-    #pwd-area-box{
-        z-index: 2;
-        width: 1300px;
-        height: 100%;
-        border: 2px solid rgba(115, 211, 142);
-        border-radius: 20px;
-        margin: auto;
-        place-items: center center;
-    }
-
-    #btn-area{
-        margin: auto;
-        margin-top: 10%;
-        place-items: center center;
-        z-index: 2;
-    }
-
-    #memberPwd{
+    
+    #edit-input-box > input {
         width: 500px;
         height: 70px;
         background-color: #d8f1c7;
         border: none;
         border-radius: 20px;
+        margin-left: 30px;
     }
-
-    #pwd-wrap{
-        margin-top: 23%;
-        margin-left: 20%;
-        font-size: 2em;        
-    }
-
-    #pwd-input-info{
+    #btn-area{
+        margin: auto;
         margin-top: 10%;
-        margin-left: 3%;
-        font-size: 2em;
+        place-items: center center;
+    }
+    
+    #btn-area > input{
+        width: 200px;
+        height: 60px;
+        font-size: 30px;
+        border-spacing: 20px;
     }
 
-    
+
     #btn01 {
         background-color: #73D38E;
         border: 0;
@@ -104,68 +104,34 @@
     }   
 
 
-
     
 </style>
 </head>
 <body>
 
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <main>
-        <div id="sidebar">
-			<%@ include file="/WEB-INF/views/common/left_sidebar.jsp" %>
-        </div>
-        <div id="memberPwd-check-area">
-            <div id="title-area">
-                <div id="first-content">
-                    <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
-                    <a>마이페이지</a>
-                </div>
-            </div>
+	
+	<!-- 내용영역 -->
+    <div id="content">
+        <div id="first-content">
+            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <div id="pwd-input">
-                <div id="pwd-input-info">조회 및 수정을 위해 비밀번호를 다시 입력해주세요.</div>
-                <div id="pwd-area-box">
-                <form action="" method="POST">
-                    <div id="pwd-wrap">
-                        <span id="pwd">비밀번호</span>
-                        <input type="password" id="memberPwd">
-                    </div>
-                    </form>
-                </div>
-                <div id="btn-area">
-                    <input type="submit" id="btn01" value="확인"></input>
-                    <button id="btn01">취소</button>
-                </div>
+            <a>마이페이지</a>
+        </div>
+        <form action="" method="POST">
+        <div id="edit-area">
+            <div id="edit-input-box">
+                    <span>비밀번호</span><br><br>
+                    <input type="password" name="memberPwd">
+            </div>
+            <div id="btn-area">
+                <input type="submit" value="수정" id="btn01">
+                <input type="button" value="취소" id="btn01">
             </div>
         </div>
-        <div id="right_sidebar">
-			<%@include file="/WEB-INF/views/common/right_sidebar.jsp" %>
-        </div>
-    </main>
-
-
-
-
-
-
+        </form>
+    </div>
 
 
 </body>
-<script>
-$(function(){
-  // 눈표시 클릭 시 패스워드 보이기
-  $('.eyes').on('click',function(){
-    $('.input.password').toggleClass('active');
-
-    if( $('.input.password').hasClass('active') == true ){
-    	$(this).find('.fa-eye').attr('class',"fa fa-eye-slash fa-lg").parents('.input').find('#password').attr('type',"text");
-    				// i 클래스                // 텍스트 보이기 i 클래스
-    }
-    else{
-    	$(this).find('.fa-eye-slash').attr('class',"fa fa-eye fa-lg").parents('.input').find('#password').attr('type','password');
-    }
-  });
-});
-</script>
 </html>
