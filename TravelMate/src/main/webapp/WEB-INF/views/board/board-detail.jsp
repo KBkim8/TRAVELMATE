@@ -67,9 +67,7 @@
 		
 		<main>
 
-			<div id="left-sidebar">
-				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
-			</div>
+			
 
 			<h1>게시글 조회</h1>
             <hr>
@@ -108,10 +106,6 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-
-			<div id="right-sidebar">
-				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
 			</div>
 			
 		</main>
