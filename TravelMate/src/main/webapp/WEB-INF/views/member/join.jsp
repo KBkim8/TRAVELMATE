@@ -38,9 +38,9 @@
 	}
 
 	#agree{
-		display: grid;
+		/* display: grid;
 		grid-template-rows: 1fr 1fr 1fr;
-		gap: 2rem;
+		gap: 2rem; */
 		width: 500px;
 		height: 300px;
 		border-radius: 20px;
@@ -115,7 +115,7 @@
 			<h1>회원가입</h1>
 			<hr>
 			<form action="" method="POST">
-				아이디<input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input  class="btn btn-primary" type="button" value="아이디 중복확인">
+				<input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input  class="btn btn-primary" type="button" value="아이디 중복확인">
 				<br>
 				비밀번호<input type="text" name="memberPwd" placeholder="비밀번호를 입력하세요" maxlength="100" size="35" >
 				<br>
@@ -127,15 +127,25 @@
 				<br>
 
 				<div id="agree">
-			
-				  <input type="checkbox" id="check1">
-				  <label for="check1"></label>
 
-				  <input type="checkbox" id="check2">
-        		  <label for="check2"></label>
+					<div>
+						<input type="checkbox" id="check1"> 
+						<label for="check1"></label>
+						<span style="font-size: 0.4em;">[필수] 만 19세 이상입니다</span>
+					</div>
 
-				  <input type="checkbox" id="check3">
-        		  <label for="check3"></label>
+					<div>
+						<input type="checkbox" id="check2">
+						<label for="check2"></label>
+						<span style="font-size: 0.4em;">[필수]트레블 메이트 이용 약관 동의</span>
+					</div>
+
+					<div>
+						<input type="checkbox" id="check3">
+						<label for="check3"></label>
+						<span style="font-size: 0.4em;">[선택] 광고성 정보 수신 동의</span>
+					</div>
+
 				  
 				</div>
 				
@@ -144,7 +154,6 @@
 			</form>
 
 
-			<input type="checkbox">
 			
 	</div>
 
