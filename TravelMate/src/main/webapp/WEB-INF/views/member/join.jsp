@@ -7,6 +7,13 @@
 <title>Insert title here</title>
 <style>
 
+	main{
+		width: 100%;
+		height: 90%;
+		display: grid;
+		grid-template-columns: 1fr 4fr 1fr;
+	}
+
 	h1{
 		margin-left: 40px;
 	}
@@ -109,8 +116,12 @@
 <body>
 
 	<div id="wrap">
-	
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		
+		<main>
+			<div id="left-sidebar">
+				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
+			</div>
 			
 			<h1>회원가입</h1>
 			<hr>
@@ -152,6 +163,14 @@
 				<input class="btn btn-primary" type="submit" value="동의하고 가입하기">
 				
 			</form>
+
+			<div id="right-sidebar">
+				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
+			</div>
+
+		</main>
+	
+		
 
 
 			

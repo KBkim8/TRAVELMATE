@@ -5,9 +5,6 @@
     <!doctype html>
     <html lang="ko">
     <head>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-        <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
-      </svg>
         <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
@@ -80,14 +77,18 @@
     }
     
     #banner{
-        height: 180px;   
+      display: grid;
+      grid-template-columns: 0.5fr 6fr 0.5fr;
+      height: 230px;   
     }
 
     #img{
-      width: 80%;
-      height:200px;
-      margin-left: 300px;
+      align-items: center;
+      width: 70%;
+      height: 250px;
+      margin-left: 240px;
     }
+
     #ranson{
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -100,23 +101,47 @@
     #ranson > a {
       margin-left: 50px;
     }
-    
+
     #wrap{
       width: 100%;
       height: 500px;
-      
-    }
-
-    #wrap{
+      background-color: rgb(204, 231, 162);
       display: grid;
       grid-template-columns:1.5fr 1fr ;
       border: 3px solid black;
-      align-items: center;
-      justify-items: center;
-      
     }
 
-    #wrap > a >img{
+    #wrap > div{
+      border: 3px solid black;
+    }
+
+    #pr > a {
+      text-decoration: none;
+    }
+
+    #pr > a img{
+      margin-left: 150px;
+    }
+
+    #pr > a > h2{
+      margin-top: 50px;
+    }
+
+    #br > a:not(:first-of-type){
+      text-decoration: none;
+      margin-left: 50px;      
+    }
+
+    #br > a > h2{
+      margin-top: 50px;
+    }
+    #br > a {
+      text-decoration: none;
+    }
+
+
+
+    /* #wrap > a >img{
       place-content: center center;
       margin-left: 30px;
     }
@@ -130,10 +155,11 @@
     }
     #wrap > a{
       text-decoration: none;
-    }
+    } */
 
     .bi{
-      background-color: red;
+      width: 100px;
+      height: 100px;
     }
   
 
@@ -151,7 +177,23 @@
       </div>
       
       <div id="banner">
-        <i class="bi bi-arrow-right-circle-fill"></i>  <a href="/app/test"><img id="img" src="${root}/static/img/banner.png" alt="이미지"></a> <i class="bi bi-arrow-left-circle-fill"></i>
+
+        <!--왼쪽화살표 -->
+        <button class="btn btn-success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+            <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+          </svg>
+        </button>
+
+       <a href=""><img id="img" src="${root}/static/img/banner.png" alt="이미지" ></a>
+
+        <!-- 오른쪽화살표 -->
+        <button class="btn btn-success">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+             <path  d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+           </svg>
+        </button>
+
       </div>  
 
       <hr>
@@ -173,14 +215,26 @@
 
       <div id="wrap">
 
-        <a href=""><h4 align="center">지인에게 특산품을 선물해보세요!</h4></a>
-        <a href=""><h4>여행 정보를 서로 공유해보세요!</h4></a>
-        <a href="/app/test">
-          <img width="350px" height="300px" src="${root}/static/img/pr.png" alt="이미지"> 
-          <img width="350px" height="300px" src="${root}/static/img/prr2.png" alt="이미지"> 
-          <img width="350px" height="300px" src="${root}/static/img/pr2.png" alt="이미지">
-        </a>  
-        <a href="/app/test">제주도 차박 여행 후기</a> 
+        <div id="pr">
+         <a href=""><h2 align="center">지인에게 특산품을 선물해보세요!</h2></a>
+         <a href=""> <img width="350px" height="300px" src="${root}/static/img/pr.png" alt="이미지"> </a>
+         <a href=""> <img width="350px" height="300px" src="${root}/static/img/pr2.png" alt="이미지"> </a>
+         <a href=""> <img width="350px" height="300px" src="${root}/static/img/prr.png" alt="이미지"> </a>
+        </div>
+       
+        <div id="br">
+          <a href=""><h2 align="center">여행 정보를 서로 공유해보세요!</h2></a>
+          <a href="/app/test"  style="font-size: 2em;">제주도 차박 여행 후기</a>
+          <br>  
+          <br>  
+          <a href="/app/test" style="font-size: 2em;">강원도 차박 여행 후기</a>  
+          <br>
+          <br>
+          <a href="/app/test" style="font-size: 2em;"> 강릉 차박 여행 후기</a>  
+          <br>
+          <br>
+          <a href="/app/test" style="font-size: 2em;"> 포천 차박 여행 후기</a>  
+        </div>
         
       </div>
     	
@@ -189,8 +243,10 @@
     </html>
     
     <script>
-    const searchBtn = document.querySelector('#search button');
-    searchBtn.addEventListener('click' , ()=>{
+
+    const img = document.querySelector('#img').value;
+
+    function change() {
         
-    });
+    }
     </script>
