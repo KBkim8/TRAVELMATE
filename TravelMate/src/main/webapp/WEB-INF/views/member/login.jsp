@@ -18,9 +18,11 @@
 		background-color: rgb(224, 121, 4);
 	}
 
-	main {
-		height: 500px;
+	main{
 		width: 100%;
+		height: 90%;
+		display: grid;
+		grid-template-columns: 1fr 4fr 1fr;
 	}
 
 	main > img{
@@ -61,27 +63,36 @@
 		<hr>
 
 		<main>
+
+			<div id="left-sidebar">
+				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
+			</div>
+
             <img src="${root}/static/img/loginImg.png" alt="이미지" >
-		</main>
-
-		<div id="login-area">
 			
-			<form action="" method="POST">
-				<span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
-				<br>
-				<span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
-				<hr>
-				<br>
-				<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">로그인</button>
-				<br>
-				<br>
-				<br>
-				<button type="submit" value="아이디 찾기" class="btn btn-primary btn-lg">아이디 찾기</button>
-				<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">비밀번호 찾기 </button>
-			</form>
+			<div id="login-area">
+				
+				<form action="" method="POST">
+					<span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
+					<br>
+					<span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
+					<hr>
+					<br>
+					<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">로그인</button>
+					<br>
+					<br>
+					<br>
+					<button type="submit" value="아이디 찾기" class="btn btn-primary btn-lg">아이디 찾기</button>
+					<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">비밀번호 찾기 </button>
+				</form>
+				
+			</div>
+			
+			<div id="right-sidebar">
+				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
+			</div>
 
-		</div>
-		
+		</main>
 	</div>
 		
 		

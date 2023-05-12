@@ -18,10 +18,13 @@
 		background-color: rgb(224, 121, 4);
 	}
 
-	main {
-		height: 500px;
+	main{
 		width: 100%;
+		height: 90%;
+		display: grid;
+		grid-template-columns: 1fr 4fr 1fr;
 	}
+
 
 	main > img{
 		margin-left: 500px;
@@ -62,32 +65,37 @@
 	<div id="wrap">
 		<%@include file="/WEB-INF/views/common/header.jsp"  %>
 
-		<span id="span"></span><h1>아이디 찾기</h1>   
-		<hr>
+
 
 		<main>
+			<div id="left-sidebar">
+				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
+			</div>
             <img src="${root}/static/img/loginImg.png" alt="이미지" >
-		</main>
-		<a id="a" href="${root}/find-pwd">비밀번호 찾기</a>
-		<div id="login-area">
+			<a id="a" href="${root}/find-pwd">비밀번호 찾기</a>
+			<div id="login-area">
+				
+				<form action="" method="POST">
+					<span>이름</span><input type="text" name="memberName" placeholder="이름을 입력하세요" size="40">
+					<br>
+					<br>
+					<span>생년월일</span><input type="text" name="memberBirthDate" placeholder="생년월일을 입력하세요" size="40">
+					<br>
+					<span>이메일</span><input type="password" name="memberEmail" placeholder="이메일 입력하세요" size="40">
+					<br>
+					<br>
+					<button type="submit" value="아이디 찾기" class="btn btn-primary btn-lg">아이디 찾기</button>
+				</form>
+				
+			</div>
 			
-			<form action="" method="POST">
-				<span>이름</span><input type="text" name="memberName" placeholder="이름을 입력하세요" size="40">
-				<br>
-				<br>
-				<span>생년월일</span><input type="text" name="memberBirthDate" placeholder="생년월일을 입력하세요" size="40">
-				<br>
-				<span>이메일</span><input type="password" name="memberEmail" placeholder="이메일 입력하세요" size="40">
-				<br>
-				<br>
-				<button type="submit" value="아이디 찾기" class="btn btn-primary btn-lg">아이디 찾기</button>
-			</form>
-
 		</div>
 		
-	</div>
+		<div id="right-sidebar">
+			<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
+		</div>
 		
-		
+	</main>
 
 </body>
 </html>

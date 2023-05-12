@@ -6,6 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+
+	main{
+		width: 100%;
+		height: 90%;
+		display: grid;
+		grid-template-columns: 1fr 4fr 1fr;
+	}
+
     main table {
         width: 600px;
         margin: auto;
@@ -37,6 +45,10 @@
 		<%@include file="/WEB-INF/views/common/header.jsp" %>
 
         <main>
+
+			<div id="left-sidebar">
+				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
+			</div>
 
             <h1 align="center">게시판 목록 조회</h1>
             
@@ -107,6 +119,10 @@
 	            	<a class="btn btn-primary btn-sm" href="${root}/board/list?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음</a>
 	            </c:if>
             </div>
+
+			<div id="right-sidebar">
+				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
+			</div>
 
         </main>
 

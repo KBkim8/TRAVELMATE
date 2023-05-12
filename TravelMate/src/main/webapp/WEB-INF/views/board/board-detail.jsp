@@ -7,6 +7,14 @@
 <title>Insert title here</title>
 <style>
 
+	main{
+		width: 100%;
+		height: 90%;
+		display: grid;
+		grid-template-columns: 1fr 4fr 1fr;
+	}
+
+
 	#write-area{
 		width: 900px;
 		display: grid;
@@ -58,6 +66,11 @@
 		<%@ include file="/WEB-INF/views/common/header.jsp" %>
 		
 		<main>
+
+			<div id="left-sidebar">
+				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
+			</div>
+
 			<h1>게시글 조회</h1>
             <hr>
 			<form action="${root}/board/write" method="post">
@@ -95,6 +108,10 @@
 						</tbody>
 					</table>
 				</div>
+			</div>
+
+			<div id="right-sidebar">
+				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
 			</div>
 			
 		</main>
