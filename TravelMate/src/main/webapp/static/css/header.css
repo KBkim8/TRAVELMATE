@@ -22,164 +22,75 @@ time, mark, audio, video {
     text-decoration: none;
 }
 
-/* 로고, nav */
+/* 바디영역 */
 body{
     overflow-x:hidden;
     overflow-y:auto;
     width: 100vw;
+    height: 100vh;
+    background-image: url(./background.png);
+}
+
+/* 헤더&네브 */
+#mainLogo{
+    width: 100%;
     height: 100%;
-    background-image: url(./img/background.png);
 }
 
 #wrap{
-    height: 100%;
+    position: relative;
+}
+
+#logoCategory{
+    display: inline;
+    position: relative;
+    left: 1350px;
+    bottom: 280px;
+    font-size: 13px;
+}
+
+nav{
+    position: sticky;
     width: 100%;
+    height: 70px;
+    background-color: white;
+    z-index: 4;
+    border-bottom: 1px solid rgb(156, 156, 156);
+    margin-top: -26px;
+    top: 0px;   
+    display: grid;
+    grid-template-columns: 8fr 2fr 1fr 1fr 1fr 3fr 1fr 1fr 1fr 1fr 2fr 1fr 3fr 1fr 3fr 8fr;
+    grid-template-rows: 1fr;
 }
 
-#mainLogo{
-    position: absolute;
-    width: 500px;
-    height: 230px;
-    bottom: 690px;
-    left: 600px;
+nav div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-nav a {
-    display: inline-block;
-    margin: 0 45px;
-    margin-top: 15px;
-    margin-bottom: 5px;
-}
-
-nav {text-align: center;}
-nav a, #logoCategory a{text-decoration: none;}
-nav div{display: inline-block;}
-
-nav a:first-child, nav a:nth-child(5), nav a:nth-child(12), nav a:nth-child(14){
+nav>div:nth-child(2)>a, nav>div:nth-child(6)>a, nav>div:nth-child(13)>a,
+nav>div:nth-child(15)>a{
     font-size: 22px;
     font-weight: bold;
     color: #08354D;
 }
-nav a:nth-child(4), nav a:nth-child(11), nav a:nth-child(13){
+nav>div:nth-child(5)>a, nav>div:nth-child(12)>a, nav>div:nth-child(14)>a{
     color: #c5c5c5be;
     font-size: 20px;
     font-weight: lighter;
 }
-nav a:nth-child(2), nav a:nth-child(3), nav a:nth-child(6),
-nav a:nth-child(7), nav a:nth-child(8), nav a:nth-child(9), nav a:nth-child(10){
-    color: #3b3b3bad;
+nav>div:nth-child(3)>a, nav>div:nth-child(4)>a, nav>div:nth-child(7)>a,
+nav>div:nth-child(8)>a, nav>div:nth-child(9)>a, nav>div:nth-child(10)>a,
+nav>div:nth-child(11)>a{
+    color: #222222ad;
     font-size: 18px;
 }
 
-nav a:first-child{
-    position: absolute;
-    left: 320px;
-    bottom: 13px;
-}
-nav a:nth-child(2){
-    position: absolute;
-    right: -10px;
-    bottom: -3px;
-}
-nav a:nth-child(3){
-    position: absolute;
-    right: 70px;
-    bottom: -3px;
-}
-nav a:nth-child(4){
-    position: absolute;
-    left: 510px;
-    bottom: 14px;
-}
-nav a:nth-child(5){
-    position: absolute;
-    left: 550px;
-    bottom: 13px;
-}
-nav a:nth-child(6){
-    position: absolute;
-    left: 20px;
-    bottom: -2px;
-}
-nav a:nth-child(7){
-    position: absolute;
-    left: -60px;
-    bottom: -2px;
-}
-nav a:nth-child(8){
-    position: absolute;
-    left: -140px;
-    bottom: -2px;
-}
-nav a:nth-child(9){
-    position: absolute;
-    left: -220px;
-    bottom: -2px;
-}
-nav a:nth-child(10){
-    position: absolute;
-    left: -300px;
-    bottom: -2px;
-}
-nav a:nth-child(11){
-    position: absolute;
-    right: 640px;
-    bottom: 14px;
-}
-nav a:nth-child(12){
-    position: absolute;
-    right: 510px;
-    bottom: 12px;
-}
-nav a:nth-child(13){
-    position: absolute;
-    right: 460px;
-    bottom: 13px;
-}
-nav a:nth-child(14){
-    position: absolute;
-    right: 330px;
-    bottom: 12px;
-}
-
-nav{
-    width: 100%;
-    position: sticky;
-    height: 60px;
-    margin-top: -26px;
-    top: 0px;
-    background-color: #ffffff;
-    border-bottom: 1px solid rgb(120, 120, 120);
-    z-index: 4;
-}
-
-#logoImg{
-    height: 300px;
-    width: 100%;
-    margin: auto;
-}
-
-
-#logoCategory a{
-    color: black;
-    position: relative;
-    bottom: 290px;
-    left: 2200px;
-    font-size: 24px;
-}
-
-#mainLogo{
-    position: absolute;
-    width: 500px;
-    height: 230px;
-    bottom: 1200px;
-    left: 1200px;
-}
-
-.SMN_effect-45 a:nth-child(2), .SMN_effect-45 a:nth-child(3),
-.SMN_effect-45 a:nth-child(6), .SMN_effect-45 a:nth-child(7),
-.SMN_effect-45 a:nth-child(8), .SMN_effect-45 a:nth-child(9),
-.SMN_effect-45 a:nth-child(10) {
+.SMN_effect-45 div:nth-child(3)>a, .SMN_effect-45 div:nth-child(4)>a,
+.SMN_effect-45 div:nth-child(7)>a, .SMN_effect-45 div:nth-child(8)>a,
+.SMN_effect-45 div:nth-child(9)>a, .SMN_effect-45 div:nth-child(10)>a,
+.SMN_effect-45 div:nth-child(11)>a{
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
     box-shadow: 0 0 1px rgba(0, 0, 0, 0);
@@ -191,10 +102,10 @@ nav{
     transition-duration: 0.3s;
 }
   
-  .SMN_effect-45 a:nth-child(2):before, .SMN_effect-45 a:nth-child(3):before,
-  .SMN_effect-45 a:nth-child(6):before, .SMN_effect-45 a:nth-child(7):before,
-  .SMN_effect-45 a:nth-child(8):before, .SMN_effect-45 a:nth-child(9):before,
-  .SMN_effect-45 a:nth-child(10):before {
+.SMN_effect-45 div:nth-child(3)>a:before, .SMN_effect-45 div:nth-child(4)>a:before,
+.SMN_effect-45 div:nth-child(7)>a:before, .SMN_effect-45 div:nth-child(8)>a:before,
+.SMN_effect-45 div:nth-child(9)>a:before, .SMN_effect-45 div:nth-child(10)>a:before,
+.SMN_effect-45 div:nth-child(11)>a:before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -208,39 +119,39 @@ nav{
     transform: scale(0);
     -webkit-transition-property: transform;
     transition-property: transform;
-    -webkit-transition-duration: 0.3s;
-    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
     -webkit-transition-timing-function: ease-out;
     transition-timing-function: ease-out;
 }
   
-.SMN_effect-45 a:nth-child(2):hover, .SMN_effect-45 a:nth-child(3):hover,
-.SMN_effect-45 a:nth-child(6):hover, .SMN_effect-45 a:nth-child(7):hover,
-.SMN_effect-45 a:nth-child(8):hover, .SMN_effect-45 a:nth-child(9):hover,
-.SMN_effect-45 a:nth-child(10):hover,
-.SMN_effect-45 a:nth-child(2):focus, .SMN_effect-45 a:nth-child(3):focus,
-.SMN_effect-45 a:nth-child(6):focus, .SMN_effect-45 a:nth-child(7):focus,
-.SMN_effect-45 a:nth-child(8):focus, .SMN_effect-45 a:nth-child(9):focus,
-.SMN_effect-45 a:nth-child(10):focus,
-.SMN_effect-45 a:nth-child(2):active, .SMN_effect-45 a:nth-child(3):active,
-.SMN_effect-45 a:nth-child(6):active, .SMN_effect-45 a:nth-child(7):active,
-.SMN_effect-45 a:nth-child(8):active, .SMN_effect-45 a:nth-child(9):active,
-.SMN_effect-45 a:nth-child(10):active{
+.SMN_effect-45 div:nth-child(3)>a:hover, .SMN_effect-45 div:nth-child(4)>a:hover,
+.SMN_effect-45 div:nth-child(7)>a:hover, .SMN_effect-45 div:nth-child(8)>a:hover,
+.SMN_effect-45 div:nth-child(9)>a:hover, .SMN_effect-45 div:nth-child(10)>a:hover,
+.SMN_effect-45 div:nth-child(11)>a:hover,
+.SMN_effect-45 div:nth-child(3)>a:focus, .SMN_effect-45 div:nth-child(4)>a:focus,
+.SMN_effect-45 div:nth-child(7)>a:focus, .SMN_effect-45 div:nth-child(8)>a:focus,
+.SMN_effect-45 div:nth-child(9)>a:focus, .SMN_effect-45 div:nth-child(10)>a:focus,
+.SMN_effect-45 div:nth-child(11)>a:focus,
+.SMN_effect-45 div:nth-child(3)>a:active, .SMN_effect-45 div:nth-child(4)>a:active,
+.SMN_effect-45 div:nth-child(7)>a:active, .SMN_effect-45 div:nth-child(8)>a:active,
+.SMN_effect-45 div:nth-child(9)>a:active, .SMN_effect-45 div:nth-child(10)>a:active,
+.SMN_effect-45 div:nth-child(11)>a:active{
     color: #ffffff;
 }
 
-.SMN_effect-45 a:nth-child(2):hover:before, .SMN_effect-45 a:nth-child(3):hover:before,
-.SMN_effect-45 a:nth-child(6):hover:before, .SMN_effect-45 a:nth-child(7):hover:before,
-.SMN_effect-45 a:nth-child(8):hover:before, .SMN_effect-45 a:nth-child(9):hover:before,
-.SMN_effect-45 a:nth-child(10):hover:before,
-.SMN_effect-45 a:nth-child(2):focus:before, .SMN_effect-45 a:nth-child(3):focus:before,
-.SMN_effect-45 a:nth-child(6):focus:before, .SMN_effect-45 a:nth-child(7):focus:before,
-.SMN_effect-45 a:nth-child(8):focus:before, .SMN_effect-45 a:nth-child(9):focus:before,
-.SMN_effect-45 a:nth-child(10):focus:before,
-.SMN_effect-45 a:nth-child(2):active:before, .SMN_effect-45 a:nth-child(3):active:before,
-.SMN_effect-45 a:nth-child(6):active:before, .SMN_effect-45 a:nth-child(7):active:before,
-.SMN_effect-45 a:nth-child(8):active:before, .SMN_effect-45 a:nth-child(9):active:before,
-.SMN_effect-45 a:nth-child(10):active:before{
+.SMN_effect-45 div:nth-child(3)>a:hover:before, .SMN_effect-45 div:nth-child(4)>a:hover:before,
+.SMN_effect-45 div:nth-child(7)>a:hover:before, .SMN_effect-45 div:nth-child(8)>a:hover:before,
+.SMN_effect-45 div:nth-child(9)>a:hover:before, .SMN_effect-45 div:nth-child(10)>a:hover:before,
+.SMN_effect-45 div:nth-child(11)>a:hover:before,
+.SMN_effect-45 div:nth-child(3)>a:focus:before, .SMN_effect-45 div:nth-child(4)>a:focus:before,
+.SMN_effect-45 div:nth-child(7)>a:focus:before, .SMN_effect-45 div:nth-child(8)>a:focus:before,
+.SMN_effect-45 div:nth-child(9)>a:focus:before, .SMN_effect-45 div:nth-child(10)>a:focus:before,
+.SMN_effect-45 div:nth-child(11)>a:focus:before,
+.SMN_effect-45 div:nth-child(3)>a:active:before, .SMN_effect-45 div:nth-child(4)>a:active:before,
+.SMN_effect-45 div:nth-child(7)>a:active:before, .SMN_effect-45 div:nth-child(8)>a:active:before,
+.SMN_effect-45 div:nth-child(9)>a:active:before, .SMN_effect-45 div:nth-child(10)>a:active:before,
+.SMN_effect-45 div:nth-child(11)>a:active:before{
     -webkit-transform: scale(2);
     transform: scale(2);
 }
@@ -267,4 +178,412 @@ nav{
 }
 
 
+/* 사이드바 */
+#side-bar{
+    height: 100vh; 
+    width: 300px;
+}
+
+#side-bar>img{
+    position: absolute;
+    width: 70px;
+    height: 50px;
+    left: 120px;
+    top: 580px;
+    z-index: 5;
+}
+
+#side{
+    width: 100%;
+    height: 1400px;
+    background-color: #96c378;
+    border: 1px solid black;
+}
+
+#sideMenu>li:first-child>a, #sideMenu>li:nth-child(5)>a, #sideMenu>li:nth-child(10)>a{
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    margin-left: 55px;
+}
+
+#sideMenu>li:nth-child(2)>a, #sideMenu>li:nth-child(3)>a, #sideMenu>li:nth-child(4)>a,
+#sideMenu>li:nth-child(6)>a, #sideMenu>li:nth-child(7)>a, #sideMenu>li:nth-child(8)>a,
+#sideMenu>li:nth-child(9)>a, #sideMenu>li:nth-child(11)>a{
+    color: rgb(65, 65, 65);
+}
+
+#sideMenu li:first-child{
+    position: absolute;
+    top: 590px;
+}
+
+#sideMenu li:nth-child(2){
+    position: absolute;
+    top: 630px;
+    left: 60px;
+}
+
+#sideMenu li:nth-child(3){
+    position: absolute;
+    top: 665px;
+    left: 60px;
+}
+
+#sideMenu li:nth-child(4){
+    position: absolute;
+    top: 700px;
+    left: 60px;
+}
+
+#side hr:first-child{
+    position: absolute;
+    bottom: 180px;
+    left: 30px;
+    height: 1px;
+    width: 230px;
+    background-color: #08354D;
+    border: none;
+}
+
+#sideMenu li:nth-child(5){
+    position: absolute;
+    top: 800px;
+}
+
+#sideMenu li:nth-child(6){
+    position: absolute;
+    top: 840px;
+    left: 60px;
+}
+
+#sideMenu li:nth-child(7){
+    position: absolute;
+    top: 875px;
+    left: 60px;
+}
+
+#sideMenu li:nth-child(8){
+    position: absolute;
+    top: 910px;
+    left: 60px;
+}
+
+#sideMenu li:nth-child(9){
+    position: absolute;
+    top: 945px;
+    left: 60px;
+}
+
+#side hr:nth-child(2){
+    position: absolute;
+    bottom: -70px;
+    left: 30px;
+    height: 1px;
+    width: 230px;
+    background-color: #08354D;
+    border: none;
+}
+
+#sideMenu li:nth-child(10){
+    position: absolute;
+    top: 1050px;
+}
+
+#sideMenu li:nth-child(11){
+    position: absolute;
+    top: 1090px;
+    left: 60px;
+}
+
+#side hr:nth-child(3){
+    position: absolute;
+    top: 1175px;
+    left: 30px;
+    height: 3px;
+    width: 230px;
+    background-color: #08354D;
+    border: none;
+}
+
+.SMN_effect-23-3 a{
+    text-shadow: none;
+    position: relative;
+}
+
+.SMN_effect-23-3 a:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    max-height: 0;
+    color: #ffffff;
+    content: attr(data-hover);
+    transition: 0.35s;
+}
+
+.SMN_effect-23-3 a:hover:before {
+    max-height: 100%;
+    transition: 0.35s;
+}
+
+#sub-img{
+    position: relative;
+    right: 45px;
+    width: 300px;
+    height: 200px;
+    background-color: #d8f1c7;
+    border-bottom: 1px solid black;
+}
+
+#triangle2{
+    position: absolute;
+    width: 70px;
+    height: 60px;
+    left: 120px;
+    top: 185px;
+    z-index: 5;
+}
+
+#site-logo{
+    position: absolute;
+    top: 55px;
+    left: -25px;
+    width: 350px;
+    height: 110px;
+}
+
+#admin-private{
+    margin-top: 80px;
+    color: black;
+}
+
+#sidebar-menu,
+#sidebar-menu ul,
+#sidebar-menu li,
+#sidebar-menu a {
+    border: 0;
+    font-weight: normal;
+    line-height: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-decoration: none;
+}
+
+
+/* 사이드 메뉴 */
+.left_sub_menu {
+    position: absolute;
+    top: 520px;
+    width: 200px;
+    z-index: 3;
+    left: 45px;
+    border-right: 1px solid rgba(0, 0, 0, 0.07);
+    bottom: 50px;
+    margin-bottom: -70px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+    color: black;
+}
+
+.sub_menu {
+    margin-top: 50px;
+}
+
+.left_sub_menu>.sub_menu li:hover {
+    color: ff5858;
+    background-color: #ffffff95;
+}
+
+.left_sub_menu>.sub_menu li {
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px 0px 8px 14px;
+    border-bottom: 2px solid #ffffff96;
+}
+
+.sub_menu>h2 {
+    padding-bottom: 4px;
+    border-bottom: 3px solid #000000;
+    margin-top: 30px;
+    font-size: 21px;
+    font-weight: 600;
+    color: #333;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-family: 'NotoKrB';
+    line-height: 35px;
+}
+
+.sub_menu>.big_menu>.small_menu li {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    border-bottom: 0px solid #ff0000;
+    margin-left: 14px;
+    padding-top: 8px;
+}
+
+.big_menu {
+    cursor: pointer;
+}
+
+ul {
+    padding-inline-start: 0px;
+}
+
+a {
+    font-weight: lighter;
+    color: #3b3b3b;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+ul {
+    list-style: none;
+}
+
+ol,ul {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.has_sub {
+    width: 100%;
+}
+
+/* .overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+} */
+
+.hide_sidemenu {
+    display: none;
+}
+
+.SMN_effect-23-2 {
+    text-shadow: none;
+    position: relative;
+}
+  
+.SMN_effect-23-2:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    max-height: 0;
+    color: #ffffff;
+    content: attr(data-hover);
+    transition: 0.35s;
+}
+  
+.SMN_effect-23-2:hover:before {
+    max-height: 100%;
+    transition: 0.35s;
+}
+
+/* 오른쪽 사이드바 */
+#right-sidebar{
+    position: fixed;
+    left: 2000px;
+    bottom: 100px;
+}
+
+#right-sidebar svg{color: white;}
+
+*,*:before,*:after {
+	box-sizing: border-box;
+}
+
+:after {
+	content: "";
+}
+
+section {
+    position: relative;
+    left: 100px;
+}
+
+#right-sidebar ul {
+	text-align: center;
+}
+
+#right-sidebar ul li {
+	position: relative;
+    width: 70px;
+    cursor: pointer;
+    background: #88b56b;
+	text-transform: uppercase;
+	transition:all .4s ease-out;
+}
+
+#right-sidebar ul li:after {
+	position: absolute;
+	background: rgb(255, 255, 255);
+	color: #35550f;
+    border: 1px solid #35550f;
+	top:0;
+	left: 70px;
+	width: 70px; height: 100%;
+    opacity:.5;
+    transform: perspective(400px) rotateY(90deg);
+	transform-origin: 0 100%;
+	transition:all .4s ease-out;
+}
+
+#right-sidebar ul li:nth-child(1):after { 
+	content: "CART";
+	line-height: 88px;
+}
+#right-sidebar ul li:nth-child(2):after { 
+	content: "UP";
+	line-height: 88px;
+}
+#right-sidebar ul li:nth-child(3):after { 
+	content: "LIST";
+	line-height: 85px;
+}
+#right-sidebar ul li:nth-child(4):after { 
+	content: "DOWN";
+	line-height: 85px;
+}
+
+#right-sidebar ul li:hover {
+	transform: translateX(-70px);
+}
+
+#right-sidebar ul li:hover:after {
+    opacity: 1;
+	transform: perspective(400px) rotateY(0deg) scale(1) ;
+}
+
+
+#right-sidebar ul li > div {
+	display: inline-block;
+	padding: 25px 0;
+	background: transparent;
+}
+
+#right-sidebar ul li div { position: relative; }
+
+/* 오른쪽 사이드바 카테고리영역 */
+.active1{
+    position: fixed;
+    bottom: -50px;
+    right: 0px;
+    width: 250px;
+    height: 1000px;
+    background: rgb(243, 243, 243);
+    z-index: 7;
+    box-shadow : rgba(0, 0, 0, 0.735) 0 0 0 9999px;
+    border-left: 1px solid black;
+}
+
+.active2{
+    display: none;
+}
 
