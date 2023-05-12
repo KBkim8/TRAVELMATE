@@ -23,7 +23,6 @@
                                         <img id="site-logo" src="${root}/static/img/TM small logo.png" alt="로고">
                                         <img id="triangle2" src="${root}/static/img/삼각형.png" alt="삼각형2">
                                     </div>
-                                    <h2 id="admin-private" data-hover="ADMIN PRIVATE" class="SMN_effect-23-2">ADMIN PRIVATE</h2>
                                     <ul class="big_menu">
                                         <li>회원관리 <i class="arrow fas fa-angle-right"></i></li>
                                         <ul class="small_menu">
