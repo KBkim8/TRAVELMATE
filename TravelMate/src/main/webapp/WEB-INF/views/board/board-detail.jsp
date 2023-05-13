@@ -7,116 +7,278 @@
 <title>Insert title here</title>
 <style>
 
-	main{
-		width: 100%;
-		height: 90%;
-		display: grid;
-		grid-template-columns: 1fr 4fr 1fr;
-	}
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1300px;
+        left: 300px;
+    }
+    
 
-
-	#write-area{
-		width: 900px;
-		display: grid;
-		grid-template-columns: 1fr 3fr 1fr 1fr;
-		grid-template-rows: 30px 570px;
-        margin-left: 20%;
-	}
-
-	#write-area > textarea {
-		grid-column: span 3;
-	}
-
-    input[type="submit"]{
-        margin-left: 40%;
-        width: 300px;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 70px;
+        width: 40px;
+        height: 60px;
+        
     }
 
-    #reply-form-area {
-		width: 600px;
-		margin: auto;
-		border-left: 1px solid black;
-		border-right: 1px solid black;
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
+
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #edit-area{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+    }
+    
+    #edit-input-box{
+        width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
+        height: 90%;
+        margin: auto;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+
+   
+    #btn-area{
+        margin: auto;
+        margin-top: 10%;
+        place-items: center center;
+    }
+    
+    #btn-area > input{
+        width: 200px;
+        height: 60px;
+        font-size: 30px;
+        border-spacing: 20px;
+    }
+
+
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+    }
+
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
+
+    #write-area{
+        margin-top: 170px; /* 이녀석이 노트북이랑 데스크탑이랑 화면다르게 보이게함*/
+        margin-left: 20%;
+    }
+
+    textarea{
+        height: 900px;
+        width: 1000px;
+        margin-top: 30px;
+        resize: none;
+        font-size: 2.5em;
+        background-color: #d8f1c7;
+        border: none;
+        border-radius: 20px;
+    }
+
+
+    input[name=title]{
+        font-size: 2em;
+        width: 500px;
+        height: 70px;
+        background-color: #d8f1c7;
+        border: none;
+        border-radius: 20px;
+        margin-top: 210px;
+    }
+
+	#hr{
+		border: 3px groove black;
+		margin-left: 200px;
+	}
+
+	#reply-write-area{
+		display: grid;
+	}
+
+	#reply-write-area > form > input{
+		margin-left: 280px;
+		width: 900px;
+		border-radius: 20px;
+		font-size: 1.5em;
+		background-color: #d8f1c7;
+		height: 60px;
+	}
+
+	#btn01{
+		font-size: 1.5em;
+		height: 60px;
+	}	
+
+	#reply-area > table{
+		margin-left: 280px;
+		margin-top: 20px;
+		width: 900px;
+		border-radius: 20px;
+		font-size: 1.5em;
+		border-spacing: 4px;
+		background-color: #d8f1c7;
+	}
+
+	#reply-area > table > tbody > tr > td{
+		text-align: center;
+	}
+
+	#reply-area > table > thead > tr > th , #reply-area > table > tbody > tr > td{
+ 		 border: 3px solid black;
+		border-radius: 10px;
 		box-sizing: border-box;
-		padding-left: 10px;
-		padding-right: 10px;
-	}
-
-	#reply-form-area > input:first-child {
-		width: 480px;
-	}
-
-	#reply-list-area > table {
-		width: 600px;
-		box-sizing: border-box;
-		border-collapse: collapse;
-		margin: auto;
-	}
-
-	#reply-list-area > table td , #reply-list-area > table th {
-		border: 1px solid black;
 	}
 
 </style>
 </head>
 <body>
 
-	<div id="wrap">
-		
-		<%@ include file="/WEB-INF/views/common/header.jsp" %>
-		
-		<main>
-
-			<div id="left-sidebar">
-				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
-			</div>
-
-			<h1>게시글 조회</h1>
+    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+	
+	<!-- 내용영역 -->
+    <div id="content">
+        <div id="first-content">
+            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-			<form action="${root}/board/write" method="post">
-				<div id="write-area">
-					<span>제목</span>
-					<input type="text" name="title" placeholder="제목을 입력하세요">
-					<span>카테고리</span>
-					<select name="categoryNo">
-						<c:forEach items="${cvoList}" var="cvo">
-							<option value="${cvo.no}">${cvo.name}</option>	
-						</c:forEach>
-					</select>
-					<span>내용</span>
-					<textarea name="content" placeholder="내용을 입력하세요"></textarea>
-				</div>
-			</form>
+            <a>게시글 상세 조회</a>
+        </div>
+        <div id="write-area">
+            <input type="text" name="title" value="">
+			&nbsp;
+			&nbsp;
+			&nbsp;
+			<span style="font-size: 1.5em;">NICK01</span>
+			&nbsp;
+			&nbsp;
+			<span style="font-size: 1.5em;">0000/00/00</span>
+            <textarea name="content" ></textarea>
+        </div>
 
-            <div id="reply-area">
-				<input type="hidden" name="noticeNo" value="${vo.no}">
-				<div id="reply-form-area">
-					<input type="text" name="content" placeholder="댓글을 입력하세요">
-					<input type="button" value="댓글쓰기" onclick="writeComment();">
-				</div>
-				<div id="reply-list-area">
-					<table>
-						<thead>
-							<tr>
-								<th>댓글내용</th>
-								<th>작성자</th>
-								<th>작성일시</th>
-							</tr>
-						</thead>
-						<tbody>
-
-						</tbody>
-					</table>
-				</div>
-			</div>
-
-			<div id="right-sidebar">
-				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
-			</div>
-			
-		</main>
+		<hr id="hr">
 		
-	</div>
+		<!-- 	댓글구역 -->
+
+        <div id="reply-write-area">
+			<form action="" method="POST">
+				<input type="text" name="comment"> <button id="btn01">작성하기</button>
+			</form>
+        </div>
+
+		<div id="reply-area">
+			<table > 
+				<thead>
+					<tr>
+						<th>댓글내용</th>
+						<th>작성일시</th>
+						<th>글쓴이</th>
+					</tr>
+					</thead>
+				<tbody>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> 막막하다아아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+
+					
+
+				</tbody>
+			</table>
+		</div>
+
+
+    </div>
 
 </body>
 </html>

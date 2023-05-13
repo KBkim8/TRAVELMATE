@@ -6,96 +6,151 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
-	h1{
-		margin-left: 100px;
-	}
 
-	#span{
-		width: 30px;
-		height: 30px;
-		margin-left: 50px;
-		background-color: rgb(224, 121, 4);
-	}
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
+        margin-top: 300px;  /*이녀석도*/
+    }
 
-	main{
-		width: 100%;
-		height: 90%;
-		display: grid;
-		grid-template-columns: 1fr 4fr 1fr;
-	}
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 125px;
+        width: 40px;
+        height: 60px;
+    }
 
-	main > img{
-		margin-left: 500px;
-		margin-top: 150px;
-	}
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
 
-	#login-area{
-		margin-left: 400px;
-		width: 800px;
-		height: 500px;
-		background-color: rgb(176, 206, 130);
-		border-radius: 50px;
-	}
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
 
-	#login-area input{
-		margin-left: 200px;
-		margin-top: 100px;
-	}
+    #edit-area{
+        position: absolute;
+        width: 100px;
+        height: 1000px;
+        left: 430px;
+        top: 230px;
+        display: grid;
+        /* grid-template-rows: 3fr 1fr; */
+    }
+    
+    /* #edit-input-box{
+        width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
+        height: 90%;
+        margin: auto;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #edit-input-box > input {
+        width: 500px;
+        height: 70px;
+        background-color: #d8f1c7;
+        border: none;
+        border-radius: 20px;
+        margin-left: 30px;
+    } */
+    /* #btn-area{
+        margin: auto;
+        margin-top: 10%;
+        place-items: center center;
+    } */
+    
+    /* #btn-area > input{
+        width: 400px;
+        height: 60px;
+        font-size: 30px;
+        border-spacing: 20px;
+    } */
 
-	#login-area span{
-		font-size: 1.5em;
-		margin-left: 50px;
-	}
 
-	form button{
-		margin-left: 150px;
-		margin-top: 30px;
-	}
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+        font-size: 2em;
+        margin-top: 20px;
+    }
+
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
+
+ 
 </style>
 </head>
 <body>
 
-	<div id="wrap">
-		<%@include file="/WEB-INF/views/common/header.jsp"  %>
-
-		<span id="span"></span><h1>로그인</h1>
-		<hr>
-
-		<main>
-
-			<div id="left-sidebar">
-				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
-			</div>
-
-            <img src="${root}/static/img/loginImg.png" alt="이미지" >
-			
-			<div id="login-area">
+    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+	
+	<!-- 내용영역 --> 
+   
+            <div id="content">
 				
-				<form action="" method="POST">
-					<span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
-					<br>
-					<span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
-					<hr>
-					<br>
-					<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">로그인</button>
-					<br>
-					<br>
-					<br>
-					<button type="submit" value="아이디 찾기" class="btn btn-primary btn-lg">아이디 찾기</button>
-					<button type="submit" value="비밀번호 찾기" class="btn btn-primary btn-lg">비밀번호 찾기 </button>
-				</form>
+                <div id="first-content">
+                    <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
+                    <hr>
+                    <a>로그인</a>
+                </div>
 				
-			</div>
-			
-			<div id="right-sidebar">
-				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
-			</div>
+                <form action="" method="POST">
 
-		</main>
-	</div>
-		
-		
+                <div id="edit-area">
+                    <img src="${root}/static/img/loginImg.png" alt="이미지" >
+			
+                        
+                            <span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
+                            <br>
+                            <span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
+                            <hr>
+                            <br>
+                            <button type="submit" value="비밀번호 찾기" id="btn01">로그인</button>
+                            <br>
+                            <br>
+                            <br>
+                            <button type="submit" value="아이디 찾기" id="btn01">아이디 찾기</button>
+                            <button type="submit" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button>
+                            
+                            
+                        </div>
+                    </form>
+
+					
+				
+			</form>
+
+		</div>
+
 
 </body>
 </html>
