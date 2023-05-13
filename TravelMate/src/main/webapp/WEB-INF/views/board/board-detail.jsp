@@ -194,9 +194,7 @@
             <textarea name="content" ></textarea>
         </div>
 
-		<hr id="hr">
-		
-		<!-- 	댓글구역 -->
+
 
         <div id="reply-write-area">
 			<form action="" method="POST">
@@ -204,81 +202,6 @@
 			</form>
         </div>
 
-		<div id="reply-area">
-			<table > 
-				<thead>
-					<tr>
-						<th>댓글내용</th>
-						<th>작성일시</th>
-						<th>글쓴이</th>
-					</tr>
-					</thead>
-				<tbody>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-
-					
-
-				</tbody>
-			</table>
-		</div>
-
-
-    </div>
 
 </body>
 </html>

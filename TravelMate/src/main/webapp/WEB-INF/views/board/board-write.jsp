@@ -100,7 +100,6 @@
     }   
 
     #write-area{
-        margin-top: 170px; /* 이녀석이 노트북이랑 데스크탑이랑 화면다르게 보이게함*/
         margin-left: 20%;
     }
 

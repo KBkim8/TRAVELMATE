@@ -46,10 +46,6 @@
 
         <main>
 
-			<div id="left-sidebar">
-				<%@include file="/WEB-INF/views/common/left_sidebar.jsp" %>
-			</div>
-
             <h1 align="center">게시판 목록 조회</h1>
             
             <div id="search-area">
@@ -119,10 +115,6 @@
 	            	<a class="btn btn-primary btn-sm" href="${root}/board/list?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음</a>
 	            </c:if>
             </div>
-
-			<div id="right-sidebar">
-				<%@ include file="/WEB-INF/views/common/right_sidebar.jsp"%>
-			</div>
 
         </main>
 
