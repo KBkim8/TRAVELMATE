@@ -111,8 +111,8 @@
 
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
-	<!-- 내용영역 -->
-    <div id="content">
+	<!-- 내용영역 --> 
+   <div id="content">
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
