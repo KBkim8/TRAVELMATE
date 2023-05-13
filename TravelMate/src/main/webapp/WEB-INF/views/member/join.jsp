@@ -45,15 +45,6 @@
     #edit-area{
         position: absolute;
         width: 1300px;
-        height: 1000px;
-        left: 130px;
-        top: 230px;
-        display: grid;
-        grid-template-rows: 3fr 1fr;
-    }
-    
-    #edit-input-box{
-        width: 1300px;
         border-radius: 30px;
         border: 1px dashed black;
         height: 90%;
@@ -71,19 +62,11 @@
         border: none;
         border-radius: 20px;
         margin-left: 30px;
-    }
-    #btn-area{
-        margin: auto;
-        margin-top: 10%;
-        place-items: center center;
-    }
-    
-    #btn-area > input{
         width: 400px;
         height: 60px;
         font-size: 30px;
         border-spacing: 20px;
-    }
+
 
 
     #btn01 {
@@ -180,46 +163,6 @@
         top:0;
       }
 
-	form {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-evenly;
-		align-items: center;
-	}
-    
-	#agree{
-		width: 500px;
-		height: 300px;
-		border-radius: 20px;
-		margin: auto;
-		background-color: rgb(168, 235, 171);
-	}
-
-	#join-form{
-		margin-top: 250px;
-	}
-
-
-
-      
-
-
-    
-</style>
-</head>
-<body>
-
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-	
-	<!-- 내용영역 --> 
-   
-            <div id="content">
-				
-                <div id="first-content">
-                    <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
-                    <hr>
-                    <a>회원가입</a>
-                </div>
 				
 			<form action="" method="POST" id="join-form">
 
@@ -248,30 +191,6 @@
 							<span style="font-size: 1.5em;">[필수]트레블 메이트 이용 약관 동의</span>
 						</div>
 
-						<div>
-							<input type="checkbox" id="check3">
-							<label for="check3"></label>
-							<span style="font-size: 1.5em;">[필수]개인정보 수집에 대한 동의</span>
-						</div>
-
-						<div>
-							<input type="checkbox" id="check4">
-							<label for="check4"></label>
-							<span style="font-size: 1.5em;">[필수]트레블 메이트 이용 약관 동의</span>
-						</div>
-	
-						<div>
-							<input type="checkbox" id="check5">
-							<label for="check5"></label>
-							<span style="font-size: 1.5em;">[선택] 광고성 정보 수신 동의</span>
-						</div>
-	
-					  
-					</div>
-					
-					<input id="btn01" type="submit" value="동의하고 가입하기">
-				
-			</form>
 
 		</div>
 
