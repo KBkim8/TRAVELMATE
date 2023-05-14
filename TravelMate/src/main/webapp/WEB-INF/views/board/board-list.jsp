@@ -7,191 +7,208 @@
 <title>Insert title here</title>
 <style>
 
-	main{
-		width: 100%;
-		height: 90%;
-		display: grid;
-		grid-template-columns: 1fr 4fr 1fr;
-	}
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1300px;
+        left: 300px;
+    }
+    
 
-    main table {
-        width: 600px;
-        margin: auto;
-        font-size: 24px;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 70px;
+        width: 40px;
+        height: 60px;
+        
+    }
+
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
+
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #edit-area{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+    }
+
+    #btn01 {
+        background-color: #73D38E;
+        font-size: 2.5em;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
         text-align: center;
+        color: white;
+        border-radius: 6px;
     }
 
-    main table th , 
-    main table td {
-        border: 1px solid black;
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
+
+    #write-area{
+        margin-top: 170px; /* 이녀석이 노트북이랑 데스크탑이랑 화면다르게 보이게함*/
+        margin-left: 20%;
     }
 
-	.searchValueElem{display: none;}
-	.active{display: inline-block;}
-	
-	#write-btn-area{
-		display : flex;
-		flex-direction: row-reverse;
-		width:600px;
-		margin:auto;
+    table{
+        height: 500px;
+        width: 1000px;
+        background-color: #d8f1c7;
+        border-radius: 20px;
+    }
+
+    table > thead > tr th , table > tbody > tr td {
+        font-size: 2.5em;
+        text-align: center;
+        border: 2px solid black;
+        height: 20px;
+    }
+
+    tbody > tr:hover {
+		background-color: rgb(32, 229, 52);
+		cursor: pointer;
 	}
 
+    input[name=title]{
+        font-size: 2em;
+        width: 500px;
+        height: 70px;
+        background-color: #d8f1c7;
+        border: none;
+        border-radius: 20px;
+        margin-top: 210px;
+    }
+
+    #page-area{
+        margin-left: 250px;
+        margin-top: 30px;
+    }
+
+    
 </style>
 </head>
 <body>
 
-	<div id="wrap">
-
-		<%@include file="/WEB-INF/views/common/header.jsp" %>
-
-        <main>
-
-            <h1 align="center">게시판 목록 조회</h1>
-            
-            <div id="search-area">
-            	<form action="${root}/board/list" method="get">
-            		<input type="hidden" name="page" value="1">
-            		<select name="searchType">
-            			<option value="title">제목</option>
-            			<option value="writer">작성자</option>
-            			<option value="category">카테고리</option>
-            		</select>
-            		<input type="text" class="searchValueElem" name="searchValue" value="${searchVo.searchValue}" placeholder="검색할내용">
-					<select name="searchValue" class="searchValueElem">
-						<option value="0">없음</option>
-						<option value="10">자유</option>
-						<option value="20">코딩</option>
-						<option value="30">게임</option>
-						<option value="40">운동</option>
-						<option value="50">요리</option>
-					</select>
-            		<input type="submit" value="검색">
-            	</form>
-            </div>
-            
-            <c:if test="${ not empty loginMember }">
-	            <div id="write-btn-area">
-		            <a href="${root}/board/write" class="btn btn-secondary">글쓰기</a>
-	            </div>
-            </c:if>
-            
 
             <table>
                 <thead>
                     <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>카테고리</th>
+                        <th>번호 </th>
+                        <th>제목 </th>
+                        <th>작성자 </th>
+                        <th>작성일시</th>
                         <th>조회수</th>
                     </tr>
                 </thead>
+                <hr>
                 <tbody>
-                	<c:forEach items="${voList}" var="vo"> 
-	                    <tr>
-	                        <td>${vo.no}</td>
-	                        <td>${vo.title}</td>
-	                        <td>${vo.writerName}</td>
-	                        <td>${vo.categoryName}</td>
-	                        <td>${vo.hit}</td>
-	                    </tr>
-                	</c:forEach>
+                    <tr>
+                        <td>1</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>dddddd</td>
+                        <td>dddddd</td>
+                        <td>2023.09.30</td>
+                        <td>30</td>
+                    </tr>
+
                 </tbody>
             </table>
-            
-            <div id="page-area">
-            	<c:if test="${pv.currentPage > 1}">
-	            	<a class="btn btn-primary btn-sm" href="${root}/board/list?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">이전</a>
-            	</c:if>
-	            	<c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
-	            		<c:if test="${pv.currentPage != i}">
-			            	<a class="btn btn-primary btn-sm" href="${root}/board/list?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
-	            		</c:if>
-	            		<c:if test="${pv.currentPage == i}">
-			            	<a class="btn btn-primary btn-sm">${i}</a>
-	            		</c:if>
-	            	</c:forEach>
-	            <c:if test="${pv.currentPage < pv.maxPage}">
-	            	<a class="btn btn-primary btn-sm" href="${root}/board/list?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음</a>
-	            </c:if>
-            </div>
-
-        </main>
 
     </div>
+
 
 </body>
 </html>
 
 <script>
-	const searchType = '${searchVo.searchType}';
-	const searchValue = '${searchVo.searchValue}';
-	
-	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
-	const searchValueInputTag = document.querySelector("input[name='searchValue']");
-	
-	if(searchType.length > 1){
-		initSearchType();
-	}
-	
-	// 검색 타입 초기셋팅
-	function initSearchType(){
-		const x = document.querySelector('select > option[value="' + searchType + '"]');
-		x.selected = true;
-	}
-	
-	
-	//서치타입 변경 시 함수 실행
-	const searchTypeTag = document.querySelector('select[name="searchType"]');
-	searchTypeTag.addEventListener("change" , setSearchValueTag);
 
-	function setSearchValueTag(){
-		const searchType = searchTypeTag.value;
-		if(searchType == 'category'){
-			setSearchValueTagSelect();
-		}else{
-			setSearchValueTagInput();
-		}
-	}
+    //게시글 상세조회
+	const tbody = document.querySelector("tbody");
+	tbody.addEventListener("click" , function(e){
+		const no = e.target.parentNode.children[0].innerText;
+		location.href = "${root}/detail?no=" + no;
+	});
 
-	//검색값 영역을 셀렉트가 보이게 (타입이 카테고리일 때)
-	function setSearchValueTagSelect(){
-		searchValueSelectTag.classList.add("active");
-		searchValueSelectTag.disabled = false;
-		searchValueInputTag.classList.remove("active");
-		searchValueInputTag.disabled = true;
-
-		searchValueInputTag.value = '';
-	}
-
-	//검색값 영역을 인풋이 보이게 (타입이 카테고리가 아닐 때)
-	function setSearchValueTagInput(){
-		searchValueInputTag.classList.add("active");
-		searchValueInputTag.disabled = false;
-		searchValueSelectTag.classList.remove("active");
-		searchValueSelectTag.disabled = true;
-	}
-
-	//카테고리로 검색한 이후에 검색값이 유지되게
-	function initSearchValueSelect(){
-		if(searchType != 'category'){
-			return ;
-		}
-		const optionTag = document.querySelector("option[value='" + searchValue + "']");
-		optionTag.selected = true;
-	}
-	
-	
-	setSearchValueTag();
-	initSearchValueSelect();
-	
 </script>
-
-
-
-
-
-
-
-
-

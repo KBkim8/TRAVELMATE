@@ -183,7 +183,7 @@
             <a>게시글 상세 조회</a>
         </div>
         <div id="write-area">
-            <input type="text" name="title" value="">
+            <input type="text" name="title" value="{vo.title}">
 			&nbsp;
 			&nbsp;
 			&nbsp;
@@ -191,7 +191,10 @@
 			&nbsp;
 			&nbsp;
 			<span style="font-size: 1.5em;">0000/00/00</span>
-            <textarea name="content" ></textarea>
+            &nbsp;
+			&nbsp;
+			<span style="font-size: 1.5em;">조회수 : 40</span>
+            <textarea name="content" >{vo.content}</textarea>
         </div>
 
 
