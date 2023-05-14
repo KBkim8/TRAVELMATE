@@ -61,7 +61,7 @@
         margin: auto;
         font-size: 30px;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
     }
 
@@ -86,6 +86,11 @@
         height: 50px;
     }
 
+    #rankImg {
+        width: 90px;
+        height: 90px;
+    }
+
     #btn-area{
         margin: auto;
         margin-top: 10%;
@@ -108,6 +113,9 @@
         text-align: center;
         color: white;
         border-radius: 6px;
+        width: 250px;
+        height: 50px;
+        font-size: 28px;
     }
 
     #btn01:hover {background-color: #80C49D;}
@@ -128,42 +136,45 @@
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>회원정보수정</a>
+            <a>회원정보조회</a>
         </div>
         <div id="edit-area">
             <div id="edit-input-box">
-                <form action="" method="POST">
                     <!-- table 로 만들기 -->
                     <table class="edit-input-area">
                         <tr>
-                          <td><span>비밀번호</span></td>
-                          <td> <input type="password" name="memberPwd"></td>
-                        </tr>
-                        <tr>
-                          <td><span>비밀번호 확인</span></td>
-                          <td><input type="password" name="memberPwd2"></td>
+                          <td><span>이름</span></td>
+                          <td>${mvo.name} 김강분</td>
                         </tr>
                         <tr>
                           <td><span>닉네임</span></td>
-                          <td><input type="text" name="memberNick"></td>
-                          <td><button id="btn01">중복확인</button></td>
+                          <td>${mvo.nick} NICK01</td>
                         </tr>
                         <tr>
                           <td><span>전화번호</span></td>
-                          <td><input type="text" name="phoneNumber"></td>
+                          <td>${mvo.phone} 01049263933</td>
+                        </tr>
+                        <tr>
+                          <td><span>주소</span></td>
+                          <td>${mvo.address} 경기도 용인시 수지구 고기로</td>
                         </tr>
                         <tr>
                           <td><span>이메일</span></td>
-                          <td><input type="email" name="email"></td>
-                          <td><button id="btn01">중복확인</button></td>
+                          <td>${mvo.email} k0322123@gmail.com</td>
                         </tr>
+                        <tr>
+                            <td><span>가입일</span></td>
+                            <td>${mvo.joindata} 2023.04.01</td>
+                          </tr>
+                          <tr>
+                            <td><span>회원등급</span></td>
+                            <td>${mvo.email} GOLD <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
+                          </tr>
                     </table>
             </div>
               <div id="btn-area">
-                   <input type="submit" value="수정" id="btn01">
-                   <input type="button" value="취소" id="btn01">
+                   <a href="${root}/mypage/edit" id="btn01">정보 수정하기</a>
                </div>
-                </form>
         </div>
     </div>
             

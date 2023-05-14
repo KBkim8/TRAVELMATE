@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,53 +44,41 @@
         font-weight: bold;
     }
     
-    #order-list-box{
+    #board-list-box{
         width: 1300px;
         border-radius: 30px;
         border: 1px dashed black;
-        height: 1000px;
+        height: 80%;
         left: 130px;
         top: 230px;
         font-size: 25px;
         position: absolute;
-        display: grid;
-        grid-template-rows: 1fr 2fr 2fr 2fr;
-        justify-content: center;
         align-content: center;
     }
 
-    #img {
-        width: 150px;
-        height: 150px;
-        margin-right: 0;
-    }
-
-    #title-wrap ,#content-wrap{
+    #content-wrap{
         width: 100%;
+        height: 150px;
         display: grid;
-        grid-template-columns: 1fr 3fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
         justify-content: center;
+        align-content: center;
         align-items: center;
         text-align: center;
         margin: auto;
     }
 
-
-    #order-goods-wrap01 {
+    #title-wrap{
+        width: 100%;
+        height: 150px;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-items: center;
+        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin: auto;
+        font-weight: bold;
     }
-
-    #order-goods-status{
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        justify-items: center;
-        width: 120px;
-        height: 180px;
-        align-items: center;
-    }
-
 
     #btn01 {
         background-color: #73D38E;
@@ -100,9 +88,9 @@
         text-align: center;
         color: white;
         border-radius: 6px;
-        width: 100px;
-        height: 30px;
-        font-size: 25px;
+        width: 150px;
+        height: 40px;
+        font-size: 20px;
         margin-left: 15px;
     }
 
@@ -115,29 +103,39 @@
 
     /* 카테고리 및 검색 */
     #report-search input[type="submit"]{
-        background-image: url('./검색이미지.jpg');
+        background-image: url('./img/검색이미지.png');
         background-repeat: no-repeat;
-        background-color: rgba(120, 120, 120, 0);
+        background-color: rgba(255, 255, 255, 0);
         border: 0px;
         cursor:pointer;
         outline: 0;
+        color: rgba(255, 255, 255, 0);
         position: absolute;
-        left: 200px;
+        left: 267px;
         top: 5px;
     }
 
     #report-search{
         position: absolute;
-        right: 200px;
+        right: 262px;
         top: 141px;
-        width: 150px;
-        height: 30px;
     }
 
     #report-search>form>input[type="text"]{
         width: 180px;
         height: 30px;
         font-size: 14px;
+    }
+
+    select[name="searchType"]{
+        width: 110px;
+        height: 30px;
+        font-size: 15px;
+    }
+
+    hr{
+        width: 100%;
+        height: 0;
     }
 
 
@@ -151,44 +149,64 @@
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>주문내역</a>
+            <a>게시글 조회</a>
         </div>
+            <!-- 게시판 카테고리 검색 -->
             <div id="report-search">
                 <form action="" method="GET">
-                    <input class="" name="searchValue" type="text" placeholder="주문내역 검색">
+                    <select name="searchType">
+                        <option value="free">자유</option>
+                        <option value="review">리뷰</option>
+                        <option value="purchase">판매</option>
+                        <option value="ranson">랜선여행</option>
+                    </select>
+                    <input class="" name="searchValue" type="text" placeholder="게시글 검색">
+
                     <input type="submit" value="검색">
                 </form>
             </div>
-        <div id="order-list-box">
+        <div id="board-list-box">
             <div id="title-wrap">
-                <div>주문 번호</div>
-                <div>주문 상세 내용</div>
-                <div>주문 날짜</div>
-                <div>주문 상태</div>
+                <div>게시판 카테고리</div>
+                <div>게시글 번호</div>
+                <div>제목</div>
+                <div>작성일시</div>
+                <div></div>
             </div>
+            <hr>
             <!-- 반복문 처리 -->
+            <!-- 상세조회 처리 코드 도연님한테 물어보고 제대로 해주기 -->
             <div id="content-wrap">
+                <div>자유</div>
                 <div>1</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/마음샌드.jpg" alt="" id="img"><div id="order-info">[파리바게트]제주 마음샌드<br>주문수량 : 1개<br>주문금액:20,000원</div></div></div>
+                <div>title01</div>
                 <div>2023.05.01 13:55:21</div>
-                <div><div id="order-goods-status">결제완료<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
+                <div><button id="btn01"><a href="${root}/board/page=1">상세조회</a></button></div>
             </div>
+            <hr>
             <div id="content-wrap">
+                <div>리뷰</div>
                 <div>2</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/d오메기떡.jpg" alt="" id="img"><div id="order-info">[파리바게트]제주 마음샌드<br>주문수량 : 1개<br>주문금액:20,000원</div></div></div>
+                <div>title02</div>
                 <div>2023.05.01 13:55:21</div>
-                <div><div id="order-goods-status">배송중<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
+                <div><button id="btn01"><a href="${root}/board/page=1">상세조회</a></button></div>
             </div>
+            <hr>
             <div id="content-wrap">
+                <div>랜선여행</div>
                 <div>3</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/아베베도넛.jpg" alt="" id="img"><div id="order-info">제주 아베베도넛<br>주문수량 : 2개<br>주문금액:30,000원</div></div></div>
+                <div>title03</div>
                 <div>2023.05.01 13:55:21</div>
-                <div> <div id="order-goods-status">배송중<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
+                <div><button id="btn01"><a href="${root}/board/page=1">상세조회</a></button></div>
             </div>
-      </div>
+            <hr>
+        </div>
     </div>
 
 
 </body>
 
+</html>
+
+</body>
 </html>

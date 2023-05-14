@@ -429,6 +429,7 @@ nav>div:nth-child(11)>a{
 
 .big_menu {
     cursor: pointer;
+    margin-top: 50px;
 }
 
 ul {

@@ -9,76 +9,109 @@
 <style>
 
     
-    #square{
-        width: 25px;
-        height: 50px;
-        background-color: rgba(115, 211, 142);
-        margin-top: 20px;
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
     }
 
-    .mem-info{
-        margin-top: 30px;
-        margin-left: 3%;
-        font-size: 1.5em;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 125px;
+        width: 40px;
+        height: 60px;
+    }
+
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
+
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #del-info{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+        display: grid;
+        grid-template-rows: 3fr 1fr;
     }
     
-    main{
-        width: 100%;
-        height: 100vh;
-    	display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-        
-    }
-    #title-area{
-        display: flex;
-    }
-    #del-info-box{
-        margin: auto;
-        width: 100%;
+    #del-info-area-box{
+        width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
         height: 90%;
-        display: grid;
-        grid-template-rows: 1fr 3fr 1fr;
-        justify-content: center;
-        align-items: center;
+        margin: auto;
+        font-size: 30px;
     }
 
-    #info-area-box{
-        width: 1000px;
-        height: 100%;
-        border: 1px solid rgba(115, 211, 142);
-        background-color: rgba(220, 220, 220, 0.378);
-        margin: auto;
-        place-items: center center;
+    #del-input-info {
+        margin-left: 30px;
+        margin-top: 20px;
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    #del-wrap {
+        margin-top: 10px;
+        width: 1300px;
+        height: 500px;
+    }
+
+    #del-info02{
+        font-size: 30px;
+        margin-top: 10%;
+        margin-left: 30px;
     }
 
     #btn-area{
         margin: auto;
+        margin-top: 10%;
         place-items: center center;
     }
-
-
-    #info-wrap{
-        width: 100%;
-        margin-top: 20%;
-        margin-left: 5%;
-        font-size: 1.4em;        
+    
+    #btn-area > input{
+        width: 200px;
+        height: 60px;
+        font-size: 30px;
+        border-spacing: 20px;
     }
 
-    #del-info{
-        margin-top: 15%;
-        margin-left: 1%;
-        font-size: 1.5em;
-        font-weight: bold;
-    }
-    #confirm, #cancel{
-        background-color: rgba(115, 211, 142, 0.574);
-        width: 100px;
-        height: 40px;
-        border-radius: 10%;
-        padding: 10px;
-        border: none;
+
+    #btn01 {
+        background-color: #73D38E;
+        padding: 0px 25px; 
+        border: 0;
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
     }
 
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
 
 
     
@@ -86,39 +119,33 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <main>
-        <div id="sidebar">
-			<%@include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
-        </div>
-        <div id="member-del-area">
-            <div id="title-area">
-                <div id="square"></div>
-                <h3 class="mem-info">회원탈퇴</h3>
-            </div>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <!-- 내용영역 -->
+    <div id="content">
+        <div id="first-content">
+            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <div id="del-info-box">
-                <div id="del-info">회원 탈퇴 신청 전 안내 사항을 꼭 확인해주세요.</div>
-                <div id="info-area-box">
-                    <div id="info-wrap">
-                        <div class="bi bi-exclamation-square">  사용한 아이디는 재사용 및 복구가 불가능합니다.</div>
-                        <br><br>
-                        <div class="bi bi-exclamation-square">  회원 탈퇴를 진행하더라고 작성 게시글은 그대로 남아있으니
-                            <br><br>탈퇴 전 직접 삭제해주셔야합니다.</div>
-                        </div>
+            <a>회원탈퇴</a>
+        </div>
+        <div id="del-info">
+            <div id="del-info-area-box">
+                <form action="" method="POST">
+                    <div id="del-wrap">
+                    <div id="del-input-info" class="bi bi-exclamation-square">  회원 탈퇴 신청 전 아래 안내사항을 꼭 확인해주세요.</div>
+                    <div id="del-info-wrap">
+                        <div class="bi bi-exclamation-square" id="del-info02">  사용한 아이디는 재사용 및 복구가 불가능합니다.</div>
+                        <div class="bi bi-exclamation-square" id="del-info02"> 탈퇴 시, 데이터는 지워지지 않으니 미리 삭제하시길 바랍니다. <br>   (게시글, 구매내역 등)</div>
                     </div>
-                    <div id="btn-area">
-                        <form action="" method="POST">
-                            <input type="submit" value="탈퇴" id="confirm">
-                            <input type="button" value="취소" id="cancel">
-                        </form>
                     </div>
             </div>
+            <div id="btn-area">
+                <input type="submit" id="btn01" value="확인"></input>
+                <input type="button" id="btn01" value="취소"></input>
+            </div>
+            </form>
         </div>
-        <div id="fast-menu-bar">
-
-        </div>
-    </main>
+    </div>
+        
 
 </body>
 </html>

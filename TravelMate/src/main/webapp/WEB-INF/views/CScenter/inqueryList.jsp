@@ -7,88 +7,125 @@
 <title>Insert title here</title>
 <style>
 
-    #square{
-        width: 25px;
-        height: 50px;
-        background-color: rgba(115, 211, 142);
-        margin-top: 20px;
+    /* 내용영역 */
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
     }
 
-    .mem-info{
-        margin-top: 30px;
-        margin-left: 3%;
-        font-size: 1.7em;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 125px;
+        width: 40px;
+        height: 60px;
+    }
+
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
+
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    
+    #inq-list-box{
+        width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
+        height: 80%;
+        left: 130px;
+        top: 230px;
+        font-size: 25px;
+        position: absolute;
+        align-content: center;
+    }
+
+    #content-wrap{
+        width: 100%;
+        height: 150px;
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        text-align: center;
+        margin: auto;
+    }
+
+    #title-wrap{
+        width: 100%;
+        height: 150px;
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+        justify-content: center;
+        align-content: center;
+        text-align: center;
+        margin: auto;
         font-weight: bold;
     }
 
-    
-    #side-bar{
-        height: 100%;
-        background-color: rgb(108, 237, 156);
-    }
-    
-    main{
-        width: 100%;
-        height: 100vh;
-    	display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 6fr 1fr;
-    }
-    #title-area{
-        display: flex;
-    }
-
-    #inq-list-box{
-        width: 1000px;
-        height: 90%;
-        /* background-color: rgba(220, 220, 220, 0.378); */
-        margin: auto;
-        border-radius: 10%;
-        display: flex;
-    }
-    
-    .list-box-area{
-        width: 1000px;
-        height: 600px;
-        margin-top: 10%;
-        border-collapse: collapse;
-        justify-content: center;
-        align-items: center;
-        margin: auto;
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
         text-align: center;
+        color: white;
+        border-radius: 6px;
+        width: 150px;
+        height: 40px;
+        font-size: 20px;
+        margin-left: 15px;
     }
 
-    td img{
-        width: 30px;
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
+
+    /* 카테고리 및 검색 */
+    #report-search input[type="submit"]{
+        background-image: url('./img/검색이미지.png');
+        background-repeat: no-repeat;
+        background-color: rgba(255, 255, 255, 0);
+        border: 0px;
+        cursor:pointer;
+        outline: 0;
+        color: rgba(255, 255, 255, 0);
+        position: absolute;
+        left: 267px;
+        top: 5px;
+    }
+
+    #report-search{
+        position: absolute;
+        right: 262px;
+        top: 141px;
+    }
+
+    #report-search>form>input[type="text"]{
+        width: 180px;
         height: 30px;
+        font-size: 14px;
     }
 
-    .list-box-area th,
-    .list-box-area td {
-        border: 1px solid black;
-    }
-
-    .list-box-area th:first-child,
-    .list-box-area td:first-child {
-        border-left: 0;
-    }
-    .list-box-area th:last-child,
-    .list-box-area td:last-child {
-        border-right: 0;
-    }
-
-    thead,tbody{
-        text-align: center;
-    }
-
-    .paging-area{
-        width: 100%;
-        height: 50px;
-        border: 1px solid lightgray;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
     
     
     
@@ -96,67 +133,62 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <main>
-        <div id="sidebar">
-          <%@ include file="/WEB-INF/views/common/cs_sidebar.jsp" %>
+    <%@ include file="/WEB-INF/views/common/cs-header.jsp" %>
+    <!-- 내용영역 -->
+    <div id="content">
+        <div id="first-content">
+            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
+            <hr>
+            <a>1:1 문의내역</a>
         </div>
-        <div id="inq-list-area">
-            <div id="title-area">
-                <div id="square"></div>
-                <h3 class="mem-info">1:1 문의내역</h3>
+            <!-- 게시판 카테고리 검색 -->
+            <div id="report-search">
+                <form action="" method="GET">
+                    <input class="" name="searchValue" type="text" placeholder="게시글 검색">
+                    <input type="submit" value="검색">
+                </form>
+            </div>
+        <div id="inq-list-box">
+            <div id="title-wrap">
+                <div>문의번호</div>
+                <div>제목</div>
+                <div>작성자</div>
+                <div>작성일시</div>
+                <div></div>
             </div>
             <hr>
-                <div id="inq-list-box">
-                      <!-- table 로 만들기 -->
-                      <table class="list-box-area" align="center">
-                        <thead>
-                            <tr>
-                                <th>문의번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일시</th>
-                            </tr>
-                        </thead>
-                        <!-- 나중에 반복문으로 페이징 처리 -->
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>게시글 삭제하고 나서 다시 되돌리는 방법이 있나요?</td>
-                                <td>마라탕</td>
-                                <td>2023.05.23</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>배송 중인 상품 환불 가능한가요?</td>
-                                <td>마이멜로디</td>
-                                <td>2023.05.22</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>배송 기간 얼마나 걸리는 지 궁금합니다.</td>
-                                <td>심투용</td>
-                                <td>2023.04.11</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>배송 기간 얼마나 걸리는 지 궁금합니다.</td>
-                                <td>심투용</td>
-                                <td>2023.04.11</td>
-                            </tr>
-                        </tbody>
-                      </table>
-                </div>
+            <!-- 반복문 처리 -->
+            <!-- 상세조회 처리 코드 도연님한테 물어보고 제대로 해주기 -->
+            <div id="content-wrap">
+                <div>1</div>
+                <div>예약한 숙소 취소하고 싶습니다.</div>
+                <div>nick01</div>
+                <div>2023.05.01 13:55:21</div>
+                <div><button id="btn01"><a href="${root}/cs/detail">상세조회</a></button></div>
             </div>
-        <div id="fast-menu-bar">
-
+            <hr>
+            <div id="content-wrap">
+                <div>2</div>
+                <div>숙소 말고 기념품 판매 등록 문의드립니다.</div>
+                <div>nick02</div>
+                <div>2023.04.28 13:55:21</div>
+                <div><button id="btn01"><a href="${root}/cs/inqueryDetail">상세조회</a></button></div>
+            </div>
+            <hr>
+            <div id="content-wrap">
+                <div>3</div>
+                <div>비밀번호를 잊어버렸습니다.</div>
+                <div>nick03</div>
+                <div>2023.04.22 13:55:21</div>
+                <div><button id="btn01"><a href="${root}/cs/inqueryDetail">상세조회</a></button></div>
+            </div>
+            <hr>
         </div>
+    </div>
 		<span></span>
         <div class="paging-area">
             1 ,  2 ,  3
         </div>
-    </main>
-
 </body>
 
 </html>
