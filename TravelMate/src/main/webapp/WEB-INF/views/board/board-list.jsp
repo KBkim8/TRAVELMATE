@@ -116,25 +116,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-	
-	<!-- 내용영역 -->
-    <div id="content">
-        <div id="first-content">
-            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
-            <hr>
-            <a>게시글 목록</a> 
-        </div>
-        <div id="write-area">
-            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색">
-            <select name="categoryNo" style="width:150px;height:60px; font-size: 2em;">
-                    <option value=10>축구</option>	
-                    <option value=20>게임</option>	
-                    <option value=30>축구</option>	
-                    <option value=40>축구</option>	
-            </select>
-            <br>
-            <br>
+
             <table>
                 <thead>
                     <tr>
@@ -213,30 +195,7 @@
 
                 </tbody>
             </table>
-                <div id="page-area">
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">이전</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">1</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">2</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">3</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">4</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">5</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage+1}">다음</a>
-                    <!-- <c:if test="${ pv.currentPage > 1 }">
-                        <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">이전</a>
-                    </c:if>
-                    <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-                        <c:if test="${currentPage ne i}">
-                            <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${i}">${i}</a>
-                        </c:if>
-                        <c:if test="${currentPage == i}">
-                            <a id="btn01">${i}</a>
-                        </c:if>
-                    </c:forEach>
-                    <c:if test="${ pv.currentPage < pv.maxPage }">
-                        <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage+1}">다음</a>
-                    </c:if> -->
-                </div>
-        </div>
+
     </div>
 
 

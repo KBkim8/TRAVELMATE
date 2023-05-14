@@ -197,9 +197,7 @@
             <textarea name="content" >{vo.content}</textarea>
         </div>
 
-		<hr id="hr">
-		
-		<!-- 	댓글구역 -->
+
 
         <div id="reply-write-area">
 			<form action="" method="POST">
@@ -207,59 +205,6 @@
 			</form>
         </div>
 
-		<div id="reply-area">
-			<table > 
-				<thead>
-					<tr>
-						<th>댓글내용</th>
-						<th>작성일시</th>
-						<th>작성자</th>
-					</tr>
-					</thead>
-				<tbody>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-					<tr>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-						<td>aaaaaaa</td>
-					</tr>
-
-
-				</tbody>
-			</table>
-		</div>
-
-
-    </div>
 
 </body>
 </html>
