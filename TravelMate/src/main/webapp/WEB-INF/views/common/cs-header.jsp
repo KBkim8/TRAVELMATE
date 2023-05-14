@@ -29,7 +29,7 @@
             <a>|</a>
             <a href="">로그인</a>
             <a>|</a>
-            <a href="">장바구니</a>
+            <a href="${root}/mypage/checkPwd">마이페이지</a>
             <a>|</a>
             <a href="">고객센터</a>
         </div>
