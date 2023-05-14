@@ -10,6 +10,7 @@
     
     #content{
         position: relative;
+        margin-top: 400px;
         width: 1390px;
         height: 100%;
         bottom: 1300px;
@@ -115,8 +116,8 @@
     }
 
 	#calender{
-		width: 200px;
-		height: 50px;
+		width: 160px;
+        height: 50px;
 		margin-left: 50px;
 	}
 	
@@ -133,7 +134,19 @@
     #px{
     	height: 45px;
     }
+
+    #searchBtn{
+        height: 45px;
+    }
     
+    #maxPeopleSelect{
+        height: 45px;
+    }
+    
+    .dlsdnjstn{
+        height: 30px;
+        margin: auto;
+    }
     
     
 </style>
@@ -160,15 +173,20 @@
     <br><br><br><br><br><br><br>
     <div id="box">
         <h3  id="h3">체크인 : 3:00 PM ~ midnight // 체크아웃:11:00PM</h3>
-        <h3  id="h3">· 주소 :</h3> 
+        <h3  id="h3">· 주소 : 울릉도 동남쪽 뱃길따라 이백리</h3> 
         <br>                    
-        <h3  id="h3">· 전화 :</h3> 
+        <h3  id="h3">· 전화 : 1577-1577</h3> 
         <br>                    
         <h3  id="h3">· 호텔 소개</h3>
-        <br>                    
+        <br>
+        <h4>호텔소개호텔소개호텔소개호텔소개호텔소개호텔소개호텔소개호텔소개호텔소개호텔소개</h4>                    
         <h3  id="h3">· 편의시설</h3>
         <br>
+        <h4>편의점 , 탁구장 , 당구장 , 볼링장 , 스파온천 , 찜질방</h4>
+        <br>
         <h3  id="h3">· 유의사항</h3>
+        <br>
+        <h4>애완동물 출입금지</h4>
         <br>          
     </div>
     </div>
@@ -181,8 +199,16 @@
     <br>
     <div id="box">
         <input type="search" placeholder="숙소 조건 선택란(ex. 인원, 지역, 달력)">
-        
-        <input type="submit" value="검색하기">       
+        <h4 id="h4" class="dlsdnjstn">인원수</h4>
+        <select id="maxPeopleSelect">
+            <option value="4">4인</option>
+            <option value="4">5인</option>
+            <option value="4">6인</option>
+            <option value="4">8인</option>
+            <option value="4">10인</option>
+        </select>
+
+        <input type="submit" id="searchBtn" value="검색하기">       
     </div>
     <div>
 
