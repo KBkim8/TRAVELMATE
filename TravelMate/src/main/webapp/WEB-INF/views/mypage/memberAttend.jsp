@@ -6,71 +6,102 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- calendar를 위한 라이브러리들 지우면 안됨 -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src='https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js'></script>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css'rel='stylesheet'/>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css' rel='stylesheet' media='print'/>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js'></script>
-
-
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.7/index.global.min.js" integrity="sha256-VvQ+gcDf/XacyjwCHZZBxAGTsf6Xv3T3edd2YrkQDTs=" crossorigin="anonymous"></script>
+<link href='/resources/fullcalendar-5.6.0/lib/main.css' rel='stylesheet' />
+<script src='/resources/fullcalendar-5.6.0/lib/main.js'></script>
 <style>
 
-    #square{
-        width: 25px;
-        height: 50px;
-        background-color: rgba(115, 211, 142);
-        margin-top: 20px;
+    #content{
+        position: relative;
+        width: 1390px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
     }
 
-    .mem-info{
-        margin-top: 30px;
-        margin-left: 3%;
-        font-size: 1.5em;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 125px;
+        width: 40px;
+        height: 60px;
     }
 
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
+    }
+
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    #edit-area{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+    }
     
-    main{
-        width: 100%;
-        height: 100vh;
-    	display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-        
-    }
-    #title-area{
-        display: flex;
-    }
-    
-    #attend-cal{
-        margin: auto;
-        width: 100%;
-        height: 90%;
-        display: grid;
-        grid-template-rows: 1fr 3fr 1fr;
-        justify-content: center;
-        align-items: center;
-    }
-
-
     #btn-area{
         margin: auto;
+        margin-top: 10%;
         place-items: center center;
     }
-
-    button{
-        background-color: rgba(115, 211, 142, 0.574);
-        width: 100px;
-        height: 40px;
-        border-radius: 10%;
-        padding: 10px;
-        border: none;
+    
+    #btn-area > input{
+        width: 200px;
+        height: 60px;
+        font-size: 30px;
+        border-spacing: 20px;
     }
+
+
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+    }
+
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }   
 
     #calendar{
-        max-width: 900px;
-        margin: 40px auto;
-
+        width: 1300px;
+        height: 100%;
+        display: flex;
     }
 
+    .fc .fc-scrollgrid, .fc .fc-scrollgrid table {
+        table-layout: auto;
+        width: 100%;
+    }
+    
+    .fc .fc-toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 20%;
+}
+   
 
 
     
@@ -78,79 +109,43 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <main>
-        <div id="sidebar">
-			<%@ include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
-        </div>
-        <div id="attend-area">
-            <div id="title-area">
-                <div id="square"></div>
-                <h3 class="mem-info">출석현황</h3>
-            </div>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <!-- 내용영역 --> 
+   <div id="content">
+        <div id="first-content">
+            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <div id="attend-cal">
-                <div class="container calendar-container">
-                    <div id="calendar"></div>
-                </div>
-               <div id="btn-area">
-                    <button id="confirm"></button>
-                    <button id="cancel"></button>
-                </div>
+            <a>출석현황</a>
+        </div>
+        <form action="" method="POST">
+            <div id="edit-area">
+                        <div id="calendar"></div>
             </div>
-        </div>
-        <div id="fast-menu-bar">
-
-        </div>
-    </main>
-
-
-
-
-
-
-
-
+        </form>
+    </div>
 </body>
-<script type="text/javascript">
-    $(document).ready(function(){
-          $('#calendar').fullCalendar({
-            header: {
-              right: 'custom2 prevYear,prev,next,nextYear'
-            },
-            // 출석체크를 위한 버튼 생성
-            customButtons: { 
-                custom2: {
-                  text: '출석체크하기',
-                  id: 'check',
-                  click: function() {	
-                    	$ajax{
-                    		url: '/users/attendances',
-                    		type: 'GET',
-                    		dataType: "JSON",
-                    		success: function (data) { },
-                    		error: function() {
-                    			alert('there was an error while fetching events!');
-                    		},
-                    		color: 'purple',   
-                    		textColor: 'white' 
-                    	}
-                        // ajax 통신으로 출석 정보 저장하기 
-                        // POST "/users/attendances" -> { status: "success", date:"2018-07-01"}
-                        // 통신 성공시 버튼 바꾸고, property disabled 만들기 
-                  }
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
+          headerToolbar: {
+                    left: 'prev,next' ,
+                    center: 'title',
+                    right: 'dayGridMonth myCustomButton'
+                },
+        customButtons: {
+            myCustomButton: {
+            text: '출석하기',
+            click: function() {
+            alert('출석되었습니다.');
                 }
-            },
-           // 달력 정보 가져오기 
-            eventSources: [
-                {
-                    // ajax 통신으로 달력 정보 가져오기 
-                    // GET "/users/attendances" -> {dateList:[ date: "2016-03-21", ... ]}
-                    color: 'purple',   
-                     textColor: 'white' 
-                }
-            ]
-          }); 
+            }
+        },
+        locale: 'ko'
     });
-    </script>
+        calendar.render();
+});
+</script>
 </html>

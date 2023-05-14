@@ -71,6 +71,7 @@
         height: 50px;
         border-radius: 20px;
         font-size: 20px;
+        background-color: none;
     }
 
     #content-wrap > textarea {
@@ -78,6 +79,7 @@
         height: 600px;
         font-size: 30px;
         border-radius: 20px;
+        background-color: none;
     }
 
     #content-wrap {
@@ -132,31 +134,85 @@
     <div id="first-content">
         <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
         <hr>
-        <a>1:1문의하기</a>
+        <a>문의상세</a>
     </div>
         <div id="inquery-input">
             <div id="title-wrap">
                     <form action="" method="POST">
-                    <span id="word">제목</span>
                     <input type="text" id="title" value="5월 2일에 예약한 거 취소하고 싶어요.">
                 </form>
-                </div>
-                <div id="content-wrap">
-                    <span id="word">내용</span>
-                    <textarea>어떻게 취소할 수 있나요? 제가 직접 해야하나요?</textarea>
-                </div>
-                <div id="btn-area">
-                    <!-- 작성 버튼 누르면 문의 내역 페이지로 보내주기 -->
-                    <form action="" method="POST">
-                        <input type="submit" id="btn01" value="작성하기"></input>
-                    </form>
             </div>
-        </div>
+            <div id="content-wrap">
+                <textarea>어떻게 취소할 수 있나요? 제가 직접 해야하나요?</textarea>
+            </div>
+                <div id="reply-area">
+                    <input type="hidden" name="noticeNo" value="${vo.no}">
+				    <div id="reply-form-area">
+					<input type="text" name="content" placeholder="댓글을 입력하세요">
+					<input type="button" id="btn01" value="댓글 쓰기" onclick="writeComment();">
+				    </div>
+				    <div id="reply-list-area">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>댓글 내용</th>
+                                    <th>작성자</th>
+                                    <th>작성일시</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+					    </table>
+				    </div>
+                </div>
+            </div>
     </div>
-</div>
 
 </body>
 <script>
+
+
+    // 댓글 admin, 작성자 둘 다 볼 수 o, 쓰는 건 admin만
+	// 댓글 목록 보여주기
+	function loadComment(){
+		const replyListArea = document.querySelector("#reply-list-area");
+
+		// 댓글 객체로 내용, 작성자 뽑아내기
+		$.ajax({
+			url : "${root}/notice/reply/list",
+			type : "GET",
+			data : {
+				noticeNo : '${vo.no}'
+			},
+			success : function(data){
+				console.log(data);
+				// JSON 형태로 받아서, 화면에 보여주기
+				const x = JSON.parse(data);
+				console.log(x);
+
+				const tbody = document.querySelector('#reply-list-area tbody');
+				tbody.innerHTML = "";
+				let str = "";
+				for(let i = 0; i < x.length; i ++){
+					str += '<tr>';
+					str += '<td>' + x[i].content + '</td>';
+					str += '<td>' + x[i].wrterNo + '</td>';
+					str += '<td>' + x[i].enrollDate + '</td>';
+					str += '</tr>';
+
+				}
+				tbody.innerHTML += str;
+
+			},
+			error : (e)=>{
+				console.log(e);				
+			} 
+		});
+
+	}
+
+	loadComment();
 
 </script>
 </html>

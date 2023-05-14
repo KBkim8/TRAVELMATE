@@ -7,123 +7,117 @@
 <title>Insert title here</title>
 <style>
 
-    body{
-        width: 100%;
+    /* 내용영역 */
+    #content{
+        position: relative;
+        width: 1390px;
         height: 100%;
+        bottom: 1500px;
+        left: 300px;
     }
 
-    #wrapper{
-        width: 100%;
-        height: 100vh;
-        display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-    }
-
-    #square{
-        width: 25px;
-        height: 50px;
-        background-color: rgba(115, 211, 142);
-        margin-top: 20px;
-    }
-
-    .mem-info{
-        margin-top: 30px;
-        margin-left: 3%;
-        font-size: 1.5em;
-    }
-
-    
-    #title-area{
-        display: flex;
-    }
-
-    #fav-list-area{
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-    }
-
-    
-    .delBtn{
-        background-color: rgba(115, 211, 142, 0.574);
-        width: 50px;
-        height: 30px;
-        border-radius: 10%;
-        border: none;
-    }
-
-    #fav-list-box{
-        width: 1000px;
-        height: 80%;
-        background-color: rgba(220, 220, 220, 0.378);
-        margin: auto;
-        border-radius: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .fav-box-area{
-        border-collapse: collapse;
-        margin: auto;
-    }
-
-    td img{
-        width: 200px;
-        height: 100px;
-    }
-
-    .fav-box-area tr,th,td{
-        border-bottom: 1px solid black;
+    #first-content>img{
+        position: absolute;
+        left: 100px;
+        top: 125px;
+        width: 40px;
         height: 60px;
     }
 
-
-    .fav-box-area th:first-child,
-    .fav-box-area td:first-child {
-        border-left: 0;
-    }
-    .fav-box-area th:last-child,
-    .fav-box-area td:last-child {
-        border-right: 0;
-    }
-
-    td:nth-child(2){
-        width: 300px;
+    #content>#first-content>hr:nth-child(2){
+        height: 1px;
+        width: 1300px;
+        background-color: rgb(116, 116, 116);
+        border: 0px solid rgb(65, 65, 65);
+        position: absolute;
+        left: 100px;
+        top: 180px;
     }
 
-    td:nth-child(3){
-        width: 100px;
+    #content>#first-content>a:nth-child(3){
+        position: absolute;
+        left: 160px;
+        top: 135px;
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
     }
 
-    .fav-info{
-        width: 250px;
-        height: 100px;
-        background-color: rgba(128, 128, 128, 0.262);
-        margin: auto;
-        vertical-align: middle;
-        display: flex;
-        place-items: center center;
+    #fav-content-area{
+        width: 1300px;
+        height: 80%;
+        left: 130px;
+        top: 230px;
+        position: absolute;
+        display: grid;
+        grid-template-rows: 2fr 1fr;
+    }
+    
+    #fav-list-box{
+        width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
+        font-size: 25px;
+        justify-content: center;
+        align-content: center;
+    }
+
+    #content-wrap{
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-content: center;
+        align-items: center;
         text-align: center;
+        margin: auto;
+    }
+
+    #content-wrap img {
+        width: 150px;
+        height: 150px;
+        margin-right: 0;
     }
 
     .paging-area{
         width: 100%;
-        height: 50px;
+        height: 10%;
         border: 1px solid lightgray;
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 20px;
     }
-    
+
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+        width: 100px;
+        height: 30px;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    #btn01:hover {background-color: #80C49D;}
+    #btn01:active {
+        box-shadow: 0 0 0 1px #82c8a0 inset,
+                0 0 0 2px rgba(255,255,255,0.15) inset,
+                0 0 0 1px rgba(0,0,0,0.4);
+    }  
     .black-bg {
         display: none;
-        width: 50%;
-        height: 100%;
-        position: fixed;
+        width: 400px;
+        height: 200px;
+        position: absolute;
         background: rgba(0, 0, 0, 0.5);
+        left: 700px;
+        bottom: 600px;
         z-index: 5;
-        padding: 110px;
+        padding: 50px;
     }
     .white_bg {
         background: white;
@@ -140,96 +134,70 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <main>
-        <div id="wrapper">
-            <div id="sidebar">
-				<%@ include file="/WEB-INF/views/common/mg_sidebar.jsp" %>
-            </div>
-            <div id="fav-list-area">
-                <div id="title-area">
-                    <div id="square"></div>
-                    <h3 class="mem-info">관심상품</h3>
-                </div>
-                <hr>
-                    <div id="fav-list-box">
-                          <table class="fav-box-area" align="center">
-                            <!-- 나중에 반복문으로 페이징 처리 -->
-                                <tr>
-                                    <td><img src="${root}/static/img/마음샌드.jpg" alt=""></td>
-                                    <td>
-                                        <div class="fav-info">
-                                            상품명 : [탐난다]제주오메기떡
-                                            <br>
-                                            상품수량 : 1박스(20개)
-                                            <br>
-                                            상품가격 : 9,500원        
-                                        </div>
-                                    </td>
-                                    <td> 
-                                        <button class="delBtn">삭제</button>
-                                        <div class="black-bg">
-                                        <div class="white-bg">
-                                          <h4>삭제되었습니다.</h4>
-                                          <button class="btn btn-danger" id="close">닫기</button>
-                                        </div>
-                                    </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><img src="${root}/static/img/d오메기떡.jpg" alt=""></td>
-                                    <td>
-                                        <div class="fav-info">
-                                            상품명 : [탐난다]제주오메기떡
-                                            <br>
-                                            상품수량 : 1박스(20개)
-                                            <br>
-                                            상품가격 : 9,500원        
-                                        </div>
-                                    </td>
-                                    <td><button class="delBtn">삭제</button></td>
-                                </tr>
-                                <tr>
-                                    <td><img src="${root}/static/img/마음샌드.jpg" alt=""></td>
-                                    <td>
-                                        <div class="fav-info">
-                                            상품명 : [탐난다]제주오메기떡
-                                            <br>
-                                            상품수량 : 1박스(20개)
-                                            <br>
-                                            상품가격 : 9,500원        
-                                        </div>
-                                    </td>
-                                    <td><button class="delBtn">삭제</button></td>
-                                </tr>
-                                <tr>
-                                    <td><img src="${root}/static/img/d오메기떡.jpg" alt=""></td>
-                                    <td>
-                                        <div class="fav-info">
-                                            상품명 : [탐난다]제주오메기떡
-                                            <br>
-                                            상품수량 : 1박스(20개)
-                                            <br>
-                                            상품가격 : 9,500원        
-                                        </div> 
-                                    </td>
-                                    <td><button class="delBtn">삭제</button></td>
-                                </tr>
-                          </table>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <!-- 내용영역 -->
+    <div id="content">
+        <div id="first-content">
+            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
+            <hr>
+            <a>관심상품</a>
+        </div>
+        <div id="fav-content-area">
+            <div id="fav-list-box">
+                <!-- 반복문 처리 -->
+                <div id="content-wrap">
+                    <div><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
+                    <div> 
+                        상품명 : [파리바게트]마음샌드
+                        <br>
+                        상품수량 : 1박스(20개)
+                        <br>
+                        상품가격 : 9,500원   
+                    </div>
+                    <div>
+                        <button class="delBtn" id="btn01">삭제</button>
+                        <div class="black-bg">
+                        <div class="white-bg">
+                        <h4>삭제되었습니다.</h4>
+                        <button class="btn btn-danger" id="btn01">닫기</button>
+                        </div>
+                        </div>
                     </div>
                 </div>
-                <div id="fast-menu-bar">
-                    
+                <hr>
+                <div id="content-wrap">
+                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
+                    <div> 
+                        상품명 : [탐난다]제주오메기떡
+                        <br>
+                        상품수량 : 1박스(20개)
+                        <br>
+                        상품가격 : 9,500원   
+                    </div>
+                    <div>
+                        <button class="delBtn" id="btn01">삭제</button>
+                    </div>
                 </div>
-        </div>
-        
-            <div class="paging-area">
-                1 ,  2 ,  3
+                <hr>
+                <div id="content-wrap">
+                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
+                    <div> 
+                        상품명 : [탐난다]제주오메기떡
+                        <br>
+                        상품수량 : 1박스(20개)
+                        <br>
+                        상품가격 : 9,500원   
+                    </div>
+                    <div>
+                        <button class="delBtn" id="btn01">삭제</button>
+                    </div>
+                </div>
             </div>
-            
-    </main>
-   
-
+            <div class="paging-area">
+             1 ,  2 ,  3
+            </div>
+        </div>
+    </div>
 </body>
 
 <script>
