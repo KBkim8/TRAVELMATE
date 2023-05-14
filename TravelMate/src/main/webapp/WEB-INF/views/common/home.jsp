@@ -44,15 +44,15 @@
     }
     
     #search-area {
-      display: flex;
-      justify-content: space-evenly;
-      height: 300px;
+      display:flex;
+      justify-content: space-around;
+      margin-left: 20px;
     
     }
 
     #bn{
       width: 900px;
-      height: 300px;
+      height: 400px;
     }
 
     #search >div{
@@ -82,7 +82,7 @@
       height: 230px;   
     }
 
-    #img{
+    #img ,#img2 ,#img3  {
       align-items: center;
       width: 70%;
       height: 250px;
@@ -90,16 +90,13 @@
     }
 
     #ranson{
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: 4fr;
-      
-      grid-column: span 3;
-      background-color: rgb(139, 207, 139);
+     display: flex;
+     justify-content: space-between;
+     
     }
 
-    #ranson > a {
-      margin-left: 50px;
+    body{
+      background-color: rgb(204, 231, 162);
     }
 
     #wrap{
@@ -138,30 +135,61 @@
     #br > a {
       text-decoration: none;
     }
-
-
-
-    /* #wrap > a >img{
-      place-content: center center;
-      margin-left: 30px;
-    }
-
-    #wrap > a > h4 {
-      margin-left: 60px;
-    }
-
-    #wrap > a > h4:hover{
-      font-size: 2em;
-    }
-    #wrap > a{
-      text-decoration: none;
-    } */
-
+    
     .bi{
       width: 100px;
       height: 100px;
     }
   
+    #btn01 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+    }
+
+    #btn02 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+    }
+
+    #btn03 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+    }
+
+    #btn04 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+    }
+
+    #img2 ,#img3{
+      display: none;
+    }
+
+    #ransonImg4 , #ransonImg5 , #ransonImg6 {  
+      display: none; 
+      width: 850px; 
+      height: 450px;
+    }
 
     </style>
     </head>
@@ -179,16 +207,20 @@
       <div id="banner">
 
         <!--왼쪽화살표 -->
-        <button class="btn btn-success">
+        <button id="btn01">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
             <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
           </svg>
         </button>
 
-       <a href=""><img id="img" src="${root}/static/img/banner.png" alt="이미지" ></a>
+       <a href="">
+          <img id="img" src="${root}/static/img/banner.png" alt="이미지">
+          <img id="img2" src="${root}/static/img/d오메기떡.jpg" alt="이미지">
+          <img id="img3" src="${root}/static/img/마음샌드.jpg" alt="이미지">
+      </a>
 
         <!-- 오른쪽화살표 -->
-        <button class="btn btn-success">
+        <button id="btn02">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
              <path  d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
            </svg>
@@ -199,18 +231,39 @@
       <hr>
 
         <div id="search-area" >
-              <form action="">
-                <a href=""><img id="bn" src="${root}/static/img/a.png" alt="이미지"></a>
-                <a href=""><img id="bn" src="${root}/static/img/b.png" alt="이미지"></a> 
-                <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
-              </form>
+                <a href="">
+                <img id="bn" src="${root}/static/img/a.png" alt="이미지">
+                <img id="bn" src="${root}/static/img/b.png" alt="이미지"> 
+                 <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
+                </a>
         </div>
 
           <a href=""><h1 align="center" style="background-color:rgb(139, 207, 139); margin: auto;">랜선으로 여행을 즐겨보세요</h1></a>
-      <div id="ranson">
-        <a href="https://www.youtube.com/watch?v=dEnBXRkDBUE"><img style="width: 450; height: 450px;" src="${root}/static/img/ranson.png" alt="이미지"></a>
-        <a href="https://www.youtube.com/watch?v=2BPLbTIpOZI"><img src="${root}/static/img/ranson2.png" alt="이미지"></a>
-        <a href="https://www.youtube.com/watch?v=t9gVHZlb3vA"><img src="${root}/static/img/ranson3.png" alt="이미지"></a>  
+       <div id="ranson">
+            
+            <!-- 왼쪽화살표 -->
+            <button id="btn03">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+                <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+              </svg>
+            </button>
+        
+        <a href="https://www.youtube.com/watch?v=dEnBXRkDBUE"><img style="width: 450; height: 450px;" src="${root}/static/img/ranson.png" alt="이미지" id="ransonImg1"></a>
+        <a href="https://www.youtube.com/watch?v=2BPLbTIpOZI"><img src="${root}/static/img/ranson2.png" alt="이미지" id="ransonImg2"></a>
+        <a href="https://www.youtube.com/watch?v=t9gVHZlb3vA"><img src="${root}/static/img/ranson3.png" alt="이미지" id="ransonImg3"></a> 
+        
+              
+        <a href="https://www.youtube.com/watch?v=gLatnL0R9Pg"><img id="ransonImg4" src="${root}/static/img/pari.png" alt="이미지"></a>  
+        <a href="https://www.youtube.com/watch?v=gLatnL0R9Pg"><img id="ransonImg5" src="${root}/static/img/런던.png" alt="이미지"></a>  
+        <a href="https://www.youtube.com/watch?v=lN7WZco3Avg"><img id="ransonImg6" src="${root}/static/img/충주.png" alt="이미지"></a>   
+        
+        <!-- 오른쪽화살표 -->
+        <button id="btn04">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+            <path  d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
+          </svg>
+        </button>
+ 
       </div>
 
       <div id="wrap">
@@ -241,12 +294,101 @@
 	      
     </body>
     </html>
-    
     <script>
+      const btn01 = document.querySelector('#btn01');
+      const btn02 = document.querySelector('#btn02');
+      const btn03 = document.querySelector('#btn03');
+      const btn04 = document.querySelector('#btn04');
+      const img = document.querySelector('#img');
+      const img2 = document.querySelector('#img2');
+      const img3 = document.querySelector('#img3');
 
-    const img = document.querySelector('#img').value;
+      const ransonImg1  = document.querySelector('#ransonImg1');
+      const ransonImg2 = document.querySelector('#ransonImg2');
+      const ransonImg3 = document.querySelector('#ransonImg3');
 
-    function change() {
-        
-    }
+      const ransonImg4 = document.querySelector('#ransonImg4');
+      const ransonImg5 = document.querySelector('#ransonImg5');
+      const ransonImg6 = document.querySelector('#ransonImg6');
+    
+      let currentImage = 1;
+      let currentRansonImage = 1;
+    
+      btn01.addEventListener('click', function() {
+        if (currentImage === 1) {
+          img.style.display = 'none';
+          img2.style.display = 'block';
+          currentImage = 2;
+        } else if (currentImage === 2) {
+          img2.style.display = 'none';
+          img3.style.display = 'block';
+          currentImage = 3;
+        } else if (currentImage === 3) {
+          img3.style.display = 'none';
+          img.style.display = 'block';
+          currentImage = 1;
+        }
+      });
+
+    
+    
+      btn02.addEventListener('click', function() {
+        if (currentImage === 1) {
+          img.style.display = 'none';
+          img2.style.display = 'block';
+          currentImage = 2;
+        } else if (currentImage === 2) {
+          img2.style.display = 'none';
+          img3.style.display = 'block';
+          currentImage = 3;
+        } else if (currentImage === 3) {
+          img3.style.display = 'none';
+          img.style.display = 'block';
+          currentImage = 1;
+        }
+      });
+
+      btn03.addEventListener('click', function(){
+        if (currentRansonImage === 1) {
+          ransonImg1.style.display = 'none';
+          ransonImg4.style.display = 'block';
+          ransonImg2.style.display = 'none';
+          ransonImg5.style.display = 'block';
+          ransonImg3.style.display = 'none';
+          ransonImg6.style.display = 'block';
+          currentRansonImage = 2;
+        }else if(currentRansonImage ===2){
+          ransonImg1.style.display = 'block';
+          ransonImg4.style.display = 'none';
+          ransonImg2.style.display = 'block';
+          ransonImg5.style.display = 'none';
+          ransonImg3.style.display = 'block';
+          ransonImg6.style.display = 'none';
+          currentRansonImage =1;
+        }
+        });
+
+
+        btn04.addEventListener('click', function(){
+        if (currentRansonImage === 1) {
+          ransonImg1.style.display = 'none';
+          ransonImg4.style.display = 'block';
+          ransonImg2.style.display = 'none';
+          ransonImg5.style.display = 'block';
+          ransonImg3.style.display = 'none';
+          ransonImg6.style.display = 'block';
+          currentRansonImage = 2;
+        }else if(currentRansonImage ===2){
+          ransonImg1.style.display = 'block';
+          ransonImg4.style.display = 'none';
+          ransonImg2.style.display = 'block';
+          ransonImg5.style.display = 'none';
+          ransonImg3.style.display = 'block';
+          ransonImg6.style.display = 'none';
+          currentRansonImage =1;
+        }
+        });
+
+
     </script>
+    

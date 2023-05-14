@@ -183,7 +183,7 @@
             <a>게시글 상세 조회</a>
         </div>
         <div id="write-area">
-            <input type="text" name="title" value="">
+            <input type="text" name="title" value="{vo.title}">
 			&nbsp;
 			&nbsp;
 			&nbsp;
@@ -191,7 +191,10 @@
 			&nbsp;
 			&nbsp;
 			<span style="font-size: 1.5em;">0000/00/00</span>
-            <textarea name="content" ></textarea>
+            &nbsp;
+			&nbsp;
+			<span style="font-size: 1.5em;">조회수 : 40</span>
+            <textarea name="content" >{vo.content}</textarea>
         </div>
 
 		<hr id="hr">
@@ -210,68 +213,46 @@
 					<tr>
 						<th>댓글내용</th>
 						<th>작성일시</th>
-						<th>글쓴이</th>
+						<th>작성자</th>
 					</tr>
 					</thead>
 				<tbody>
 					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
 					</tr>
 					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
 					</tr>
 					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
 					</tr>
 					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+					</tr>
+					<tr>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+					</tr>
+					<tr>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+					</tr>
+					<tr>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
+						<td>aaaaaaa</td>
 					</tr>
 
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> 막막하다아아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-
-					
 
 				</tbody>
 			</table>
