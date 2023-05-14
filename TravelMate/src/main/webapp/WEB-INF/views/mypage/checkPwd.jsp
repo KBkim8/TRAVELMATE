@@ -109,7 +109,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 --> 
    <div id="content">
@@ -118,14 +118,14 @@
             <hr>
             <a>마이페이지</a>
         </div>
-        <form action="" method="POST">
+        <form action="/app/mypage/checkPwd" method="POST">
         <div id="edit-area">
             <div id="edit-input-box">
                     <span>비밀번호</span><br><br>
                     <input type="password" name="memberPwd">
             </div>
             <div id="btn-area">
-                <input type="submit" value="수정" id="btn01">
+                <input type="submit" value="확인" id="btn01">
                 <input type="button" value="취소" id="btn01">
             </div>
         </div>

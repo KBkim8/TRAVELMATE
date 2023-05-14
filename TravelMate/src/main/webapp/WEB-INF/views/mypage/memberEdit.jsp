@@ -115,7 +115,11 @@
         box-shadow: 0 0 0 1px #82c8a0 inset,
                 0 0 0 2px rgba(255,255,255,0.15) inset,
                 0 0 0 1px rgba(0,0,0,0.4);
-    }   
+    }  
+    
+    input {
+        font-size: 30px;
+    }
 
     
 </style>
@@ -149,8 +153,8 @@
                           <td><button id="btn01">중복확인</button></td>
                         </tr>
                         <tr>
-                          <td><span>전화번호</span></td>
-                          <td><input type="text" name="phoneNumber"></td>
+                          <td><span>주소</span></td>
+                          <td> <input type="text" name="address"></td>
                         </tr>
                         <tr>
                           <td><span>이메일</span></td>

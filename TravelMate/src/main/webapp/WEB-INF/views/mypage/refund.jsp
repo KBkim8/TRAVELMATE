@@ -109,6 +109,9 @@
         text-align: center;
         color: white;
         border-radius: 6px;
+        width: 150px;
+        height: 50px;
+        font-size: 30px;
     }
 
     #btn01:hover {background-color: #80C49D;}
@@ -118,7 +121,29 @@
                 0 0 0 1px rgba(0,0,0,0.4);
     }
 
+	.black-bg {
+        display: none;
+        width: 700px;
+        height: 250px;
+        position: absolute;
+        background: rgba(255, 255, 255, 0.5);
+        left: 400px;
+        bottom: 650px;
+        z-index: 10;
+        padding: 50px;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .white_bg {
+        background: white;
+        border-radius: 5px;
+        padding: 50px;
+    }
 
+    .show-modal {
+        display: inline-block;
+    }
 
 
 
@@ -152,41 +177,32 @@
                 </div>
                 <div id="btn-area">
                     <input type="button" id="btn01" value="확인" class="confirmBtn"></input>
+                    <div class="black-bg">
+                    <div class="white-bg">
+                    <h4>결제하신 정보로 환불처리가 진행됩니다. <br> 
+                        결제 수단 : 카드결제
+                    </h4>
+                    <button class="btn btn-danger" id="btn01">닫기</button>
+                    </div>
+                    </div>
                     <input type="button" id="btn01" value="취소"></input>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal hidden">
-        <div class="modalBox">
-            <p>결제하신 정보로 환불처리가 진행됩니다.</p>
-            <button class="closeBtn">X</button>
-        </div>
-    </div>
-    </main>
-
-
-
-
-
-
-
-
 </body>
 <script>
 
 // 확인 버튼 누르면 모달로 "결제하신 정보로 환불처리가 진행됩니다."
-  const open = () => {
-    document.querySelector(".modal").classList.remove(" hidden");
-  }
+$(".confirmBtn").on("click", function () {
+    $(".black-bg").addClass("show-modal");
+  }); //css에서 작성한 show-modal이라는 클래스명 추가
 
-  const close = () => {
-    document.querySelector(".modal").classList.add("hidden");
-  }
+  $(".btn-danger").on("click", function () {
+    $(".black-bg").removeClass("show-modal");
+  }); // 
 
-  document.querySelector(".confirmBtn").addEventListener("click", open);
-  document.querySelector(".closeBtn").addEventListener("click", close);
 
 </script>
 </html>
