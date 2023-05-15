@@ -10,7 +10,7 @@
     
     #content{
         position: relative;
-        margin-top: 400px;
+        margin-top: 50px;
         width: 1390px;
         height: 100%;
         bottom: 1300px;
@@ -226,9 +226,9 @@
     
     <hr>
     <div id="btns">
-        <button type="button" class="btn btn-success">뒤로가기</button>
-        <button type="button" class="btn btn-success">관심상품 담기</button>
-        <button type="button" class="btn btn-success">결제하기</button>
+        <button type="button" id="btn01">뒤로가기</button>
+        <button type="button" id="btn02">관심상품 담기</button>
+        <button type="button" id="btn03">결제하기</button>
     </div>
 	</div>
 	</div>
@@ -249,5 +249,26 @@
 	console.log(x);
 	  });
 });
+
+    document.getElementById("btn01").addEventListener("click" , ()=>{
+    	<%
+		response.sendRedirect("/src/main/webapp/WEB-INF/views/product/productList.jsp");
+		%>
+
+    });
+    document.getElementById(btn02).addEventListener("click" , basketFunction());
+    document.getElementById(btn03).addEventListener("click" , payFunction());
+
+    function backFunction() {
+        
+    }
+    
+    function basketFunction() {
+        windows.location.href = "(127.0.0.1:8888/app/mypage/favorites)";
+    }
+
+    function payFunction() {
+    	windows.location.href = "127.0.0.1:8888/app/pay/room";
+    }
 </script>
 </html>
