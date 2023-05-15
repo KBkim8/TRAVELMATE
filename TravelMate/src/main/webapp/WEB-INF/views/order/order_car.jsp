@@ -10,6 +10,7 @@
     
     #content{
         position: relative;
+        margin-top: 400px;
         width: 1390px;
         height: 100%;
         bottom: 1300px;
