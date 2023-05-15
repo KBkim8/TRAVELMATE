@@ -43,12 +43,17 @@ public class JoinController extends HttpServlet{
 			int result = ms.join(vo);
 			
 			//ㅎㅁ
+			if(result ==1) {
+				req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
+			}else {
+				throw new Exception();
+			}
 			
 		}catch(Exception e) {
 			System.out.println("[ERROR] join error...");
 			e.printStackTrace();
 			
-			req.setAttribute("errorMsg", "에러 ㅋㅋ");
+			req.setAttribute("errorMsg", "회원가입 에러 ㅋㅋ");
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 		
