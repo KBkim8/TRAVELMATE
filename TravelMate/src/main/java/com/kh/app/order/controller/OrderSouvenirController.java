@@ -15,7 +15,7 @@ public class OrderSouvenirController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 //		ddddd
-	req.getRequestDispatcher("/WEB-INF/views/order/pay_souvenir.jsp").forward(req, resp);
+	req.getRequestDispatcher("/WEB-INF/views/order/order_souvenir.jsp").forward(req, resp);
 	}
 	
 }
