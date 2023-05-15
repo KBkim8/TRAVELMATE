@@ -52,40 +52,6 @@
         display: grid;
         /* grid-template-rows: 3fr 1fr; */
     }
-    
-    /* #edit-input-box{
-        width: 1300px;
-        border-radius: 30px;
-        border: 1px dashed black;
-        height: 90%;
-        margin: auto;
-        font-size: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    #edit-input-box > input {
-        width: 500px;
-        height: 70px;
-        background-color: #d8f1c7;
-        border: none;
-        border-radius: 20px;
-        margin-left: 30px;
-    } */
-    /* #btn-area{
-        margin: auto;
-        margin-top: 10%;
-        place-items: center center;
-    } */
-    
-    /* #btn-area > input{
-        width: 400px;
-        height: 60px;
-        font-size: 30px;
-        border-spacing: 20px;
-    } */
-
 
     #btn01 {
         background-color: #73D38E;

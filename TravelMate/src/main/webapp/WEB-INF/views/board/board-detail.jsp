@@ -183,7 +183,7 @@
             <a>게시글 상세 조회</a>
         </div>
         <div id="write-area">
-            <input type="text" name="title" value="{vo.title}">
+            <input type="text" name="title" value="">
 			&nbsp;
 			&nbsp;
 			&nbsp;
@@ -191,13 +191,12 @@
 			&nbsp;
 			&nbsp;
 			<span style="font-size: 1.5em;">0000/00/00</span>
-            &nbsp;
-			&nbsp;
-			<span style="font-size: 1.5em;">조회수 : 40</span>
-            <textarea name="content" >{vo.content}</textarea>
+            <textarea name="content" ></textarea>
         </div>
 
-
+		<hr id="hr">
+		
+		<!-- 	댓글구역 -->
 
         <div id="reply-write-area">
 			<form action="" method="POST">
@@ -205,6 +204,81 @@
 			</form>
         </div>
 
+		<div id="reply-area">
+			<table > 
+				<thead>
+					<tr>
+						<th>댓글내용</th>
+						<th>작성일시</th>
+						<th>글쓴이</th>
+					</tr>
+					</thead>
+				<tbody>
+					<tr>
+						<td> aaaaaaaaa</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> aaaaa아</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td>aaaaassd</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> sadfsdafs</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+
+					<tr>
+						<td> sadfsdaf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> sadfsadf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> sadfasdf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> sadfsdf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td>sadfsdaf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td>sadfsdaf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+					<tr>
+						<td> sadfsdaf</td>
+						<td>2023-05-13</td>
+						<td>김도연</td>
+					</tr>
+
+					
+
+				</tbody>
+			</table>
+		</div>
+
+
+    </div>
 
 </body>
 </html>
