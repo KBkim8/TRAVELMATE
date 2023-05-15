@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/reservation")
-public class PayRoomController extends HttpServlet{
+@WebServlet("/pay/souvenir")
+public class PaySouvenirController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		req.getRequestDispatcher("/WEB-INF/views/order/reservation.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/pay/pay_souvenir.jsp").forward(req, resp);
 	}
-	
 }

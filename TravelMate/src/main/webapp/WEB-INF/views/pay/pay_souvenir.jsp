@@ -18,6 +18,7 @@
   
 }
 
+
 #first, #second{
   display: flex;
   height: 50px;
@@ -35,7 +36,7 @@
 }
 
 #first2{
-  width: 80%;
+  width: 100%;
   height: 150px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -43,7 +44,7 @@
 }
 
 #second2{
-  width: 80%;
+  width: 100%;
   height: 200px;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -52,37 +53,48 @@
   background-color: lightgray;
 }
 
-#btn01, #btn03{
+#btn01, #btn02{
   margin-top: 50px;
-  margin-right: 400px;
   margin-left: 400px;
   margin-bottom: 50px;
+  background-color: #73D38E;
+  border: 0;
+  padding: 15px 25px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border-radius: 6px;
 }
 
+#btn01:hover, #btn02:hover  {background-color: #80C49D;}
+#btn01:active, #btn02:active {
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 0 0 1px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 <body>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    
+    <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
     <div id="shape">
 
       <div id="first">
         <div></div>
         <div>
-          <h3>여행자 확인 및 결제<hr></h3>
+          <h3>약관 동의 및 결제<hr></h3>
         </div>
       </div>
 
       <div id="first2">
-        <h2>간단한 결제 안내 문구</h2>
+        <h2>구매 약관 동의칸</h2>
       </div>
 
       <div id="second">
         <div></div>
         
         <div>
-          <h3>여행자 확인 및 결제<hr></h3>
+          <h3>최종 결제 정보<hr></h3>
         </div>
       </div>
 
@@ -91,7 +103,10 @@
           <h2>이미지</h2>
         </div>
         <div>
-          <h2>예약 정보</h2>
+            <h4>예약자 이름:</h4>
+            <h4>예약자 연락처:</h4>
+            <h4>배송 주소: --</h4>
+            <h4>수량: N</h4>
         </div>
       </div>
 
@@ -101,17 +116,11 @@
 
       <hr>
       <div>
-        <button id="btn01">신용카드</button>
-        <button id="btn02">무통장입금</button>
+        <button id="btn01" >신용카드</button>
+        <button id="btn02" >무통장입금</button>
       </div>
 
-      <hr>
-
-      <div>
-        <button id="btn03">뒤로가기</button>
-        <button id="btn04">결제하기</button>
-      </div>
-  
+      
     </div>
 </body>
 </html>
