@@ -18,6 +18,7 @@
   
 }
 
+
 #first, #second{
   display: flex;
   height: 50px;
@@ -52,37 +53,38 @@
   background-color: lightgray;
 }
 
-#btn01, #btn03{
+#btn01{
   margin-top: 50px;
   margin-right: 400px;
   margin-left: 400px;
   margin-bottom: 50px;
+  
 }
 
 </style>
 </head>
 <body>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
     
+    <%@ include file="/WEB-INF/views/common/header.jsp" %>
 
     <div id="shape">
 
       <div id="first">
         <div></div>
         <div>
-          <h3>여행자 확인 및 결제<hr></h3>
+          <h3>약관 동의 및 결제취소<hr></h3>
         </div>
       </div>
 
       <div id="first2">
-        <h2>간단한 결제 안내 문구</h2>
+        <h2>청약철회 약관 동의칸</h2>
       </div>
 
       <div id="second">
         <div></div>
         
         <div>
-          <h3>여행자 확인 및 결제<hr></h3>
+          <h3>최종 결제 정보<hr></h3>
         </div>
       </div>
 
@@ -91,27 +93,24 @@
           <h2>이미지</h2>
         </div>
         <div>
-          <h2>예약 정보</h2>
+            <h4>예약자 이름:</h4>
+            <h4>예약자 연락처:</h4>
+            <h4>배송 주소: --</h4>
+            <h4>수량: N</h4>
         </div>
       </div>
 
       <b>총 결제 금액:</b><br><br><br><br><br>
 
-      <h2>결제수단</h2>
+      <h2>결제를 취소 하시겠습니까?</h2>
 
       <hr>
       <div>
-        <button id="btn01">신용카드</button>
-        <button id="btn02">무통장입금</button>
+        <button id="btn01">예</button>
+        <button id="btn02">아니오</button>
       </div>
 
-      <hr>
-
-      <div>
-        <button id="btn03">뒤로가기</button>
-        <button id="btn04">결제하기</button>
-      </div>
-  
+      
     </div>
 </body>
 </html>
