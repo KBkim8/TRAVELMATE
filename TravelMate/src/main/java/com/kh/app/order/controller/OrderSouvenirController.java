@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/order/souvenir")
-public class SouvenirController extends HttpServlet{
+public class OrderSouvenirController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-	req.getRequestDispatcher("/WEB-INF/views/order/pay_souvenir.jsp").forward(req, resp);
+	req.getRequestDispatcher("/WEB-INF/views/order/order_souvenir.jsp").forward(req, resp);
 	}
 	
 }

@@ -15,10 +15,7 @@
     height: 100%;
     bottom: 900px;
     left: 400px;
-  
 }
-
-
 
 #first, #second, #third, #third2{
   display: flex;
@@ -51,19 +48,29 @@
 
 #third2{height: 100px;}
 
-#btn01{
-  margin-top: 50px;
-  margin-right: 250px;
-  margin-left: 250px;
-  margin-bottom: 50px;
-}
-
-#btn02{margin-right: 300px;}
-
 table{
     height: 200px;
 }
 
+#btn01, #btn02, #btn03{
+  margin-top: 50px;
+  margin-left: 300px;
+  margin-bottom: 50px;
+  background-color: #73D38E;
+  border: 0;
+  padding: 15px 25px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border-radius: 6px;
+}
+
+#btn01:hover, #btn02:hover, #btn03:hover {background-color: #80C49D;}
+#btn01:active, #btn02:active, #btn03:active{
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 0 0 1px rgba(0,0,0,0.4);
+}
 
 
 </style>
