@@ -225,7 +225,6 @@
 							<label for="check5"></label>
 							<span style="font-size: 1.5em;">[선택] 광고성 정보 수신 동의</span>
 						</div>
-	
 					  
 					</div>
 					
@@ -241,3 +240,53 @@
 
 </body>
 </html>
+
+<script>
+    
+    $(document).ready(function() {
+        $('#btn01').click(function() {
+            var memberId = $('input[name="memberId"]').val();
+            
+            // Ajax 요청
+            $.ajax({
+                url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
+                method: 'POST',
+                data: { memberId: memberId },
+                success: function(response) {
+                    // 서버로부터의 응답 처리
+                    if (response === 'available') {
+                        // 사용 가능한 아이디인 경우 처리 로직
+                        alert('사용 가능한 아이디입니다.');
+                    } else {
+                        // 중복된 아이디인 경우 처리 로직
+                        alert('이미 사용 중인 아이디입니다.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    // 오류 발생 시 처리 로직
+                    console.error(error);
+                }
+            });
+        });
+
+        // 이메일 중복 확인 버튼에 대한 Ajax 요청과 처리 로직, 닉네임 중복 확인 버튼에 대한 Ajax 요청과 처리 로직은 유사합니다.
+        // 필요한 경우 위의 코드를 참고하여 추가해주시면 됩니다.
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

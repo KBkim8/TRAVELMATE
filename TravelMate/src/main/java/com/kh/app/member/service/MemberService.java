@@ -2,6 +2,7 @@ package com.kh.app.member.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.kh.app.common.db.JDBCTemplate;
@@ -75,17 +76,31 @@ public class MemberService {
 		//comm
 		Connection conn = JDBCTemplate.getConnection();
 		
-		//sql 
-		String sql = "";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, sql);
+		int result = dao.join(conn ,vo);
 		
 		//tx rs
-		
+		if(result ==1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
 		
 		//close
-		int result =1;
 		return result;
+	}
+
+	//로그인
+	public MemberVo login(MemberVo vo) throws Exception {
+		//comm
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql 
+		MemberVo loginMember = dao.login(conn ,vo);
+		
+		JDBCTemplate.close(conn);
+		
+		return loginMember;
+		
 	}
 
 }

@@ -194,6 +194,7 @@
     </style>
     </head>
     <body>
+	
     
     <div class="jb-box">
         <video muted autoplay loop>
@@ -295,6 +296,9 @@
     </body>
     </html>
     <script>
+    
+    alert('${alertMsg}');
+    
       const btn01 = document.querySelector('#btn01');
       const btn02 = document.querySelector('#btn02');
       const btn03 = document.querySelector('#btn03');

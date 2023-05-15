@@ -84,5 +84,68 @@ public class MemberDao {
 		return result;
 		
 	}
+
+	public MemberVo login(Connection conn, MemberVo vo) throws Exception {
+
+		//sql
+		String sql = "SELECT * FROM MEMBER WHERE ID = ? AND PWD = ? AND STATUS ='O'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getId());
+		pstmt.setString(2, vo.getPwd());
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberVo loginMember = null;
+		if(rs.next()) {
+			String no = rs.getString("NO");
+			String memberCategoryNo = rs.getString("MEMBER_CATEGORY_NO");
+			String memberGradeNo = rs.getString("MEMBER_GRADE_NO");
+			String id = rs.getString("ID");
+			String pwd = rs.getString("PWD");
+			String nick = rs.getString("NICK");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String withdrawalYn = rs.getString("WITHDRAWAL_YN");
+			String updateDate = rs.getString("UPDATE_DATE");
+			String email = rs.getString("EMAIL");
+			String address = rs.getString("ADDRESS");
+			String status = rs.getString("STATUS");
+			
+			loginMember = new MemberVo();
+			
+			loginMember.setNo(no);
+			loginMember.setMemberCategoryNo(memberCategoryNo);
+			loginMember.setMemberGradeNo(memberGradeNo);
+			loginMember.setId(id);
+			loginMember.setPwd(pwd);
+			loginMember.setNick(nick);
+			loginMember.setEnrollDate(enrollDate);
+			loginMember.setWithdrawalYn(withdrawalYn);
+			loginMember.setUpdateDate(updateDate);
+			loginMember.setEmail(email);
+			loginMember.setAddress(address);
+			loginMember.setStatus(status);
+			
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return loginMember;
+	}
+
+	public int join(Connection conn, MemberVo vo) throws Exception {
+		
+		//sql 
+		String sql = "INSERT INTO MEMBER ( NO , MEMBER_CATEGORY_NO , MEMBER_GRADE_NO , ID , PWD , NICK , EMAIL ) VALUES ( SEQ_MEMBER_NO.NEXTVAL , '1' , '1' , ? , ? , ? , ? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getId());
+		pstmt.setString(2, vo.getPwd());
+		pstmt.setString(3, vo.getNick());
+		pstmt.setString(4, vo.getEmail());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
 	
 }

@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
     
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+
     
 <!DOCTYPE html>
 <html>

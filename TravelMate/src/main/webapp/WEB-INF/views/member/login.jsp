@@ -53,38 +53,6 @@
         /* grid-template-rows: 3fr 1fr; */
     }
     
-    /* #edit-input-box{
-        width: 1300px;
-        border-radius: 30px;
-        border: 1px dashed black;
-        height: 90%;
-        margin: auto;
-        font-size: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    #edit-input-box > input {
-        width: 500px;
-        height: 70px;
-        background-color: #d8f1c7;
-        border: none;
-        border-radius: 20px;
-        margin-left: 30px;
-    } */
-    /* #btn-area{
-        margin: auto;
-        margin-top: 10%;
-        place-items: center center;
-    } */
-    
-    /* #btn-area > input{
-        width: 400px;
-        height: 60px;
-        font-size: 30px;
-        border-spacing: 20px;
-    } */
 
 
     #btn01 {
@@ -114,7 +82,6 @@
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
 	
 	<!-- 내용영역 --> 
-   
             <div id="content">
 				
                 <div id="first-content">
@@ -123,8 +90,7 @@
                     <a>로그인</a>
                 </div>
 				
-                <form action="" method="POST">
-
+                <form action="${root}/login" method="POST">
                 <div id="edit-area">
                     <img src="${root}/static/img/loginImg.png" alt="이미지" >
 			
@@ -134,14 +100,12 @@
                             <span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
                             <hr>
                             <br>
-                            <button type="submit" value="비밀번호 찾기" id="btn01">로그인</button>
+                            <input type="submit" value="로그인" id="btn01">
                             <br>
                             <br>
                             <br>
-                            <button type="submit" value="아이디 찾기" id="btn01">아이디 찾기</button>
-                            <button type="submit" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button>
-                            
-                            
+                            <a href=""> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기</button></a>
+                            <a href=""> <button type="button" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button></a>
                         </div>
                     </form>
 
