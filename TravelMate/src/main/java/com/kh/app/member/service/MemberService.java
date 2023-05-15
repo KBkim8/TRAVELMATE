@@ -1,6 +1,8 @@
 package com.kh.app.member.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.member.dao.MemberDao;
@@ -65,6 +67,25 @@ public class MemberService {
 		
 		return result;
 		
+	}
+
+	// 회원 가입
+	public int join(MemberVo vo) throws Exception {
+		
+		//comm
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql 
+		String sql = "";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, sql);
+		
+		//tx rs
+		
+		
+		//close
+		int result =1;
+		return result;
 	}
 
 }
