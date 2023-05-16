@@ -27,11 +27,11 @@
         <div id="logoCategory">
             <a href="${root}/static/img/logo.png">회원가입</a>
             <a>|</a>
-            <a href="">로그인</a>
+            <a href="${root}/login">로그인</a>
             <a>|</a>
-            <a href="">장바구니</a>
+            <a href="${root}/mypage/checkPwd">미이페이지</a>
             <a>|</a>
-            <a href="">고객센터</a>
+            <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
             <div></div>
@@ -66,9 +66,9 @@
                                  <ul class="big_menu">
                                      <li>회원정보 <i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/detail">회원정보조회</a></li>
-                                         <li><a href="${root}/mypage/edit">회원정보수정</a></li>
-                                         <li><a href="${root}/mypage/delete">회원탈퇴</a></li>
+                                         <li><a href="${root}/mypage/member/detail">회원정보조회</a></li>
+                                         <li><a href="${root}/mypage/member/edit">회원정보수정</a></li>
+                                         <li><a href="${root}/mypage/quit">회원탈퇴</a></li>
                                      </ul>
                                  </ul>
                                  <ul class="big_menu">

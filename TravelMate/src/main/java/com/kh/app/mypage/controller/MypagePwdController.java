@@ -37,14 +37,14 @@ public class MypagePwdController extends HttpServlet{
 			MemberService ms = new MemberService();
 //			MemberVo loginMember = ms.checkPwd(vo);
 			
-			// 화면
-//			if(loginMember != null) {
-//				String root = req.getContextPath();
-//				req.getSession().setAttribute("loginMember", loginMember);
-//				req.getRequestDispatcher("/WEB-INF/views/mypage/memberDetail.jsp").forward(req, resp);
-//			}else {
-//				throw new Exception();
-//			}
+//			 화면
+			if(loginMember != null) {
+				String root = req.getContextPath();
+				req.getSession().setAttribute("loginMember", loginMember);
+				req.getRequestDispatcher("/WEB-INF/views/mypage/memberDetail.jsp").forward(req, resp);
+			}else {
+				throw new Exception();
+			}
 			
 		} catch (Exception e) {
 			System.out.println("[ERROR] pwd check fail... ");

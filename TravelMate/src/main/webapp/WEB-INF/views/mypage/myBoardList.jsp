@@ -181,7 +181,7 @@
                 <div>1</div>
                 <div>title01</div>
                 <div>2023.05.01 13:55:21</div>
-                <div><button id="btn01"><a href="${root}/board/page=1">상세조회</a></button></div>
+                <div><button id="btn01"><a href="${root}/detail">상세조회</a></button></div>
             </div>
             <hr>
             <div id="content-wrap">
@@ -189,7 +189,7 @@
                 <div>2</div>
                 <div>title02</div>
                 <div>2023.05.01 13:55:21</div>
-                <div><button id="btn01"><a href="${root}/board/page=1">상세조회</a></button></div>
+                <div><button id="btn01"><a href="${root}/detail">상세조회</a></button></div>
             </div>
             <hr>
             <div id="content-wrap">
@@ -197,7 +197,7 @@
                 <div>3</div>
                 <div>title03</div>
                 <div>2023.05.01 13:55:21</div>
-                <div><button id="btn01"><a href="${root}/board/page=1">상세조회</a></button></div>
+                <div><button id="btn01"><a href="${root}/detail">상세조회</a></button></div>
             </div>
             <hr>
         </div>

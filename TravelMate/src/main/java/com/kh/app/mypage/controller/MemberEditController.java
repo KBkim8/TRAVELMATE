@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.app.member.service.MemberService;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet("/mypage/edit")
+@WebServlet("/mypage/member/edit")
 public class MemberEditController extends HttpServlet{
 	
 	// 회원정보 수정 화면
