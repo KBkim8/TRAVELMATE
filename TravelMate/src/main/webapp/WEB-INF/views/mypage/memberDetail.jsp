@@ -143,32 +143,28 @@
                     <!-- table 로 만들기 -->
                     <table class="edit-input-area">
                         <tr>
-                          <td><span>이름</span></td>
-                          <td>${mvo.name} 김강분</td>
+                          <td><span>아이디</span></td>
+                          <td>${loginMember.id}</td>
                         </tr>
                         <tr>
                           <td><span>닉네임</span></td>
-                          <td>${mvo.nick} NICK01</td>
-                        </tr>
-                        <tr>
-                          <td><span>전화번호</span></td>
-                          <td>${mvo.phone} 01049263933</td>
+                          <td>${loginMember.nick}</td>
                         </tr>
                         <tr>
                           <td><span>주소</span></td>
-                          <td>${mvo.address} 경기도 용인시 수지구 고기로</td>
+                          <td>${loginMember.address}</td>
                         </tr>
                         <tr>
                           <td><span>이메일</span></td>
-                          <td>${mvo.email} k0322123@gmail.com</td>
+                          <td>${loginMember.email}</td>
                         </tr>
                         <tr>
                             <td><span>가입일</span></td>
-                            <td>${mvo.joindata} 2023.04.01</td>
+                            <td>${loginMember.enrollDate} 2023.04.01</td>
                           </tr>
                           <tr>
                             <td><span>회원등급</span></td>
-                            <td>${mvo.email} GOLD <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
+                            <td>${loginMember.member_grade_no} GOLD <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
                           </tr>
                     </table>
             </div>

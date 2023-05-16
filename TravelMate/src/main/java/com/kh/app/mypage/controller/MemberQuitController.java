@@ -19,7 +19,7 @@ public class MemberQuitController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 화면
-		req.getRequestDispatcher("/WEB-INF/views/mypage/memberDelete.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/mypage/memberQuit.jsp").forward(req, resp);
 		
 		try {
 			// 데꺼

@@ -31,7 +31,7 @@
             <a>|</a>
             <a href="${root}/mypage/checkPwd">마이페이지</a>
             <a>|</a>
-            <a href="">고객센터</a>
+            <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
             <div></div>
