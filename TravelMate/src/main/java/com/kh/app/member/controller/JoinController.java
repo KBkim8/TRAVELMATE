@@ -1,6 +1,7 @@
 package com.kh.app.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,52 +13,63 @@ import com.kh.app.member.service.MemberService;
 import com.kh.app.member.vo.MemberVo;
 
 @WebServlet(urlPatterns = "/join")
-public class JoinController extends HttpServlet{
+public class JoinController extends HttpServlet {
+    
+    private MemberService ms;
+    
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        ms = new MemberService();
+    }
 	
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
-		
-	}
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("/WEB-INF/views/member/join.jsp").forward(req, resp);
+    }
 	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-		try {
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	
+        try {
+        	
+        	//데이터꺼내기
+            String memberId = req.getParameter("memberId");
+            String memberPwd = req.getParameter("memberPwd");
+            String memberEmail = req.getParameter("memberEmail");
+            String memberNick = req.getParameter("memberNick");
+            String memberAddress = req.getParameter("memberAddress");
 			
-			//ㄷㄲ
-			String memberId = req.getParameter("memberId");
-			String memberPwd = req.getParameter("memberPwd");
-			String memberEmail = req.getParameter("memberEmail");
-			String memberNick = req.getParameter("memberNick");
+            //           아이디 중복 체크               닉네임 중복체크
+            if (ms.isDuplicateId(memberId) || ms.isDuplicateNick(memberNick)) { //false 를 받음
+                // 중복된 아이디인 경우
+            	resp.getWriter().write("duplicate"); // <- client측 ajax가 받아줌
+                return;
+            }
 			
-			//ㄷㅁ
-			MemberVo vo = new MemberVo();
-			vo.setId(memberId);
-			vo.setPwd(memberPwd);
-			vo.setEmail(memberEmail);
-			vo.setNick(memberNick);
+            //뭉치기VO
+            MemberVo vo = new MemberVo();
+            vo.setId(memberId);
+            vo.setPwd(memberPwd);
+            vo.setEmail(memberEmail);
+            vo.setNick(memberNick);
+            vo.setAddress(memberAddress);
 			
-			//ㅅㅄ
-			MemberService ms = new MemberService();
-			int result = ms.join(vo);
+            int result = ms.join(vo);
 			
-			//ㅎㅁ
-			if(result ==1) {
-				req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
-			}else {
-				throw new Exception();
-			}
+            //monit
+            if (result == 1) {
+            	req.getRequestDispatcher("/WEB-INF/views/common/home.jsp").forward(req, resp);
+            } else {
+            	throw new Exception();
+            }
+            
+        } catch (Exception e) {
+            System.out.println("[ERROR] join error...");
+            e.printStackTrace();
 			
-		}catch(Exception e) {
-			System.out.println("[ERROR] join error...");
-			e.printStackTrace();
-			
-			req.setAttribute("errorMsg", "회원가입 에러 ㅋㅋ");
-			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
-		}
-		
-		
-	}
-
+            req.setAttribute("errorMsg", "회원가입 에러 ㅋㅋ");
+            req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+        }
+    }
 }

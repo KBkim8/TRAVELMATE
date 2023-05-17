@@ -91,10 +91,8 @@
                 </div>
 				
                 <form action="${root}/login" method="POST">
-                <div id="edit-area">
+                 <div id="edit-area">
                     <img src="${root}/static/img/loginImg.png" alt="이미지" >
-			
-                        
                             <span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
                             <br>
                             <span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
@@ -104,14 +102,10 @@
                             <br>
                             <br>
                             <br>
-                            <a href=""> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기</button></a>
-                            <a href=""> <button type="button" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button></a>
-                        </div>
-                    </form>
-
-					
-				
-			</form>
+                            <a href="${root}/find-id"> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기</button></a>
+                            <a href="${root}/find-pwd"> <button type="button" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button></a>
+                 </div>
+                </form>
 
 		</div>
 

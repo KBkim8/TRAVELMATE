@@ -102,5 +102,80 @@ public class MemberService {
 		return loginMember;
 		
 	}
+	
+	//아이디찾기
+	public MemberVo findId(MemberVo vo) throws Exception {
+		
+		//comm
+		Connection conn = JDBCTemplate.getConnection();
+	
+		MemberVo loginMember = dao.findId(conn ,vo);
+		
+		JDBCTemplate.close(conn);
+		
+		return loginMember;
+	}
 
-}
+	//비밀번호 찾기
+	public MemberVo findPwd(MemberVo vo) throws Exception {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		MemberVo loginMember = dao.findPwd(conn ,vo);
+		
+		JDBCTemplate.close(conn);
+		
+		return loginMember;
+	
+	}
+	
+	//아이디 중복 처리
+	public boolean isDuplicateId(String memberId) throws Exception {
+
+	    Connection conn = JDBCTemplate.getConnection();
+	    
+	    
+	    boolean result = dao.isDuplicateId(conn , memberId); 
+	   
+        JDBCTemplate.close(conn);
+	    
+        return result;
+	  
+		
+	}//method
+
+	//닉네임 중복 처리
+	public boolean isDuplicateNick(String memberNick) throws Exception {
+
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql
+		boolean result = dao.isDuplicateNick(conn ,memberNick);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//class
