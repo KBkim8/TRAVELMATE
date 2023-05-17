@@ -27,7 +27,7 @@
         <div id="logoCategory">
             <a href="${root}/static/img/logo.png">회원가입</a>
             <a>|</a>
-            <a href="">로그인</a>
+            <a href="${root}/login">로그인</a>
             <a>|</a>
             <a href="${root}/mypage/checkPwd">마이페이지</a>
             <a>|</a>
