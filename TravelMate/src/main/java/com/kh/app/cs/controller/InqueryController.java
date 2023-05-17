@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
+import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.cs.service.InqueryService;
 import com.kh.app.cs.vo.InqueryVo;
 import com.kh.app.member.vo.MemberVo;
@@ -31,19 +32,19 @@ public class InqueryController extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try{HttpSession session = req.getSession();
-		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-		System.out.println(loginMember);
+//		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+//		System.out.println(loginMember);
 
 		// 데꺼
 		String title = req.getParameter("title");
 		String content = req.getParameter("content");
-		String memberNo = loginMember.getNo();
+//		String memberNo = loginMember.getNo();
 		
 		// 데뭉
 		InqueryVo ivo = new InqueryVo();
 		ivo.setTitle(title);
 		ivo.setContent(content);
-		ivo.setMemberNo(memberNo);
+//		ivo.setMemberNo(memberNo);
 		
 		// 서비스 로직
 		InqueryService is = new InqueryService();
@@ -51,7 +52,7 @@ public class InqueryController extends HttpServlet{
 		
 		// 화면
 		if(result == 1) {
-			resp.sendRedirect(req.getContextPath() +"/cs/InqueryList");
+			resp.sendRedirect(req.getContextPath() +"/cs/inqueryList");
 		}else {
 			throw new IllegalStateException("게시글 작성 결과 1 아님..");
 		}

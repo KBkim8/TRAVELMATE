@@ -138,7 +138,6 @@
     </div>
         <div id="inquery-input">
             <div id="title-wrap">
-                    <form action="" method="POST">
                     <input type="text" id="title" value="5월 2일에 예약한 거 취소하고 싶어요.">
                 </form>
             </div>
@@ -155,8 +154,7 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>댓글 내용</th>
-                                    <th>작성자</th>
+                                    <th>답변 내용</th>
                                     <th>작성일시</th>
                                 </tr>
                             </thead>
