@@ -8,7 +8,7 @@
 <style>
 
 
-#content{
+#content01{
         position: relative;
         width: 1390px;
         height: 100%;
@@ -73,7 +73,7 @@
         font-size: 20px;
     }
 
-    #content-wrap > textarea {
+    #content {
         width: 1000px;
         height: 600px;
         font-size: 30px;
@@ -128,32 +128,29 @@
 
     <%@ include file="/WEB-INF/views/common/cs-header.jsp" %>
     <!-- 내용영역 --> 
-   <div id="content">
+   <div id="content01">
     <div id="first-content">
         <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
         <hr>
         <a>1:1문의하기</a>
     </div>
-        <div id="inquery-input">
-            <div id="title-wrap">
-                    <form action="" method="POST">
-                    <span id="word">제목</span>
-                    <input type="text" id="title" value="5월 2일에 예약한 거 취소하고 싶어요.">
-                </form>
-                </div>
-                <div id="content-wrap">
-                    <span id="word">내용</span>
-                    <textarea>어떻게 취소할 수 있나요? 제가 직접 해야하나요?</textarea>
-                </div>
-                <div id="btn-area">
-                    <!-- 작성 버튼 누르면 문의 내역 페이지로 보내주기 -->
-                    <form action="" method="POST">
-                        <input type="submit" id="btn01" value="작성하기"></input>
-                    </form>
-            </div>
-        </div>
+        <form action="${root }/cs/inquery" method="POST">
+	        <div id="inquery-input">
+	            <div id="title-wrap">
+	                    <span id="word">제목</span>
+	                    <input type="text" id="title">
+	                </div>
+	                <div id="content-wrap">
+	                    <span id="word">내용</span>
+	                    <textarea id="content"></textarea>
+	                </div>
+	                <div id="btn-area">
+	                    <!-- 작성 버튼 누르면 문의 내역 페이지로 보내주기 -->
+	                    <input type="submit" id="btn01" value="작성하기"></input>
+	            </div>
+	        </div>
+       	</form>
     </div>
-</div>
 
 </body>
 <script>
