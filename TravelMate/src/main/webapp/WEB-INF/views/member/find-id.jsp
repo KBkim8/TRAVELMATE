@@ -89,15 +89,15 @@
                     <a>아이디 찾기</a>
                 </div>
 				
-                <form action="" method="POST">
+                <form action="${root}/find-id" method="POST">
 
                 <div id="edit-area">
                     <img src="${root}/static/img/loginImg.png" alt="이미지" >
 			
                         
-                            <span>이름</span><input type="text" name="memberName" placeholder="이름 을 입력하세요" size="40">
+                            <span>이름</span><input type="text" name="memberNick" placeholder="이름 을 입력하세요" size="40">
                             <br>
-                            <span>생년월일</span><input type="text" name="memberPwd" placeholder="20000930" size="40">
+                            <span>비밀번호</span><input type="text" name="memberPwd" placeholder="20000930" size="40">
                             <br>
                             <span>이메일</span><input type="email" name="memberEmail" placeholder="e-mail" size="40">
                             <br>
@@ -106,14 +106,13 @@
                             <br>
                             <br>
                             <a href="${root}/find-pwd"> <button type="button" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button></a>
+                            <a href="${root}/login"><button type="button" value="비밀번호 찾기" id="btn01">로그인하러가기 </button></a></a>
                            
                             
                             
                         </div>
                     </form>
 
-					
-				
 			</form>
 
 		</div>
@@ -121,3 +120,9 @@
 
 </body>
 </html>
+
+	<c:if test="${not empty loginMember}">
+		<script>
+            alert("당신의 아이디는 "+'${loginMember.id}'+"이에요!");
+        </script>
+	</c:if>
