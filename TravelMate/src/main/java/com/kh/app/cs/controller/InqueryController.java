@@ -31,32 +31,33 @@ public class InqueryController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		try{HttpSession session = req.getSession();
-//		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-//		System.out.println(loginMember);
-
-		// 데꺼
-		String title = req.getParameter("title");
-		String content = req.getParameter("content");
-//		String memberNo = loginMember.getNo();
-		
-		// 데뭉
-		InqueryVo ivo = new InqueryVo();
-		ivo.setTitle(title);
-		ivo.setContent(content);
-//		ivo.setMemberNo(memberNo);
-		
-		// 서비스 로직
-		InqueryService is = new InqueryService();
-		int result = is.write(ivo);
-		
-		// 화면
-		if(result == 1) {
-			resp.sendRedirect(req.getContextPath() +"/cs/inqueryList");
-		}else {
-			throw new IllegalStateException("게시글 작성 결과 1 아님..");
-		}
-		
+		try{
+			HttpSession session = req.getSession();
+			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+			System.out.println(loginMember);
+	
+			// 데꺼
+			String title = req.getParameter("title");
+			String content = req.getParameter("content");
+			String memberNo = loginMember.getNo();
+			
+			// 데뭉
+			InqueryVo ivo = new InqueryVo();
+			ivo.setTitle(title);
+			ivo.setContent(content);
+			ivo.setMemberNo(memberNo);
+			
+			// 서비스 로직
+			InqueryService is = new InqueryService();
+			int result = is.write(ivo);
+			
+			// 화면
+			if(result == 1) {
+				resp.sendRedirect(req.getContextPath() +"/cs/inqueryList");
+			}else {
+				throw new IllegalStateException("게시글 작성 결과 1 아님..");
+			}
+			
 	} catch (Exception e) {
 		e.printStackTrace();
 		req.setAttribute("errorMsg", "게시글 작성 실패,,");
