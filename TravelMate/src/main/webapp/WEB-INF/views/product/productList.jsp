@@ -12,7 +12,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 900px;
+    bottom: 1300px;
     left: 400px;
   
 }

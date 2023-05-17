@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/product")
-public class ProductList extends HttpServlet{
+@WebServlet("/product/list")
+public class ProductListController extends HttpServlet{
 
 	
 	@Override
