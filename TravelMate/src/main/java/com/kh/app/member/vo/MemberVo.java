@@ -14,6 +14,9 @@ public class MemberVo {
 	private String email;
 	private String address;
 	private String status;
+	
+	private String memberCategoryName;
+	private String memberGradeName;
 	public String getNo() {
 		return no;
 	}
@@ -86,15 +89,29 @@ public class MemberVo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getMemberCategoryName() {
+		return memberCategoryName;
+	}
+	public void setMemberCategoryName(String memberCategoryName) {
+		this.memberCategoryName = memberCategoryName;
+	}
+	public String getMemberGradeName() {
+		return memberGradeName;
+	}
+	public void setMemberGradeName(String memberGradeName) {
+		this.memberGradeName = memberGradeName;
+	}
 	@Override
 	public String toString() {
 		return "MemberVo [no=" + no + ", memberCategoryNo=" + memberCategoryNo + ", memberGradeNo=" + memberGradeNo
 				+ ", id=" + id + ", pwd=" + pwd + ", nick=" + nick + ", enrollDate=" + enrollDate + ", withdrawalYn="
 				+ withdrawalYn + ", updateDate=" + updateDate + ", email=" + email + ", address=" + address
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", memberCategoryName=" + memberCategoryName + ", memberGradeName="
+				+ memberGradeName + "]";
 	}
 	public MemberVo(String no, String memberCategoryNo, String memberGradeNo, String id, String pwd, String nick,
-			String enrollDate, String withdrawalYn, String updateDate, String email, String address, String status) {
+			String enrollDate, String withdrawalYn, String updateDate, String email, String address, String status,
+			String memberCategoryName, String memberGradeName) {
 		super();
 		this.no = no;
 		this.memberCategoryNo = memberCategoryNo;
@@ -108,11 +125,14 @@ public class MemberVo {
 		this.email = email;
 		this.address = address;
 		this.status = status;
+		this.memberCategoryName = memberCategoryName;
+		this.memberGradeName = memberGradeName;
 	}
 	public MemberVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 

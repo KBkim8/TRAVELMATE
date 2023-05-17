@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/mypage/favorites")
 public class FavoritesController extends HttpServlet{
 
+	// SELECT * FROM FAVORITES WEHRE 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("/WEB-INF/views/mypage/favorites.jsp").forward(req, resp);

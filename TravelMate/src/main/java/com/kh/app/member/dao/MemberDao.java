@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.member.vo.MemberVo;
 
@@ -146,6 +148,48 @@ public class MemberDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	}
+
+	// 회원상세조회
+	public MemberVo selectMemberOneByNo(Connection conn, String mno) throws Exception {
+
+		//sql
+		// 아이디, 닉네임, 주소, 이메일, 가입일, 회원등급
+		String sql = "SELECT M.NO, M.MEMBER_GRADE_NO, M.ID, M.NICK, M.ADDRESS, M.EMAIL, TO_CHAR(M.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, MG.NAME FROM MEMBER M JOIN MEMBER_GRADE MG ON M.MEMBER_GRADE_NO = MG.NO WHERE M.NO=? AND M.STATUS='O'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mno);
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberVo vo = null;
+		if(rs.next()) {
+			String no = rs.getString("NO");
+			String id = rs.getString("ID");
+			String nick = rs.getString("NICK");
+			String address = rs.getString("ADDRESS");
+			String email = rs.getString("EMAIL");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String memberGradeNo = rs.getString("MEMBER_GRADE_NO");
+			String memberGradeName = rs.getString("NAME");
+			
+			vo = new MemberVo();
+			vo.setNo(no);
+			vo.setId(id);
+			vo.setNick(nick);
+			vo.setAddress(address);
+			vo.setEmail(email);
+			vo.setEnrollDate(enrollDate);
+			vo.setMemberGradeNo(memberGradeNo);
+			vo.setMemberGradeName(memberGradeName);
+			
+			
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		
+		return vo;
+		
 	}
 	
 }

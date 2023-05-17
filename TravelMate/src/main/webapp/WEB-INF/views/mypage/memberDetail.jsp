@@ -164,7 +164,7 @@
                           </tr>
                           <tr>
                             <td><span>회원등급</span></td>
-                            <td>${loginMember.member_grade_no} GOLD <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
+                            <td>${loginMember.memberGradeName} <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
                           </tr>
                     </table>
             </div>

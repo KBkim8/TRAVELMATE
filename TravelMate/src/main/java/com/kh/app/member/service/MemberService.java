@@ -103,4 +103,18 @@ public class MemberService {
 		
 	}
 
+	// 회원 상세조회
+	public MemberVo selectMemberOneByNo(String mno) throws Exception {
+
+		MemberVo vo = null;
+		// conn
+		Connection conn = JDBCTemplate.getConnection(); 
+
+		// select
+		vo = dao.selectMemberOneByNo(conn,mno);
+			
+				
+		return vo;
+	}
+
 }

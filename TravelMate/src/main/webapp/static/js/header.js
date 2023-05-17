@@ -6,6 +6,12 @@ $(function () {
     });
 });
 
+// 관심상품 이동
+cart.addEventListener("click", ()=> {
+    location.href="/app/mypage/favorites";
+
+})
+
 //상단으로
 uppage.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });  
