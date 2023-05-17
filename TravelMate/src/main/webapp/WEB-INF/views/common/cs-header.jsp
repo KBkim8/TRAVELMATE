@@ -23,14 +23,24 @@
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
+        
+
             
         <div id="logoCategory">
+            
+            <c:if test="${empty loginMember }">
             <a href="${root}/static/img/logo.png">회원가입</a>
             <a>|</a>
-            <a href="${root}/login">로그인</a>
+             <a href="${root}/login">로그인</a>
+            <a>|</a>
+            </c:if>
+           <c:if test="${not empty loginMember}">
+        	<a href="${root}/logout">로그아웃</a>
             <a>|</a>
             <a href="${root}/mypage/checkPwd">마이페이지</a>
             <a>|</a>
+        	</c:if>
+        	
             <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">

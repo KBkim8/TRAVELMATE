@@ -8,12 +8,13 @@
 <style>
 
 
-#content{
+	#content{
         position: relative;
         width: 1390px;
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top :300px;
     }
 
     #first-content>img{
@@ -54,7 +55,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
         display: grid;
         grid-template-rows: 1fr 3fr 1fr;
@@ -138,14 +139,13 @@
     </div>
         <div id="inquery-input">
             <div id="title-wrap">
-                    <input type="text" id="title" value="5월 2일에 예약한 거 취소하고 싶어요.">
-                </form>
+                    <div name="title" id="title">${vo.title }</div>
             </div>
             <div id="content-wrap">
-                <textarea>어떻게 취소할 수 있나요? 제가 직접 해야하나요?</textarea>
+                <textarea name="content">${vo.content }</textarea>
             </div>
                 <div id="reply-area">
-                    <input type="hidden" name="noticeNo" value="${vo.no}">
+                    <input type="hidden" name="InqueryNo" value="${vo.no}">
 				    <div id="reply-form-area">
 					<input type="text" name="content" placeholder="댓글을 입력하세요">
 					<input type="button" id="btn01" value="댓글 쓰기" onclick="writeComment();">
