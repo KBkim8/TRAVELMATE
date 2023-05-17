@@ -91,6 +91,7 @@ public class MemberService {
 
 	//로그인
 	public MemberVo login(MemberVo vo) throws Exception {
+		
 		//comm
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -132,14 +133,12 @@ public class MemberService {
 	//아이디 중복 처리
 	public boolean isDuplicateId(String memberId) throws Exception {
 
-	    Connection conn = JDBCTemplate.getConnection();
-	    
-	    
-	    boolean result = dao.isDuplicateId(conn , memberId); 
-	   
-        JDBCTemplate.close(conn);
-	    
-        return result;
+		try(Connection conn = JDBCTemplate.getConnection();){
+			//sql
+			boolean result = dao.isDuplicateId(conn ,memberId);
+			
+			return result;
+		}
 	  
 		
 	}//method
@@ -147,14 +146,13 @@ public class MemberService {
 	//닉네임 중복 처리
 	public boolean isDuplicateNick(String memberNick) throws Exception {
 
-		Connection conn = JDBCTemplate.getConnection();
+		try(Connection conn = JDBCTemplate.getConnection();){
+			//sql
+			boolean result = dao.isDuplicateNick(conn ,memberNick);
+			
+			return result;
+		}
 		
-		//sql
-		boolean result = dao.isDuplicateNick(conn ,memberNick);
-		
-		JDBCTemplate.close(conn);
-		
-		return result;
 	}
 
 	
