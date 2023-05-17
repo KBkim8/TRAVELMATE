@@ -13,11 +13,11 @@ public class InqueryDao {
 	public int write(Connection conn, InqueryVo ivo) throws Exception {
 
 		// sql
-		String sql = "INSERT INTO QNA(NO, MEMBER_NO, TITLE, CONTENT) VALUES(SEQ_QNA_NO.NEXTVAL, ? , ?, ?)";
+		String sql = "INSERT INTO QNA(NO, MEMBER_NO, TITLE, CONTENT) VALUES(SEQ_QNA_NO.NEXTVAL, '2' , ?,  ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, ivo.getMemberNo());
-		pstmt.setString(2, ivo.getTitle());
-		pstmt.setString(3, ivo.getContent());
+//		pstmt.setString(1, ivo.getMemberNo());
+		pstmt.setString(1, ivo.getTitle());
+		pstmt.setString(2, ivo.getContent());
 		int result =  pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);

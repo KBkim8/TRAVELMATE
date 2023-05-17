@@ -24,7 +24,7 @@
         height: 60px;
     }
 
-    #content>#first-content>hr:nth-child(2){
+    #content01>#first-content>hr:nth-child(2){
         height: 1px;
         width: 1300px;
         background-color: rgb(116, 116, 116);
@@ -34,7 +34,7 @@
         top: 180px;
     }
 
-    #content>#first-content>a:nth-child(3){
+    #content01>#first-content>a:nth-child(3){
         position: absolute;
         left: 160px;
         top: 135px;
@@ -66,14 +66,14 @@
         font-size: 30px;
     }
 
-    #title {
+    input[name=title] {
         width: 1000px;
         height: 50px;
         border-radius: 20px;
         font-size: 20px;
     }
 
-    #content {
+    textarea {
         width: 1000px;
         height: 600px;
         font-size: 30px;
@@ -134,15 +134,15 @@
         <hr>
         <a>1:1문의하기</a>
     </div>
-        <form action="${root }/cs/inquery" method="POST">
+        <form action="${root}/cs/inquery" method="POST">
 	        <div id="inquery-input">
 	            <div id="title-wrap">
 	                    <span id="word">제목</span>
-	                    <input type="text" id="title">
+	                    <input type="text" name="title" >
 	                </div>
 	                <div id="content-wrap">
 	                    <span id="word">내용</span>
-	                    <textarea id="content"></textarea>
+	                    <textarea name="content"></textarea>
 	                </div>
 	                <div id="btn-area">
 	                    <!-- 작성 버튼 누르면 문의 내역 페이지로 보내주기 -->
