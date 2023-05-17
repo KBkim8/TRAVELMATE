@@ -54,7 +54,7 @@
     }
     
 
-    #btn01 {
+    #btn01 ,#btn02 , #btn00 {
         background-color: #73D38E;
         border: 0;
         padding: 0px 25px; 
@@ -93,7 +93,9 @@
         position: relative;
       }
 
-	input[id="check1"]:checked + label::after{
+     
+
+	 input[id="check1"]:checked + label::after{
         content:'✔';
         font-size: 25px;
         width: 30px;
@@ -113,7 +115,7 @@
         position: absolute;
         left: 0;
         top:0;
-    }
+    } 
 
 	  input[id="check3"]:checked + label::after{
         content:'✔';
@@ -182,16 +184,18 @@
 				
 			<form action="" method="POST" id="join-form">
 
-                <div id="edit-area">
-                    <input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input  id="btn01" type="button" value="아이디 중복확인">
+                <div id="edit-area"> 
+                    아이디<input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input  id="btn01" type="button" value="아이디 중복확인">
 					<br>
-					비밀번호<input type="text" name="memberPwd" placeholder="비밀번호를 입력하세요" maxlength="100" size="35" >
+					비밀번호<input type="password" name="memberPwd" placeholder="비밀번호를 입력하세요" maxlength="100" size="35" > <span id="passwordMessage"></span>
 					<br>
-					비밀번호 확인<input type="text" name="pwdChk" placeholder="비밀번호 확인" maxlength="100" size="35" > 
+					비밀번호 확인<input type="password" name="pwdChk" placeholder="비밀번호 확인" maxlength="100" size="35" > <input id="btn02" type="button" value="비밀번호 일치확인"> 
 					<br>
-					E-MAIL<input type="text" name="memberEmail" placeholder="이메일을 입력하세요" maxlength="100" size="35" >  <input id="btn01" type="button" value="이메일 중복확인">
+					E-MAIL<input type="text" name="memberEmail" placeholder="이메일을 입력하세요" maxlength="100" size="35" >  <input id="btn00" type="button" value="이메일 중복확인"> <span id="message"></span>
 					<br>
-					닉네임<input type="text" name="memberNick" placeholder="닉네임을 입력하세요" maxlength="100" size="35" >  <input id="btn01" type="button" value="닉네임 중복확인">
+					닉네임<input type="text" name="memberNick" placeholder="닉네임을 입력하세요" maxlength="100" size="35" >  <input id="btn03" type="button" value="닉네임 중복확인">
+					<br>
+                    주소<input type="text" name="memberAddress" placeholder="주소를입력하세요" maxlength="100" size="35" >  
 					<br>
 	
 					<div id="agree">
@@ -231,8 +235,6 @@
 					<input id="btn01" type="submit" value="동의하고 가입하기">
                 </div>
 
-					
-				
 			</form>
 
 		</div>
@@ -243,43 +245,120 @@
 
 <script>
     
-    $(document).ready(function() {
-        $('#btn01').click(function() {
-            var memberId = $('input[name="memberId"]').val();
-            
-            // Ajax 요청
-            $.ajax({
-                url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
-                method: 'POST',
-                data: { memberId: memberId },
-                success: function(response) {
-                    // 서버로부터의 응답 처리
-                    if (response === 'available') {
-                        // 사용 가능한 아이디인 경우 처리 로직
-                        alert('사용 가능한 아이디입니다.');
-                    } else {
-                        // 중복된 아이디인 경우 처리 로직
-                        alert('이미 사용 중인 아이디입니다.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    // 오류 발생 시 처리 로직
-                    console.error(error);
-                }
-            });
-        });
 
-        // 이메일 중복 확인 버튼에 대한 Ajax 요청과 처리 로직, 닉네임 중복 확인 버튼에 대한 Ajax 요청과 처리 로직은 유사합니다.
-        // 필요한 경우 위의 코드를 참고하여 추가해주시면 됩니다.
+    //아이디 중복 확인
+    $(document).ready(function() {
+  $('#btn01').click(function() {
+    var memberId = $('input[name="memberId"]').val();
+
+    $.ajax({
+      url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
+      method: 'POST',
+      data: { 'memberId' : memberId },
+      success: function(response) {
+        // 서버로부터의 응답 처리
+        if (response === 'duplicate') {
+          // 중복된 아이디인 경우 처리 로직
+          alert('이미 사용 중인 아이디입니다.');
+        } else {
+          // 사용 가능한 아이디인 경우 처리 로직
+          alert('사용 가능한 아이디입니다.');
+        }
+      },
+      error: function(xhr, status, error) {
+        // 오류 발생 시 처리 로직
+        console.error(error);
+      }
+    });
+  });
+});
+
+    //닉네임 중복 확인
+    $(document).ready(function() {
+    $('#btn03').click(function() {
+        var memberNick = $('input[name="memberNick"]').val();
+
+        $.ajax({
+        url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
+        method: 'POST',
+        data: { 'memberNick' : memberNick },
+        success: function(response) {
+            // 서버로부터의 응답 처리
+            if (response === 'duplicate') {
+            // 중복된 아이디인 경우 처리 로직
+            alert('이미 사용 중인 닉네임 입니다.');
+            } else {
+            // 사용 가능한 아이디인 경우 처리 로직
+            alert('사용 가능한 닉네임 입니다.');
+            }
+        },
+        error: function(xhr, status, error) {
+            // 오류 발생 시 처리 로직
+            console.error(error);
+        }
+        });
+    });
     });
 
 
 
+    const memberPwd = document.querySelector('#memberPwd');
+    const pwdChk = document.querySelector('#pwdChk');
 
 
+    function enterkey() {
+	if (window.event.keyCode == 13) {
+       
+    	alert('enrer');
+    }
+}
 
 
+    //이메일체크
+    const emailInput = document.querySelector('input[name="memberEmail"]');
+    const checkButton = document.getElementById('btn00');
+    const messageElement = document.getElementById('message');
 
+    // 이메일 체크 
+    function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+    }
+
+    // 버튼 클릭 이벤트 처리
+    checkButton.addEventListener('click', function() {
+    const email = emailInput.value;
+
+    if (validateEmail(email)) {
+        messageElement.textContent = '유효한 이메일 주소입니다.';
+        messageElement.style.color = 'green';
+    } else {
+        messageElement.textContent = '유효하지 않은 이메일 주소입니다.';
+        messageElement.style.color = 'red';
+    }
+    });
+
+    //비밀번호 일치확인
+    const passwordInput = document.querySelector('input[name="memberPwd"]');
+    const passwordConfirmInput = document.querySelector('input[name="pwdChk"]');
+    const pwdCheckButton = document.getElementById('btn02');
+    const pwdMessageElement = document.getElementById('passwordMessage');
+
+    // 비밀번호 일치 확인 함수
+    function checkPasswordMatch() {
+    const password = passwordInput.value;
+    const confirmPassword = passwordConfirmInput.value;
+
+    if (password === confirmPassword) {
+        pwdMessageElement.textContent = '비밀번호가 일치합니다.';
+        pwdMessageElement.style.color = 'green';
+    } else {
+        pwdMessageElement.textContent = '비밀번호가 일치하지 않습니다.';
+        pwdMessageElement.style.color = 'red';
+    }
+    }
+
+    pwdCheckButton.addEventListener('click', checkPasswordMatch);
 
 
 

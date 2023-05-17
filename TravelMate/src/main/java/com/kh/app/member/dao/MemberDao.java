@@ -137,12 +137,13 @@ public class MemberDao {
 	public int join(Connection conn, MemberVo vo) throws Exception {
 		
 		//sql 
-		String sql = "INSERT INTO MEMBER ( NO , MEMBER_CATEGORY_NO , MEMBER_GRADE_NO , ID , PWD , NICK , EMAIL ) VALUES ( SEQ_MEMBER_NO.NEXTVAL , '1' , '1' , ? , ? , ? , ? )";
+		String sql = "INSERT INTO MEMBER (NO, MEMBER_CATEGORY_NO, MEMBER_GRADE_NO, ID, PWD,NICK, EMAIL, ADDRESS) VALUES ( SEQ_MEMBER_NO.NEXTVAL , 2, 1, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getId());
 		pstmt.setString(2, vo.getPwd());
 		pstmt.setString(3, vo.getNick());
 		pstmt.setString(4, vo.getEmail());
+		pstmt.setString(5, vo.getAddress());
 		int result = pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);
@@ -150,46 +151,12 @@ public class MemberDao {
 		return result;
 	}
 
-	// 회원상세조회
-	public MemberVo selectMemberOneByNo(Connection conn, String mno) throws Exception {
 
-		//sql
-		// 아이디, 닉네임, 주소, 이메일, 가입일, 회원등급
-		String sql = "SELECT M.NO, M.MEMBER_GRADE_NO, M.ID, M.NICK, M.ADDRESS, M.EMAIL, TO_CHAR(M.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, MG.NAME FROM MEMBER M JOIN MEMBER_GRADE MG ON M.MEMBER_GRADE_NO = MG.NO WHERE M.NO=? AND M.STATUS='O'";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, mno);
-		ResultSet rs = pstmt.executeQuery();
-		
-		MemberVo vo = null;
-		if(rs.next()) {
-			String no = rs.getString("NO");
-			String id = rs.getString("ID");
-			String nick = rs.getString("NICK");
-			String address = rs.getString("ADDRESS");
-			String email = rs.getString("EMAIL");
-			String enrollDate = rs.getString("ENROLL_DATE");
-			String memberGradeNo = rs.getString("MEMBER_GRADE_NO");
-			String memberGradeName = rs.getString("NAME");
-			
-			vo = new MemberVo();
-			vo.setNo(no);
-			vo.setId(id);
-			vo.setNick(nick);
-			vo.setAddress(address);
-			vo.setEmail(email);
-			vo.setEnrollDate(enrollDate);
-			vo.setMemberGradeNo(memberGradeNo);
-			vo.setMemberGradeName(memberGradeName);
-			
-			
-		}
 		
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		
-		
-		return vo;
-		
+
 	}
 	
 }

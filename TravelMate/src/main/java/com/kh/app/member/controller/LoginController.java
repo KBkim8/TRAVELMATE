@@ -42,7 +42,6 @@ public class LoginController extends HttpServlet{
 			if(loginMember != null) {
 				req.getSession().setAttribute("loginMember", loginMember);
 				resp.sendRedirect("/app/home");
-				
 
 			}else{
 				throw new Exception();

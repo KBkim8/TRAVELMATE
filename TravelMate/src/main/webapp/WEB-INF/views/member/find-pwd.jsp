@@ -123,7 +123,7 @@
                     <a>비밀번호 찾기</a>
                 </div>
 				
-                <form action="" method="POST">
+                <form action="${root}/find-pwd" method="POST">
 
                 <div id="edit-area">
                     <img src="${root}/static/img/loginImg.png" alt="이미지" >
@@ -138,13 +138,12 @@
                             <br>
                             <br>
                             <a href="${root}/find-pwd"> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기 </button></a>
+                            <a href="${root}/login"><button type="button" value="비밀번호 찾기" id="btn01">로그인하러가기 </button></a></a>
                            
                             
                             
                         </div>
-                    </form>
-
-					
+                    </form>	
 				
 			</form>
 
@@ -153,3 +152,9 @@
 
 </body>
 </html>
+
+<c:if test="${not empty loginMember}">
+		<script>
+            alert("당신의 비밀번호는 "+'${loginMember.pwd}'+"입니다");
+        </script>
+	</c:if>
