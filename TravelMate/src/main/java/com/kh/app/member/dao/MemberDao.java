@@ -150,13 +150,85 @@ public class MemberDao {
 		
 		return result;
 	}
-
-
+	
+	//아이디 찾기
+	public MemberVo findId(Connection conn, MemberVo vo) throws Exception {
+		
+		//sql
+		String sql = "SELECT ID FROM MEMBER WHERE NICK =? AND PWD = ? AND EMAIL = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNick());
+		pstmt.setString(2, vo.getPwd());
+		pstmt.setString(3, vo.getEmail());
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberVo loginMember = null;
+		if(rs.next()) {
+			String dbId = rs.getString("ID");
+			
+			loginMember = new MemberVo();
+			loginMember.setId(dbId);
+		}
 		
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		
+		return loginMember;
+		}
 
+	//비밀번호 찾기
+	public MemberVo findPwd(Connection conn, MemberVo vo) throws Exception {
+
+		//sql
+		String sql = "SELECT PWD FROM MEMBER WHERE ID =? AND EMAIL = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getId());
+		pstmt.setString(2, vo.getEmail());
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberVo loginMember = null;
+		if(rs.next()) {
+			String dbId = rs.getString("PWD");
+			
+			loginMember = new MemberVo();
+			loginMember.setPwd(dbId);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return loginMember;
+		}
+
+	//아이디 중복확인
+	public boolean isDuplicateId(Connection conn, String memberId) throws Exception {
+		
+		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberId);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			int count = rs.getInt(1);
+			return count > 0;
+		}
+		return false;
+	}
+
+	//닉네임 중복확인
+	public boolean isDuplicateNick(Connection conn, String memberNick) throws Exception {
+		
+		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberNick);
+		ResultSet rs = pstmt.executeQuery();
+		
+		if(rs.next()) {
+			int count = rs.getInt(1);
+			return count > 0;
+		}
+		return false;
 	}
 	
 }
+	
