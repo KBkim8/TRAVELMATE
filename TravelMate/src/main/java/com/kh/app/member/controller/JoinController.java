@@ -41,8 +41,8 @@ public class JoinController extends HttpServlet {
             String memberAddress = req.getParameter("memberAddress");
 			
             //           아이디 중복 체크               닉네임 중복체크
-            if (ms.isDuplicateId(memberId) || ms.isDuplicateNick(memberNick)) { //false 를 받음
-                // 중복된 아이디인 경우
+            if (ms.isDuplicateId(memberId) || ms.isDuplicateNick(memberNick)) { //false 를 받음    
+            	//중복된아이디인경우
             	resp.getWriter().write("duplicate"); // <- client측 ajax가 받아줌
                 return;
             }
@@ -59,6 +59,7 @@ public class JoinController extends HttpServlet {
 			
             //monit
             if (result == 1) {
+            	req.setAttribute("alertMsg", "성공 회원가입");
             	req.getRequestDispatcher("/WEB-INF/views/common/home.jsp").forward(req, resp);
             } else {
             	throw new Exception();

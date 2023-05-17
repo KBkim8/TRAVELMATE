@@ -153,22 +153,24 @@
             <hr>
             <a>게시글 작성</a>
         </div>
-        <div id="write-area">
-            <input type="text" name="title" placeholder="제목을 입력하세요">
-            <select name="categoryNo" style="width:150px;height:60px; font-size: 2em;">
-                    <option value=>축구</option>	
-                    <option value=>게임</option>	
-                    <option value=>축구</option>	
-                    <option value=>축구</option>	
-            </select>
-            <textarea name="content" placeholder="내용을 입력하세요"></textarea>
-        </div>
-
-        <div id="submit">
-            <input type="submit" value="작성하기" id="btn01">
-            <input type="file" name="f" id="">
-        </div>
-
+        <div id="write-area" >
+            <form action="${root}/write" method="POST" enctype="multipart/form-data">
+                <input type="text" name="title" placeholder="제목을 입력하세요">
+                <select name="categoryNo" style="width:150px;height:60px; font-size: 2em;">
+                        <option value=1>공지</option>
+                        <option value=2>판매등록요청</option>	
+                        <option value=3>랜선여행</option>	
+                        <option value=5>리뷰</option>	
+                        <option value=6>자유</option>	
+                </select>
+                <textarea name="content" placeholder="내용을 입력하세요"></textarea>
+            </div>
+    
+            <div id="submit">
+                <input type="submit" value="작성하기" id="btn01">
+                <input type="file" name="f" id="">
+            </div>
+            </form>
     </div>
 
 
