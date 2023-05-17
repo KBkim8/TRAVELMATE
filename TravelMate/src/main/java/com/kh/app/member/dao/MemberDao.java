@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.spi.DirStateFactory.Result;
+
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.member.vo.MemberVo;
 
@@ -149,91 +151,12 @@ public class MemberDao {
 		return result;
 	}
 
-	//아이디 찾기
-	public MemberVo findId(Connection conn, MemberVo vo) throws Exception {
-		
-		//sql
-		String sql = "SELECT ID FROM MEMBER WHERE NICK =? AND PWD = ? AND EMAIL = ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getNick());
-		pstmt.setString(2, vo.getPwd());
-		pstmt.setString(3, vo.getEmail());
-		ResultSet rs = pstmt.executeQuery();
-		
-		MemberVo loginMember = null;
-		if(rs.next()) {
-			String dbId = rs.getString("ID");
-			
-			loginMember = new MemberVo();
-			loginMember.setId(dbId);
-		}
+
 		
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		
-		return loginMember;
-	}
 
-	//비밀번호 찾기
-	public MemberVo findPwd(Connection conn, MemberVo vo) throws Exception {
-
-		//sql
-		String sql = "SELECT PWD FROM MEMBER WHERE ID =? AND EMAIL = ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getId());
-		pstmt.setString(2, vo.getEmail());
-		ResultSet rs = pstmt.executeQuery();
-		
-		MemberVo loginMember = null;
-		if(rs.next()) {
-			String dbId = rs.getString("PWD");
-			
-			loginMember = new MemberVo();
-			loginMember.setPwd(dbId);
-		}
-		
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(rs);
-		
-		return loginMember;
-	}
-
-	public boolean isDuplicateId(Connection conn, String memberId) throws Exception {
-
-		 String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ?";
-	     PreparedStatement pstmt = conn.prepareStatement(sql);
-         pstmt.setString(1, memberId); 
-	     ResultSet rs = pstmt.executeQuery();
-		    
-	     if (rs.next()) {
-            int count = rs.getInt(1);
-            return count > 0;
-         }
-        
-	        
-         JDBCTemplate.close(rs);
-         JDBCTemplate.close(pstmt);
-         
-         return false;
-	}
-
-	public boolean isDuplicateNick(Connection conn, String memberNick) throws Exception {
-
-		String sql = " SELECT COUNT(*) FROM MEMBER WHERE NICK = ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, memberNick);
-		ResultSet rs = pstmt.executeQuery();
-		
-		//rs tx
-		if(rs.next()) {
-			int cnt = rs.getInt(1);
-			return cnt > 0;
-		}
-		
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(rs);
-		
-		return false;
 	}
 	
 }

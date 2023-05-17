@@ -35,7 +35,7 @@ public class MypagePwdController extends HttpServlet{
 			
 			// 서비스 
 			MemberService ms = new MemberService();
-//			MemberVo loginMember = ms.checkPwd(vo);
+			MemberVo loginMember = ms.checkPwd(vo);
 			
 //			 화면
 			if(loginMember != null) {

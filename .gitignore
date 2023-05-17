@@ -31,3 +31,10 @@ TravelMate/.settings/
 TravelMate/src/main/webapp/META-INF/MANIFEST.MF
 TravelMate/src/main/webapp/WEB-INF/.gitignore
 /bin/
+*.lock
+*.ini
+TravelMate/.metadata/.plugins/
+TravelMate/src/.settings/.jsdtscope
+TravelMate/src/.settings/org.eclipse.wst.jsdt.ui.superType.container
+TravelMate/src/.settings/org.eclipse.wst.jsdt.ui.superType.name
+TravelMate/src/.gitignore

@@ -157,25 +157,3 @@ public class MemberService {
 		return result;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}//class
