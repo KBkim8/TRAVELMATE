@@ -2,58 +2,35 @@ package com.kh.app.board.vo;
 
 public class CategoryVo {
 
-	private String notice;
-	private String salesRequest;
-	private String onlineTravel;
-	private String review;
-	private String free;
+	private String no;
+	private String name;
 	public CategoryVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public CategoryVo(String notice, String salesRequest, String onlineTravel, String review, String free) {
+	public CategoryVo(String no, String name) {
 		super();
-		this.notice = notice;
-		this.salesRequest = salesRequest;
-		this.onlineTravel = onlineTravel;
-		this.review = review;
-		this.free = free;
+		this.no = no;
+		this.name = name;
 	}
 	@Override
 	public String toString() {
-		return "CategoryVo [notice=" + notice + ", salesRequest=" + salesRequest + ", onlineTravel=" + onlineTravel
-				+ ", review=" + review + ", free=" + free + "]";
+		return "CategoryVo [no=" + no + ", name=" + name + "]";
 	}
-	public String getNotice() {
-		return notice;
+	public String getNo() {
+		return no;
 	}
-	public void setNotice(String notice) {
-		this.notice = notice;
+	public void setNo(String no) {
+		this.no = no;
 	}
-	public String getSalesRequest() {
-		return salesRequest;
+	public String getName() {
+		return name;
 	}
-	public void setSalesRequest(String salesRequest) {
-		this.salesRequest = salesRequest;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getOnlineTravel() {
-		return onlineTravel;
-	}
-	public void setOnlineTravel(String onlineTravel) {
-		this.onlineTravel = onlineTravel;
-	}
-	public String getReview() {
-		return review;
-	}
-	public void setReview(String review) {
-		this.review = review;
-	}
-	public String getFree() {
-		return free;
-	}
-	public void setFree(String free) {
-		this.free = free;
-	}
+	
+	
 	
 
 }

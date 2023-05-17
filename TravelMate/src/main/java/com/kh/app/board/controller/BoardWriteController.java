@@ -18,6 +18,8 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
 import com.kh.app.member.vo.MemberVo;
+import com.kh.app.util.AttachmentVo;
+import com.kh.app.util.FileUploader;
 
 @MultipartConfig(
 		maxFileSize = 1024 * 1024 * 100 ,
@@ -42,7 +44,7 @@ public class BoardWriteController extends HttpServlet{
 		BoardService bs = new BoardService();
 		List<CategoryVo> cvoList = new ArrayList<>();
 		try {
-			cvoList = bs.getCategoryList();
+			cvoList = bs.getCategoryList();  
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -54,6 +56,7 @@ public class BoardWriteController extends HttpServlet{
 	}
 	
 	@Override
+	//
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
@@ -76,14 +79,14 @@ public class BoardWriteController extends HttpServlet{
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 			String categoryNo = req.getParameter("categoryNo");
-			String writerNo = loginMember.getNo();
+			String memberNo = loginMember.getNo();
 			
 			// 데뭉
 			BoardVo bvo = new BoardVo();
 			bvo.setTitle(title);
 			bvo.setContent(content);
-			bvo.setCategoryNo(categoryNo);
-			bvo.setWriterNo(writerNo);
+			bvo.setBoardCategoryNo(categoryNo);
+			bvo.setMemberNo(memberNo);
 			
 			// 서비스
 			BoardService bs = new BoardService();
@@ -92,7 +95,8 @@ public class BoardWriteController extends HttpServlet{
 			// 화면
 			if(result == 1) {
 				//성공
-				resp.sendRedirect(req.getContextPath() + "/board/list");
+				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
+				resp.sendRedirect(req.getContextPath() + "/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
