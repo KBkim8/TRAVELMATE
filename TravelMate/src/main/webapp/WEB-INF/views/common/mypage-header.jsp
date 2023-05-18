@@ -1,3 +1,5 @@
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,7 +27,7 @@
         </div>
             
         <div id="logoCategory">
-        	<c:if test="${not empty loginMember}">
+        	<c:if test="${empty loginMember}">
             <a href="${root}/static/img/logo.png">회원가입</a>
             <a>|</a>
              <a href="${root}/login">로그인</a>
@@ -37,7 +39,7 @@
             <a>|</a>
         	</c:if>
         	
-            <a href="${root}/mypage/checkPwd">미이페이지</a>
+            <a href="${root}/mypage/checkPwd">마이페이지</a>
             <a>|</a>
             <a href="${root}/cs/faq">고객센터</a>
         </div>
@@ -76,7 +78,7 @@
                                      <ul class="small_menu">
                                          <li><a href="${root}/mypage/member/detail">회원정보조회</a></li>
                                          <li><a href="${root}/mypage/member/edit">회원정보수정</a></li>
-                                         <li><a href="${root}/mypage/quit">회원탈퇴</a></li>
+                                         <li><a href="${root}/mypage/member/quit">회원탈퇴</a></li>
                                      </ul>
                                  </ul>
                                  <ul class="big_menu">

@@ -14,6 +14,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -47,7 +48,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
         display: grid;
         grid-template-rows: 3fr 1fr;
@@ -160,7 +161,7 @@
                         </tr>
                         <tr>
                             <td><span>가입일</span></td>
-                            <td>${loginMember.enrollDate} 2023.04.01</td>
+                            <td>${loginMember.enrollDate}</td>
                           </tr>
                           <tr>
                             <td><span>회원등급</span></td>
@@ -169,7 +170,7 @@
                     </table>
             </div>
               <div id="btn-area">
-                   <a href="${root}/mypage/edit" id="btn01">정보 수정하기</a>
+                   <a href="${root}/mypage/member/edit" id="btn01">정보 수정하기</a>
                </div>
         </div>
     </div>

@@ -20,15 +20,13 @@ public class MemberDetailController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			// 데꺼
-			String mno = req.getParameter("mno");
+			MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
+			String mno = loginMember.getNo();
 			
 			// 데뭉
 			
 			// 서비스
-			// 도연님 작업 끝나면 작업하기 
-			MemberVo loginMember = ms.selectMemberOneByNo(mno);
-			System.out.println(mno);
-			System.out.println(loginMember);
+			loginMember = ms.selectMemberOneByNo(mno);
 			
 			// 화면
 			if(loginMember != null) {

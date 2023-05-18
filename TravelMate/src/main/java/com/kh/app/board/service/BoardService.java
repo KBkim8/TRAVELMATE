@@ -9,6 +9,8 @@ import com.kh.app.board.dao.BoardDao;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
 import com.kh.app.common.db.JDBCTemplate;
+import com.kh.app.common.page.PageVo;
+import com.kh.app.cs.vo.InqueryVo;
 import com.kh.app.member.dao.MemberDao;
 import com.kh.app.util.BoardImgVo;
 
@@ -50,6 +52,33 @@ private final BoardDao dao;
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	public int selectCnt(String memberNo) throws Exception {
+
+		// connn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.selectCnt(conn, memberNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+
+	}
+
+	// 회원별 게시글 목록 조히
+	public List<InqueryVo> selectInqueryList(PageVo pv, String memberNo) {
+
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<InqueryVo> list = dao.selectInqueryList(conn, pv, memberNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return list;
+		
 	}
 	
 }

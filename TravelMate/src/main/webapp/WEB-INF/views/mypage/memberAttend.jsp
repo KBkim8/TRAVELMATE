@@ -17,6 +17,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -50,7 +51,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
     }
     
@@ -86,7 +87,7 @@
     }   
 
     #calendar{
-        width: 1300px;
+        width: 1000px;
         height: 100%;
         display: flex;
     }
@@ -129,23 +130,67 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          // Tool Bar 목록 document : https://fullcalendar.io/docs/toolbar
-          headerToolbar: {
-                    left: 'prev,next' ,
-                    center: 'title',
-                    right: 'dayGridMonth myCustomButton'
-                },
-        customButtons: {
-            myCustomButton: {
-            text: '출석하기',
-            click: function() {
-            alert('출석되었습니다.');
+            // FullCalendar 설정...
+            headerToolbar: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'myCustomButton'
+            },
+            customButtons: {
+                myCustomButton: {
+                    text: '출석하기',
+                    click: function() {
+                        var today = new Date();
+                        var formattedDate = formatDate(today);
+
+                        // AJAX를 사용하여 출석 정보를 서블릿에 전달
+                        $.ajax({
+                            url: '${root}/mypage/attend',
+                            type: 'POST',
+                            data: { date: formattedDate },
+                            success: function(data) {
+                                // 출석 정보 저장 성공 시 처리할 로직 작성
+                                console.log('출석 정보 저장 성공');
+
+                                // 출석한 날짜에 표시할 스타일 추가
+                                var today = new Date(); // FullCalendar에서 오늘 날짜 가져오기
+                                today.setHours(0, 0, 0, 0); // 시간을 00:00:00으로 설정
+                                var dateStr = formatDate(today);
+                                var event = {
+                                    title: '출석완료',
+                                    start: dateStr
+                                };
+                                calendar.addEvent(event);
+
+                                // 출석하기 버튼 비활성화
+                                calendar.setOption('customButtons', {
+                                    myCustomButton: {
+                                        disabled: true
+                                    }
+                                });
+                            },
+                            error: function() {
+                                // 출석 정보 저장 실패 시 처리할 로직 작성
+                                console.log('출석 정보 저장 실패');
+                            }
+                        });
+                    }
                 }
-            }
-        },
-        locale: 'ko'
-    });
+            },
+            // FullCalendar 설정 계속...
+        });
+
+        function formatDate(date) {
+            var year = date.getFullYear();
+            var month = String(date.getMonth() + 1).padStart(2, '0');
+            var day = String(date.getDate()).padStart(2, '0');
+            return year + '-' + month + '-' + day;
+        }
+
         calendar.render();
-});
+    });
 </script>
+
 </html>
+
+
