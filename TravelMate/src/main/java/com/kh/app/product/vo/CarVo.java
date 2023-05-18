@@ -11,8 +11,10 @@ public class CarVo {
 	private String max;
 	private String licensePlate;
 	private String licenseDate;
-	private String weekdayPrice;
-	private String weekendPrice;
+	private String price;
+	private String lcname;
+	private String title;
+	private String carKindKind;
 	public String getNo() {
 		return no;
 	}
@@ -67,27 +69,40 @@ public class CarVo {
 	public void setLicenseDate(String licenseDate) {
 		this.licenseDate = licenseDate;
 	}
-	public String getWeekdayPrice() {
-		return weekdayPrice;
+	public String getPrice() {
+		return price;
 	}
-	public void setWeekdayPrice(String weekdayPrice) {
-		this.weekdayPrice = weekdayPrice;
+	public void setPrice(String price) {
+		this.price = price;
 	}
-	public String getWeekendPrice() {
-		return weekendPrice;
+	public String getLcname() {
+		return lcname;
 	}
-	public void setWeekendPrice(String weekendPrice) {
-		this.weekendPrice = weekendPrice;
+	public void setLcname(String lcname) {
+		this.lcname = lcname;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getCarKindKind() {
+		return carKindKind;
+	}
+	public void setCarKindKind(String carKindKind) {
+		this.carKindKind = carKindKind;
 	}
 	@Override
 	public String toString() {
 		return "CarVo [no=" + no + ", carKindNo=" + carKindNo + ", localNo=" + localNo + ", count=" + count
 				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", max=" + max + ", licensePlate="
-				+ licensePlate + ", licenseDate=" + licenseDate + ", weekdayPrice=" + weekdayPrice + ", weekendPrice="
-				+ weekendPrice + "]";
+				+ licensePlate + ", licenseDate=" + licenseDate + ", price=" + price + ", lcname=" + lcname + ", title="
+				+ title + ", carKindKind=" + carKindKind + "]";
 	}
 	public CarVo(String no, String carKindNo, String localNo, String count, String enrollDate, String deleteYn,
-			String max, String licensePlate, String licenseDate, String weekdayPrice, String weekendPrice) {
+			String max, String licensePlate, String licenseDate, String price, String lcname, String title,
+			String carKindKind) {
 		super();
 		this.no = no;
 		this.carKindNo = carKindNo;
@@ -98,21 +113,15 @@ public class CarVo {
 		this.max = max;
 		this.licensePlate = licensePlate;
 		this.licenseDate = licenseDate;
-		this.weekdayPrice = weekdayPrice;
-		this.weekendPrice = weekendPrice;
+		this.price = price;
+		this.lcname = lcname;
+		this.title = title;
+		this.carKindKind = carKindKind;
 	}
 	public CarVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
