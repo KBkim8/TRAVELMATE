@@ -98,10 +98,13 @@ table{
 
       <div id="first2">
         <div>
-          <h2>이미지</h2>
+          <h2>${vo.title}</h2>
         </div>
         <div>
-          <h2>예약 정보</h2>
+          <h2>상품 이름: ${vo.name}</h2>
+          <h2>상품 상세: ${vo.content}</h2>
+          <h2>상품 가격: ${vo.price}원</h2>
+          <h2>상품 지역: ${vo.local}</h2>
         </div>
       </div>
 
@@ -135,7 +138,7 @@ table{
           <h3>주문 정보<hr></h3>
         </div>
       </div>
-
+  
       <div id="third2">
         <div>
             구성 
@@ -146,7 +149,8 @@ table{
     
       </div>
 
-      <b>총 결제 금액</b><br><br><br>
+      <b>총 결제 금액: ${vo.price}원</b>
+      <br><br><br>
 
       <hr>
       <div>
