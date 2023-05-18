@@ -13,6 +13,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -46,7 +47,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
         display: grid;
         grid-template-rows: 3fr 1fr;
@@ -118,7 +119,7 @@
             <hr>
             <a>마이페이지</a>
         </div>
-        <form action="/app/mypage/checkPwd" method="POST">
+        <form action="${root}/mypage/checkPwd" method="POST">
         <div id="edit-area">
             <div id="edit-input-box">
                     <span>비밀번호</span><br><br>
@@ -134,4 +135,13 @@
 
 
 </body>
+<script>
+    function checkPwd(){
+        const memberPwd = document.querySelector('input[name=memberPwd]');
+        if(memberPwd == '${loginMember.pwd}'){
+            location.href = '${root}/mypage/member/detail';
+        }
+
+    }
+</script>
 </html>

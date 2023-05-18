@@ -14,6 +14,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -47,7 +48,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
         display: grid;
         grid-template-rows: 3fr 1fr;

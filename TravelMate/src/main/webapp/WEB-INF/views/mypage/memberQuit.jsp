@@ -15,6 +15,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -48,7 +49,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
         display: grid;
         grid-template-rows: 3fr 1fr;
@@ -129,7 +130,6 @@
         </div>
         <div id="del-info">
             <div id="del-info-area-box">
-                <form action="" method="POST">
                     <div id="del-wrap">
                     <div id="del-input-info" class="bi bi-exclamation-square">  회원 탈퇴 신청 전 아래 안내사항을 꼭 확인해주세요.</div>
                     <div id="del-info-wrap">
@@ -139,13 +139,23 @@
                     </div>
             </div>
             <div id="btn-area">
-                <input type="submit" id="btn01" value="확인"></input>
+                <input type="submit" id="btn01" value="확인" onclick="quit();"></input>
                 <input type="button" id="btn01" value="취소"></input>
             </div>
-            </form>
         </div>
     </div>
         
 
 </body>
+<script>
+    function quit(){
+        const result = confirm("삭제하시겠습니까?");
+                if(!result){
+                    return;
+                }
+                location.href='${root}/mypage/member/quit';
+    }
+
+
+</script>
 </html>

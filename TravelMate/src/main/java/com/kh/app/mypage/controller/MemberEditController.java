@@ -18,13 +18,13 @@ public class MemberEditController extends HttpServlet{
 	// 회원정보 수정 화면
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
-//		if(loginMember != null) {
+		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+		if(loginMember != null) {
 			req.getRequestDispatcher("/WEB-INF/views/mypage/memberEdit.jsp").forward(req, resp);
-//		}else {
-//			req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요");
-//			resp.sendRedirect(req.getContextPath() + "/home");
-//		}
+		}else {
+			req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요");
+			resp.sendRedirect(req.getContextPath() + "/login");
+		}
 	}
 	
 	// 회원정보 수정
@@ -41,7 +41,6 @@ public class MemberEditController extends HttpServlet{
 			String memberNick = req.getParameter("memberNick");
 			String address = req.getParameter("address");
 			String email = req.getParameter("email");
-			
 			
 			// 데뭉
 			MemberVo vo = new MemberVo();

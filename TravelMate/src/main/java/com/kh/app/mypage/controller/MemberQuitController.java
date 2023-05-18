@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.kh.app.member.service.MemberService;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet("/mypage/quit")
+@WebServlet("/mypage/member/quit")
 public class MemberQuitController extends HttpServlet{
 
 	// 회원탈퇴

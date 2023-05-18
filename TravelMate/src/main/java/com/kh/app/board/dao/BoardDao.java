@@ -10,6 +10,8 @@ import java.util.List;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
 import com.kh.app.common.db.JDBCTemplate;
+import com.kh.app.common.page.PageVo;
+import com.kh.app.cs.vo.InqueryVo;
 
 public class BoardDao {
 
@@ -51,6 +53,71 @@ public class BoardDao {
 		int result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 		return result;
+	}
+
+	public int selectCnt(Connection conn, String memberNo) throws Exception {
+
+		// SQL
+		// 검색 기능을 넣을지,,, 아님 그냥 로그인한 자신 글만 볼 수 있게 해야할 지 고민해보기
+		String sql = "SELECT COUNT(*) FROM BOARD WHERE DELETE_YN='N' AND MEMBER_NO=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, memberNo);
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		// close
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+				
+		return cnt;
+
+	}
+
+	public List<InqueryVo> selectInqueryList(Connection conn, PageVo pv, String memberNo) {
+
+		// SQL
+		String sql = "";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		List<InqueryVo> list = new ArrayList<>();
+		
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String memberNick = rs.getString("NICK");
+			
+			InqueryVo vo = new InqueryVo();
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMemberNick(memberNick);
+			
+			list.add(vo);
+			
+		}
+
+		// close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+
+		return list;
+		
 	}
 		
 	
