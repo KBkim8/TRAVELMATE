@@ -43,36 +43,6 @@
         font-size: 28px;
         font-weight: bold;
     }
-
-    #edit-area{
-        position: absolute;
-        width: 1300px;
-        height: 1000px;
-        left: 130px;
-        top: 230px;
-        display: grid;
-        grid-template-rows: 3fr 1fr;
-    }
-    
-    #edit-input-box{
-        width: 1300px;
-        border-radius: 30px;
-        border: 1px dashed black;
-        height: 90%;
-        margin: auto;
-        font-size: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-
-   
-    #btn-area{
-        margin: auto;
-        margin-top: 10%;
-        place-items: center center;
-    }
     
     #btn-area > input{
         width: 200px;
@@ -170,9 +140,52 @@
                 <input type="submit" value="작성하기" id="btn01">
                 <input type="file" name="f" id="">
             </div>
+            <div id="preview-area"></div>
             </form>
     </div>
 
 
 </body>
 </html>
+
+<script>
+
+    //미리보기
+		const fileTag = document.querySelector("input[type=file]");
+		const previewArea = document.querySelector("#preview-area");
+		
+
+		fileTag.onchange = function(e){
+			
+			if(fileTag.files.length == 0){		//취소누른상태
+				previewArea.innerHTML = '';
+				return;
+			}
+
+			for(let i = 0 ; i < fileTag.files.length; i++){
+				const fr = new FileReader();
+				fr.readAsDataURL(fileTag.files[i]);
+	
+				fr.onload = function(e){
+					const imgTag = document.createElement('img');
+					imgTag.src = e.target.result;
+					imgTag.alt = "미리보기이미지사진";
+					imgTag.width = 100;
+					imgTag.height = 100;
+					previewArea.appendChild(imgTag);
+				};
+			}
+
+		};
+
+
+
+
+
+
+
+
+
+
+
+</script>

@@ -21,12 +21,12 @@ public class FileUploader {
 	 * @return List<AttachmentVo>
 	 * @throws Exception
 	 */
-	public static List<AttachmentVo> saveFile(String path, List<Part> fList) throws Exception{
+	public static List<BoardImgVo> saveFile(String path, List<Part> fList) throws Exception{
 		
-		List<AttachmentVo> list = new ArrayList<>();
+		List<BoardImgVo> list = new ArrayList<>();
 		
 		for(Part f : fList) {
-			AttachmentVo attVo = saveFile(path, f);
+			BoardImgVo attVo = saveFile(path, f);
 			list.add(attVo);
 		}
 		
@@ -42,7 +42,7 @@ public class FileUploader {
 	 * @return AttachmentVo
 	 * @throws Exception
 	 */
-	public static AttachmentVo saveFile(String path , Part f) throws Exception {
+	public static BoardImgVo saveFile(String path , Part f) throws Exception {
 		String randomName = UUID.randomUUID().toString();
 		String originName = f.getSubmittedFileName();
 		String ext = originName.substring( originName.lastIndexOf(".") ); 
@@ -62,7 +62,7 @@ public class FileUploader {
 			}
 		}
 		
-		AttachmentVo vo = new AttachmentVo();
+		BoardImgVo vo = new BoardImgVo();
 		vo.setOriginName(originName);
 		vo.setChangeName(changeName);
 		return vo;

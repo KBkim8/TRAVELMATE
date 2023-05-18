@@ -1,6 +1,6 @@
 package com.kh.app.util;
 
-public class AttachmentVo {
+public class BoardImgVo {
 	
 	private String no;
 	private String bno;
@@ -8,11 +8,11 @@ public class AttachmentVo {
 	private String changeName;
 	private String enrollDate;
 	private String status;
-	public AttachmentVo() {
+	public BoardImgVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AttachmentVo(String no, String bno, String title, String changeName, String enrollDate, String status) {
+	public BoardImgVo(String no, String bno, String title, String changeName, String enrollDate, String status) {
 		super();
 		this.no = no;
 		this.bno = bno;
