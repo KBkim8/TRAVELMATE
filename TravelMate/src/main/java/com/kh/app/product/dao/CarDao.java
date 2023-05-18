@@ -48,7 +48,7 @@ public class CarDao {
 	public List<CarVo> getCarList(Connection conn, PageVo pv) throws Exception {
 		
 		// SQL -수정완료
-	    String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.WEEKDAY_PRICE, R.WEEKEND_PRICE , CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO WHERE R.DELETE_YN = 'N' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+	    String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT CK.KIND , R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    pstmt.setInt(1, pv.getBeginRow());
 	    pstmt.setInt(2, pv.getLastRow());
@@ -60,6 +60,8 @@ public class CarDao {
 	    while (rs.next()) {
 	    	CarVo vo = new CarVo();
 	    	
+	    	String carKindKind = rs.getString("KIND");
+	    	String title = rs.getString("TITLE");
 	    	String no = rs.getString("NO");
 	    	String carKindNo = rs.getString("CAR_KIND_NO");
 	    	String localNo = rs.getString("LOCAL_NO");
@@ -69,10 +71,12 @@ public class CarDao {
 	    	String max = rs.getString("MAX");
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
-	    	String weekdayPrice = rs.getString("WEEKDAY_PRICE");
-	    	String weekendPrice = rs.getString("WEEKEND_PRICE");
+	    	String lcname = rs.getString("LOCAL");
+	    	String price = rs.getString("PRICE");
+	    	
+	    	
 	    	 
-
+	    	vo.setLcname(lcname);
 	        vo.setNo(no);
 	        vo.setCarKindNo(carKindNo);
 	        vo.setLocalNo(localNo);
@@ -82,9 +86,9 @@ public class CarDao {
 	        vo.setMax(max);
 	        vo.setLicensePlate(licensePlate);
 	        vo.setLicenseDate(licenseDate);
-	        vo.setWeekdayPrice(weekdayPrice);
-	        vo.setWeekendPrice(weekendPrice);
-
+	        vo.setTitle(title);
+	        vo.setCarKindKind(carKindKind);
+	        vo.setPrice(price);
 	        voList.add(vo);
 	        
 	    }
@@ -106,13 +110,14 @@ public class CarDao {
 		String sql = "";
 		
 		if(searchType.equals("name")) {
-			//SQL (제목	검색) -수정완료
+			//SQL (차량이름으로 검색) -수정완료
 			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.WEEKDAY_PRICE, R.WEEKEND_PRICE , CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(searchType.equals("price")) {
-			//SQL (작성자	검색)
-			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT A.NO, A.LOCAL_NO, A.ACCOMODATION_NO, A.NAME, A.ENROLL_DATE, A.MAX_PEOPLE, A.CONTENT, A.DELETE_YN, A.PRICE, AI.TITLE, LC.NAME AS LOCAL FROM ACCOMODATION A JOIN ACCOMODATION_IMG AI ON AI.ACCOMODATION_NO = A.ACCOMODATION_NO JOIN LOCAL_CATEGORY LC ON LC.NO = A.LOCAL_NO WHERE A.DELETE_YN = 'N' AND A.NAME LIKE '%'||?||'%' AND LC.NAME LIKE '%%' ORDER BY TO_NUMBER(PRICE)  ) T ) WHERE RNUM BETWEEN ? AND ?";
+			//SQL (차량크기로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.WEEKDAY_PRICE, R.WEEKEND_PRICE , CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND 'CK.SIZE' LIKE '%'||?||'%'  AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(local.equals("gang")) {
-			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT A.NO, A.LOCAL_NO, A.ACCOMODATION_NO, A.NAME, A.ENROLL_DATE, A.MAX_PEOPLE, A.CONTENT, A.DELETE_YN, A.PRICE, AI.TITLE, LC.NAME AS LOCAL FROM ACCOMODATION A JOIN ACCOMODATION_IMG AI ON AI.ACCOMODATION_NO = A.ACCOMODATION_NO JOIN LOCAL_CATEGORY LC ON LC.NO = A.LOCAL_NO WHERE A.DELETE_YN = 'N' AND A.NAME LIKE '%'||?||'%' AND LC.NAME LIKE '%강원도%' ORDER BY NO DESC  ) T ) WHERE RNUM BETWEEN ? AND ?";
+			//SQL (가격으로 검색)
+			sql = "SELECT * FROM RENTCAR WHERE DELETE_YN = 'N' AND PRICE LIKE '%'||?||'%'";
 		}else {
 			//값이 이상함 => 기본 목록 조회
 			return getCarList(conn, pv);
@@ -137,8 +142,8 @@ public class CarDao {
 	    	String max = rs.getString("MAX");
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
-	    	String weekdayPrice = rs.getString("WEEKDAY_PRICE");
-	    	String weekendPrice = rs.getString("WEEKEND_PRICE");
+	    	String price = rs.getString("PRICE");
+	    	
 			
 		
 			CarVo vo = new CarVo();
@@ -152,8 +157,8 @@ public class CarDao {
 	        vo.setMax(max);
 	        vo.setLicensePlate(licensePlate);
 	        vo.setLicenseDate(licenseDate);
-	        vo.setWeekdayPrice(weekdayPrice);
-	        vo.setWeekendPrice(weekendPrice);
+	        vo.setPrice(price);
+	        
 			
 			
 			voList.add(vo);
