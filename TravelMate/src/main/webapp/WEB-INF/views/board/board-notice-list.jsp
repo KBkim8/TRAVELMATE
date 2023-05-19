@@ -128,12 +128,6 @@
         </div>
         <div id="write-area">
             <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색">
-            <select name="categoryNo" style="width:150px;height:60px; font-size: 2em;">
-                    <option value=10>축구</option>	
-                    <option value=20>게임</option>	
-                    <option value=30>축구</option>	
-                    <option value=40>축구</option>	
-            </select>
             <br>
             <br>
             <table>
@@ -148,81 +142,20 @@
                 </thead>
                 <hr>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>dddddd</td>
-                        <td>dddddd</td>
-                        <td>2023.09.30</td>
-                        <td>30</td>
-                    </tr>
+                	<c:forEach items="${bvoList}" var="bvoList">
+	                    <tr>
+	                        <td>${bvoList.no}</td>
+	                        <td>${bvoList.title}</td>
+	                        <td>${bvoList.content}</td>
+	                        <td>${bvoList.enrollDate}</td>
+	                        <td>${bvoList.hit}</td>
+	                    </tr>
+                	</c:forEach>
 
                 </tbody>
             </table>
                 <div id="page-area">
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">이전</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">1</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">2</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">3</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">4</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">5</a>
-                    <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage+1}">다음</a>
-                    <!-- <c:if test="${ pv.currentPage > 1 }">
+                     <c:if test="${ pv.currentPage > 1 }">
                         <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">이전</a>
                     </c:if>
                     <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
@@ -235,7 +168,7 @@
                     </c:forEach>
                     <c:if test="${ pv.currentPage < pv.maxPage }">
                         <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage+1}">다음</a>
-                    </c:if> -->
+                    </c:if> 
                 </div>
         </div>
     </div>
