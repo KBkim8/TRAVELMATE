@@ -2,7 +2,9 @@ package com.kh.app.board.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.app.board.dao.BoardDao;
@@ -34,7 +36,7 @@ private final BoardDao dao;
 		}
 
 	//글쓰기
-	public int write(BoardVo bvo, List<BoardImgVo> attVoList) throws Exception {
+	public int write(BoardVo bvo) throws Exception {
 
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
@@ -79,6 +81,38 @@ private final BoardDao dao;
 		
 		return list;
 		
+	}
+
+	//공지사항 게시글 목록 조회
+	public List<BoardVo> list() throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<BoardVo>bvoList = dao.list(conn);
+		
+		JDBCTemplate.close(conn);
+	
+		return bvoList;
+	}
+
+	//board cnt
+	public int selectCnt() throws Exception {
+
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.selectCnt(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+	}
+
+	//notice board detail
+	public BoardVo detail() {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		String sql = "";
 	}
 	
 }
