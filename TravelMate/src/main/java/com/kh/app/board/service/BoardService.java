@@ -84,11 +84,11 @@ private final BoardDao dao;
 	}
 
 	//공지사항 게시글 목록 조회
-	public List<BoardVo> list() throws Exception {
+	public List<BoardVo> list(PageVo pv) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<BoardVo>bvoList = dao.list(conn);
+		List<BoardVo>bvoList = dao.list(conn ,pv);
 		
 		JDBCTemplate.close(conn);
 	
@@ -113,6 +113,26 @@ private final BoardDao dao;
 		
 		Connection conn = JDBCTemplate.getConnection();
 		String sql = "";
+		
+		return null;
+	}
+
+	//공지사항 상세조회 + 조회수 처리까지
+	public BoardVo noticeDetail(String no) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		BoardVo vo = null;
+		//                조회수 증가
+		int result = dao.updateHit(conn , no);
+		
+		if(result ==1) {
+			 vo = dao.noticeDetail(conn ,no);
+		}else {
+			throw new Exception();
+		}
+		JDBCTemplate.close(conn);
+		return vo;
 	}
 	
 }

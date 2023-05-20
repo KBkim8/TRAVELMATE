@@ -124,7 +124,7 @@
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>게시글 목록</a> 
+            <a>공지사항  목록</a> 
         </div>
         <div id="write-area">
             <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색">
@@ -135,18 +135,16 @@
                     <tr>
                         <th>번호 </th>
                         <th>제목 </th>
-                        <th>작성자 </th>
                         <th>작성일시</th>
                         <th>조회수</th>
                     </tr>
                 </thead>
                 <hr>
                 <tbody>
-                	<c:forEach items="${bvoList}" var="bvoList">
+                	<c:forEach items="${bvoList}" var="bvoList" begin="1">
 	                    <tr>
 	                        <td>${bvoList.no}</td>
 	                        <td>${bvoList.title}</td>
-	                        <td>${bvoList.content}</td>
 	                        <td>${bvoList.enrollDate}</td>
 	                        <td>${bvoList.hit}</td>
 	                    </tr>
@@ -155,21 +153,21 @@
                 </tbody>
             </table>
                 <div id="page-area">
-                     <c:if test="${ pv.currentPage > 1 }">
-                        <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage-1}">이전</a>
+                     <c:if test="${pv.currentPage > 1}">
+                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage-1}">현재페이지를보고있는경우클릭안되게막아놨는데안먹음</a>
                     </c:if>
                     <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
                         <c:if test="${currentPage ne i}">
-                            <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${i}">${i}</a>
+                            <a id="btn01" href="${root}/notice/list?page=${i}">${i}</a>
                         </c:if>
                         <c:if test="${currentPage == i}">
-                            <a id="btn01">${i}</a>
+                            <a class="btn btn-success">${i}</a>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${ pv.currentPage < pv.maxPage }">
-                        <a id="btn01" href="${pageContext.request.contextPath}/notice/list?page=${pv.currentPage+1}">다음</a>
+                    <c:if test="${pv.currentPage < pv.maxPage}">
+                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage+1}">다음</a>
                     </c:if> 
-                </div>
+                </div>   
         </div>
     </div>
 
@@ -183,7 +181,7 @@
 	const tbody = document.querySelector("tbody");
 	tbody.addEventListener("click" , function(e){
 		const no = e.target.parentNode.children[0].innerText;
-		location.href = "${root}/detail?no=" + no;
+		location.href = "${root}/notice/detail?no=" + no;
 	});
 
 </script>
