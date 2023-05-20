@@ -193,8 +193,41 @@ public class BoardDao {
 		return voList;
 	
 	}
+	
+	public List<BoardVo> list(Connection conn , PageVo pv) throws Exception {
 
+		String sql = "SELECT NO , TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN 1 AND 3 AND DELETE_YN='N'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
 		
+		List<BoardVo> bvoList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String memberNo = rs.getString("MEMBER_NO");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String hit = rs.getString("HIT");
+			
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setTitle(title);
+			vo.setEnrollDate(enrollDate);
+			vo.setHit(hit);
+			
+			bvoList.add(vo);
+			
+		}
+			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(rs);
+			
+			return bvoList;
+	}
+
+		// board Cnt
+		public int selectCnt(Connection conn) throws Exception {
 		//SQL
 		String sql = "SELECT COUNT(*) FROM BOARD WHERE DELETE_YN = 'N'";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
