@@ -23,16 +23,17 @@ public class BoardNoticeListController extends HttpServlet{
 		
 		try {
 
+			// *selectCnt 문제있음*
 			int listCount = bs.selectCnt();
 			String page = req.getParameter("page");
 			if(page == null) page = "1";
 			int currentPage = Integer.parseInt(page);
 			int pageLimit = 5;
 			int boardLimit = 10;
-			PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
 			//tqt
-			List<BoardVo> bvoList = bs.list();
+			List<BoardVo> bvoList = bs.list(pv);
 			
 			//gd
 			req.setAttribute("pv", pv);

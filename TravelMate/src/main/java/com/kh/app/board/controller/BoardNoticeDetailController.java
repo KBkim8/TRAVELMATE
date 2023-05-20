@@ -16,18 +16,20 @@ import com.kh.app.board.vo.BoardVo;
 public class BoardNoticeDetailController extends HttpServlet{
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String bno = req.getParameter("bno");
+		String no = req.getParameter("no");
 		
 		BoardService bs = new BoardService();
 		BoardVo vo = new BoardVo();
-		
-//		bs.detail();
-		
-		
-//		req.setAttribute("bvo", bvo);
-		req.getRequestDispatcher("/WEB-INF/views/board/notice-detail.jsp").forward(req, resp);
+		BoardVo nvo = null;
+		try {
+			nvo = bs.noticeDetail(no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} //notice 상세조회
+		req.setAttribute("nvo", nvo);     
+		req.getRequestDispatcher("/WEB-INF/views/board/board-notice-detail.jsp").forward(req, resp); //댓글작업해야함 
 	}
 	
 }
