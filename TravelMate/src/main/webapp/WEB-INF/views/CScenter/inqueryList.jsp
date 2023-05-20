@@ -54,38 +54,41 @@
         left: 100px;
         top: 230px;
 		margin: auto;
-		border: 1px dashed black;
+		border: none;
         border-radius: 20%;
 		border-collapse: collapse;
 		text-align: center;
-		line-height: 50px;
+		line-height: 60px;
 	}
+
 
     #content > table th {
         font-size: 25px;
         font-weight: bold;
-        border-bottom: 2px solid black;
     }
 
 	#content > table td {
 		border-bottom: 1px solid black;
 	}
 
+    #content > table > tbody > tr:nth-last-child(1) {border-bottom: none;}
+
+
 	#content > table > tbody tr {
 		height: 27px;
 	}
 
 	#content > table > thead > tr > th:nth-child(1){width: 10%;}
-	#content > table > thead > tr > th:nth-child(2){width: 50%;}
+	#content > table > thead > tr > th:nth-child(2){width: 40%;}
 	#content > table > thead > tr > th:nth-child(3){width: 30%;}
-	#content > table > thead > tr > th:nth-child(4){width: 10%;}
+	#content > table > thead > tr > th:nth-child(4){width: 20%;}
 
 	#page-area{
         position: absolute;
         width: 1300px;
         height: 30px;
         left: 100px;
-        top: 820px;
+        top: 920px;
 		margin: auto;
 		display : flex;
 		justify-content: space-evenly;
@@ -140,22 +143,27 @@
         outline: 0;
         color: rgb(4, 4, 4);
         position: absolute;
-        left: 267px;
+        left: 385px;
         top: 5px;
     }
 
     #report-search{
         position: absolute;
-        right: 180px;
+        right: 50px;
         top: 141px;
     }
 
     #report-search>form>input[type="text"]{
-        width: 180px;
+        width: 250px;
         height: 30px;
         font-size: 14px;
     }
 
+    select[name="searchType"]{
+        width: 110px;
+        height: 30px;
+        font-size: 15px;
+    }
     
     
     
@@ -171,13 +179,17 @@
             <hr>
             <a>1:1 문의내역</a>
         </div>
-            <!-- 게시판 카테고리 검색 -->
-            <div id="report-search">
-                <form action="" method="GET">
-                    <input class="" name="searchValue" type="text" placeholder="게시글 검색">
-                    <input type="submit" value="검색">
-                </form>
-            </div>
+        <!-- 검색 -->
+        <div id="report-search">
+            <form action="${root}/cs/inqueryList" method="POST">
+                <select name="searchType">
+                    <option value="title">제목</option>
+                    <option value="writer">작성자</option>
+                </select>
+                <input type="text" class="searchValueElem" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
+                <input type="submit" value="검색">
+            </form>
+        </div>
         <table>
 				<thead>
 					<tr>
@@ -190,7 +202,7 @@
 
 				<tbody>
 				
-					<c:forEach items="${ list }" var="inq">
+					<c:forEach items="${ voList }" var="inq">
 					<tr>
 						<td>${ inq.no }</td>
 						<td>${ inq.title }</td>
@@ -202,16 +214,16 @@
 				</tbody>
 
 			</table>
-			
-			<div id="page-area">
+		
+            <div id="page-area">
 				<c:if test="${pv.currentPage > 1 }">
-				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage-1}">이전</a>
+				<a id="btn01" href="${root}/cs/inqueryList?page=${pv.currentPage-1}">이전</a>
 				</c:if>
 				<c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-					<a id="btn02" href="${root}/CScenter/Inquerylist?page=${i}">${i}</a>
+					<a id="btn02" href="${root}/cs/inqueryList?page=${i}">${i}</a>
 				</c:forEach>
 				<c:if test="${pv.currentPage < pv.maxPage}">
-				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage+1}">다음</a>
+				<a id="btn01" href="${root}/cs/inqueryList?page=${pv.currentPage+1}">다음</a>
 				</c:if>
 			</div>
 	</div>
@@ -222,11 +234,80 @@
 
 <script>
 
-	const tbody = document.querySelector("tbody");
-	tbody.addEventListener("click", function(e){
-	const no = e.target.parentNode.children[0].innerText;
-	location.href = "${root}/cs/detail?no=" + no;
+
+    // 테이블 행 클릭 시. 상세조회
+	const tbody = document.querySelector('tbody');
+	tbody.addEventListener('click', (event)=>{
+
+		// 글 번호 가져와서 
+		const no = event.target.parentNode.children[0].innerText;
+
+		// 요청 보내기
+		location.href = "${root}/cs/detail?no=" + no;
+
+	});
+
+    // 검색 영역
+    const searchType = '${searchVo.searchType}';
+	const searchValue = '${searchVo.searchValue}';
 	
-});
+	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+	const searchValueInputTag = document.querySelector("input[name='searchValue']");
+
+	if(searchType.length > 1){
+		initSearchType();
+	}
+	
+	// 검색 타입 초기 세팅
+	function initSearchType(){
+		const x = document.querySelector('select > option[value="' + searchType + '"]');
+		x.selected = true;
+	}
+	
+	// 서치타입 변경 시 함수 실행
+	const searchTypeTag = document.querySelector('select[name=searchType]');
+	searchTypeTag.addEventListener("change", setSearchValueTag);
+
+	function setSearchValueTag(){
+
+		// 현재 타입이 카테고리인지 구분
+		const searchType = searchTypeTag.value;
+		if(searchType == 'category'){
+			setSearchValueTagSelect();
+		}else{
+			setSearchValueTagInput();
+		}
+	}
+
+	// 검색 값 영역 select 보이게 (타입이 카테고리 일 때)
+	function setSearchValueTagSelect(){
+		searchValueSelectTag.classList.add("active");
+		searchValueSelectTag.disabled = false;
+		searchValueInputTag.classList.remove("active");
+		searchValueInputTag.disabled = true;
+
+		searchValueInputTag.value = '';
+	}
+
+	// 검색 값 영역을 input 보이게 (타입이 카테고리 외)
+	function setSearchValueTagInput(){
+		searchValueInputTag.classList.add("active");
+		searchValueInputTag.disabled = false;
+		searchValueSelectTag.classList.remove("active");
+		searchValueSelectTag.disabled = true;
+	}
+
+	// 카테고리로 검색한 이후에 검색 값이 유지되게 
+	function initSearchValueSelect(){
+		if(searchType != 'category'){
+			return;
+		}
+		const optionTag = document.querySelector("option[value='" + searchValue + "']");
+		optionTag.selected = true;	
+	}
+	
+	setSearchValueTag();
+	initSearchValueSelect();
+
 
 </script>

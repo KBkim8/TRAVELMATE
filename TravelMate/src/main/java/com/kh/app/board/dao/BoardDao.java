@@ -55,13 +55,20 @@ public class BoardDao {
 		return result;
 	}
 
-	public int selectCnt(Connection conn, String memberNo) throws Exception {
+
+	// 강분 -회원별 게시글 목록 개수
+	public int getMyBoardListCntByNo(Connection conn, String searchType, String searchValue, String mno) throws Exception {
 
 		// SQL
-		// 검색 기능을 넣을지,,, 아님 그냥 로그인한 자신 글만 볼 수 있게 해야할 지 고민해보기
-		String sql = "SELECT COUNT(*) FROM BOARD WHERE DELETE_YN='N' AND MEMBER_NO=?";
+		String sql = "SELECT COUNT(*) FROM ( SELECT B.NO ,B.TITLE ,B.CONTENT ,B.MEMBER_NO ,B.BOARD_CATEGORY_NO ,B.ENROLL_DATE ,B.DELETE_YN ,B.MODIFY_DATE ,B.HIT ,M.NICK FROM BOARD B JOIN MEMBER M ON (B.MEMBER_NO = M.NO)) WHERE DELETE_YN = 'N' AND MEMBER_NO=?";
+		if("title".equals(searchType)) {
+			sql += "AND TITLE LIKE '%" + searchValue + "%'";
+		}else if("category".equals(searchType)) {
+			sql += "AND BOARD_CATEGORY_NO = " + searchValue;
+		}
+		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, memberNo);
+		pstmt.setString(1, mno);
 		ResultSet rs = pstmt.executeQuery();
 		
 		// tx || rs
@@ -70,55 +77,130 @@ public class BoardDao {
 			cnt = rs.getInt(1);
 		}
 		
-		// close
-		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
-				
+		JDBCTemplate.close(pstmt);
 		return cnt;
-
+		
 	}
 
-	public List<InqueryVo> selectInqueryList(Connection conn, PageVo pv, String memberNo) {
+	// 강분 -회원별 전체 작성 게시글 조회
+	public List<BoardVo> getMyBoardListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
-		// SQL
-		String sql = "";
+		// sql
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.BOARD_CATEGORY_NO , B.ENROLL_DATE , B.DELETE_YN , B.MODIFY_DATE , B.HIT , M.NICK , BC.NAME AS CATEGORY_NAME FROM BOARD B JOIN MEMBER M ON(B.MEMBER_NO = M.NO) JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.DELETE_YN = 'N' AND B.MEMBER_NO= ? ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, pv.getBeginRow());
-		pstmt.setInt(2, pv.getLastRow());
+		pstmt.setString(1, mno);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
 		// tx || rs
-		List<InqueryVo> list = new ArrayList<>();
-		
+		List<BoardVo> voList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
-			String memberNo = rs.getString("MEMBER_NO");
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String deleteYn = rs.getString("DELETE_YN");
+			String modifyDate = rs.getString("MODIFY_DATE");
+			String hit = rs.getString("HIT");
 			String memberNick = rs.getString("NICK");
-			
-			InqueryVo vo = new InqueryVo();
+			String categoryName = rs.getString("CATEGORY_NAME");
+	
+			BoardVo vo = new BoardVo();
 			vo.setNo(no);
-			vo.setMemberNo(memberNo);
 			vo.setTitle(title);
 			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setBoardCategoryNo(boardCategoryNo);
 			vo.setEnrollDate(enrollDate);
 			vo.setDeleteYn(deleteYn);
+			vo.setModifyDate(modifyDate);
+			vo.setHit(hit);
 			vo.setMemberNick(memberNick);
+			vo.setCategoryName(categoryName);
 			
-			list.add(vo);
-			
+			voList.add(vo);
 		}
-
-		// close
+		
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
-
-		return list;
 		
+		return voList;
+	
 	}
+
+	// 강분 -회원별 검색 게시글 목록 조회
+	public List<BoardVo> getMyBoardListByNo(Connection conn, PageVo pv, String searchType, String searchValue,String mno) throws Exception {
+
+		// SQL
+		String sql = "";
+		if(searchType.equals("title")) {
+			// sql (제목으로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.BOARD_CATEGORY_NO , B.ENROLL_DATE , B.DELETE_YN , B.MODIFY_DATE , B.HIT , M.NICK , BC.NAME AS CATEGORY_NAME FROM BOARD B JOIN MEMBER M ON(B.MEMBER_NO = M.NO) JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.DELETE_YN = 'N' AND B.TITLE LIKE '%' || ? || '%' AND B.MEMBER_NO= ? ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if("category".equals(searchType)) {
+			// sql (카테고리로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.BOARD_CATEGORY_NO , B.ENROLL_DATE , B.DELETE_YN , B.MODIFY_DATE , B.HIT , M.NICK , BC.NAME AS CATEGORY_NAME FROM BOARD B JOIN MEMBER M ON(B.MEMBER_NO = M.NO) JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO LIKE '%' || ? || '%' AND B.MEMBER_NO= ? ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?\r\n"
+					+ "";
+		}else {
+			// 예외 던져주기
+			// throw new Exception();
+			// 값이 이상하면 기본 목록 조회
+			return getMyBoardListByNo(conn, pv, mno);
+		}
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString	(1, searchValue);
+		pstmt.setString	(2, mno);
+		pstmt.setInt	(3, pv.getBeginRow());
+		pstmt.setInt	(4, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		List<BoardVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String modifyDate = rs.getString("MODIFY_DATE");
+			String hit = rs.getString("HIT");
+			String memberNick = rs.getString("NICK");
+			String categoryName = rs.getString("CATEGORY_NAME");
+	
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setBoardCategoryNo(boardCategoryNo);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setModifyDate(modifyDate);
+			vo.setHit(hit);
+			vo.setMemberNick(memberNick);
+			vo.setCategoryName(categoryName);
+			
+			voList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	
+	}
+	
+	
+	
+
+	
+
 		
 	
 

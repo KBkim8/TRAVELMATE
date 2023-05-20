@@ -139,10 +139,10 @@
     </div>
         <div id="inquery-input">
             <div id="title-wrap">
-                    <div name="title" id="title">${vo.title }</div>
+                    제목<div name="title" id="title">${vo.title }</div>
             </div>
             <div id="content-wrap">
-                <textarea name="content">${vo.content }</textarea>
+                내용<textarea name="content">${vo.content }</textarea>
             </div>
                 <div id="reply-area">
                     <input type="hidden" name="InqueryNo" value="${vo.no}">

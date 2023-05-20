@@ -194,15 +194,23 @@
                     </div>
                 </div>
             </div>
-            <div class="paging-area">
-             1 ,  2 ,  3
-            </div>
+            <div id="page-area">
+				<c:if test="${pv.currentPage > 1 }">
+				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage-1}">이전</a>
+				</c:if>
+				<c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
+					<a id="btn02" href="${root}/CScenter/Inquerylist?page=${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${pv.currentPage < pv.maxPage}">
+				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage+1}">다음</a>
+				</c:if>
+			</div>
         </div>
     </div>
 </body>
 
 <script>
-
+// 삭제 누르면 모달로 삭제되었습니다.
 $(".delBtn").on("click", function () {
         $(".black-bg").addClass("show-modal");
       }); //css에서 작성한 show-modal이라는 클래스명 추가
@@ -210,6 +218,8 @@ $(".delBtn").on("click", function () {
       $(".btn-danger").on("click", function () {
         $(".black-bg").removeClass("show-modal");
       }); // 
+
+
 
 </script>
 

@@ -14,34 +14,9 @@ public class BoardVo {
 	private String hit;
 	private String uploadYn;
 	private String modifyDate;
-	public BoardVo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public BoardVo(String no, String boardCategoryNo, String proCategoryNo, String memberNo, String boardImgNo,
-			String title, String content, String enrollDate, String deleteYn, String hit, String uploadYn,
-			String modifyDate) {
-		super();
-		this.no = no;
-		this.boardCategoryNo = boardCategoryNo;
-		this.proCategoryNo = proCategoryNo;
-		this.memberNo = memberNo;
-		this.boardImgNo = boardImgNo;
-		this.title = title;
-		this.content = content;
-		this.enrollDate = enrollDate;
-		this.deleteYn = deleteYn;
-		this.hit = hit;
-		this.uploadYn = uploadYn;
-		this.modifyDate = modifyDate;
-	}
-	@Override
-	public String toString() {
-		return "BoardVo [no=" + no + ", boardCategoryNo=" + boardCategoryNo + ", proCategoryNo=" + proCategoryNo
-				+ ", memberNo=" + memberNo + ", boardImgNo=" + boardImgNo + ", title=" + title + ", content=" + content
-				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", hit=" + hit + ", uploadYn=" + uploadYn
-				+ ", modifyDate=" + modifyDate + "]";
-	}
+	
+	private String memberNick;
+	private String categoryName;
 	public String getNo() {
 		return no;
 	}
@@ -114,6 +89,50 @@ public class BoardVo {
 	public void setModifyDate(String modifyDate) {
 		this.modifyDate = modifyDate;
 	}
+	public String getMemberNick() {
+		return memberNick;
+	}
+	public void setMemberNick(String memberNick) {
+		this.memberNick = memberNick;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	@Override
+	public String toString() {
+		return "BoardVo [no=" + no + ", boardCategoryNo=" + boardCategoryNo + ", proCategoryNo=" + proCategoryNo
+				+ ", memberNo=" + memberNo + ", boardImgNo=" + boardImgNo + ", title=" + title + ", content=" + content
+				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", hit=" + hit + ", uploadYn=" + uploadYn
+				+ ", modifyDate=" + modifyDate + ", memberNick=" + memberNick + ", categoryName=" + categoryName + "]";
+	}
+	public BoardVo(String no, String boardCategoryNo, String proCategoryNo, String memberNo, String boardImgNo,
+			String title, String content, String enrollDate, String deleteYn, String hit, String uploadYn,
+			String modifyDate, String memberNick, String categoryName) {
+		super();
+		this.no = no;
+		this.boardCategoryNo = boardCategoryNo;
+		this.proCategoryNo = proCategoryNo;
+		this.memberNo = memberNo;
+		this.boardImgNo = boardImgNo;
+		this.title = title;
+		this.content = content;
+		this.enrollDate = enrollDate;
+		this.deleteYn = deleteYn;
+		this.hit = hit;
+		this.uploadYn = uploadYn;
+		this.modifyDate = modifyDate;
+		this.memberNick = memberNick;
+		this.categoryName = categoryName;
+	}
+	public BoardVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
 	
 	
 	

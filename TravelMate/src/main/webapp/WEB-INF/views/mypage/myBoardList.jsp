@@ -15,6 +15,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -44,51 +45,67 @@
         font-weight: bold;
     }
     
-    #board-list-box{
+    #content > table {
+    	position: absolute;
         width: 1300px;
-        border-radius: 30px;
-        border: 1px dashed black;
-        height: 80%;
-        left: 130px;
+        height: 500px;
+        left: 100px;
         top: 230px;
+		margin: auto;
+		border: none;
+        border-radius: 20%;
+		border-collapse: collapse;
+		text-align: center;
+		line-height: 60px;
+	}
+
+
+    #content > table th {
         font-size: 25px;
-        position: absolute;
-        align-content: center;
-    }
-
-    #content-wrap{
-        width: 100%;
-        height: 150px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        text-align: center;
-        margin: auto;
-    }
-
-    #title-wrap{
-        width: 100%;
-        height: 150px;
-        display: grid;
-        grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
-        margin: auto;
         font-weight: bold;
     }
+
+	#content > table td {
+		border-bottom: 1px solid black;
+	}
+
+    #content > table > tbody > tr:nth-last-child(1) {border-bottom: none;}
+
+
+	#content > table > tbody tr {
+		height: 27px;
+	}
+
+	#content > table > thead > tr > th:nth-child(1){width: 20%;}
+	#content > table > thead > tr > th:nth-child(2){width: 15%;}
+	#content > table > thead > tr > th:nth-child(3){width: 40%;}
+	#content > table > thead > tr > th:nth-child(4){width: 25%;}
+
+	#page-area{
+        position: absolute;
+        width: 1300px;
+        height: 30px;
+        left: 100px;
+        top: 920px;
+		margin: auto;
+		display : flex;
+		justify-content: space-evenly;
+	}
+	
+	tbody > tr:hover {
+		background-color: lightgray;
+		cursor: pointer;
+	}
+
 
     #btn01 {
         background-color: #73D38E;
         border: 0;
         padding: 0px 25px; 
-        display: inline-block;
         text-align: center;
         color: white;
         border-radius: 6px;
-        width: 150px;
+        width: 100px;
         height: 40px;
         font-size: 20px;
         margin-left: 15px;
@@ -99,30 +116,43 @@
         box-shadow: 0 0 0 1px #82c8a0 inset,
                 0 0 0 2px rgba(255,255,255,0.15) inset,
                 0 0 0 1px rgba(0,0,0,0.4);
-    }   
+    }
+    
+    #btn02{
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+        width: 50px;
+        height: 30px;
+        font-size: 20px;
+    }
 
     /* 카테고리 및 검색 */
     #report-search input[type="submit"]{
-        background-image: url('./img/검색이미지.png');
-        background-repeat: no-repeat;
-        background-color: rgba(255, 255, 255, 0);
+        /* background-image: url('./img/검색이미지.png'); */
+        /* background-repeat: no-repeat; */
+        background-color: rgba(84, 190, 128, 0.562);
         border: 0px;
         cursor:pointer;
         outline: 0;
-        color: rgba(255, 255, 255, 0);
+        color: rgb(4, 4, 4);
         position: absolute;
-        left: 267px;
+        left: 385px;
         top: 5px;
     }
 
     #report-search{
         position: absolute;
-        right: 262px;
+        right: 50px;
         top: 141px;
     }
 
     #report-search>form>input[type="text"]{
-        width: 180px;
+        width: 250px;
         height: 30px;
         font-size: 14px;
     }
@@ -133,10 +163,16 @@
         font-size: 15px;
     }
 
-    hr{
-        width: 100%;
-        height: 0;
+    .searchValueElem{
+        display: none;
+        width: 250px;
+        height: 30px;
+        font-size: 14px;
     }
+
+	.active{display: inline-block;}
+
+    
 
 
 </style>
@@ -153,60 +189,138 @@
         </div>
             <!-- 게시판 카테고리 검색 -->
             <div id="report-search">
-                <form action="" method="GET">
+                <form action="${root}/mypage/myBoardList" method="POST">
                     <select name="searchType">
-                        <option value="free">자유</option>
-                        <option value="review">리뷰</option>
-                        <option value="purchase">판매</option>
-                        <option value="ranson">랜선여행</option>
+						<option value="title">제목</option>
+						<option value="category">카테고리</option>
+					</select>
+					<select name="searchValue" class="searchValueElem">
+						<option value="5">자유</option>
+                        <option value="4">리뷰</option>
+                        <option value="2">판매</option>
                     </select>
-                    <input class="" name="searchValue" type="text" placeholder="게시글 검색">
-
+                    <input type="text" class="searchValueElem" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
                     <input type="submit" value="검색">
                 </form>
             </div>
-        <div id="board-list-box">
-            <div id="title-wrap">
-                <div>게시판 카테고리</div>
-                <div>게시글 번호</div>
-                <div>제목</div>
-                <div>작성일시</div>
-                <div></div>
-            </div>
-            <hr>
-            <!-- 반복문 처리 -->
-            <!-- 상세조회 처리 코드 도연님한테 물어보고 제대로 해주기 -->
-            <div id="content-wrap">
-                <div>자유</div>
-                <div>1</div>
-                <div>title01</div>
-                <div>2023.05.01 13:55:21</div>
-                <div><button id="btn01"><a href="${root}/detail">상세조회</a></button></div>
-            </div>
-            <hr>
-            <div id="content-wrap">
-                <div>리뷰</div>
-                <div>2</div>
-                <div>title02</div>
-                <div>2023.05.01 13:55:21</div>
-                <div><button id="btn01"><a href="${root}/detail">상세조회</a></button></div>
-            </div>
-            <hr>
-            <div id="content-wrap">
-                <div>랜선여행</div>
-                <div>3</div>
-                <div>title03</div>
-                <div>2023.05.01 13:55:21</div>
-                <div><button id="btn01"><a href="${root}/detail">상세조회</a></button></div>
-            </div>
-            <hr>
+        <table>
+				<thead>
+					<tr>
+						<th>게시판 카테고리</th>
+						<th>게시글 번호</th>
+						<th>제목</th>
+						<th>작성일시</th>
+					</tr>
+				</thead>
+
+				<tbody>
+				
+					<c:forEach items="${ voList }" var="myBoard">
+					<tr>
+						<td>${ myBoard.categoryName }</td>
+						<td>${ myBoard.no }</td>
+						<td>${ myBoard.title }</td>
+						<td>${ myBoard.enrollDate}</td>
+					</tr>
+					</c:forEach>
+					
+				</tbody>
+
+			</table>
+			<div id="page-area">
+				<c:if test="${pv.currentPage > 1 }">
+				<a id="btn01" href="${root}/mypage/myBoardList?page=${pv.currentPage-1}">이전</a>
+				</c:if>
+				<c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
+					<a id="btn02" href="${root}/mypage/myBoardList?page=${i}">${i}</a>
+				</c:forEach>
+				<c:if test="${pv.currentPage < pv.maxPage}">
+				<a id="btn01" href="${root}/mypage/myBoardList?page=${pv.currentPage+1}">다음</a>
+				</c:if>
+			</div>
         </div>
     </div>
 
 
 </body>
 
-</html>
+<script>
+    const searchType = '${searchVo.searchType}';
+	const searchValue = '${searchVo.searchValue}';
+	
+	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+	const searchValueInputTag = document.querySelector("input[name='searchValue']");
 
-</body>
+	if(searchType.length > 1){
+		initSearchType();
+	}
+	
+	// 검색 타입 초기 세팅
+	function initSearchType(){
+		const x = document.querySelector('select > option[value="' + searchType + '"]');
+		x.selected = true;
+	}
+	
+	// 서치타입 변경 시 함수 실행
+	const searchTypeTag = document.querySelector('select[name=searchType]');
+	searchTypeTag.addEventListener("change", setSearchValueTag);
+
+	function setSearchValueTag(){
+
+		// 현재 타입이 카테고리인지 구분
+		const searchType = searchTypeTag.value;
+		if(searchType == 'category'){
+			setSearchValueTagSelect();
+		}else{
+			setSearchValueTagInput();
+		}
+	}
+
+	// 검색 값 영역 select 보이게 (타입이 카테고리 일 때)
+	function setSearchValueTagSelect(){
+		searchValueSelectTag.classList.add("active");
+		searchValueSelectTag.disabled = false;
+		searchValueInputTag.classList.remove("active");
+		searchValueInputTag.disabled = true;
+
+		searchValueInputTag.value = '';
+	}
+
+	// 검색 값 영역을 input 보이게 (타입이 카테고리 외)
+	function setSearchValueTagInput(){
+		searchValueInputTag.classList.add("active");
+		searchValueInputTag.disabled = false;
+		searchValueSelectTag.classList.remove("active");
+		searchValueSelectTag.disabled = true;
+	}
+
+	// 카테고리로 검색한 이후에 검색 값이 유지되게 
+	function initSearchValueSelect(){
+		if(searchType != 'category'){
+			return;
+		}
+		const optionTag = document.querySelector("option[value='" + searchValue + "']");
+		optionTag.selected = true;	
+	}
+	
+
+	setSearchValueTag();
+	initSearchValueSelect();
+
+
+	// 테이블 행 클릭 시. 상세조회
+	const tbody = document.querySelector('tbody');
+	tbody.addEventListener('click', (event)=>{
+		
+		// 글 번호 가져와서 
+		const no = event.target.parentNode.children[1].innerText;
+
+		// 요청 보내기
+		location.href = '${root}/board/detail?no=' + no;
+
+	});
+
+
+</script>
+
 </html>
