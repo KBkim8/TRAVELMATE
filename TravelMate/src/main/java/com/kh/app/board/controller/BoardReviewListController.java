@@ -8,17 +8,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/detail")
-public class BoardDetailController extends HttpServlet{
-	
+@WebServlet(urlPatterns = "/review/list")
+public class BoardReviewListController extends HttpServlet{
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/board/board-detail.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		//ㄷ
+		
+		//a
+		
+		//tqt
+		
+		//gd
 	}
-
 }

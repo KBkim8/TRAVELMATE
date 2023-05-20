@@ -21,38 +21,22 @@ import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
-@MultipartConfig(
-		maxFileSize = 1024 * 1024 * 100 ,
-		maxRequestSize = 1024 * 1024 * 1000
-	)
-
-@WebServlet(urlPatterns = "/write")
-public class BoardWriteController extends HttpServlet{
+@WebServlet(urlPatterns = "/notice/write")
+public class BoardNoticeWriteController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		//로그인 안하면 에러페이지로 보내기
-//		HttpSession session = req.getSession();
-//		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-//		if(loginMember == null) {
-//			req.setAttribute("errorMsg", "로그인을 먼저 해주세요");
-//			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
-//			return;
-//		}
-//		
-		BoardService bs = new BoardService();
-		List<CategoryVo> cvoList = new ArrayList<>();
-		try {
-			cvoList = bs.getCategoryList();  
-		} catch (Exception e) {
-			e.printStackTrace();
+		HttpSession session = req.getSession();
+		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+		if(loginMember == null) {
+			req.setAttribute("errorMsg", "로그인을 먼저 해주세요");
+			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+			return;
 		}
 		
-		//카테고리 리스트 넘기기
-		req.setAttribute("cvoList", cvoList);
-		
-		req.getRequestDispatcher("/WEB-INF/views/board/board-write.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/board/board-notice-write.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -64,39 +48,27 @@ public class BoardWriteController extends HttpServlet{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
-			//파일 업로드
-			List<Part> fList = new ArrayList<>();
-			Collection<Part> parts = req.getParts();
-			for(Part part : parts) {
-				if( part.getName().equals("f") ) {
-					fList.add(part);
-				}
-			}
-			String path = req.getServletContext().getRealPath("/static/img/board/");
-			List<BoardImgVo> BoardImgVoList = FileUploader.saveFile(path , fList);
 			
 			// 데꺼
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
-			String categoryNo = req.getParameter("categoryNo");
 			String memberNo = loginMember.getNo();
 			
 			// 데뭉
 			BoardVo bvo = new BoardVo();
 			bvo.setTitle(title);
 			bvo.setContent(content);
-			bvo.setBoardCategoryNo(categoryNo);
 			bvo.setMemberNo(memberNo);
 			
 			// 서비스
 			BoardService bs = new BoardService();
-			int result = bs.write(bvo , BoardImgVoList);
+			int result = bs.write(bvo);
 			
 			// 화면
 			if(result == 1) {
 				//성공
 				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
-				resp.sendRedirect(req.getContextPath() + "/list");
+				resp.sendRedirect(req.getContextPath() + "/notice/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 

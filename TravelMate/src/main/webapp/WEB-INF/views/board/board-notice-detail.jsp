@@ -149,7 +149,7 @@
 		height: 60px;
 	}	
 
-	#reply-area > table{
+	#reply-list-area > table{
 		margin-left: 280px;
 		margin-top: 20px;
 		width: 900px;
@@ -159,16 +159,20 @@
 		background-color: #d8f1c7;
 	}
 
-	#reply-area > table > tbody > tr > td{
+	#reply-list-area > table > tbody > tr > td{
 		text-align: center;
 	}
 
-	#reply-area > table > thead > tr > th , #reply-area > table > tbody > tr > td{
+	#reply-list-area > table > thead > tr > th , #reply-area > table > tbody > tr > td{
  		 border: 3px solid black;
 		border-radius: 10px;
 		box-sizing: border-box;
 	}
 
+	#btn-area{
+		box-sizing: border-box;
+		margin-left: 300px;
+	}
 </style>
 </head>
 <body>
@@ -180,19 +184,35 @@
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>게시글 상세 조회</a>
+            <a>공지사항 상세 조회</a>  
         </div>
-        <div id="write-area">
-            <input type="text" name="title" value="">
-			&nbsp;
-			&nbsp;
-			&nbsp;
-			<span style="font-size: 1.5em;">NICK01</span>
-			&nbsp;
-			&nbsp;
-			<span style="font-size: 1.5em;">0000/00/00</span>
-            <textarea name="content" ></textarea>
-        </div>
+		<form action="${root}/notice/edit" method="POST">
+			<div id="write-area">
+				
+				<input type="text" name="title" value="${nvo.title }" readonly="readonly">
+				&nbsp;
+				&nbsp;
+				&nbsp;
+				<span style="font-size: 1.5em;">${nvo.memberNo }</span>
+				&nbsp;
+				&nbsp;
+				<span style="font-size: 1.5em;">${nvo.enrollDate }</span>
+				&nbsp;
+				&nbsp;
+				<span style="font-size: 1.5em;">조회수 :${nvo.hit }</span>
+				<textarea name="content">${nvo.content }</textarea>
+			</div>
+				
+			<!-- 글 수정 삭제는 not empty loginMember  -->
+			<div id="btn-area">
+				<button type="button" id="btn01" onclick="edit();">수정</button>
+				<button type="button" id="btn01" onclick="del();">삭제</button>
+				<input type="submit" value="수정하기">
+			</div>
+
+		</form>
+
+		
 
 		<hr id="hr">
 		
@@ -200,11 +220,11 @@
 
         <div id="reply-write-area">
 			<form action="" method="POST">
-				<input type="text" name="comment"> <button id="btn01">작성하기</button>
+				<input type="text" name="content"> <button id="btn01" onclick="writeComment()">작성하기</button>
 			</form>
         </div>
 
-		<div id="reply-area">
+		<div id="reply-list-area">
 			<table > 
 				<thead>
 					<tr>
@@ -215,64 +235,10 @@
 					</thead>
 				<tbody>
 					<tr>
-						<td> aaaaaaaaa</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> aaaaa아</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td>aaaaassd</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> sadfsdafs</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-
-					<tr>
 						<td> sadfsdaf</td>
 						<td>2023-05-13</td>
 						<td>김도연</td>
 					</tr>
-					<tr>
-						<td> sadfsadf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> sadfasdf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> sadfsdf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td>sadfsdaf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td>sadfsdaf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-					<tr>
-						<td> sadfsdaf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
-
-					
-
 				</tbody>
 			</table>
 		</div>
@@ -282,3 +248,85 @@
 
 </body>
 </html>
+<script>
+	
+	function del(){
+		const result = confirm("진짜 삭제 ??");
+		if(!result){
+			return;
+		}
+		location.href = '${root}/board/del?no=' + '${nvo.no}';
+	}
+
+
+
+	function edit(){
+			document.querySelector('input[name=title]').readOnly = false;
+			document.querySelector('textarea').readOnly = false;
+		} 
+
+
+
+
+
+
+			//댓글 작성
+	function writeComment(){
+		const comment = document.querySelector("input[name=content]").value;
+		$.ajax({
+			url : "${root}/notice/reply/write" ,
+			type : "POST" ,
+			data : {
+				noticeNo : '${nvo.no}' ,
+				content : comment ,
+			} ,
+			success : (x)=>{
+				console.log(x);
+				if(x == 'ok'){
+					alert("댓글 작성 성공!");
+					document.querySelector("input[name=content]").value = '';
+					loadComment();
+				}else{
+					alert("댓글 작성 실패...");
+				}
+			} ,
+			error : (x)=>{
+				console.log(x);
+			} ,
+		});
+	}
+
+	//댓글 불러오기
+	function loadComment(){
+		const replyListArea = document.querySelector("#reply-list-area");
+		
+		$.ajax({
+			url : '${root}/notice/reply/list' ,
+			type : "GET" ,
+			data : {
+				noticeNo : '${nvo.no}'
+			} ,
+			success : function(data){
+				console.log(data);
+				
+				const x = JSON.parse(data);
+				console.log(x);
+				const tbody = document.querySelector('#reply-list-area tbody');
+				tbody.innerHTML = "";
+				let str = "";
+				for(let i = 0; i < x.length; i++){
+					str += '<tr>';
+					str += '<td>' + x[i].content + '</td>';
+					str += '<td>' + x[i].writerNo + '</td>';
+					str += '<td>' + x[i].enrollDate + '</td>';
+					str += '</tr>';
+				}
+				tbody.innerHTML += str;
+			} ,
+			error : function(e){
+				console.log(e);
+			} ,
+		});
+	}
+	loadComment();
+</script>

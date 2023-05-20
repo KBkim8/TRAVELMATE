@@ -43,13 +43,11 @@ public class BoardDao {
 
 	public int write(Connection conn, BoardVo bvo) throws Exception {
 		
-		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , BOARD_IMG_NO ,MEMBER_NO, TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,?,?,?,?,?)";
+		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO  , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,1,?,?,?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, bvo.getBoardCategoryNo());
-		pstmt.setString(2, bvo.getBoardImgNo());
-		pstmt.setString(3, bvo.getMemberNo());
-		pstmt.setString(4, bvo.getTitle());
-		pstmt.setString(5, bvo.getContent());
+		pstmt.setString(1, bvo.getMemberNo());
+		pstmt.setString(2, bvo.getTitle());
+		pstmt.setString(3, bvo.getContent());
 		int result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 		return result;
@@ -195,13 +193,78 @@ public class BoardDao {
 		return voList;
 	
 	}
-	
-	
-	
-
-	
 
 		
-	
+		//SQL
+		String sql = "SELECT COUNT(*) FROM BOARD WHERE DELETE_YN = 'N'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+	}
 
-}
+	public BoardVo noticeDetail(Connection conn, String no) throws Exception {
+
+		//이거 쿼리문 MEMBER_CATEGORY 조인후 NAME이 보이게 수정해야함
+		String sql = "SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO =1 AND NO =? AND DELETE_YN ='N'"; 
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		BoardVo  vo = null;
+		if(rs.next()) {
+			String bcn = rs.getString("BOARD_CATEGORY_NO");
+			String pcn = rs.getString("PRO_CATEGORY_NO");
+			String mn = rs.getString("MEMBER_NO");
+			String bin = rs.getString("BOARD_IMG_NO");
+			String t = rs.getString("TITLE");
+			String c = rs.getString("CONTENT");
+			String e = rs.getString("ENROLL_DATE");
+			String d = rs.getString("DELETE_YN");
+			String h = rs.getString("HIT");
+			String u = rs.getString("UPLOAD_YN");
+			String m = rs.getString("MODIFY_DATE");
+			
+			vo = new BoardVo();
+			vo.setNo(no);
+			vo.setBoardCategoryNo(bcn);
+			vo.setProCategoryNo(pcn);
+			vo.setMemberNo(mn);
+			vo.setBoardImgNo(bin);
+			vo.setTitle(t);
+			vo.setContent(c);
+			vo.setEnrollDate(e);
+			vo.setDeleteYn(d);
+			vo.setHit(h);
+			vo.setUploadYn(u);
+			vo.setModifyDate(m);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		return vo;
+	}
+
+	//조회수 처리
+	public int updateHit(Connection conn, String no) throws Exception {
+		
+		String sql = "UPDATE BOARD SET HIT = HIT+1 WHERE NO = ? AND DELETE_YN = 'N'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		int result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
+		
+	}
+
+}//class
