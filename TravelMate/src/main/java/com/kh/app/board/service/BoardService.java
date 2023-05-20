@@ -32,7 +32,7 @@ private final BoardDao dao;
 			List<CategoryVo> cvoList = dao.getCategoryList(conn);
 
 			return cvoList;
-		}
+			}
 		}
 
 	//글쓰기
@@ -56,30 +56,48 @@ private final BoardDao dao;
 		return result;
 	}
 
-	public int selectCnt(String memberNo) throws Exception {
+
+	// 강분 -회원별 게시글 개수
+	public int getMyBoardListCntByNo(String searchType, String searchValue, String mno) throws Exception {
 
 		// connn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int cnt = dao.selectCnt(conn, memberNo);
+		int cnt = dao.getMyBoardListCntByNo(conn,searchType, searchValue, mno);
 		
 		JDBCTemplate.close(conn);
 		
 		return cnt;
-
+		
 	}
 
-	// 회원별 게시글 목록 조히
-	public List<InqueryVo> selectInqueryList(PageVo pv, String memberNo) {
+	// 강분 -회원별 전체 게시글 목록 조회
+	public List<BoardVo> getMyBoardListByNo(PageVo pv, String mno) throws Exception {
+		
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<BoardVo> voList = dao.getMyBoardListByNo(conn,pv,mno);
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return voList;
+		
+	}
+
+	// 강분 -회원별 검색 게시글 목록 조회
+	public List<BoardVo> getMyBoardListByNo(PageVo pv, String searchType, String searchValue, String mno) throws Exception {
 
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<InqueryVo> list = dao.selectInqueryList(conn, pv, memberNo);
+		List<BoardVo> voList = dao.getMyBoardListByNo(conn,pv, searchType, searchValue, mno);
 		
+		// close
 		JDBCTemplate.close(conn);
 		
-		return list;
+		return voList;
 		
 	}
 
@@ -134,6 +152,9 @@ private final BoardDao dao;
 		JDBCTemplate.close(conn);
 		return vo;
 	}
+	
+	
+	
 	
 }
 

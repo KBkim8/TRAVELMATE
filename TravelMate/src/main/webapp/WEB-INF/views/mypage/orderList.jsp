@@ -15,6 +15,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
+        margin-top: 300px;
     }
 
     #first-content>img{
@@ -49,7 +50,7 @@
         border-radius: 30px;
         border: 1px dashed black;
         height: 1000px;
-        left: 130px;
+        left: 100px;
         top: 230px;
         font-size: 25px;
         position: absolute;
@@ -172,18 +173,6 @@
                 <div><div id="order-goods-wrap01"><img src="${root}/static/img/마음샌드.jpg" alt="" id="img"><div id="order-info">[파리바게트]제주 마음샌드<br>주문수량 : 1개<br>주문금액:20,000원</div></div></div>
                 <div>2023.05.01 13:55:21</div>
                 <div><div id="order-goods-status">결제완료<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
-            </div>
-            <div id="content-wrap">
-                <div>2</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/d오메기떡.jpg" alt="" id="img"><div id="order-info">[파리바게트]제주 마음샌드<br>주문수량 : 1개<br>주문금액:20,000원</div></div></div>
-                <div>2023.05.01 13:55:21</div>
-                <div><div id="order-goods-status">배송중<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
-            </div>
-            <div id="content-wrap">
-                <div>3</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/아베베도넛.jpg" alt="" id="img"><div id="order-info">제주 아베베도넛<br>주문수량 : 2개<br>주문금액:30,000원</div></div></div>
-                <div>2023.05.01 13:55:21</div>
-                <div> <div id="order-goods-status">배송중<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
             </div>
       </div>
     </div>

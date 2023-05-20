@@ -1,10 +1,9 @@
 package com.kh.app.cs.service;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 
+import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.dao.InqueryDao;
@@ -35,32 +34,6 @@ public class InqueryService {
 		return result;
 	}
 
-	// 문의글 개수 세기
-	public int selectCnt() throws Exception {
-
-		// connn
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int cnt = dao.selectCnt(conn);
-		
-		JDBCTemplate.close(conn);
-		
-		return cnt;
-		
-	}
-
-	// 문의글 목록 조회
-	public List<InqueryVo> selectInqueryList(PageVo pv) throws Exception {
-
-		// conn
-		Connection conn = JDBCTemplate.getConnection();
-		
-		List<InqueryVo> list = dao.selectInqueryList(conn, pv);
-		
-		JDBCTemplate.close(conn);
-		
-		return list;
-	}
 
 	// 문의글 상세조회
 	public InqueryVo selectInqueryOneByNo(String no) throws Exception {
@@ -72,6 +45,51 @@ public class InqueryService {
 		vo = dao.selectInqueryOneByNo(conn,no);
 
 		return vo;
+	}
+
+	// 글 개수
+	public int getInqueryListCnt(String searchType, String searchValue) throws Exception {
+
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.getInqueryListCnt(conn, searchType, searchValue);
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+		
+	}
+
+	// 검색해서 문의글 조회
+	public List<InqueryVo> getInqueryList(PageVo pv, String searchType, String searchValue) throws Exception {
+		
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<InqueryVo> voList = dao.getInqueryList(conn,pv, searchType, searchValue);
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+
+	// 전체 문의글 조회
+	public List<InqueryVo> getInqueryList(PageVo pv) throws Exception {
+
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<InqueryVo> voList = dao.getInqueryList(conn,pv);
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return voList;
+		
+	
 	}
 		
 }

@@ -105,6 +105,10 @@
         text-align: center;
         color: white;
         border-radius: 6px;
+        width: 140px;
+        height: 50px;
+        font-size: 20px;
+        margin-top: 50px;
     }
 
     #btn01:hover {background-color: #80C49D;}
@@ -148,14 +152,13 @@
 
 </body>
 <script>
-    function quit(){
-        const result = confirm("삭제하시겠습니까?");
-                if(!result){
-                    return;
-                }
+
+    // 탈퇴
+    function quit() {
+            const result = confirm('탈퇴하시겠습니까?');
+            if(result){
                 location.href='${root}/mypage/member/quit';
-    }
-
-
+            }
+        }
 </script>
 </html>

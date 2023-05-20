@@ -44,12 +44,9 @@
         font-weight: bold;
     }
 
-    #inquery-area{
-        width: 1300px;
-    }
-
-    #title-area{
-        display: flex;
+    #title-wrap{
+        width: 1200px;
+        margin-left: 100px;
     }
     #inquery-input{
         position: absolute;
@@ -61,24 +58,25 @@
         grid-template-rows: 1fr 3fr 1fr;
         justify-content: center;
         align-items: center;
-        border-radius: 30px;
-        border: 1px dashed black;
         margin: auto;
         font-size: 30px;
     }
 
     input[name=title] {
-        width: 1000px;
+        width: 1200px;
         height: 50px;
-        border-radius: 20px;
         font-size: 20px;
+        border-bottom: 1px solid black;
+        border: none;
     }
 
     textarea {
-        width: 1000px;
+        width: 1300px;
         height: 600px;
         font-size: 30px;
         border-radius: 20px;
+        border: none;
+        resize: none;
     }
 
     #content-wrap {

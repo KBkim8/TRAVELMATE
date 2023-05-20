@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
@@ -27,29 +28,6 @@ public class InqueryDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
-	}
-
-	// 문의글 개수 세기
-	public int selectCnt(Connection conn) throws Exception {
-
-		// SQL
-		// 검색 기능을 넣을지,,, 아님 그냥 로그인한 자신 글만 볼 수 있게 해야할 지 고민해보기
-		String sql = "SELECT COUNT(*) FROM QNA WHERE DELETE_YN='N'";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery();
-		
-		// tx || rs
-		int cnt = 0;
-		if(rs.next()) {
-			cnt = rs.getInt(1);
-		}
-		
-		// close
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(rs);
-				
-		return cnt;
-
 	}
 
 	// 문의글 목록 select
@@ -131,6 +109,128 @@ public class InqueryDao {
 
 		return vo;
 		
+	}
+
+	
+	// 글 개수 세기
+	public int getInqueryListCnt(Connection conn, String searchType, String searchValue) throws Exception {
+
+		// SQL
+		String sql = "SELECT COUNT(*) FROM (SELECT Q.NO ,Q.TITLE ,Q.CONTENT ,Q.MEMBER_NO ,Q.ENROLL_DATE ,Q.DELETE_YN ,M.NICK FROM QNA Q JOIN MEMBER M ON (Q.MEMBER_NO = M.NO))  WHERE DELETE_YN='N'";
+		if("title".equals(searchType)) {
+			sql += "AND TITLE LIKE '%" + searchValue + "%'";
+		}else if("writer".equals(searchType)) {
+			sql += "AND NICK LIKE '%" + searchValue + "%'";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		return cnt;
+		
+	}
+
+	// 전체 문의글 조회
+	public List<InqueryVo> getInqueryList(Connection conn, PageVo pv) throws Exception {
+
+		// sql
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , Q.TITLE , Q.CONTENT , Q.MEMBER_NO , Q.ENROLL_DATE , Q.DELETE_YN , M.NICK FROM QNA Q JOIN MEMBER M ON( Q.MEMBER_NO = M.NO) WHERE Q.DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		List<InqueryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String memberNick = rs.getString("NICK");
+	
+			InqueryVo vo = new InqueryVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMemberNick(memberNick);
+			
+			voList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+		
+	}
+
+	// 검색해서 문의글 조회
+	public List<InqueryVo> getInqueryList(Connection conn, PageVo pv, String searchType, String searchValue) throws Exception {
+
+		// sql
+		String sql = "";
+		if(searchType.equals("title")) {
+			// sql (제목으로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , Q.TITLE , Q.CONTENT , Q.MEMBER_NO , Q.ENROLL_DATE , Q.DELETE_YN , M.NICK FROM QNA Q JOIN MEMBER M ON(Q.MEMBER_NO = M.NO) WHERE Q.DELETE_YN= 'N' AND Q.TITLE LIKE '%' || ? || '%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(searchType.equals("writer")) {
+			// sql (작성자로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT Q.NO , Q.TITLE , Q.CONTENT , Q.MEMBER_NO , Q.ENROLL_DATE , Q.DELETE_YN , M.NICK FROM QNA Q JOIN MEMBER M ON(Q.MEMBER_NO = M.NO) WHERE Q.DELETE_YN= 'N' AND M.NICK LIKE '%' || ? || '%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			// 예외 던져주기
+			// throw new Exception();
+			// 값이 이상하면 기본 목록 조회
+			return getInqueryList(conn, pv);
+		}
+
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString	(1, searchValue);
+		pstmt.setInt	(2, pv.getBeginRow());
+		pstmt.setInt	(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		List<InqueryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String memberNick = rs.getString("NICK");
+	
+			InqueryVo vo = new InqueryVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMemberNick(memberNick);
+			
+			voList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	
+	
 	}
 
 }

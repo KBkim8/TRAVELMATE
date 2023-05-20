@@ -14,12 +14,16 @@ import com.kh.app.member.vo.MemberVo;
 
 @WebServlet("/mypage/member/quit")
 public class MemberQuitController extends HttpServlet{
+	
+	// 탈퇴 화면
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/WEB-INF/views/mypage/memberQuit.jsp").forward(req, resp);
+	}
 
 	// 회원탈퇴
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 화면
-		req.getRequestDispatcher("/WEB-INF/views/mypage/memberQuit.jsp").forward(req, resp);
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 			// 데꺼
@@ -37,17 +41,15 @@ public class MemberQuitController extends HttpServlet{
 				session.invalidate();
 				req.getSession().setAttribute("alertMsg", "탈퇴 성공,,");
 				resp.sendRedirect(req.getContextPath() + "/home");
+				return;
 			}else {
 				throw new Exception();
 			}
-			
 			
 		} catch (Exception e) {
 			System.out.println("[ERROR] quit error...");
 			e.printStackTrace();
 			
-			req.setAttribute("errorMsg", "quit fail..");
-			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 	}
 	

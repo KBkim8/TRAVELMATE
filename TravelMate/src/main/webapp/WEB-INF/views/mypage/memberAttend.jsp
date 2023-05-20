@@ -130,7 +130,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            // FullCalendar 설정...
+            // FullCalendar 설정
             headerToolbar: {
                 left: 'prev,next',
                 center: 'title',
@@ -149,7 +149,7 @@
                             type: 'POST',
                             data: { date: formattedDate },
                             success: function(data) {
-                                // 출석 정보 저장 성공 시 처리할 로직 작성
+                                // 출석 정보 저장 성공 시
                                 console.log('출석 정보 저장 성공');
 
                                 // 출석한 날짜에 표시할 스타일 추가
@@ -170,16 +170,16 @@
                                 });
                             },
                             error: function() {
-                                // 출석 정보 저장 실패 시 처리할 로직 작성
+                                // 출석 정보 저장 실패 시 
                                 console.log('출석 정보 저장 실패');
                             }
                         });
                     }
                 }
             },
-            // FullCalendar 설정 계속...
         });
 
+        // 오늘 날짜 설정
         function formatDate(date) {
             var year = date.getFullYear();
             var month = String(date.getMonth() + 1).padStart(2, '0');

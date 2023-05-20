@@ -102,7 +102,7 @@
                                  <ul class="big_menu">
                                      <li>작성게시글 목록<i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/boardList">목록조회</a></li>
+                                         <li><a href="${root}/mypage/myBoardList">목록조회</a></li>
                                      </ul>
                                  </ul>
                              </div>
