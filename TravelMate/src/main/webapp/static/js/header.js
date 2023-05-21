@@ -8,7 +8,7 @@ $(function () {
 
 // 관심상품 이동
 cart.addEventListener("click", ()=> {
-    location.href="/app/mypage/favorites";
+    location.href="/TravelMate/mypage/favorites";
 
 })
 

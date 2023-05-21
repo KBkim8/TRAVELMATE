@@ -16,20 +16,39 @@ import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.service.InqueryService;
 import com.kh.app.cs.vo.InqueryVo;
+import com.kh.app.member.vo.MemberVo;
 
 @WebServlet("/cs/inqueryList")
 public class InqueryListController extends HttpServlet{
 
 	private final InqueryService is = new InqueryService();
+	
+	// 문의 목록 화면
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+		if(loginMember != null) {
+			req.getRequestDispatcher("/WEB-INF/views/CScenter/inqueryList.jsp").forward(req, resp);
+		}else {
+			req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요");
+			resp.sendRedirect(req.getContextPath() + "/login");
+		}
+	
+	}
+	
 	// 문의내역 목록
 	// SELECT Q.NO, Q.MEMBER_NO, Q.TITLE, Q.CONTENT, TO_CHAR(Q.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, M.NICK FROM QNA Q JOIN MEMBER M ON (Q.MEMBER_NO = M.NO) WHERE M.NO='2' AND DELETE_YN='N'
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 					
 			String searchType = req.getParameter("searchType");
 			String searchValue = req.getParameter("searchValue");
+			MemberVo loginMember = (MemberVo)req.getSession().getAttribute("loginMember");
+			String mno = loginMember.getNo();
+			String mId = loginMember.getId();
 			
 			// 데이터 준비
 			int cnt = is.getInqueryListCnt(searchType, searchValue);
@@ -41,12 +60,18 @@ public class InqueryListController extends HttpServlet{
 			PageVo pv = new PageVo(cnt, page, 5, 10);
 			
 			// 서비스
+			// 전체 목록과 검색 결과 목록과 관리자 로그인 시, 전체 회원의 내역 목록 나눠주기
 			List<InqueryVo> voList = null;
-			if(searchType == null || searchValue.equals("")) {
-				voList = is.getInqueryList(pv);
-			}else {
-				voList = is.getInqueryList(pv, searchType, searchValue);
+			if (!mId.equals("ADMIN") && (searchValue.equals(""))) {
+			    voList = is.getInqueryList(pv, mno);
+			} else if (mId.equals("ADMIN") && (searchValue.equals(""))) {
+				voList = is.getInqueryListAll(pv);
+			} else if (mId.equals("ADMIN") && (!searchValue.equals(""))) {
+				voList = is.getInqueryListAll(pv, searchType, searchValue);
+			} else if(!mId.equals("ADMIN") && (!searchValue.equals(""))){
+				voList = is.getInqueryList(pv, searchType, searchValue, mno);
 			}
+
 			
 			Map<String, String> map = new HashMap<>();
 			map.put("searchType", searchType);
@@ -57,6 +82,7 @@ public class InqueryListController extends HttpServlet{
 			req.setAttribute("pv", pv);
 			req.setAttribute("voList", voList);
 			req.getRequestDispatcher("/WEB-INF/views/CScenter/inqueryList.jsp").forward(req, resp);
+			System.out.println(mno);
 			
 			} catch (Exception e) {
 				System.out.println("[ERROR] inquery list controller err");

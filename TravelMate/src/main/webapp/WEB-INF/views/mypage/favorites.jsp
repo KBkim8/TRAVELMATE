@@ -10,11 +10,10 @@
     /* 내용영역 */
     #content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 300px;
+	    width: 1390px;
+	    height: 100%;
+	    bottom: 900px;
+	    left: 400px;
     }
 
     #first-content>img{
@@ -147,6 +146,19 @@
             <div id="fav-list-box">
                 <!-- 반복문 처리 -->
                 <div id="content-wrap">
+                    <table>
+                        <tbody>
+                            <c:forEach items="${ voList }" var="fav">
+                            <tr>
+                                <td><img src='"${root}/static/mypage/fav" + ${fav.img}' alt=""></td>
+                                <td>${ fav.no }</td>
+                                <td>${ fav.title }</td>
+                                <td>${ fav.enrollDate}</td>
+                            </tr>
+                            </c:forEach>
+                        </tbody>
+        
+                    </table>
                     <div><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
                     <div> 
                         상품명 : [파리바게트]마음샌드

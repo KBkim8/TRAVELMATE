@@ -16,10 +16,13 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
+import com.kh.app.mypage.service.OrderListService;
+import com.kh.app.mypage.vo.OrderListVo;
 
 @WebServlet("/mypage/orderList")
 public class OrderListController extends HttpServlet{
 
+	// 주문 내역 조회
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
@@ -28,12 +31,9 @@ public class OrderListController extends HttpServlet{
 		 	MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
 		 	String mno = loginMember.getNo();
 		 	
-			String searchType = req.getParameter("searchType");
-			String searchValue = req.getParameter("searchValue");
-			
-			BoardService bs = new BoardService();
+			OrderListService ols = new OrderListService();
 			// 데이터 준비
-			int cnt = bs.getMyBoardListCntByNo(searchType, searchValue, mno);
+			int cnt = ols.getOrderListCntByNo(mno);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";
@@ -42,25 +42,16 @@ public class OrderListController extends HttpServlet{
 			PageVo pv = new PageVo(cnt, page, 5, 10);
 			
 			// 서비스
-			List<BoardVo> voList = null;
-			if(searchType == null || searchValue.equals("")) {
-				voList = bs.getMyBoardListByNo(pv, mno);
-			}else {
-				voList = bs.getMyBoardListByNo(pv, searchType, searchValue, mno);
-			}
-			
-			Map<String, String> map = new HashMap<>();
-			map.put("searchType", searchType);
-			map.put("searchValue", searchValue);
+			List<OrderListVo> voList = null;
+			voList = ols.getMyBoardListByNo(pv, mno);
 			
 			// 화면
-			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("voList", voList);
-			req.getRequestDispatcher("/WEB-INF/views/mypage/myBoardList.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/mypage/orderList.jsp").forward(req, resp);
 			
 		} catch (Exception e) {
-			System.out.println("[ERROR] MyboardList err");
+			System.out.println("[ERROR] orderList err");
 			e.printStackTrace();
 			
 			req.setAttribute("errorMsg", "목록 조회 실패...");
