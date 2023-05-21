@@ -7,9 +7,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.app.cs.service.InqueryService;
 import com.kh.app.cs.vo.InqueryVo;
+import com.kh.app.member.vo.MemberVo;
 
 @WebServlet("/cs/detail")
 public class InqueryDetailController extends HttpServlet{
@@ -20,6 +22,8 @@ public class InqueryDetailController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
+			HttpSession session = req.getSession();
+			MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
 			// 데꺼
 			String no = req.getParameter("no");
 			
@@ -30,6 +34,7 @@ public class InqueryDetailController extends HttpServlet{
 			
 			// 화면
 			if(vo != null) {
+				req.setAttribute("loginMember", loginMember);
 				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/CScenter/inqueryDetail.jsp").forward(req, resp);
 			}else {

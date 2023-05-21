@@ -23,7 +23,13 @@ public class InqueryController extends HttpServlet{
 	// 화면
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/CScenter/inquery.jsp").forward(req, resp);
+		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+		if(loginMember != null) {
+			req.getRequestDispatcher("/WEB-INF/views/CScenter/inquery.jsp").forward(req, resp);
+		}else {
+			req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요");
+			resp.sendRedirect(req.getContextPath() + "/login");
+		}
 	}
 	
 
@@ -34,7 +40,6 @@ public class InqueryController extends HttpServlet{
 		try{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-			System.out.println(loginMember);
 	
 			// 데꺼
 			String title = req.getParameter("title");

@@ -10,11 +10,10 @@
 
 #content01{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 300px;
+	    width: 1390px;
+	    height: 100%;
+	    bottom: 900px;
+	    left: 400px;
     }
 
     #first-content>img{
@@ -45,9 +44,22 @@
     }
 
     #title-wrap{
-        width: 1200px;
-        margin-left: 100px;
+        width: 60%;
+        margin-left: 50px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        font-size: 20px;
     }
+
+    #word {
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        text-align: center;
+        font-weight: bold;
+    }
+
     #inquery-input{
         position: absolute;
         width: 1300px;
@@ -71,31 +83,32 @@
     }
 
     textarea {
-        width: 1300px;
-        height: 600px;
-        font-size: 30px;
-        border-radius: 20px;
+        width: 1200px;
+        height: 700px;
+        font-size: 20px;
+        border-bottom: 1px solid black;
         border: none;
         resize: none;
     }
 
     #content-wrap {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
+        width: 60%;
+        margin-left: 50px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        font-size: 20px;
     }
 
     #btn-area{
         margin: auto;
-        margin-top: 10%;
+        margin-top: 5%;
         place-items: center center;
     }
     
     #btn-area > input{
-        width: 200px;
-        height: 60px;
-        font-size: 30px;
+        width: 180px;
+        height: 40px;
+        font-size: 20px;
         border-spacing: 20px;
     }
 
@@ -137,7 +150,7 @@
         <form action="${root}/cs/inquery" method="POST">
 	        <div id="inquery-input">
 	            <div id="title-wrap">
-	                    <span id="word">제목</span>
+	                    <div id="word">제목</div>
 	                    <input type="text" name="title" >
 	                </div>
 	                <div id="content-wrap">
@@ -147,10 +160,10 @@
 	                <div id="btn-area">
 	                    <!-- 작성 버튼 누르면 문의 내역 페이지로 보내주기 -->
 	                    <input type="submit" id="btn01" value="작성하기"></input>
-	            </div>
-	        </div>
-       	</form>
-    </div>
+                    </div>
+                </div>
+            </div>
+        </form>
 
 </body>
 <script>

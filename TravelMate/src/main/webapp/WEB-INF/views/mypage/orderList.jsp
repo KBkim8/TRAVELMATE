@@ -11,11 +11,10 @@
     /* 내용영역 */
     #content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 300px;
+	    width: 1390px;
+	    height: 100%;
+	    bottom: 900px;
+	    left: 400px;
     }
 
     #first-content>img{
@@ -141,7 +140,6 @@
         font-size: 14px;
     }
 
-
 </style>
 </head>
 <body>
@@ -154,18 +152,14 @@
             <hr>
             <a>주문내역</a>
         </div>
-            <div id="report-search">
-                <form action="" method="GET">
-                    <input class="" name="searchValue" type="text" placeholder="주문내역 검색">
-                    <input type="submit" value="검색">
-                </form>
-            </div>
+        
         <div id="order-list-box">
             <div id="title-wrap">
                 <div>주문 번호</div>
                 <div>주문 상세 내용</div>
                 <div>주문 날짜</div>
                 <div>주문 상태</div>
+
             </div>
             <!-- 반복문 처리 -->
             <div id="content-wrap">

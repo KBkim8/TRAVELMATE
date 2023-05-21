@@ -10,11 +10,10 @@
 
 	#content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top :300px;
+	    width: 1390px;
+	    height: 100%;
+	    bottom: 900px;
+	    left: 400px;
     }
 
     #first-content>img{
@@ -44,50 +43,69 @@
         font-weight: bold;
     }
 
-    #inquery-area{
-        width: 1300px;
+    #first-content>#btn01{
+        position: absolute;
+        right: 0px;
+        top: 130px;
     }
 
-    #title-area{
-        display: flex;
+    #title-wrap{
+        width: 60%;
+        margin-left: 50px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        font-size: 20px;
     }
+
+    #word {
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        text-align: center;
+        font-weight: bold;
+    }
+
     #inquery-input{
         position: absolute;
         width: 1300px;
-        height: 1000px;
+        height: 1100px;
         left: 100px;
         top: 230px;
         display: grid;
         grid-template-rows: 1fr 3fr 1fr;
         justify-content: center;
         align-items: center;
-        border-radius: 30px;
-        border: 1px dashed black;
         margin: auto;
         font-size: 30px;
+        border: 1px solid black;
     }
 
-    #title {
-        width: 1000px;
+    input[name=title] {
+        width: 1200px;
         height: 50px;
-        border-radius: 20px;
         font-size: 20px;
-        background-color: none;
+        border: none;
+        border-bottom: 1px solid black;
+        background: transparent;
     }
 
-    #content-wrap > textarea {
-        width: 1000px;
-        height: 600px;
-        font-size: 30px;
+    textarea {
+        width: 1180px;
+        height: 700px;
+        font-size: 20px;
+        border-bottom: 1px solid black;
+        border: none;
+        resize: none;
         border-radius: 20px;
-        background-color: none;
     }
 
     #content-wrap {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        text-align: center;
+        width: 60%;
+        margin-left: 50px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        font-size: 20px;
     }
 
     #btn-area{
@@ -113,7 +131,7 @@
         color: white;
         border-radius: 6px;
         width: 150px;
-        height: 40px;
+        height: 50px;
         font-size: 20px;
     }
 
@@ -124,6 +142,40 @@
                 0 0 0 1px rgba(0,0,0,0.4);
     }   
 
+    #reply-area{
+        justify-self: center;
+        align-items: center;
+    }
+
+    #reply-form-area{
+        margin-left: 100px;
+    } 
+
+    #reply-form-area > input[name=content] {
+        width: 1000px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    #reply-list-area {
+        margin-top: 20px;
+        font-size: 20px;
+        margin-left: 50px;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        font-size: 20px;
+    }
+
+    .align{
+        width: 1200px;
+        margin-left: 100px;
+    }
+
+    .reply-table{
+        width: 1180px;
+        border-collapse: separate;
+        border-spacing: 20px;
+    }
     
 </style>
 </head>
@@ -136,35 +188,36 @@
         <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
         <hr>
         <a>문의상세</a>
+        <button id="btn01" onclick="back();">목록으로</button>
     </div>
         <div id="inquery-input">
             <div id="title-wrap">
-                    제목<div name="title" id="title">${vo.title }</div>
-            </div>
-            <div id="content-wrap">
-                내용<textarea name="content">${vo.content }</textarea>
-            </div>
+                    <div id="word">제목</div>
+                    <input type="text" name="title" value="${vo.title}">
+                </div>
+                <div id="content-wrap">
+                    <span id="word">내용</span>
+                    <textarea name="content">${vo.content}</textarea>
+                </div>
                 <div id="reply-area">
-                    <input type="hidden" name="InqueryNo" value="${vo.no}">
-				    <div id="reply-form-area">
-					<input type="text" name="content" placeholder="댓글을 입력하세요">
-					<input type="button" id="btn01" value="댓글 쓰기" onclick="writeComment();">
-				    </div>
-				    <div id="reply-list-area">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>답변 내용</th>
-                                    <th>작성일시</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-					    </table>
-				    </div>
+                <hr class="align">
+                <input type="hidden" name="InqueryNo" value="${vo.no}">
+                <div id="reply-form-area">
+                <c:if test="${ loginMember.id == 'ADMIN'}">
+	                <input type="text" name="content" placeholder="답변을 입력하세요">
+    	            <input type="button" id="btn01" name="writeComment" value="답변 쓰기" onclick="writeComment();">
+                </c:if>
+                </div>
+                <div id="reply-list-area">
+                    <table class="reply-table">
+                        <span id="word">답변</span>
+                        <tbody>
+                            
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
     </div>
 
 </body>
@@ -172,16 +225,42 @@
 
 
     // 댓글 admin, 작성자 둘 다 볼 수 o, 쓰는 건 admin만
+    // 댓글 쓰기
+    function writeComment(){
+		const comment = document.querySelector("input[name=content]").value;
+		$.ajax({
+			url : "${root}/cs/reply/write",
+			type : "POST",
+			data : {
+				InqueryNo : "${vo.no}",
+				content : comment
+			},
+			success : (x)=>{
+				if(x == "ok"){
+					alert("댓글 작성 성공!");
+					document.querySelector("input[name=content]").value = '';
+					loadComment();
+				}else{
+					alert("댓글 작성 실패,,");
+				}
+			},
+			error : (x)=>{
+				console.log(x);
+			}
+		})
+	}
+
+
 	// 댓글 목록 보여주기
 	function loadComment(){
 		const replyListArea = document.querySelector("#reply-list-area");
 
 		// 댓글 객체로 내용, 작성자 뽑아내기
 		$.ajax({
-			url : "${root}/notice/reply/list",
+			url : "${root}/cs/reply/list",
 			type : "GET",
 			data : {
-				noticeNo : '${vo.no}'
+				InqueryNo : '${vo.no}'
 			},
 			success : function(data){
 				console.log(data);
@@ -195,7 +274,6 @@
 				for(let i = 0; i < x.length; i ++){
 					str += '<tr>';
 					str += '<td>' + x[i].content + '</td>';
-					str += '<td>' + x[i].wrterNo + '</td>';
 					str += '<td>' + x[i].enrollDate + '</td>';
 					str += '</tr>';
 
@@ -211,6 +289,11 @@
 	}
 
 	loadComment();
+
+    function back(){
+        history.back();
+    }
+    
 
 </script>
 </html>
