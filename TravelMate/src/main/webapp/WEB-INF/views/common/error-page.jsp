@@ -8,9 +8,17 @@
 </head>
 <body>
 
-	<%@include file="/WEB-INF/views/common/header.jsp" %>
+	<div id="wrap">
+		
+		<%@ include file="/WEB-INF/views/common/header.jsp" %>
+		
+		<main>
+		
+			<h1>${errMsg}</h1>
+		
+		</main>
 	
-		<h1>${errorMsg }</h1>
+	</div>
 
 </body>
 </html>

@@ -3,7 +3,6 @@
     pageEncoding="UTF-8"%>
     
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-
     
 <!DOCTYPE html>
 <html>
@@ -14,6 +13,12 @@
 <link rel="stylesheet" href="${root}/static/css/header.css">
 <script defer src="${root}/static/js/header.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<c:if test="${not empty alertMsg}">
+	<script>
+		alert("${alertMsg}");
+	</script>
+</c:if>
+<c:remove var="alertMsg" scope="session"/>
 </head>
 <body bottommargin="0">
     
@@ -55,40 +60,44 @@
          <!-- 왼쪽사이드바 -->
         <div id="side-bar">
             <img src="${root}/static/img/삼각형.png" alt="삼각형">
+            <div id="profile">
+                <img src="${root}/static/img/adminProfile.png" alt="프로필사진">
+                <a>관리자 님 환영합니다 :)</a>
+            </div>
             <div id="side">
                 <div id="side-content">
                      <div class="topbar" style="position: absolute; top:0;">
-                         <div class="left_sub_menu">
-                             <div class="sub_menu">
-                                 <div id="sub-img">
-                                     <img id="site-logo" src="${root}/static/img/TM small logo.png" alt="로고">
-                                     <img id="triangle2" src="${root}/static/img/삼각형.png" alt="삼각형2">
-                                 </div>
-                                 <h2 id="admin-private" data-hover="ADMIN PRIVATE" class="SMN_effect-23-2">ADMIN PRIVATE</h2>
-                                 <ul class="big_menu">
-                                     <li>회원관리 <i class="arrow fas fa-angle-right"></i></li>
-                                     <ul class="small_menu">
-                                         <li><a href="${root}/admin/reportlist">신고내역</a></li>
-                                         <li><a href="${root}/admin/reportSearch">제재이력조회</a></li>
-                                         <li><a href="#">회원조회</a></li>
-                                     </ul>
-                                 </ul>
-                                 <ul class="big_menu">
-                                     <li>상품관리 <i class="arrow fas fa-angle-right"></i></li>
-                                     <ul class="small_menu">
-                                         <li><a href="#">차량재고조회</a></li>
-                                         <li><a href="#">숙조재고조회</a></li>
-                                         <li><a href="#">기념품재고조회</a></li>
-                                         <li><a href="#">판매등록요청조회</a></li>
-                                     </ul>
-                                 </ul>
-                                 <ul class="big_menu">
-                                     <li>배너관리 <i class="arrow fas fa-angle-right"></i></li>
-                                     <ul class="small_menu">
-                                         <li><a href="#">광고배너관리</a></li>
-                                     </ul>
-                                 </ul>
-                             </div>
+                        <div class="left_sub_menu">
+                            <div id="sub-img">
+                                 <img id="triangle2" src="${root}/static/img/삼각형2.png" alt="삼각형2">
+                            </div>
+                        </div>        
+                        <div class="sub_menu">
+                            <h2 id="admin-private" data-hover="ADMIN PRIVATE" class="SMN_effect-23-2">ADMIN PRIVATE</h2>
+                            <ul class="big_menu">
+                                <li>회원관리 <i class="arrow fas fa-angle-right"></i></li>
+                                <ul class="small_menu">
+                                    <li><a href="${root}/admin/reportlist?page=1">· 신고내역</a></li>
+                                    <li><a href="${root}/admin/reportSearch?page=1">· 제재이력조회</a></li>
+                                    <li><a href="${root}/admin/memberSearch">· 회원조회</a></li>
+                                </ul>
+                            </ul>
+                            <ul class="big_menu">
+                                <li>상품관리 <i class="arrow fas fa-angle-right"></i></li>
+                                <ul class="small_menu">
+                                    <li><a href="${root}/admin/carinventory">· 차량재고조회</a></li>
+                                    <li><a href="${root}/admin/accommodationinventory">· 숙조재고조회</a></li>
+                                    <li><a href="${root}/admin/souvenirinventory">· 기념품재고조회</a></li>
+                                    <li><a href="${root}/admin/sellrequest">· 판매등록요청조회</a></li>
+                                </ul>
+                            </ul>
+                            <ul class="big_menu">
+                                <li>배너관리 <i class="arrow fas fa-angle-right"></i></li>
+                                <ul class="small_menu">
+                                    <li><a href="${root}/admin/banner">· 광고배너관리</a></li>
+                                </ul>
+                            </ul>
+                        </div>
                          </div>
                          <div class="overlay"></div>
                      </div>
