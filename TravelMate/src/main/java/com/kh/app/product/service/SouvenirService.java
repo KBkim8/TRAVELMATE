@@ -1,6 +1,7 @@
 package com.kh.app.product.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -61,5 +62,36 @@ public class SouvenirService {
 		}
 		return vo;
 	}
+
+
+	public int order(SouvenirVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.order(vo, conn);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
+	public SouvenirVo selectOrder(String sno) throws Exception {
+		SouvenirVo vo = null;
+		//conn
+		try (Connection conn = JDBCTemplate.getConnection();){
+			vo = dao.selectOrder(conn , sno);
+		}
+		return vo;
+	}
+
+
+
 
 }

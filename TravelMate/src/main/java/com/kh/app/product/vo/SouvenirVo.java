@@ -3,6 +3,7 @@ package com.kh.app.product.vo;
 public class SouvenirVo {
 
 	private String no;
+	private String sno;
 	private String localNo;
 	private String name;
 	private String price;
@@ -12,11 +13,23 @@ public class SouvenirVo {
 	private String content;
 	private String title;
 	private String local;
+	private String mname;
+	private String ph;
+	private String address;
+	private String cnt;
+	private String totalPrice;
+	
 	public String getNo() {
 		return no;
 	}
 	public void setNo(String no) {
 		this.no = no;
+	}
+	public String getSno() {
+		return sno;
+	}
+	public void setSno(String sno) {
+		this.sno = sno;
 	}
 	public String getLocalNo() {
 		return localNo;
@@ -72,16 +85,49 @@ public class SouvenirVo {
 	public void setLocal(String local) {
 		this.local = local;
 	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	public String getPh() {
+		return ph;
+	}
+	public void setPh(String ph) {
+		this.ph = ph;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getCnt() {
+		return cnt;
+	}
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
+	}
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	@Override
 	public String toString() {
-		return "SouvenirVo [no=" + no + ", localNo=" + localNo + ", name=" + name + ", price=" + price + ", enrollDate="
-				+ enrollDate + ", deleteYn=" + deleteYn + ", count=" + count + ", content=" + content + ", title="
-				+ title + ", local=" + local + "]";
+		return "SouvenirVo [no=" + no + ", sno=" + sno + ", localNo=" + localNo + ", name=" + name + ", price="
+				+ price + ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", count=" + count + ", content="
+				+ content + ", title=" + title + ", local=" + local + ", mname=" + mname + ", ph=" + ph + ", address="
+				+ address + ", cnt=" + cnt + ", totalPrice=" + totalPrice + "]";
 	}
-	public SouvenirVo(String no, String localNo, String name, String price, String enrollDate, String deleteYn,
-			String count, String content, String title, String local) {
+	public SouvenirVo(String no, String sno, String localNo, String name, String price, String enrollDate,
+			String deleteYn, String count, String content, String title, String local, String mname, String ph,
+			String address, String cnt, String totalPrice) {
 		super();
 		this.no = no;
+		this.sno = sno;
 		this.localNo = localNo;
 		this.name = name;
 		this.price = price;
@@ -91,11 +137,20 @@ public class SouvenirVo {
 		this.content = content;
 		this.title = title;
 		this.local = local;
+		this.mname = mname;
+		this.ph = ph;
+		this.address = address;
+		this.cnt = cnt;
+		this.totalPrice = totalPrice;
 	}
 	public SouvenirVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
+	
+	
 	
 	
 	
