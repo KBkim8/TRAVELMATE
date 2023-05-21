@@ -67,7 +67,7 @@ table{
 #btn01, #btn02, #btn03, #btn04{
   background-color: #73D38E;
   border: 0;
-  padding: 15px 25px; //버튼 크기 조절
+  padding: 15px 25px; 
   display: inline-block;
   text-align: center;
   color: white;
@@ -115,49 +115,53 @@ table{
         </div>
       </div>
 
-      <div id="second2">
-        <table>
-            <tr>
-                <td>예약자 명:</td>
-                <td><input type="text" placeholder="이름입력" >
-            </tr>
-            <tr>
-                <td>휴대폰 번호:</td>
-                <td><input type="text" placeholder=" ‘ - ’ 제외하고 입력">
-            </tr>
-            <tr>
-                <td>배송 받을 주소:</td>
-                <td><input type="text" placeholder="ex)경기도 용인시 수지구 동천로 27번길 5" style="width: 400px;"></td>
-            </tr>
-        </table>
-      </div>
-
-      <div id="third">
-        <div></div>
-        <div>
-          <h3>주문 정보<hr></h3>
-        </div>
-      </div>
-  
-      <div id="third2">
-        <div>
-            구성 
-        </div>
-        <div>
-            <input type="number">
-        </div>
-    
-      </div>
-
-      <b>총 결제 금액: ${vo.price}원</b>
-      <br><br><br>
-
-      <hr>
-      <div>
-        <button id="btn01">뒤로가기</button>
-        <button id="btn02">과심상품 담기</button>
-        <button id="btn03">결제하기</button>
-      </div>
+	  <form action="${root}/pay/souvenir" method="post">
+	      <div id="second2">
+	        <table>
+	            <tr>
+	                <td>예약자 명:</td>
+	                <td><input type="text" name="mname" placeholder="이름입력" >
+	            </tr>
+	            <tr>
+	                <td>휴대폰 번호:</td>
+	                <td><input type="text" name="ph" placeholder=" ‘ - ’ 제외하고 입력">
+	            </tr>
+	            <tr>
+	                <td>배송 받을 주소:</td>
+	                <td><input type="text" name="address" placeholder="ex)경기도 용인시 수지구 동천로 27번길 5" style="width: 400px;"></td>
+	            </tr>
+	        </table>
+	      </div>
+	
+	      <div id="third">
+	        <div></div>
+	        <div>
+	          <h3>주문 정보<hr></h3>
+	        </div>
+	      </div>
+	  
+	      <div id="third2">
+	        <div>
+	            구성 
+	        </div>
+	        <div>
+	            <input type="number" name="cnt" value="1" id="num" onclick="cal();">
+	        </div>
+	    
+	      </div>
+	      <b>총 결제 금액:  <input type="number" id="num2" name="totalPrice" value="${vo.price}""> 원</b>
+	      <br><br><br>
+		
+		<input type="hidden" value="${vo.no}" name="no">
+	
+	      <hr>
+	      <div>
+	        <button id="btn01" onclick="backPage()">뒤로가기</button>
+	        <button id="btn02">관심상품 담기</button>
+	        <button id="btn03" type="submit" onclick="pay();">결제하기</button>
+	        <button id="btn03" onclick="pay();">결제하기</button>
+	      </div>
+		</form>
 
       
     </div>
@@ -170,3 +174,24 @@ table{
     
 </body>
 </html>
+
+<script>
+
+  const arr = document.querySelectorAll('input[id=num]');
+  const arr2 = document.querySelectorAll('input[id=num2]');
+  
+  function cal(){
+    arr2[0].value = arr[0].value * ${vo.price};
+  }
+  
+  function backPage() {
+    location.href="${root}/souvenir/list";
+  }
+  
+  function pay() {
+	 location.href="${root}/pay/souvenir?sno="+ sno;
+  }
+  
+  
+</script>
+

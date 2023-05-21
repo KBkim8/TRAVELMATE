@@ -51,11 +51,12 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  
 }
 th, td {
-  border-bottom: 1px solid #444444;
-  height: 100px;
+  height: 200px;
   text-align: center;
+  vertical-align : middle;
 }
 
 #page-area{
@@ -72,12 +73,12 @@ th, td {
   flex-direction: row-reverse;
 }
 
-
-
-table td{
+img{
 	justify-content: center;
 	align-items: center;
 }
+
+
 
 </style>
 </head>
@@ -138,13 +139,14 @@ table td{
     <tbody>
       <c:forEach items="${voList}" var="vo"> 
          <tr>
-             <td>${vo.title}</td>
+             <td><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100px" height="100px"  ></td>
              <td>${vo.name}</td>
              <td>${vo.price}</td>
              <td>${vo.local}</td>
          </tr>
       </c:forEach>
     </tbody>
+    
   </table>  
   
    <div id="page-area">

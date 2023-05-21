@@ -213,6 +213,61 @@ public class SouvenirDao {
 		
 		return vo;
 	}
+
+	public int order(SouvenirVo vo, Connection conn) throws Exception {
+		
+		String sql = "INSERT INTO SOUVENIR_RESERVATION ( SNO, SOUVENIR_NO, CNT, PRICE ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNo());
+		pstmt.setString(2, vo.getCnt());
+		pstmt.setString(3, vo.getTotalPrice());
+		
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
+	public SouvenirVo selectOrder(Connection conn, String sno) throws Exception {
+		//SQL
+		String sql = "SELECT SNO, S.NAME, SR.PRICE, SR.CNT, SI.TITLE FROM SOUVENIR_RESERVATION SR JOIN SOUVENIR S ON S.NO = SR.SOUVENIR_NO JOIN SOUVENIR_IMG SI  ON SI.SOUVENIR_NO = S.NO WHERE S.DELETE_YN = 'N' AND SNO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, sno);
+		System.out.println(sno);
+		ResultSet rs = pstmt.executeQuery();
+		//tx || rs
+		SouvenirVo vo = null;
+		if(rs.next()) {
+			vo = new SouvenirVo();
+			
+			
+			String no = rs.getString("NO");
+			String name = rs.getString("NAME");
+			String title = rs.getString("TITLE");
+			String price = rs.getString("PRICE");
+			String cnt = rs.getString("CNT");
+			
+			
+			vo.setNo(no);
+	        vo.setName(name);
+			vo.setTitle(title);
+			vo.setTotalPrice(price);
+			vo.setCnt(cnt);
+			
+		}
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		System.out.println(vo);
+		
+		return vo;
+	}
+
+	
 	
 
 }

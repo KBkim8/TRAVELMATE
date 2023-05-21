@@ -100,17 +100,18 @@
 
       <div id="second2">
         <div>
-          <h2>이미지</h2>
+          <h2><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100px" height="100px"  ></h2>
         </div>
         <div>
-            <h4>예약자 이름:</h4>
-            <h4>예약자 연락처:</h4>
-            <h4>배송 주소: --</h4>
-            <h4>수량: N</h4>
+            <h4>예약자 이름: $[vo.mname]</h4>
+            <h4>예약자 연락처: $[vo.ph]</h4>
+            <h4>배송 주소: ${vo.address }</h4>
+            <h4>배송 주소: ${vo.sno}</h4>
+            <h4>수량: ${vo.cnt}</h4>
         </div>
       </div>
 
-      <b>총 결제 금액:</b><br><br><br><br><br>
+      <b>총 결제 금액: ${vo.totalPrice}</b><br><br><br><br><br>
 
       <h2>결제수단</h2>
 
