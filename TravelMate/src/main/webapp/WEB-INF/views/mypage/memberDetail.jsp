@@ -12,7 +12,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 900px;
+	    bottom: 1100px;
 	    left: 400px;
     }
 
@@ -56,12 +56,12 @@
     #edit-input-box{
         width: 1300px;
         border-radius: 30px;
-        border: 1px dashed black;
+        border: 1px solid black;
         height: 90%;
         margin: auto;
         font-size: 30px;
         display: flex;
-        justify-content: space-around;
+        justify-content:center;
         align-items: center;
     }
 
@@ -92,9 +92,12 @@
     }
 
     #btn-area{
+        width: 1300px;
         margin: auto;
-        margin-top: 10%;
+        margin-top: 5%;
         place-items: center center;
+        display:grid;
+        grid-template-columns: 9fr 1fr;
     }
     
     #btn-area > input{
@@ -116,6 +119,7 @@
         width: 250px;
         height: 50px;
         font-size: 28px;
+        margin-left: 80px;
     }
 
     #btn01:hover {background-color: #80C49D;}
@@ -124,6 +128,16 @@
                 0 0 0 2px rgba(255,255,255,0.15) inset,
                 0 0 0 1px rgba(0,0,0,0.4);
     }   
+    
+    .quitBtn{
+        border: none;
+        outline: none;
+    	width : 100px;
+    	height : 40px;
+        font-size: 15px;
+        background-color: gainsboro;
+        color: black;
+    }
 
     
 </style>
@@ -169,11 +183,23 @@
                     </table>
             </div>
               <div id="btn-area">
-                   <a href="${root}/mypage/member/edit" id="btn01">정보 수정하기</a>
+                   <a href="${root}/mypage/member/edit" id="btn01">수정하기</a>
+                   <button class="quitBtn" onclick="quit();">회원탈퇴</button>
                </div>
         </div>
     </div>
             
 </body>
+<script>
+
+	//탈퇴
+	function quit() {
+		const result = confirm('탈퇴하시겠습니까?');
+		if(result){
+			location.href='${root}/mypage/member/quit';
+		}
+	}
+
+</script>
 
 </html>

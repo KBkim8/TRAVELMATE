@@ -19,7 +19,7 @@
     <div id="wrap">
         <!-- 헤더영역 -->
        	<div id="realLogo">
-            <a href="${root}/admin/home">
+            <a href="${root}/home">
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
@@ -37,7 +37,7 @@
            <c:if test="${not empty loginMember}">
         	<a href="${root}/logout">로그아웃</a>
             <a>|</a>
-            <a href="${root}/mypage/checkPwd">마이페이지</a>
+            <a href="${root}/mypage/member/detail">마이페이지</a>
             <a>|</a>
         	</c:if>
         	

@@ -12,7 +12,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 900px;
+	    bottom: 1100px;
 	    left: 400px;
     }
 
@@ -146,19 +146,6 @@
             <div id="fav-list-box">
                 <!-- 반복문 처리 -->
                 <div id="content-wrap">
-                    <table>
-                        <tbody>
-                            <c:forEach items="${ voList }" var="fav">
-                            <tr>
-                                <td><img src='"${root}/static/mypage/fav" + ${fav.img}' alt=""></td>
-                                <td>${ fav.no }</td>
-                                <td>${ fav.title }</td>
-                                <td>${ fav.enrollDate}</td>
-                            </tr>
-                            </c:forEach>
-                        </tbody>
-        
-                    </table>
                     <div><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
                     <div> 
                         상품명 : [파리바게트]마음샌드
@@ -205,6 +192,35 @@
                         <button class="delBtn" id="btn01">삭제</button>
                     </div>
                 </div>
+                <hr>
+                <div id="content-wrap">
+                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
+                    <div> 
+                        상품명 : [탐난다]제주오메기떡
+                        <br>
+                        상품수량 : 1박스(20개)
+                        <br>
+                        상품가격 : 9,500원   
+                    </div>
+                    <div>
+                        <button class="delBtn" id="btn01">삭제</button>
+                    </div>
+                </div>
+                <hr>
+                <div id="content-wrap">
+                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
+                    <div> 
+                        상품명 : [탐난다]제주오메기떡
+                        <br>
+                        상품수량 : 1박스(20개)
+                        <br>
+                        상품가격 : 9,500원   
+                    </div>
+                    <div>
+                        <button class="delBtn" id="btn01">삭제</button>
+                    </div>
+                </div>
+                
             </div>
             <div id="page-area">
 				<c:if test="${pv.currentPage > 1 }">

@@ -15,15 +15,10 @@ import com.kh.app.member.vo.MemberVo;
 @WebServlet("/mypage/member/quit")
 public class MemberQuitController extends HttpServlet{
 	
-	// 탈퇴 화면
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/mypage/memberQuit.jsp").forward(req, resp);
-	}
 
 	// 회원탈퇴
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 			// 데꺼
