@@ -124,10 +124,13 @@
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>공지사항  목록</a> 
+            <a>공지사항  목록</a>  
         </div>
         <div id="write-area">
-            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색">
+            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색"> 
+            <c:if test="${not empty loginMember }">
+	            <a href="${root }/notice/write" id="btn01">글 작성하러 가기</a>
+            </c:if>
             <br>
             <br>
             <table>

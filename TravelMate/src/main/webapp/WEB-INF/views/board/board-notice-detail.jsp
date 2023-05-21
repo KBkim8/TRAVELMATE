@@ -193,14 +193,14 @@
 				&nbsp;
 				&nbsp;
 				&nbsp;
-				<span style="font-size: 1.5em;">${nvo.memberNo }</span>
+				<span style="font-size: 1.5em;">작성자:${nvo.memberNick }</span>
 				&nbsp;
 				&nbsp;
-				<span style="font-size: 1.5em;">${nvo.enrollDate }</span>
+				<span style="font-size: 1.5em;">작성일시:${nvo.enrollDate }</span>
 				&nbsp;
 				&nbsp;
 				<span style="font-size: 1.5em;">조회수 :${nvo.hit }</span>
-				<textarea name="content">${nvo.content }</textarea>
+				<textarea name="content" readonly>${nvo.content }</textarea>
 			</div>
 				
 			<!-- 글 수정 삭제는 not empty loginMember  -->
@@ -251,11 +251,11 @@
 <script>
 	
 	function del(){
-		const result = confirm("진짜 삭제 ??");
+		const result = confirm("해당 게시글을 삭제 하시겠습니까?");
 		if(!result){
 			return;
 		}
-		location.href = '${root}/board/del?no=' + '${nvo.no}';
+		location.href = '${root}/notice/del?no=' + '${nvo.no}';
 	}
 
 

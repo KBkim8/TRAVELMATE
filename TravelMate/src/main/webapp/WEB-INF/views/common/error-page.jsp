@@ -10,7 +10,6 @@
 
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
 	
-		<h1>${errorMsg }</h1>
-
+	
 </body>
 </html>

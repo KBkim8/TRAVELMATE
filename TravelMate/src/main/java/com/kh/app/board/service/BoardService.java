@@ -101,7 +101,7 @@ private final BoardDao dao;
 		
 	}
 
-	//공지사항 게시글 목록 조회
+	//도연 - 공지사항 게시글 목록 조회
 	public List<BoardVo> list(PageVo pv) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
@@ -126,15 +126,6 @@ private final BoardDao dao;
 		return cnt;
 	}
 
-	//notice board detail
-	public BoardVo detail() {
-		
-		Connection conn = JDBCTemplate.getConnection();
-		String sql = "";
-		
-		return null;
-	}
-
 	//공지사항 상세조회 + 조회수 처리까지
 	public BoardVo noticeDetail(String no) throws Exception {
 		
@@ -152,9 +143,67 @@ private final BoardDao dao;
 		JDBCTemplate.close(conn);
 		return vo;
 	}
+
+	// 도연 - 공지사항 삭제
+	public int noticeDelete(String no) throws Exception {
+		
+		try(Connection conn = JDBCTemplate.getConnection();){
+			
+			int result = dao.noticeDelete(conn , no);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else{
+				JDBCTemplate.rollback(conn);
+			}
+			return result;
+		}
+	}
+
+	// 도연 - 공지사항 수정하기
+	public int noticeEdit(BoardVo vo) throws Exception {
+		
+		try(Connection conn = JDBCTemplate.getConnection();){
+			
+			int result = dao.noticeEdit(conn , vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else{
+				JDBCTemplate.rollback(conn);
+			}
+			return result;
+		}
+	}//method
 	
 	
 	
 	
-}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}//class
 

@@ -27,7 +27,8 @@ public class BoardNoticeDetailController extends HttpServlet{
 			nvo = bs.noticeDetail(no);
 		} catch (Exception e) {
 			e.printStackTrace();
-		} //notice 상세조회
+		} 
+		
 		req.setAttribute("nvo", nvo);     
 		req.getRequestDispatcher("/WEB-INF/views/board/board-notice-detail.jsp").forward(req, resp); //댓글작업해야함 
 	}
