@@ -196,7 +196,7 @@ public class BoardDao {
 	
 	public List<BoardVo> list(Connection conn , PageVo pv) throws Exception {
 
-		String sql = "SELECT NO , TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN 1 AND 3 AND DELETE_YN='N'";
+		String sql = "SELECT NO , TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ? ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -248,8 +248,8 @@ public class BoardDao {
 
 	public BoardVo noticeDetail(Connection conn, String no) throws Exception {
 
-		//이거 쿼리문 MEMBER_CATEGORY 조인후 NAME이 보이게 수정해야함
-		String sql = "SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO =1 AND NO =? AND DELETE_YN ='N'"; 
+		//이거 쿼리문 MEMBER_CATEGORY 조인후 nick이 보이게 수정해야함  --완료
+		String sql = "SELECT B.* , M.NAME AS MEMBER_NICK FROM BOARD B JOIN MEMBER_CATEGORY M ON B.MEMBER_NO = M.NO WHERE B.MEMBER_NO =2 AND B.NO =?"; 
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -259,6 +259,7 @@ public class BoardDao {
 			String bcn = rs.getString("BOARD_CATEGORY_NO");
 			String pcn = rs.getString("PRO_CATEGORY_NO");
 			String mn = rs.getString("MEMBER_NO");
+			String memberNick = rs.getString("MEMBER_NICK");
 			String bin = rs.getString("BOARD_IMG_NO");
 			String t = rs.getString("TITLE");
 			String c = rs.getString("CONTENT");
@@ -273,6 +274,7 @@ public class BoardDao {
 			vo.setBoardCategoryNo(bcn);
 			vo.setProCategoryNo(pcn);
 			vo.setMemberNo(mn);
+			vo.setMemberNick(memberNick);
 			vo.setBoardImgNo(bin);
 			vo.setTitle(t);
 			vo.setContent(c);
@@ -298,6 +300,38 @@ public class BoardDao {
 		JDBCTemplate.close(pstmt);
 		return result;
 		
+	}
+
+	// 공지사항 삭제 처리
+	public int noticeDelete(Connection conn, String no) throws Exception {
+		
+		String sql = "UPDATE BOARD SET DELETE_YN = 'Y' WHERE NO =?";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+			
+	}
+
+	//도연 -공지사항 수정 처리
+	public int noticeEdit(Connection conn, BoardVo vo) throws Exception {
+		
+		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT = ? WHERE NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getTitle());
+		pstmt.setString(2, vo.getContent());
+		pstmt.setString(3, vo.getNo());
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 
 }//class

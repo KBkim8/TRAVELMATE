@@ -13,7 +13,7 @@ public class BoardFreeListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/board/board-free-list.jsp").forward(req, resp);
 	}
 	
 	@Override

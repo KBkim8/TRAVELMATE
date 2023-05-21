@@ -67,14 +67,15 @@ public class BoardNoticeWriteController extends HttpServlet{
 			// 화면
 			if(result == 1) {
 				//성공
-				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
-				resp.sendRedirect(req.getContextPath() + "/notice/list");
+				req.getSession().setAttribute("loginMember", loginMember);
+				resp.sendRedirect(req.getContextPath()+"/notice/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
 			}
 			
 		} catch (Exception e) {
+			
 			//실패
 			e.printStackTrace();
 			req.setAttribute("errorMsg", "게시글 작성 실패 ...");
