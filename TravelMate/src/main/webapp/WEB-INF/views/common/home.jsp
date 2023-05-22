@@ -160,7 +160,7 @@ height: 450px;
 </head>
 <body>
 
-  <!-- <%@ include file="/WEB-INF/views/common/header2.jsp" %> -->
+  <%@ include file="/WEB-INF/views/common/header2.jsp" %>
 
   
    <!-- 내용영역 -->

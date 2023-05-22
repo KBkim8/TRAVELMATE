@@ -1,7 +1,6 @@
 package com.kh.app.board.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,30 +8,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
-import com.kh.app.board.vo.CommentVo;
 
-@WebServlet(urlPatterns = "/notice/reply/list")
-public class NoticeReplyListController extends HttpServlet{
-
+@WebServlet(urlPatterns = "/notice/search")
+public class BoardNoticeSearchController extends HttpServlet{
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String boardNo = req.getParameter("boardNo");
+		String title = req.getParameter("title");
 		
 		BoardService bs = new BoardService();
 		
-		List<CommentVo> replyList = null;
+		BoardVo result = null; //BoardVo 말고 List로 수정해야함
 		try {
-			replyList = bs.noticeReplyList(boardNo);
-		}catch (Exception e) {
+			result = bs.noticeSearch(title);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-			Gson gson = new Gson();
-			String str = gson.toJson(replyList);
-			resp.setCharacterEncoding("UTF-8");
-			resp.getWriter().write(str);
+		
+		if(result != null) {
+			req.setAttribute(title, result);
+			req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
+		}
+		
+		
+		
+		
 	}
+
 }

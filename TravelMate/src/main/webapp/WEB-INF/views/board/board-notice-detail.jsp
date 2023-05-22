@@ -100,7 +100,6 @@
     }   
 
     #write-area{
-        margin-top: 170px; /* 이녀석이 노트북이랑 데스크탑이랑 화면다르게 보이게함*/
         margin-left: 20%;
     }
 
@@ -133,9 +132,10 @@
 
 	#reply-write-area{
 		display: grid;
+		grid-template-columns: 5fr 1fr;
 	}
 
-	#reply-write-area > form > input{
+	#reply-write-area > input{
 		margin-left: 280px;
 		width: 900px;
 		border-radius: 20px;
@@ -177,7 +177,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -218,7 +218,6 @@
 		<!-- 	댓글구역 -->
 
         <div id="reply-write-area">
-        		<input type="hidden" name="noticeNo" value="${nvo.no}">
 				<input type="text" name="content" placeholder="댓글쓰기"> <button id="btn01" onclick="writeComment()">작성하기</button>
         </div>
 
@@ -232,11 +231,7 @@
 					</tr>
 					</thead>
 				<tbody>
-					<tr>
-						<td> sadfsdaf</td>
-						<td>2023-05-13</td>
-						<td>김도연</td>
-					</tr>
+						
 				</tbody>
 			</table>
 		</div>
@@ -275,17 +270,17 @@
 			url : "${root}/notice/reply/write" ,
 			type : "POST" ,
 			data : {
-				'noticeNo' : '${nvo.no}' ,
+				'boardNo' : '${nvo.no}' ,
 				'content' : comment ,
 			} ,
 			success : (x)=>{
 				console.log(x);
 				if(x == 'ok'){
-					alert("댓글 작성 성공!");
+					alert("댓글이 등록되었습니다.");
 					document.querySelector("input[name=content]").value = '';
 					loadComment();
 				}else{
-					alert("댓글 작성 실패...");
+					alert("로그인 후 작성 가능합니다...");
 				}
 			} ,
 			error : (x)=>{
@@ -302,21 +297,21 @@
 			url : '${root}/notice/reply/list' ,
 			type : "GET" ,
 			data : {
-				'noticeNo' : '${nvo.no}'
+				'boardNo' : '${nvo.no}'
 			} ,
 			success : function(data){
 				console.log(data);
 				
 				const x = JSON.parse(data);
 				console.log(x);
-				const tbody = document.querySelector('#reply-list-area tbody');
+				const tbody = document.querySelector('#reply-list-area > table tbody');
 				tbody.innerHTML = "";
 				let str = "";
 				for(let i = 0; i < x.length; i++){
 					str += '<tr>';
 					str += '<td>' + x[i].content + '</td>';
-					str += '<td>' + x[i].writerNo + '</td>';
 					str += '<td>' + x[i].enrollDate + '</td>';
+					str += '<td>' + x[i].memberNick + '</td>';
 					str += '</tr>';
 				}
 				tbody.innerHTML += str;
@@ -326,5 +321,6 @@
 			} ,
 		});
 	}
+
 	loadComment();
 </script>

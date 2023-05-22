@@ -193,6 +193,29 @@ private final BoardDao dao;
 		}
 		
 	}
+
+	public List<CommentVo> noticeReplyList(String boardNo) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<CommentVo> replyList = dao.noticeReplyList(conn ,boardNo);
+		
+		JDBCTemplate.close(conn);
+		
+		return replyList;
+		
+	}
+
+	//공지사항 검색
+	public BoardVo noticeSearch(String title) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		BoardVo vo = dao.noticeSearch(conn ,title);
+		
+		JDBCTemplate.close(conn);
+		return vo;
+		
+	}
 	
 	
 	
