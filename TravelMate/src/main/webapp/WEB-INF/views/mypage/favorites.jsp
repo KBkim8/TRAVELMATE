@@ -146,15 +146,15 @@
             <div id="fav-list-box">
                 <!-- 반복문 처리 -->
                 <div id="content-wrap">
-                    <div><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
-                    <div> 
+                    <div id="fav_img"><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
+                    <div id="fav_info"> 
                         상품명 : [파리바게트]마음샌드
                         <br>
                         상품수량 : 1박스(20개)
                         <br>
                         상품가격 : 9,500원   
                     </div>
-                    <div>
+                    <div id="fav_del">
                         <button class="delBtn" id="btn01">삭제</button>
                         <div class="black-bg">
                         <div class="white-bg">

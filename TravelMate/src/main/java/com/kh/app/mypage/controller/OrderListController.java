@@ -22,9 +22,15 @@ import com.kh.app.mypage.vo.OrderListVo;
 @WebServlet("/mypage/orderList")
 public class OrderListController extends HttpServlet{
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.getRequestDispatcher("/WEB-INF/views/mypage/orderList.jsp").forward(req, resp);
+	}
+	
+	
 	// 주문 내역 조회
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
 		try {
 			HttpSession session = req.getSession();
