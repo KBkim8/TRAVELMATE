@@ -188,7 +188,7 @@
         </div>
 		<form action="${root}/notice/edit" method="POST">
 			<div id="write-area">
-				
+				<input type="hidden" name="no" value="${nvo.no}"> 
 				<input type="text" name="title" value="${nvo.title }" readonly="readonly">
 				&nbsp;
 				&nbsp;
@@ -198,12 +198,11 @@
 				&nbsp;
 				<span style="font-size: 1.5em;">작성일시:${nvo.enrollDate }</span>
 				&nbsp;
-				&nbsp;
 				<span style="font-size: 1.5em;">조회수 :${nvo.hit }</span>
 				<textarea name="content" readonly>${nvo.content }</textarea>
 			</div>
 				
-			<!-- 글 수정 삭제는 not empty loginMember  -->
+			<!-- 글 수정 삭제는 not empty loginMember처리  -->
 			<div id="btn-area">
 				<button type="button" id="btn01" onclick="edit();">수정</button>
 				<button type="button" id="btn01" onclick="del();">삭제</button>
@@ -276,8 +275,8 @@
 			url : "${root}/notice/reply/write" ,
 			type : "POST" ,
 			data : {
-				noticeNo : '${nvo.no}' ,
-				content : comment ,
+				'noticeNo' : '${nvo.no}' ,
+				'content' : comment ,
 			} ,
 			success : (x)=>{
 				console.log(x);
@@ -303,7 +302,7 @@
 			url : '${root}/notice/reply/list' ,
 			type : "GET" ,
 			data : {
-				noticeNo : '${nvo.no}'
+				'noticeNo' : '${nvo.no}'
 			} ,
 			success : function(data){
 				console.log(data);
