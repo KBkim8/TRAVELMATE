@@ -12,7 +12,7 @@ public class OrderRoom2Controller extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/pay/order_room2.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/order/order_room2.jsp").forward(req, resp);
 	}
 	
 	@Override

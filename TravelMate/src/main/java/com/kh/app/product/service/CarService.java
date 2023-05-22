@@ -51,6 +51,36 @@ public class CarService {
 		
 		return voList;
 	}
+
+
+	public CarVo edit(CarVo vo) {
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		CarVo updatedCar = null;
+		try {
+			//SQL
+			int result = dao.edit(conn , vo);
+			
+			//tx || rs
+			if(result == 1) {
+				updatedCar = dao.selectOneByNo(conn , vo.getNo());
+				if(updatedCar == null) {
+					throw new Exception();
+				}
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+		}finally {
+			//close
+			JDBCTemplate.close(conn);
+		}
+		
+		return updatedCar;
+	
+	}
 	
 	
 

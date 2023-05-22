@@ -2,19 +2,19 @@ package com.kh.app.product.vo;
 
 public class CarVo {
 
+	private String max;
+	private String licensePlate;
+	private String price;
+	private String lcname;
+	private String title;
+	private String carKindKind;
 	private String no;
 	private String carKindNo;
 	private String localNo;
 	private String count;
 	private String enrollDate;
 	private String deleteYn;
-	private String max;
-	private String licensePlate;
 	private String licenseDate;
-	private String price;
-	private String lcname;
-	private String title;
-	private String carKindKind;
 	public String getNo() {
 		return no;
 	}
