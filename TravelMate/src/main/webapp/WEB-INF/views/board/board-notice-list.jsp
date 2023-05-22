@@ -157,14 +157,14 @@
             </table>
                 <div id="page-area">
                      <c:if test="${pv.currentPage > 1}">
-                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage-1}">현재페이지를보고있는경우클릭안되게막아놨는데안먹음</a>
+                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage-1}">이전</a>
                     </c:if>
                     <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-                        <c:if test="${currentPage ne i}">
+                        <c:if test="${pv.currentPage ne i}">
                             <a id="btn01" href="${root}/notice/list?page=${i}">${i}</a>
                         </c:if>
-                        <c:if test="${currentPage == i}">
-                            <a class="btn btn-success">${i}</a>
+                        <c:if test="${pv.currentPage == i}">
+                            <a id="btn01" style="font-size: 0.5em;">${i}</a>
                         </c:if>
                     </c:forEach>
                     <c:if test="${pv.currentPage < pv.maxPage}">
@@ -184,6 +184,7 @@
 	const tbody = document.querySelector("tbody");
 	tbody.addEventListener("click" , function(e){
 		const no = e.target.parentNode.children[0].innerText;
+        console.log(no);
 		location.href = "${root}/notice/detail?no=" + no;
 	});
 

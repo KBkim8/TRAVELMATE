@@ -254,7 +254,7 @@
     const idSpan = document.querySelector('#idSpan');
 
     $.ajax({
-      url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
+      url: '${root}/join',  
       method: 'POST',
       data: { 'memberId' : memberId },
       success: function(response) {
@@ -270,7 +270,7 @@
         }
       },
       error: function(xhr, status, error) {
-        // 오류 발생 시 처리 로직
+       
         console.error(error);
       }
     });
@@ -285,7 +285,7 @@
         const nickSpan = document.querySelector('#nickSpan');
 
         $.ajax({
-        url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
+        url: '${root}/join',  
         method: 'POST',
         data: { 'memberNick' : memberNick },
         success: function(response) {
@@ -301,7 +301,7 @@
             }
         },
         error: function(xhr, status, error) {
-            // 오류 발생 시 처리 로직
+           
             console.error(error);
         }
         });

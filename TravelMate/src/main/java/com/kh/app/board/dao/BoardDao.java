@@ -338,11 +338,9 @@ public class BoardDao {
 	public int NoticeReplyWrite(Connection conn, CommentVo vo) throws Exception {
 		
 		//SQL
-		String sql = "INSERT INTO NOTICE_REPLY ( NO ,NOTICE_NO ,CONTENT ,WRITER_NO ) VALUES ( SEQ_NOTICE_REPLY_NO.NEXTVAL ,? ,? ,? )";
+		String sql = " INSERT INTO \"COMMENT\" ( NO , MEMBER_NO , BOARD_NO , CONTENT ) VALUES ( SEQ_COMMENT_NO.NEXTVAL , '2' , '1' ,? )";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getBoardNo());
-		pstmt.setString(2, vo.getContent());
-		pstmt.setString(3, vo.getMemberNo());
+		pstmt.setString(1, vo.getContent());
 		int result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 		return result;

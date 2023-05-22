@@ -36,7 +36,7 @@ public class BoardNoticeEditController extends HttpServlet{
 		
 		if(result == 1) {
 			req.setAttribute("alertMsg", "수정완료!!"); // alertMsg는 아직 화면쪽에서 처리안함
-			req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath()+"/notice/list");
 		}else {
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}

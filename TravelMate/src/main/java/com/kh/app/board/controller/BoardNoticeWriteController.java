@@ -67,7 +67,6 @@ public class BoardNoticeWriteController extends HttpServlet{
 			// 화면
 			if(result == 1) {
 				//성공
-				req.getSession().setAttribute("loginMember", loginMember);
 				resp.sendRedirect(req.getContextPath()+"/notice/list");
 			}else {
 				//실패

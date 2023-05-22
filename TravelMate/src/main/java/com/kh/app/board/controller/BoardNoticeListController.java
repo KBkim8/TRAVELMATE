@@ -23,7 +23,6 @@ public class BoardNoticeListController extends HttpServlet{
 		
 		try {
 
-			// *selectCnt 문제있음*
 			int listCount = bs.selectCnt();
 			String page = req.getParameter("page");
 			if(page == null) page = "1";
