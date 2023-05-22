@@ -36,7 +36,7 @@ public class FavoriteDao {
 	}
 
 	// 관심상품 조회
-	public List<OrderListVo> getFavListByNo(Connection conn, PageVo pv, String mno) {
+	public List<OrderListVo> getFavListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
 	
 		// sql
