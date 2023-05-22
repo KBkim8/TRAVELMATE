@@ -219,9 +219,8 @@
 		<!-- 	댓글구역 -->
 
         <div id="reply-write-area">
-			<form action="" method="POST">
-				<input type="text" name="content"> <button id="btn01" onclick="writeComment()">작성하기</button>
-			</form>
+        		<input type="hidden" name="noticeNo" value="${nvo.no}">
+				<input type="text" name="content" placeholder="댓글쓰기"> <button id="btn01" onclick="writeComment()">작성하기</button>
         </div>
 
 		<div id="reply-list-area">

@@ -10,6 +10,7 @@ import java.util.List;
 import com.kh.app.board.dao.BoardDao;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
+import com.kh.app.board.vo.CommentVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
@@ -175,6 +176,23 @@ private final BoardDao dao;
 			return result;
 		}
 	}//method
+
+	//공지사항 댓글달기
+	public int NoticeReplyWrite(CommentVo vo) throws Exception {
+		
+		try(Connection conn = JDBCTemplate.getConnection();){
+			
+			int result = dao.NoticeReplyWrite(conn , vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else{
+				JDBCTemplate.rollback(conn);
+			}
+			return result;
+		}
+		
+	}
 	
 	
 	

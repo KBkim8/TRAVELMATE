@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
+import com.kh.app.board.vo.CommentVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
@@ -331,6 +332,19 @@ public class BoardDao {
 		
 		JDBCTemplate.close(pstmt);
 		
+		return result;
+	}
+
+	public int NoticeReplyWrite(Connection conn, CommentVo vo) throws Exception {
+		
+		//SQL
+		String sql = "INSERT INTO NOTICE_REPLY ( NO ,NOTICE_NO ,CONTENT ,WRITER_NO ) VALUES ( SEQ_NOTICE_REPLY_NO.NEXTVAL ,? ,? ,? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getBoardNo());
+		pstmt.setString(2, vo.getContent());
+		pstmt.setString(3, vo.getMemberNo());
+		int result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
 		return result;
 	}
 
