@@ -149,19 +149,16 @@ table{
 	        </div>
 	    
 	      </div>
-	      <b>총 결제 금액:  <input type="number" id="num2" name="totalPrice" value="${vo.price}""> 원</b>
+	      <b>총 결제 금액:  <input type="number" id="num2" name="totalPrice" value="${vo.price}"> 원</b>
+	      <button id="btn03" type="submit">결제하기</button>
 	      <br><br><br>
 		
 		<input type="hidden" value="${vo.no}" name="no">
 	
 	      <hr>
-	      <div>
-	        <button id="btn01" onclick="backPage()">뒤로가기</button>
-	        <button id="btn02">관심상품 담기</button>
-	        <button id="btn03" type="submit" onclick="pay();">결제하기</button>
-	        <button id="btn03" onclick="pay();">결제하기</button>
-	      </div>
 		</form>
+	        <button id="btn02">관심상품 담기</button>
+	        <button id="btn01" onclick="backPage()">뒤로가기</button>
 
       
     </div>
@@ -188,9 +185,7 @@ table{
     location.href="${root}/souvenir/list";
   }
   
-  function pay() {
-	 location.href="${root}/pay/souvenir?sno="+ sno;
-  }
+
   
   
 </script>

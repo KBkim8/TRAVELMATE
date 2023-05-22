@@ -18,7 +18,6 @@ public class PaySouvenirController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
-			String sno = req.getParameter("sno");
 			String no = req.getParameter("no");
 			String mname = req.getParameter("mname");
 			String ph = req.getParameter("ph");
@@ -27,7 +26,6 @@ public class PaySouvenirController extends HttpServlet{
 			String totalPrice = req.getParameter("totalPrice");
 			
 			SouvenirVo vo = new SouvenirVo();
-			vo.setSno(sno);
 			vo.setNo(no);
 			vo.setMname(mname);
 			vo.setPh(ph);
@@ -38,7 +36,7 @@ public class PaySouvenirController extends HttpServlet{
 			
 			SouvenirService ss = new SouvenirService();
 			int result = ss.order(vo);
-			vo = ss.selectOrder(sno); 
+			vo = ss.selectOrder(no); 
 			if(vo != null) {
 				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/pay/pay_souvenir.jsp").forward(req, resp);
