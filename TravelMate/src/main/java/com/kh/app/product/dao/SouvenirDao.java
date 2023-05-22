@@ -216,7 +216,7 @@ public class SouvenirDao {
 
 	public int order(SouvenirVo vo, Connection conn) throws Exception {
 		
-		String sql = "INSERT INTO SOUVENIR_RESERVATION ( SNO, SOUVENIR_NO, CNT, PRICE ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?)";
+		String sql = "INSERT INTO SOUVENIR_RESERVATION ( NO, SOUVENIR_NO, CNT, PRICE ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getNo());
 		pstmt.setString(2, vo.getCnt());
@@ -230,12 +230,10 @@ public class SouvenirDao {
 		return result;
 	}
 
-	public SouvenirVo selectOrder(Connection conn, String sno) throws Exception {
+	public SouvenirVo selectOrder(Connection conn, String no) throws Exception {
 		//SQL
-		String sql = "SELECT SNO, S.NAME, SR.PRICE, SR.CNT, SI.TITLE FROM SOUVENIR_RESERVATION SR JOIN SOUVENIR S ON S.NO = SR.SOUVENIR_NO JOIN SOUVENIR_IMG SI  ON SI.SOUVENIR_NO = S.NO WHERE S.DELETE_YN = 'N' AND SNO = ?";
+		String sql = "SELECT SR.NO, S.NAME, SR.PRICE, SR.CNT, SI.TITLE FROM SOUVENIR_RESERVATION SR JOIN SOUVENIR S ON S.NO = SR.SOUVENIR_NO JOIN SOUVENIR_IMG SI  ON SI.SOUVENIR_NO = S.NO WHERE S.DELETE_YN = 'N' ORDER BY NO DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, sno);
-		System.out.println(sno);
 		ResultSet rs = pstmt.executeQuery();
 		//tx || rs
 		SouvenirVo vo = null;
@@ -243,7 +241,6 @@ public class SouvenirDao {
 			vo = new SouvenirVo();
 			
 			
-			String no = rs.getString("NO");
 			String name = rs.getString("NAME");
 			String title = rs.getString("TITLE");
 			String price = rs.getString("PRICE");

@@ -82,11 +82,11 @@ public class SouvenirService {
 	}
 
 
-	public SouvenirVo selectOrder(String sno) throws Exception {
+	public SouvenirVo selectOrder(String no) throws Exception {
 		SouvenirVo vo = null;
 		//conn
 		try (Connection conn = JDBCTemplate.getConnection();){
-			vo = dao.selectOrder(conn , sno);
+			vo = dao.selectOrder(conn , no);
 		}
 		return vo;
 	}
