@@ -53,7 +53,7 @@
   background-color: lightgray;
 }
 
-#btn01, #btn02{
+#btn01, #btn02, #btn03, #btn04{
   margin-top: 50px;
   margin-left: 400px;
   margin-bottom: 50px;
@@ -66,8 +66,8 @@
   border-radius: 6px;
 }
 
-#btn01:hover, #btn02:hover  {background-color: #80C49D;}
-#btn01:active, #btn02:active {
+#btn01:hover, #btn02:hover, #btn03:hover, #btn04:hover  {background-color: #80C49D;}
+#btn01:active, #btn02:active, #btn03:active, #btn04:active {
   box-shadow: 0 0 0 1px #82c8a0 inset,
         0 0 0 2px rgba(255,255,255,0.15) inset,
         0 0 0 1px rgba(0,0,0,0.4);
@@ -116,11 +116,38 @@
 
       <hr>
       <div>
-        <button id="btn01" >신용카드</button>
-        <button id="btn02" >무통장입금</button>
+        <button id="btn01" class="btn1" >신용카드</button>
+        <button id="btn02" class="btn2" >무통장입금</button>
+        <button id="btn03" class="btn3" >카카오톡결제</button>
+        <button id="btn04" class="btn4" >상품권결제</button>
       </div>
 
       
     </div>
 </body>
 </html>
+
+<script>
+
+	const btn01 = document.querySelector(".btn1");
+  btn01.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/creditCard';
+  });
+	
+  const btn02 = document.querySelector(".btn2");
+  btn02.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/bankAccount';
+  });
+	
+  const btn03 = document.querySelector(".btn3");
+  btn03.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/kakaoTalk';
+  });
+	
+  const btn04 = document.querySelector(".btn4");
+  btn04.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/giftCard';
+  });
+
+
+</script>
