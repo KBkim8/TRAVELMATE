@@ -10,7 +10,6 @@ import java.util.List;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.mypage.vo.FavoriteVo;
-import com.kh.app.mypage.vo.OrderListVo;
 
 public class FavoriteDao {
 
@@ -40,7 +39,7 @@ public class FavoriteDao {
 	public List<FavoriteVo> getCarFavListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
 		// sql
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT F.NO AS NO, F.MEMBER_NO AS MEMBER_NO, CK.KIND AS KIND, CI.TITLE AS TITLE FROM FAVORITES F JOIN RENTCAR R ON (F.RENTCAR_NO = R.NO) JOIN CAR_KIND CK ON (CK.NO = R.NO) JOIN CAR_IMG CI ON (CI.NO = R.CAR_KIND_NO) WHERE F.DEL_YN='N' AND F.MEMBER_NO=? ORDER BY F.NO DESC) T) WHERE RNUM BETWEEN ? AND ? ";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT F.NO AS NO, F.MEMBER_NO AS MEMBER_NO,F.RENTCAR_NO AS RENTCAR_NO, CK.KIND AS KIND, CI.TITLE AS IMG FROM FAVORITES F JOIN RENTCAR R ON (F.RENTCAR_NO = R.NO) JOIN CAR_KIND CK ON (CK.NO = R.NO) JOIN CAR_IMG CI ON (CI.NO = R.CAR_KIND_NO) WHERE F.DEL_YN='N' AND F.MEMBER_NO=? ORDER BY F.NO DESC) T) WHERE RNUM BETWEEN ? AND ? ";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, mno);
 		pstmt.setInt(2, pv.getBeginRow());
@@ -51,12 +50,14 @@ public class FavoriteDao {
 		List<FavoriteVo> cvoList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
-			String img = rs.getString("TITLE");
+			String cno = rs.getString("RENTCAR_NO");
+			String img = rs.getString("IMG");
 			String kind = rs.getString("KIND");
 	
 			FavoriteVo vo = new FavoriteVo();
 			vo.setNo(no);
 			vo.setMemberNo(mno);
+			vo.setCarNo(cno);
 			vo.setCarKind(kind);
 			vo.setCarImg(img);
 			
@@ -73,11 +74,11 @@ public class FavoriteDao {
 	public List<FavoriteVo> getAccomFavListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
 		// sql
-		String sql = "SELECT F.* FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM FAVORITES F JOIN ACCOMODATION A ON (F.ACCOMODATION_NO = A.NO) JOIN ACCOMODATION_IMG AI ON (AI.ACCOMODATION_NO = A.NO) WHERE F.DEL_YN='N' ORDER BY F.NO DESC ) T )F WHERE RNUM BETWEEN ? AND ? AND F.MEMBER_NO = ?";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT F.NO AS NO, F.MEMBER_NO AS MEMBER_NO, F.ACCOMODATION_NO AS ACCOMODATION_NO ,A.NAME AS NAME , AI.TITLE AS IMG FROM FAVORITES F JOIN ACCOMODATION A ON (F.ACCOMODATION_NO = A.NO) JOIN ACCOMODATION_IMG AI ON (AI.ACCOMODATION_NO = A.NO) WHERE F.DEL_YN='N' AND F.MEMBER_NO=? ORDER BY F.NO DESC) T) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, pv.getBeginRow());
-		pstmt.setInt(2, pv.getLastRow());
-		pstmt.setString(3, mno);
+		pstmt.setString(1, mno);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
 		// tx || rs
@@ -86,13 +87,13 @@ public class FavoriteDao {
 			String no = rs.getString("NO");
 			String ano = rs.getString("ACCOMODATION_NO");
 			String name = rs.getString("NAME");
-			String img = rs.getString("TITLE");
+			String img = rs.getString("IMG");
 			
 	
 			FavoriteVo vo = new FavoriteVo();
 			vo.setNo(no);
 			vo.setMemberNo(mno);
-			vo.setAccomodationNo(mno);
+			vo.setAccomodationNo(ano);
 			vo.setAccomodationImg(img);
 			vo.setAccomodationName(name);
 			
@@ -109,25 +110,25 @@ public class FavoriteDao {
 	public List<FavoriteVo> getSouvenirFavListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
 		// sql
-		String sql = "SELECT F.NO AS NO , F.SOUVENIR_NO AS SNO , S.NAME AS NAME , S.PRICE AS PRICE, SI.TITLE AS IMG FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT F.* FROM FAVORITES F WHERE DEL_YN='N' ORDER BY NO DESC ) T )F JOIN SOUVENIR S ON (F.SOUVENIR_NO = S.NO) JOIN SOUVENIR_IMG SI ON (SI.SOUVENIR_NO = S.NO) WHERE RNUM BETWEEN ? AND ? AND MEMBER_NO = ?";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT F.NO AS NO, F.MEMBER_NO AS MEMBER_NO, F.SOUVENIR_NO AS SOUVENIR_NO, S.NAME AS NAME ,S.PRICE AS PRICE , SI.TITLE AS IMG FROM FAVORITES F JOIN SOUVENIR S ON (F.SOUVENIR_NO = S.NO) JOIN SOUVENIR_IMG SI ON (SI.SOUVENIR_NO = S.NO) WHERE F.DEL_YN='N' AND F.MEMBER_NO=? ORDER BY F.NO DESC) T) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, pv.getBeginRow());
-		pstmt.setInt(2, pv.getLastRow());
-		pstmt.setString(3, mno);
+		pstmt.setString(1, mno);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
 		// tx || rs
 		List<FavoriteVo> svoList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
-			String sno = rs.getString("SNO");
+			String sno = rs.getString("SOUVENIR_NO");
 			String name = rs.getString("NAME");
 			String price = rs.getString("PRICE");
 			String img = rs.getString("IMG");
 	
 			FavoriteVo vo = new FavoriteVo();
 			vo.setNo(no);
-			vo.setSouvenirNo(mno);
+			vo.setSouvenirNo(sno);
 			vo.setSouvenirName(name);
 			vo.setSouvenirPrice(price);
 			vo.setSouvenirImg(img);
@@ -140,6 +141,21 @@ public class FavoriteDao {
 		
 		return svoList;
 	
+	}
+
+	public int delete(Connection conn, FavoriteVo vo) throws Exception {
+
+		// sql 
+		String sql = "UPDATE FAVORITES SET DEL_YN ='Y' WHERE NO=? AND MEMBER_NO=?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNo());
+		pstmt.setString(2, vo.getMemberNo());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
 	}
 
 }
