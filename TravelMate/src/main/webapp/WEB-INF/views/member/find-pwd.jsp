@@ -111,7 +111,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 --> 
    
@@ -137,7 +137,7 @@
                             <br>
                             <br>
                             <br>
-                            <a href="${root}/find-pwd"> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기 </button></a>
+                            <a href="${root}/find-id"> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기 </button></a>
                             <a href="${root}/login"><button type="button" value="비밀번호 찾기" id="btn01">로그인하러가기 </button></a></a>
                            
                             
