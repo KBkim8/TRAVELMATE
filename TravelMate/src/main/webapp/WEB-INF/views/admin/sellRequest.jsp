@@ -62,13 +62,18 @@
             <div><button id="enroll">등록하기</button></div>
             <div id="page-area">
                 <c:if test="${pv.currentPage > 1}">
-                    <a href="${root}/admin/sellrequest?page=${pv.currentPage-1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀</a>
-                </c:if>
-                <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-                    <a href="${root}/admin/sellrequest?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
-                </c:forEach>
+                    <a href="${root}/admin/sellrequest?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
+                    </c:if>
+                    <c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
+                        <c:if test="${pv.currentPage != i}">
+                            <a href="${root}/admin/sellrequest?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
+                        </c:if>
+                        <c:if test="${pv.currentPage == i}">
+                            <a>${i}</a>
+                        </c:if>
+                    </c:forEach>
                 <c:if test="${pv.currentPage < pv.maxPage}">
-                    <a href="${root}/admin/sellrequest?page=${pv.currentPage+1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">▶</a>
+                    <a href="${root}/admin/sellrequest?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
                 </c:if>
             </div>
         </div>

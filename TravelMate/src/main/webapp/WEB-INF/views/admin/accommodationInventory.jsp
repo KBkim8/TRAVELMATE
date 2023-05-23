@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+        
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -9,79 +9,152 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/static/css/accommodationInventory.css">
-<script defer src="${root}/static/js/accommodationInventory.js"></script>
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
-	
-	  <!-- 내용영역 -->
-      <div id="content">
-          <div id="first-content">
-              <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
-              <hr>
-              <a>숙소재고조회</a>
-              <div id="report-search">
-                  <form action="" method="">
-                      <select name="searchType">
-                          <option value="accomName">숙소명</option>
-                          <option value="accomKind">숙소종류</option>
-                          <option value="countYn">재고여부</option>
-                      </select>
-                      <input class="" name="searchValue" type="text" placeholder="숙소재고관련 검색">
-
-                      <input type="submit" value="검색">
-                  </form>
-              </div>
-          </div>
-          
-          <div id="declaration">
-                <div><img src="${root}/static/img/accommodationImg/accomImg01.png" alt="차량조회" onclick="openModal();"></div>
-                <div><img src="${root}/static/img/accommodationImg/accomImg02.png" alt="차량조회"></div>
-                <div><img src="${root}/static/img/accommodationImg/accomImg03.png" alt="차량조회"></div>
-                <div id="page-area">
-                    <a href="">◀</a>
-                    <a href="">1</a>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <a href="">▶</a>
+    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    
+        <!-- 내용영역 -->
+        <div id="content">
+            <div id="first-content">
+                <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
+                <hr>
+                <a>숙소재고조회</a>
+                <div id="report-search">
+                    <form action="${root}/admin/accommodationinventory" method="get">
+                        <input type="hidden" name="page" value="1"> 
+                        <select name="searchType">
+                            <option value="name">숙소명</option>
+                            <option value="countYn">재고여부</option>
+                        </select>
+                        <input name="searchValue" type="text" placeholder="숙소재고관련 검색">
+                        <select name="searchValue" class="semiCategory">
+                            <option value="Y">빈방있음</option>
+                            <option value="N">빈방없음</option>
+                        </select>
+                        <input type="submit" value="검색">
+                    </form>
                 </div>
-          </div>
-
-        <div id="accomMore" class="stop-active1">
-            <div id="modal-content">
-                <div id="close">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                    </svg>
-                </div>                                                    
-                <div>숙소코드</div>                        
-                <div>▶</div>                        
-                <div><input type="text" value="1" name="accomNo" readonly></div>
-                <div>숙소명</div>                        
-                <div>▶</div>                        
-                <div><input type="text" value="[그랜드 하얏트 호텔]스위트 룸" name="carKind" readonly></div>                           
-                <div>숙소종류</div>                        
-                <div>▶</div>                        
-                <div><input type="text" value="호텔" name="accomKind" readonly></div>
-                <div>등록일</div>                        
-                <div>▶</div>                        
-                <div><input type="date" value="2023-01-01" name="enrollDate" readonly></div>    
-                <div>재고여부</div>                        
-                <div>▶</div>                        
-                <div><input type="text" value="X" name="countYn" readonly></div>
-                <div>예약시작일</div>                        
-                <div>▶</div>                        
-                <div><input type="date" value="2023-01-01" name="accomStart" readonly></div>  
-                <div>예약종료일</div>                        
-                <div>▶</div>                        
-                <div><input type="date" value="2023-01-01" name="accomEnd" readonly></div>                                                                                                                              
-                <div>수용인원</div>                        
-                <div>▶</div>                        
-                <div><input type="text" value="2" name="maxPeople" readonly></div>                                                                                                                           
             </div>
-      </div>
+            
+        <form action="" method="post">
+            <div id="declaration">
+    
+                <c:forEach var="voList" items="${voList}">
+                    <div id="img-area01"><img src="${root}/static/img/accommodationImg/accomImg02.png" alt="기념품이미지"></div>
+                    <div id="name1">숙소코드</div>
+                    <div>|</div>
+                    <div id="code"><input type="text" value="${voList.no}" name="no" readonly></div>
+                    <div id="name2">숙소명</div>
+                    <div>|</div>
+                    <div id="dName"><input type="text" value="${voList.name}" name="accomName" readonly></div>
+                    <div id="name3">지역</div>
+                    <div>|</div>
+                    <div id="localArea"><input type="text" value="${voList.localName}" name="local" readonly></div>
+                    <div id="name4">숙소종류</div>
+                    <div>|</div>
+                    <div id="dPrice"><input type="text" value="${voList.kind}" name="kind" readonly></div>
+                    <div id="name5">최대수용인원</div>
+                    <div>|</div>
+                    <div id="dEnroll"><input type="text" value="${voList.maxPeople}명" name="maxPeople" readonly></div>
+                    <div id="name7">재고여부</div>
+                    <div>|</div>
+                    <div id="dCount">
+                        <c:if test="${voList.countYn == 'Y'}">
+                            <input type="text" name='countYn' value='빈방있음'>
+                        </c:if>
+                        <c:if test="${voList.countYn == 'N'}">
+                            <input type="text" name='countYn' value='빈방없음'>
+                        </c:if>
+                    </div>
+                    <div><button id="countEdit">재고수정</button></div>
+                    <div id="hr01"></div>
+                </c:forEach>
+                    
+                <div id="page-area">
+                        <c:if test="${pv.currentPage > 1}">
+                        <a href="${root}/admin/accommodationinventory?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
+                        </c:if>
+                        <c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
+                            <c:if test="${pv.currentPage != i}">
+                                <a href="${root}/admin/accommodationinventory?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
+                            </c:if>
+                            <c:if test="${pv.currentPage == i}">
+                                <a>${i}</a>
+                            </c:if>
+                        </c:forEach>
+                    <c:if test="${pv.currentPage < pv.maxPage}">
+                        <a href="${root}/admin/accommodationinventory?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
+                    </c:if>
+                </div>
+
+            </div>
+        </form>
 </body>
 </html>
+</body>
+</html>
+<script>
+     //서치타입 변경 시 함수 실행
+     const searchType = '${searchVo.searchType}';
+    const searchValue = '${searchVo.searchValue}';
+    
+    const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+	const searchValueInputTag = document.querySelector("input[name='searchValue']");
+	const submit = document.querySelector("input[type='submit']");
+    
+   	if(searchType.length > 1){
+   		initSearchType();
+   	}
+    
+   	function initSearchType(){
+   		const x = document.querySelector('select > option[value="' + searchType + '"]');
+	    x.selected = true;   
+   	}
+   	
+    //카테고리를 신고사유로 변경시 함수호출
+    const searchTypeTag = document.querySelector('select[name="searchType"]');
+
+    searchTypeTag.addEventListener("change" , setSearchValueTag);
+    
+	function setSearchValueTag(){
+		const searchType = searchTypeTag.value;
+		if(searchType == 'countYn'){
+			setSearchValueTagSelect();
+		}else{
+			setSearchValueTagInput();
+		}
+	}
+
+	//검색값 영역을 셀렉트가 보이게
+	function setSearchValueTagSelect(){
+		searchValueSelectTag.classList.add("active");
+        searchValueSelectTag.classList.remove("hidden");
+        searchValueSelectTag.disabled = false;
+
+		searchValueInputTag.classList.add("hidden");
+        submit.classList.remove("hidden");
+        searchValueInputTag.disabled = true;
+
+	}
+
+	//검색값 영역을 인풋이 보이게
+	function setSearchValueTagInput(){
+        searchValueSelectTag.classList.add("hidden");
+        searchValueSelectTag.classList.remove("active");
+        searchValueSelectTag.disabled = true;
+        
+		searchValueInputTag.classList.remove("hidden");
+        submit.classList.remove("hidden");
+        searchValueInputTag.disabled = false;
+	}
+
+    //검색값 유지
+    function initSearchValueSelect(){
+        const optionTag = document.querySelector("option[value='"+ searchValue +"']");
+        optionTag.selected = true;
+    }
+	
+	setSearchValueTag();
+	initSearchValueSelect();
+</script>

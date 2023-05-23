@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kh.app.admin.dao.AdminDao;
+import com.kh.app.admin.vo.AccommodationInventoryVo;
 import com.kh.app.admin.vo.AdBannerVo;
+import com.kh.app.admin.vo.CarInventoryVo;
 import com.kh.app.admin.vo.MemberSearchVo;
 import com.kh.app.admin.vo.ReportListVo;
 import com.kh.app.admin.vo.ReportSearchVo;
 import com.kh.app.admin.vo.SellRequestVo;
+import com.kh.app.admin.vo.SouvenirInventoryVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 
@@ -25,12 +28,12 @@ public class AdminService {
 	}
 	
 	//신고내역 페이징처리
-	public int reportListCnt() throws Exception {
+	public int reportListCnt(String searchType, String searchValue) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//sql
-		int cnt = dao.reportListCnt(conn);
+		int cnt = dao.reportListCnt(conn, searchType, searchValue);
 		
 		JDBCTemplate.close(conn);
 		
@@ -38,12 +41,12 @@ public class AdminService {
 	}
 	
 	//제재이력조회 페이징처리
-	public int reportSearchCnt() throws Exception {
+	public int reportSearchCnt(String searchType, String searchValue) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//sql
-		int cnt = dao.reportSearchCnt(conn);
+		int cnt = dao.reportSearchCnt(conn, searchType, searchValue);
 		
 		JDBCTemplate.close(conn);
 		
@@ -51,25 +54,62 @@ public class AdminService {
 	}
 	
 	//회원조회 페이징처리
-	public int MemberSearchCnt() throws Exception {
+	public int memberSearchCnt(String searchType, String searchValue) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//sql
-		int cnt = dao.memberSearchCnt(conn);
+		int cnt = dao.memberSearchCnt(conn, searchType, searchValue);
 		
 		JDBCTemplate.close(conn);
 	
 		return cnt;
 	}
+	
+	//차량재고조회 페이징처리
+	public int carInventoryCnt(String searchType, String searchValue) throws Exception {
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.carInventroy(conn, searchType, searchValue);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+	}
 
-	//판매등록요청조회 페이징처리
-	public int sellRequestCnt() throws Exception {
+	//숙소재고조회 페이징처리
+	public int accommodationInventoryCnt(String searchType, String searchValue) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.accommodationInventoryCnt(conn, searchType, searchValue);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+	}
+	
+	//기념품재고조회 페이징처리
+	public int souvenirInventoryCnt(String searchType, String searchValue) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//sql
-		int cnt = dao.sellRequestCnt(conn);
+		int cnt = dao.souvenirInventory(conn, searchType, searchValue);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+	}
+
+
+	//판매등록요청조회 페이징처리
+	public int sellRequestCnt(String searchType, String searchValue) throws Exception {
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql
+		int cnt = dao.sellRequestCnt(conn,searchType, searchValue);
 		
 		JDBCTemplate.close(conn);
 	
@@ -77,12 +117,12 @@ public class AdminService {
 	}
 	
 	//광고배너관리 페이징처리
-	public int adBannerCnt() throws Exception {
+	public int adBannerCnt(String searchType, String searchValue) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
 		//sql
-		int cnt = dao.adBannerCnt(conn);
+		int cnt = dao.adBannerCnt(conn, searchType, searchValue);
 		
 		JDBCTemplate.close(conn);
 	
@@ -169,6 +209,78 @@ public class AdminService {
 		return voList;
 	}
 
+	//차량재고조회
+	public List<CarInventoryVo> carInventory(PageVo pv) throws Exception {
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql
+		List<CarInventoryVo> voList = dao.carInventory(conn, pv);
+		
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+	
+	//차량재고조회 검색조회
+	public List<CarInventoryVo> carInventory(PageVo pv, String searchType, String searchValue) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<CarInventoryVo> voList = dao.carInventory(conn, pv, searchType, searchValue);
+		
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+	
+	//숙소재고조회
+	public List<AccommodationInventoryVo> accommodationInventory(PageVo pv) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<AccommodationInventoryVo> voList = dao.accommodationInventory(conn, pv);
+		
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+	
+	//숙소재고조회 검색조회
+	public List<AccommodationInventoryVo> accommodationInventory(PageVo pv, String searchType, String searchValue) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<AccommodationInventoryVo> voList =  dao.accommodationInventory(conn, pv, searchType, searchValue);
+		
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+	
+	//기념품재고조회
+	public List<SouvenirInventoryVo> souvenirInventory(PageVo pv) throws Exception {
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql
+		List<SouvenirInventoryVo> voList = dao.souvenirInventory(conn, pv);
+	
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+	
+	//기념품재고조회 검색조회
+	public List<SouvenirInventoryVo> souvenirInventory(PageVo pv, String searchType, String searchValue) throws Exception {
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		//sql
+		List<SouvenirInventoryVo> voList = dao.souvenirInventory(conn, pv, searchType, searchValue);
+	
+		JDBCTemplate.close(conn);
+		
+		return voList;
+	}
+	
 	//판매등록요청
 	public List<SellRequestVo> sellRequest(PageVo pv) throws Exception {
 		//conn
@@ -220,6 +332,5 @@ public class AdminService {
 		
 		return voList;
 	}
-
 
 }
