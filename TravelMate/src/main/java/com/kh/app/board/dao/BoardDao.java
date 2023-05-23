@@ -250,7 +250,7 @@ public class BoardDao {
 	public BoardVo noticeDetail(Connection conn, String no) throws Exception {
 
 		//이거 쿼리문 MEMBER_CATEGORY 조인후 nick이 보이게 수정해야함  --완료
-		String sql = "SELECT B.* , M.NAME AS MEMBER_NICK FROM BOARD B JOIN MEMBER_CATEGORY M ON B.MEMBER_NO = M.NO WHERE B.MEMBER_NO =2 AND B.NO =?"; 
+		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B.PRO_CATEGORY_NO ,B.MEMBER_NO ,B. BOARD_IMG_NO ,B.TITLE ,B.CONTENT ,TO_CHAR(B.ENROLL_DATE ,'YYYY-MM-DD') AS ENROLL_DATE ,B.DELETE_YN ,B.HIT ,B.UPLOAD_YN ,B.MODIFY_DATE ,M.NICK AS MEMBER_NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.MEMBER_NO =2 AND B.NO =?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -335,6 +335,7 @@ public class BoardDao {
 		return result;
 	}
 
+	//공지사항 댓글쓰기
 	public int NoticeReplyWrite(Connection conn, CommentVo vo) throws Exception {
 		
 		//SQL
@@ -344,6 +345,92 @@ public class BoardDao {
 		int result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 		return result;
+	}
+
+	//자유게시판 리스트
+	public List<BoardVo> freeList(Connection conn, PageVo pv) throws Exception {
+		
+		String sql = "SELECT NO ,TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO=3 AND DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<BoardVo> bvoList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
+			String proCategoryNo = rs.getString("PRO_CATEGORY_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String boardImgNo = rs.getString("BOARD_IMG_NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String hit = rs.getString("HIT");
+			String uploadYn = rs.getString("UPLOAD_YN");
+			String modifyDate = rs.getString("MODIFY_DATE");
+			
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setBoardCategoryNo(boardCategoryNo);
+			vo.setProCategoryNo(proCategoryNo);
+			vo.setMemberNo(memberNo);
+			vo.setBoardImgNo(boardImgNo);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setHit(hit);
+			vo.setUploadYn(uploadYn);
+			vo.setModifyDate(modifyDate);
+			
+			bvoList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return bvoList;
+	}
+
+	//댓글 보여주기
+	public List<CommentVo> noticeReplyList(Connection conn, String boardNo) throws Exception {
+		
+		String sql = "SELECT C.* ,M.NICK AS MEMBER_NICK FROM \"COMMENT\" C JOIN MEMBER M ON C.MEMBER_NO = M.NO WHERE BOARD_NO =?  AND DELETE_YN='N'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, boardNo);
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<CommentVo> replyList = new ArrayList<>();
+		while(rs.next()) {
+			String no =  rs.getString("NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String qnaNo = rs.getString("QNA_NO");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String modiFyDate = rs.getString("MODIFY_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String memberNick = rs.getString("MEMBER_NICK");
+			
+			CommentVo vo = new CommentVo();
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setBoardNo(boardNo);
+			vo.setQnaNo(qnaNo);
+			vo.setContent(content);
+			vo.setEnrollDate(enrollDate);
+			vo.setModifyDate(modiFyDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMemberNick(memberNick);
+			
+			replyList.add(vo);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return replyList;
 	}
 
 }//class

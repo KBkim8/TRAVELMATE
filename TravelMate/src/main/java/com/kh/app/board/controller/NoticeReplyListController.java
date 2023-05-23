@@ -8,11 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CommentVo;
+import com.kh.app.member.vo.MemberVo;
 
 @WebServlet(urlPatterns = "/notice/reply/list")
 public class NoticeReplyListController extends HttpServlet{
@@ -20,7 +22,8 @@ public class NoticeReplyListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String boardNo = req.getParameter("boardNo");
+		
+		String boardNo = req.getParameter("no");
 		
 		BoardService bs = new BoardService();
 		

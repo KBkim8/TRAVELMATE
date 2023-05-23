@@ -43,17 +43,20 @@
         font-size: 28px;
         font-weight: bold;
     }
-    
-    #btn-area > input{
-        width: 200px;
-        height: 60px;
-        font-size: 30px;
-        border-spacing: 20px;
-    }
 
+    #edit-area{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+    }
 
     #btn01 {
         background-color: #73D38E;
+        font-size: 2.5em;
         border: 0;
         padding: 0px 25px; 
         display: inline-block;
@@ -70,20 +73,28 @@
     }   
 
     #write-area{
+       
         margin-left: 20%;
     }
 
-    textarea{
-        height: 900px;
+    table{
+        height: 500px;
         width: 1000px;
-        margin-top: 30px;
-        resize: none;
-        font-size: 2.5em;
         background-color: #d8f1c7;
-        border: none;
         border-radius: 20px;
     }
 
+    table > thead > tr th , table > tbody > tr td {
+        font-size: 2.5em;
+        text-align: center;
+        border: 2px solid black;
+        height: 20px;
+    }
+
+    tbody > tr:hover {
+		background-color: rgb(32, 229, 52);
+		cursor: pointer;
+	}
 
     input[name=title]{
         font-size: 2em;
@@ -95,18 +106,9 @@
         margin-top: 210px;
     }
 
-    #submit{
-        display: flex;
-        height: 100px;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #submit input{
-        margin-left: 300px;
-        font-size: 1.3em;
-        height: 70px;
-        text-align: center;
+    #page-area{
+        margin-left: 250px;
+        margin-top: 30px;
     }
 
     
@@ -114,34 +116,62 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 -->
     <div id="content">
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>게시글 작성</a>
+            <a>자유게시판 목록</a>  
         </div>
-        <div id="write-area" >
-            <form action="${root}/write" method="POST" enctype="multipart/form-data">
-                <input type="text" name="title" placeholder="제목을 입력하세요">
-                <select name="categoryNo" style="width:150px;height:60px; font-size: 2em;">
-                        <option value=1>공지</option>
-                        <option value=2>판매등록요청</option>	
-                        <option value=3>랜선여행</option>	
-                        <option value=5>리뷰</option>	
-                        <option value=6>자유</option>	
-                </select>
-                <textarea name="content" placeholder="내용을 입력하세요"></textarea>
-            </div>
-    
-            <div id="submit">
-                <input type="submit" value="작성하기" id="btn01">
-                <input type="file" name="f" id="">
-            </div>
-            <div id="preview-area"></div>
-            </form>
+        <div id="write-area">
+            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색"> 
+            <c:if test="${not empty loginMember }">
+	            <a href="${root }/notice/write" id="btn01">글 작성하러 가기</a>
+            </c:if>
+            <br>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호 </th>
+                        <th>제목 </th>
+                        <th>작성일시</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <hr>
+                <tbody>
+                	<c:forEach items="${bvoList}" var="bvoList" begin="1">
+	                    <tr>
+	                        <td>${bvoList.no}</td>
+	                        <td>${bvoList.title}</td>
+	                        <td>${bvoList.enrollDate}</td>
+	                        <td>${bvoList.hit}</td>
+	                    </tr>
+                	</c:forEach>
+
+                </tbody>
+            </table>
+                <div id="page-area">
+                     <c:if test="${pv.currentPage > 1}">
+                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage-1}">이전</a>
+                    </c:if>
+                    <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
+                        <c:if test="${pv.currentPage ne i}">
+                            <a id="btn01" href="${root}/notice/list?page=${i}">${i}</a>
+                        </c:if>
+                        <c:if test="${pv.currentPage == i}">
+                            <a class="btn btn-success" style="font-size: 0.5em">${i}</a>
+                        </c:if>
+                    </c:forEach>
+                    <c:if test="${pv.currentPage < pv.maxPage}">
+                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage+1}">다음</a>
+                    </c:if> 
+                </div>   
+        </div>
     </div>
 
 
@@ -150,42 +180,11 @@
 
 <script>
 
-    //미리보기
-		const fileTag = document.querySelector("input[type=file]");
-		const previewArea = document.querySelector("#preview-area");
-		
-
-		fileTag.onchange = function(e){
-			
-			if(fileTag.files.length == 0){		//취소누른상태
-				previewArea.innerHTML = '';
-				return;
-			}
-
-			for(let i = 0 ; i < fileTag.files.length; i++){
-				const fr = new FileReader();
-				fr.readAsDataURL(fileTag.files[i]);
-	
-				fr.onload = function(e){
-					const imgTag = document.createElement('img');
-					imgTag.src = e.target.result;
-					imgTag.alt = "미리보기이미지사진";
-					imgTag.width = 100;
-					imgTag.height = 100;
-					previewArea.appendChild(imgTag);
-				};
-			}
-
-		};
-
-
-
-
-
-
-
-
-
-
+    //게시글 상세조회
+	const tbody = document.querySelector("tbody");
+	tbody.addEventListener("click" , function(e){
+		const no = e.target.parentNode.children[0].innerText;
+		location.href = "${root}/notice/detail?no=" + no;
+	});
 
 </script>

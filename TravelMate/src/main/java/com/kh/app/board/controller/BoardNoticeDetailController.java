@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
+import com.kh.app.member.vo.MemberVo;
 
 @WebServlet("/notice/detail")
 public class BoardNoticeDetailController extends HttpServlet{
