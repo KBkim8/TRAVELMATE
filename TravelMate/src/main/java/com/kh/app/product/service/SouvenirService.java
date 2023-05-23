@@ -92,6 +92,26 @@ public class SouvenirService {
 	}
 
 
+	public int souvenirFavorite(String no, String name) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.souvenirFavorite(conn, no, name);
+		
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
 
 
 }

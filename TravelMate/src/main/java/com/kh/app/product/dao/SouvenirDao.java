@@ -209,7 +209,6 @@ public class SouvenirDao {
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		
-		System.out.println(vo);
 		
 		return vo;
 	}
@@ -259,9 +258,20 @@ public class SouvenirDao {
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		
-		System.out.println(vo);
 		
 		return vo;
+	}
+
+	public int souvenirFavorite(Connection conn, String no, String name) throws Exception {
+		String sql = "INSERT INTO FAVORITES ( NO ,MEMBER_NO ,SOUVENIR_NO ) VALUES ( SEQ_FAVORITES_NO.NEXTVAL , 1 , ? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 
 	
