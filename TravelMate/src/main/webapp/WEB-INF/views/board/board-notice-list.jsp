@@ -73,7 +73,6 @@
     }   
 
     #write-area{
-        margin-top: 170px; /* 이녀석이 노트북이랑 데스크탑이랑 화면다르게 보이게함*/
         margin-left: 20%;
     }
 
@@ -117,7 +116,7 @@
 <body>
 
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -126,10 +125,14 @@
             <hr>
             <a>공지사항  목록</a>  
         </div>
+       
         <div id="write-area">
-            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색"> 
+            <form action="${root}/notice/search">
+                <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="submit" value="검색"> 
+            
+            </form>
             <c:if test="${not empty loginMember }">
-	            <a href="${root }/notice/write" id="btn01">글 작성하러 가기</a>
+	            <a href="${root}/notice/write" id="btn01">글 작성하러 가기</a>
             </c:if>
             <br>
             <br>
