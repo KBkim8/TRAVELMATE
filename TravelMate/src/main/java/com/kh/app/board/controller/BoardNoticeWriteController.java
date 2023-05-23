@@ -67,7 +67,7 @@ public class BoardNoticeWriteController extends HttpServlet{
 			// 화면
 			if(result == 1) {
 				//성공
-				req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
+				resp.sendRedirect(req.getContextPath() + "/notice/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 

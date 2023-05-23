@@ -278,7 +278,6 @@
 				if(x == 'ok'){
 					alert("댓글이 등록되었습니다.");
 					document.querySelector("input[name=content]").value = '';
-					loadComment();
 				}else{
 					alert("로그인 후 작성 가능합니다...");
 				}
@@ -288,6 +287,7 @@
 			} ,
 		});
 	}
+	loadComment();
 
 	//댓글 불러오기
 	function loadComment(){
@@ -297,7 +297,7 @@
 			url : '${root}/notice/reply/list' ,
 			type : "GET" ,
 			data : {
-				'boardNo' : '${nvo.no}'
+				no : '${nvo.no}'
 			} ,
 			success : function(data){
 				console.log(data);

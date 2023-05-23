@@ -194,6 +194,30 @@ private final BoardDao dao;
 		
 	}
 	
+	// 자유게시판 목록 조회
+		public List<BoardVo> freeList(PageVo pv) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo>bvoList= dao.freeList(conn ,pv);
+			
+			JDBCTemplate.close(conn);
+			
+			return bvoList;
+		}
+
+		public List<CommentVo> noticeReplyList(String boardNo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<CommentVo> replyList = dao.noticeReplyList(conn ,boardNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return replyList;
+			
+		}
+	
 	
 	
 	
