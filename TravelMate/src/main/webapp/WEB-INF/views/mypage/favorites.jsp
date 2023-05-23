@@ -45,9 +45,9 @@
 
     #fav-content-area{
         width: 1300px;
-        height: 80%;
+        height: 100%;
         left: 100px;
-        top: 230px;
+        top: 200px;
         position: absolute;
         display: grid;
         grid-template-rows: 2fr 1fr;
@@ -55,34 +55,81 @@
     
     #fav-list-box{
         width: 1300px;
+        height: 70%;
         border-radius: 30px;
-        border: 1px dashed black;
         font-size: 25px;
         justify-content: center;
         align-content: center;
-        display: grid;
-        grid-template-rows: 1fr 1fr 1fr;
     }
 
-    .paging-area{
+    #car-area, #accomo-area, #souvenir-area{
         width: 100%;
-        height: 10%;
-        border: 1px solid lightgray;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+    }
+
+    #delBtn, #delBtn > img{
+        border: none;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 170px;
+    }
+
+    #car-area > div, #accomo-area > div, #souvenir-area > div {
+        text-align: center;
+    }
+
+    #car-wrap > img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #accomo-wrap > img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #souvenir-wrap > img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #small-title{
+        font-size: 25px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+    }
+
+    #page-area{
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 20px;
     }
 
-    #btn01 {
+    #btn01, #btn02 {
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: black;
+        border-radius: 10px;
+        width: 100px;
+        height: 30px;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    #btn02 {
         background-color: #73D38E;
-        border: 0;
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
         color: white;
-        border-radius: 6px;
-        width: 100px;
+        border-radius: 10px;
+        width: 40px;
         height: 30px;
         font-size: 25px;
         margin-left: 15px;
@@ -94,26 +141,7 @@
                 0 0 0 2px rgba(255,255,255,0.15) inset,
                 0 0 0 1px rgba(0,0,0,0.4);
     }  
-    .black-bg {
-        display: none;
-        width: 400px;
-        height: 200px;
-        position: absolute;
-        background: rgba(0, 0, 0, 0.5);
-        left: 700px;
-        bottom: 600px;
-        z-index: 5;
-        padding: 50px;
-    }
-    .white_bg {
-        background: white;
-        border-radius: 5px;
-        padding: 50px;
-    }
-
-    .show-modal {
-        display: inline-block;
-    }
+   
     
     
 </style>
@@ -132,37 +160,58 @@
             <div id="fav-list-box">
                 <!-- 반복문 처리 -->
                 <!-- 차량 -->
+                <span id="small-title">차량</span>
+                <hr>
                 <div id="car-area">
-                    <span>차량</span>
-                    <hr>
-                    <img src="${root}/static/img/소나타DN8.jpg" alt="차량이미지">
-                     <div>${cvoList.carKind }</div>
-                </div>
+                    <c:forEach var="cvo" items="${cvoList}">
+                        <div id="car-wrap">
+                            <input type="hidden" value="${cvo.no}" name="no">
+                            <img src="${root}/static/img/소나타DN8.jpg" alt="차량이미지">
+                            <button id="delBtn" onclick="cdel('${cvo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <div>${cvo.carKind}</div>
+                        </div>
+                    </c:forEach>
+                </div>                
+                <hr>
                 <!-- 숙소 -->
+                <span id="small-title">숙소</span>
+                <hr>
                 <div id="accomo-area">
-                    <span>숙소</span>
-                    <hr>
-                    <img src="${root}/static/img/" alt="숙소이미지">
-                    <div>"${avoList}"</div>
+                    <c:forEach var="avo" items="${avoList}">
+                        <div id="accomo-wrap">
+                            <input type="hidden" value="${avo.no}" name="no">
+                            <img src="${root}/static/img/accommodationImg/금호리조트.jpg" alt="숙소이미지">
+                            <button id="delBtn" onclick="adel('${avo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <div>${avo.accomodationName}</div>
+                        </div>
+                    </c:forEach>
                 </div>
+                <hr>
                 <!-- 기념품 -->
+                <span id="small-title">기념품</span>
+                <hr>
                 <div id="souvenir-area">
-                    <span>기념품</span>
-                    <hr>
-                    <img src="${root}/static/img/아베베도넛.jpg" alt="기념품이미지">
-                    <div>"${svoList}"</div>
+                    <c:forEach var="svo" items="${svoList}">
+                        <div id="souvenir-wrap">
+                            <input type="hidden" value="${svo.no}" name="no">
+                            <img src="${root}/static/img/아베베도넛.jpg" alt="기념품이미지">
+                            <button id="delBtn" onclick="sdel('${svo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <div>${svo.souvenirName}</div>
+                            <div>${svo.souvenirPrice}</div>
+                        </div>
+                    </c:forEach>
                 </div>
-
             </div>
+            <hr>
             <div id="page-area">
 				<c:if test="${pv.currentPage > 1 }">
-				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage-1}">이전</a>
+				<a id="btn01" href="${root}/mypage/favorites?page=${pv.currentPage-1}">이전</a>
 				</c:if>
 				<c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-					<a id="btn02" href="${root}/CScenter/Inquerylist?page=${i}">${i}</a>
+					<a id="btn02" href="${root}/mypage/favorites?page=${i}">${i}</a>
 				</c:forEach>
 				<c:if test="${pv.currentPage < pv.maxPage}">
-				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage+1}">다음</a>
+				<a id="btn01" href="${root}/mypage/favorites?page=${pv.currentPage+1}">다음</a>
 				</c:if>
 			</div>
         </div>
@@ -171,8 +220,28 @@
 
 <script>
 
+function cdel(no) {
+        const result = confirm("삭제하시겠습니까?");
+        if (!result) {
+            return;
+        }
+        location.href = '${root}/mypage/favorites/del?no=' + no;
+    }
 
-
+    function adel(no) {
+        const result1 = confirm("삭제하시겠습니까?");
+        if (!result1) {
+            return;
+        }
+        location.href = '${root}/mypage/favorites/del?no=' + no;
+    }
+    function sdel(no){
+        const result2 = confirm("삭제하시겠습니까?");
+        if(!result2){
+            return;
+        }
+        location.href='${root}/mypage/favorites/del?no=' + no;
+    }
 
 </script>
 

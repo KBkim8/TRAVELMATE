@@ -76,4 +76,27 @@ public class FavoriteService {
 		return svoList;
 	}
 
+
+	// 관심상품 삭제
+	public int delete(FavoriteVo vo) throws Exception {
+		
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.delete(conn,vo);
+		
+		// tx || rs
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
 }
