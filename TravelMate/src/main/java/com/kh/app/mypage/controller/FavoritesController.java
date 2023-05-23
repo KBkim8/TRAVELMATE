@@ -19,33 +19,50 @@ import com.kh.app.mypage.vo.FavoriteVo;
 public class FavoritesController extends HttpServlet{
 
 	// 관심상품 화면
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("/WEB-INF/views/mypage/favorites.jsp").forward(req, resp);
-	}
+//	@Override
+//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//		req.getRequestDispatcher("/WEB-INF/views/mypage/favorites.jsp").forward(req, resp);
+//	}
 	
 	// 관심상품 
 	// 회원번호로 select 해서 차량, 숙소, 기념품 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		FavoriteService fs = new FavoriteService();
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		try {
+			FavoriteService fs = new FavoriteService();
 
-		// 데이터 준비
-		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
-		String mno = loginMember.getNo();
-		int cnt = fs.getFavListCntByNo(mno);
-		String page_ = req.getParameter("page");
-		if(page_ == null) {
-			page_ = "1";
+			// 데이터 준비
+			MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+			String mno = loginMember.getNo();
+			int cnt = fs.getFavListCntByNo(mno);
+			String page_ = req.getParameter("page");
+			if(page_ == null) {
+				page_ = "1";
+			}
+			int page = Integer.parseInt(page_);
+			PageVo pv = new PageVo(cnt, page, 5, 10);
+			
+			// 서비스
+			List<FavoriteVo> cvoList = null;
+			List<FavoriteVo> avoList = null;
+			List<FavoriteVo> svoList = null;
+			cvoList = fs.getCarFavListByNo(pv,mno);
+			avoList = fs.getAccomFavListByNo(pv, mno);
+			svoList = fs.getSouvenirFavListByNo(pv, mno);
+			
+			// 결과 화면
+			req.setAttribute("pv", pv);
+			req.setAttribute("cvoList", cvoList);
+			req.setAttribute("avoList", avoList);
+			req.setAttribute("svoList", svoList);
+			
+			req.getRequestDispatcher("/WEB-INF/views/mypage/favorites.jsp").forward(req, resp);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
-		int page = Integer.parseInt(page_);
-		PageVo pv = new PageVo(cnt, page, 5, 10);
-		
-		// 서비스
-		List<FavoriteVo> voList = null;
-		voList = fs.getFavListByNo(pv,mno);
-		
-		// 결과 화면
 		
 	
 	}

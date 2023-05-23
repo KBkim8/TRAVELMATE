@@ -60,22 +60,8 @@
         font-size: 25px;
         justify-content: center;
         align-content: center;
-    }
-
-    #content-wrap{
-        width: 100%;
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        margin: auto;
-    }
-
-    #content-wrap img {
-        width: 150px;
-        height: 150px;
-        margin-right: 0;
+        grid-template-rows: 1fr 1fr 1fr;
     }
 
     .paging-area{
@@ -145,82 +131,28 @@
         <div id="fav-content-area">
             <div id="fav-list-box">
                 <!-- 반복문 처리 -->
-                <div id="content-wrap">
-                    <div id="fav_img"><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
-                    <div id="fav_info"> 
-                        상품명 : [파리바게트]마음샌드
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div id="fav_del">
-                        <button class="delBtn" id="btn01">삭제</button>
-                        <div class="black-bg">
-                        <div class="white-bg">
-                        <h4>삭제되었습니다.</h4>
-                        <button class="btn btn-danger" id="btn01">닫기</button>
-                        </div>
-                        </div>
-                    </div>
+                <!-- 차량 -->
+                <div id="car-area">
+                    <span>차량</span>
+                    <hr>
+                    <img src="${root}/static/img/소나타DN8.jpg" alt="차량이미지">
+                     <div>${cvoList.carKind }</div>
                 </div>
-                <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
+                <!-- 숙소 -->
+                <div id="accomo-area">
+                    <span>숙소</span>
+                    <hr>
+                    <img src="${root}/static/img/" alt="숙소이미지">
+                    <div>"${avoList}"</div>
                 </div>
-                <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
+                <!-- 기념품 -->
+                <div id="souvenir-area">
+                    <span>기념품</span>
+                    <hr>
+                    <img src="${root}/static/img/아베베도넛.jpg" alt="기념품이미지">
+                    <div>"${svoList}"</div>
                 </div>
-                <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
-                </div>
-                <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
-                </div>
-                
+
             </div>
             <div id="page-area">
 				<c:if test="${pv.currentPage > 1 }">
@@ -238,14 +170,7 @@
 </body>
 
 <script>
-// 삭제 누르면 모달로 삭제되었습니다.
-$(".delBtn").on("click", function () {
-        $(".black-bg").addClass("show-modal");
-      }); //css에서 작성한 show-modal이라는 클래스명 추가
 
-      $(".btn-danger").on("click", function () {
-        $(".black-bg").removeClass("show-modal");
-      }); // 
 
 
 
