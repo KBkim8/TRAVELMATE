@@ -36,7 +36,7 @@
 #declaration{
     position: absolute;
     width: 1070px;
-    height: 1000px;
+    height: 1100px;
     left: 150px;
     top: 260px;
     border-radius: 30px;
@@ -44,7 +44,7 @@
     font-size: 20px;
     display: grid;
     grid-template-columns: 400px 200px 30px 350px 90px;
-    grid-template-rows: repeat(24, 1fr);
+    grid-template-rows: repeat(23, 43px);
 }
 
 #declaration>div{
@@ -52,47 +52,49 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+    
 }
 
-#img-area01, #img-area02{
+#img-area01{
     grid-row: span 7;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
 }
 
 #hr01{
     grid-column: span 5;
     width: 1070px;
     height: 1px;
-    border: 1px solid rgb(100, 100, 100);
-    margin-top: 30px;
+    border: 1px solid rgba(100, 100, 100, 0.547);
+    margin-bottom: 20px;
 }
 
 #page-area{
     grid-column: span 5;
 }
 
+#page-area>a{
+    font-size: 18px;
+    margin: 20px;
+}
+
+#page-area>a:focus{
+    text-decoration: solid;
+    background-color: #96C378;
+}
+
 #hr>hr{
     width: 1070px;
 }
 
-#declaration>div:nth-child(4), #declaration>div:nth-child(7),
-#declaration>div:nth-child(10), #declaration>div:nth-child(13),
-#declaration>div:nth-child(16), #declaration>div:nth-child(19),
-#declaration>div:nth-child(22){
-    display: flex;
-    justify-content: start;
-    margin-left: 20px;
-}
-
-#declaration>div:nth-child(2), #declaration>div:nth-child(5),
-#declaration>div:nth-child(8), #declaration>div:nth-child(11),
-#declaration>div:nth-child(14), #declaration>div:nth-child(17),
-#declaration>div:nth-child(20){
-    background-color: #06354d67;
+#name1, #name2, #name3, #name4, #name5, #name6, #name7{
+    background-color: #79b3d067;
 }
 
 #declaration img{
-    width: 270px;
-    height: 270px;
+    width: 240px;
+    height: 240px;
 }
 
 
@@ -103,10 +105,11 @@ input[type="text"], input[type="date"]{
     font-size: 20px;
 }
 
-#declaration>div:nth-child(4), #declaration>div:nth-child(7),
-#declaration>div:nth-child(10),#declaration>div:nth-child(13),
-#declaration>div:nth-child(16), #declaration>div:nth-child(19){
+#code, #dName, #localArea, #dPrice, #dEnroll, #dYn, #dCount{
+    display: flex;
+    justify-content: start;
     grid-column: span 2;
+    margin-right: 70px;
 }
 
 input[type="number"]{
@@ -115,6 +118,34 @@ input[type="number"]{
     border: none;
     font-size: 20px;
     border: 1px solid black;
+    margin-right: 220px;
+}
+
+select[name="searchType"]{
+    width: 130px;
+    height: 40px;
+    font-size: 16px;
+    margin-right: 5px;
+    position: absolute;
+    right: 225px;
+}
+
+.semiCategory{
+    width: 220px;
+    height: 40px;
+    font-size: 16px;
+    position: absolute;
+    right: 0px;
+    display: none;
+    -webkit-appearance:none; /* 크롬 화살표 없애기 */
+}
+
+.active{
+    display: block;
+}
+
+.hidden{
+    display: none;
 }
 
 
@@ -142,6 +173,8 @@ input[type="number"]{
     width: 220px;
     height: 40px;
     font-size: 16px;
+    background-color: white;
+    border: 1px solid gray;
 }
 
 select[name="searchType"]{
@@ -152,12 +185,6 @@ select[name="searchType"]{
 }
 
 /* 세부내용영역 */
-#page-area>a{
-    font-size: 20px;
-    margin: 20px;
-    margin-top: 10px;
-}
-
 #countEdit{
     border: 0;
     display: inline-block;
@@ -169,5 +196,12 @@ select[name="searchType"]{
     background-color: #08354D;
     color:white;
     cursor: pointer;
-    margin-right: 10px;
+    position: relative;
+    right: -450px;
+    bottom: 45px;
+}
+
+#countEdit:hover{
+    cursor: pointer;
+    background-color: rgba(122, 196, 122, 0.451);
 }

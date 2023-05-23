@@ -17,7 +17,6 @@ import com.kh.app.common.page.PageVo;
 
 @WebServlet("/admin/reportlist")
 public class ReportListController extends HttpServlet{
-
 	private final AdminService as = new AdminService();
 	
 	@Override
@@ -25,17 +24,14 @@ public class ReportListController extends HttpServlet{
 		try {
 			String searchType = req.getParameter("searchType");
 			String searchValue = req.getParameter("searchValue");
-			int listCount = as.reportListCnt();
-			int currentPage = Integer.parseInt(req.getParameter("page"));
-			int pageLimit = 5;
-			int boardLimit = 7;
 			
+			int cnt = as.carInventoryCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";
 			}
-			
-			PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+			int page = Integer.parseInt(page_);
+			PageVo pv = new PageVo(cnt, page, 5, 7);
 			
 			//서비스
 			List<ReportListVo> reportVoList = null;

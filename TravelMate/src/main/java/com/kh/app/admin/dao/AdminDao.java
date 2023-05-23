@@ -1,4 +1,4 @@
-package com.kh.app.dao;
+package com.kh.app.admin.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,19 +7,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kh.app.admin.vo.AccommodationInventoryVo;
 import com.kh.app.admin.vo.AdBannerVo;
+import com.kh.app.admin.vo.CarInventoryVo;
 import com.kh.app.admin.vo.MemberSearchVo;
 import com.kh.app.admin.vo.ReportListVo;
 import com.kh.app.admin.vo.ReportSearchVo;
 import com.kh.app.admin.vo.SellRequestVo;
+import com.kh.app.admin.vo.SouvenirInventoryVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 
 public class AdminDao {
 
 	//신고내역 페이징처리
-	public int reportListCnt(Connection conn) throws Exception {
-		String s = "SELECT COUNT(*) FROM REPORT_LIST";
+	public int reportListCnt(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("memberNick".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT R.NO, R.MEMBER_NO, M.NICK, B.NAME AS CATEGORY_NAME, E.NAME FROM REPORT_LIST R JOIN MEMBER M ON R.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON R.BOARD_NO = B.NO JOIN REPORT_REASON E ON R.SANCTION_REASON_NO = E.NO WHERE M.NICK LIKE '%" + searchValue + "%')";
+		}else if("boardName".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT R.NO, R.MEMBER_NO, M.NICK, B.NAME AS CATEGORY_NAME, E.NAME FROM REPORT_LIST R JOIN MEMBER M ON R.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON R.BOARD_NO = B.NO JOIN REPORT_REASON E ON R.SANCTION_REASON_NO = E.NO WHERE B.NAME LIKE '%" + searchValue + "%')";
+		}else if("reportReason".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT R.NO, R.MEMBER_NO, M.NICK, B.NAME AS CATEGORY_NAME, E.NAME FROM REPORT_LIST R JOIN MEMBER M ON R.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON R.BOARD_NO = B.NO JOIN REPORT_REASON E ON R.SANCTION_REASON_NO = E.NO WHERE E.NAME ='" + searchValue + "')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT R.NO, R.MEMBER_NO, M.NICK, B.NAME, E.NAME FROM REPORT_LIST R JOIN MEMBER M ON R.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON R.BOARD_NO = B.NO JOIN REPORT_REASON E ON R.SANCTION_REASON_NO = E.NO )";			
+		}
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -37,8 +50,16 @@ public class AdminDao {
 	}
 	
 	//제재이력조회 페이징처리
-	public int reportSearchCnt(Connection conn) throws Exception {
-		String s = "SELECT COUNT(*) FROM MEMBER_SANCTIONS";
+	public int reportSearchCnt(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+	
+		if("memberNick".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, M.SANCTION_TYPE_CODE, R.MEMBER_NO, B.NICK FROM MEMBER_SANCTIONS M JOIN REPORT_LIST R ON M.REPORT_LIST_NO = R.NO JOIN MEMBER B ON R.MEMBER_NO = B.NO WHERE B.NICK LIKE '%" + searchValue + "%')";
+		}else if("sanctionName".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, T.NAME, R.MEMBER_NO, B.NICK FROM MEMBER_SANCTIONS M JOIN REPORT_LIST R ON M.REPORT_LIST_NO = R.NO JOIN MEMBER B ON R.MEMBER_NO = B.NO JOIN SANCTION_TYPE T ON M.SANCTION_TYPE_CODE = T.CODE WHERE T.NAME ='" + searchValue + "')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, M.SANCTION_TYPE_CODE, R.MEMBER_NO, B.NICK FROM MEMBER_SANCTIONS M JOIN REPORT_LIST R ON M.REPORT_LIST_NO = R.NO JOIN MEMBER B ON R.MEMBER_NO = B.NO )";			
+		}
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -56,8 +77,18 @@ public class AdminDao {
 	}
 	
 	//회원조회 페이징처리
-	public int memberSearchCnt(Connection conn) throws Exception {
-		String s = "SELECT COUNT(*) FROM MEMBER WHERE STATUS = 'O'";
+	public int memberSearchCnt(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("memberId".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, M.ID, M.NICK, M.MEMBER_GRADE_NO, M.STATUS FROM MEMBER M WHERE M.ID LIKE '%" + searchValue + "%')";
+		}else if("memberNick".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, M.ID, M.NICK, M.MEMBER_GRADE_NO, M.STATUS FROM MEMBER M WHERE M.NICK LIKE '%" + searchValue + "%')";
+		}else if("status".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, M.ID, M.NICK, M.MEMBER_GRADE_NO, M.STATUS FROM MEMBER M WHERE M.STATUS ='" + searchValue + "')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT M.NO, M.ID, M.NICK, M.MEMBER_GRADE_NO, M.STATUS FROM MEMBER M)";			
+		}
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -74,9 +105,94 @@ public class AdminDao {
 		return cnt;
 	}
 	
+	//차량재고조회 페이징처리
+	public int carInventroy(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("name".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT C.NO, K.KIND, C.LICENSE_PLATE, R.NAME, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.COUNT FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY R ON C.LOCAL_NO = R.NO WHERE K.KIND LIKE '%" + searchValue + "%')";
+		}else if("license".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT C.NO, K.KIND, C.LICENSE_PLATE, R.NAME, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.COUNT FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY R ON C.LOCAL_NO = R.NO WHERE C.LICENSE_PLATE LIKE '%" + searchValue + "%')";
+		}else if("countYn".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT C.NO, K.KIND, C.LICENSE_PLATE, R.NAME, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.COUNT FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY R ON C.LOCAL_NO = R.NO WHERE C.COUNT ='" + searchValue + "')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT C.NO, K.KIND, C.LICENSE_PLATE, R.NAME, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.COUNT FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY R ON C.LOCAL_NO = R.NO)";
+		}
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		ResultSet rs = pstmt.executeQuery();
+		
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+	}
+
+	//숙소재고조회 페이징처리
+	public int accommodationInventoryCnt(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("name".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT A.NO, A.NAME, L.NAME AS LOCAL_NAME, K.KIND, A.MAX_PEOPLE, A.COUNT_YN FROM ACCOMODATION A JOIN LOCAL_CATEGORY L ON A.LOCAL_NO = L.NO JOIN ACCOMODATION_KIND K ON A.ACCOMODATION_NO = K.NO WHERE A.NAME LIKE '%" + searchValue + "%')";
+		}else if("countYn".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT A.NO, A.NAME, L.NAME AS LOCAL_NAME, K.KIND, A.MAX_PEOPLE, A.COUNT_YN FROM ACCOMODATION A JOIN LOCAL_CATEGORY L ON A.LOCAL_NO = L.NO JOIN ACCOMODATION_KIND K ON A.ACCOMODATION_NO = K.NO WHERE A.COUNT_YN = '" + searchValue + "')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT A.NO, A.NAME, L.NAME AS LOCAL_NAME, K.KIND, A.MAX_PEOPLE, A.COUNT_YN FROM ACCOMODATION A JOIN LOCAL_CATEGORY L ON A.LOCAL_NO = L.NO JOIN ACCOMODATION_KIND K ON A.ACCOMODATION_NO = K.NO)";
+		}
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		ResultSet rs = pstmt.executeQuery();
+		
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+	}
+	
+	//기념품재고조회 페이징처리
+	public int souvenirInventory(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+	
+		if("souvenirName".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT S.NO, S.NAME, L.NAME AS LOCAL_NAME, S.PRICE, S.ENROLL_DATE, S.DELETE_YN, S.COUNT FROM SOUVENIR S JOIN LOCAL_CATEGORY L ON S.LOCAL_NO = L.NO WHERE S.NAME LIKE '%" + searchValue + "%')";
+		}else if("areaName".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT S.NO, S.NAME, L.NAME AS LOCAL_NAME, S.PRICE, S.ENROLL_DATE, S.DELETE_YN, S.COUNT FROM SOUVENIR S JOIN LOCAL_CATEGORY L ON S.LOCAL_NO = L.NO WHERE L.NAME = '" + searchValue + "')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT S.NO, S.NAME, L.NAME, S.PRICE, S.ENROLL_DATE, S.DELETE_YN, S.COUNT FROM SOUVENIR S JOIN LOCAL_CATEGORY L ON S.LOCAL_NO = L.NO)";
+		}
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		ResultSet rs = pstmt.executeQuery();
+		
+		int cnt = 0;
+		if(rs.next()){
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return cnt;
+	}
+	
 	//판매등록요청 페이징처리
-	public int sellRequestCnt(Connection conn) throws Exception {
-		String s = "SELECT COUNT(*) FROM BOARD WHERE UPLOAD_YN = 'Y'";
+	public int sellRequestCnt(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("writer".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT B.NO, B.TITLE, B.ENROLL_DATE, M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.UPLOAD_YN = 'Y' AND M.NICK LIKE '%" + searchValue + "%')";
+		}else if("title".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT B.NO, B.TITLE, B.ENROLL_DATE, M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.UPLOAD_YN = 'Y' AND B.TITLE LIKE '%" + searchValue + "%')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT B.NO, B.TITLE, B.ENROLL_DATE, M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.UPLOAD_YN = 'Y')";			
+		}
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -94,8 +210,16 @@ public class AdminDao {
 	}
 	
 	//광고배너관리 페이징처리
-	public int adBannerCnt(Connection conn) throws Exception {
-		String s = "SELECT COUNT(*) FROM SOUVENIR_BANNER WHERE DELETE_YN = 'N'";
+	public int adBannerCnt(Connection conn, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("bannerName".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT B.NO, B.NAME, B.IMAGE, M.NICK FROM SOUVENIR_BANNER B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE DELETE_YN = 'N' AND B.NAME LIKE '%" + searchValue + "%')";
+		}else if("memberNick".equals(searchType)) {
+			s = "SELECT COUNT(*) FROM ( SELECT B.NO, B.NAME, B.IMAGE, M.NICK FROM SOUVENIR_BANNER B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE DELETE_YN = 'N' AND M.NICK LIKE '%" + searchValue + "%')";
+		}else {
+			s = "SELECT COUNT(*) FROM ( SELECT B.NO, B.NAME, B.IMAGE, M.NICK FROM SOUVENIR_BANNER B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE DELETE_YN = 'N')";			
+		}
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		ResultSet rs = pstmt.executeQuery();
 		
@@ -355,6 +479,247 @@ public class AdminDao {
 		}
 		
 		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	}
+	
+	//차량재고관리
+	public List<CarInventoryVo> carInventory(Connection conn, PageVo pv) throws Exception {
+		//sql
+		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<CarInventoryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String kind = rs.getString("KIND");
+			String count = rs.getString("COUNT");
+			String name = rs.getString("NAME");
+			String licensePlate = rs.getString("LICENSE_PLATE");
+			String weekdayPrice = rs.getString("WEEKDAY_PRICE");
+			String weekendPrice = rs.getString("WEEKEND_PRICE");
+			String licenseDate = rs.getString("LICENSE_DATE");
+			
+			CarInventoryVo vo = new CarInventoryVo();
+			vo.setNo(no);
+			vo.setKind(kind);
+			vo.setCount(count);
+			vo.setName(name);
+			vo.setLicensePlate(licensePlate);
+			vo.setWeekdayPrice(weekdayPrice);
+			vo.setWeekendPrice(weekendPrice);
+			vo.setLicenseDate(licenseDate);
+			
+			voList.add(vo);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	}
+		
+	//차량재고관리 카테고리설정
+	public List<CarInventoryVo> carInventory(Connection conn, PageVo pv, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("name".equals(searchType)) {
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND K.KIND LIKE '%'||?||'%' OR K.KIND LIKE '%?' OR K.KIND LIKE '?%' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if("license".equals(searchType)) {
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND C.LICENSE_PLATE LIKE '%'||?||'%' OR C.LICENSE_PLATE LIKE '%?' OR C.LICENSE_PLATE LIKE '?%' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if("countYn".equals(searchType)) {
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND C.COUNT = ? ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			return carInventory(conn, pv);
+		}
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, searchValue);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<CarInventoryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String kind = rs.getString("KIND");
+			String count = rs.getString("COUNT");
+			String name = rs.getString("NAME");
+			String licensePlate = rs.getString("LICENSE_PLATE");
+			String weekdayPrice = rs.getString("WEEKDAY_PRICE");
+			String weekendPrice = rs.getString("WEEKEND_PRICE");
+			String licenseDate = rs.getString("LICENSE_DATE");
+			
+			CarInventoryVo vo = new CarInventoryVo();
+			vo.setNo(no);
+			vo.setKind(kind);
+			vo.setCount(count);
+			vo.setName(name);
+			vo.setLicensePlate(licensePlate);
+			vo.setWeekdayPrice(weekdayPrice);
+			vo.setWeekendPrice(weekendPrice);
+			vo.setLicenseDate(licenseDate);
+			
+			voList.add(vo);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	}
+	
+	//숙소재고조회
+	public List<AccommodationInventoryVo> accommodationInventory(Connection conn, PageVo pv) throws Exception {
+		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT A.NO, A.NAME, L.NAME AS LOCAL_NAME, K.KIND, A.MAX_PEOPLE, A.COUNT_YN FROM ACCOMODATION A JOIN LOCAL_CATEGORY L ON A.LOCAL_NO = L.NO JOIN ACCOMODATION_KIND K ON A.ACCOMODATION_NO = K.NO ORDER BY A.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<AccommodationInventoryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String name = rs.getString("NAME");
+			String localName = rs.getString("LOCAL_NAME");
+			String kind = rs.getString("KIND");
+			String maxPeople = rs.getString("MAX_PEOPLE");
+			String countYn = rs.getString("COUNT_YN");
+			
+			AccommodationInventoryVo vo = new AccommodationInventoryVo();
+			vo.setNo(no);
+			vo.setName(name);
+			vo.setLocalName(localName);
+			vo.setKind(kind);
+			vo.setMaxPeople(maxPeople);
+			vo.setCountYn(countYn);
+			
+			voList.add(vo);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+	
+		return voList;
+	}
+	
+	//숙소재고조회 카테고리 설정
+	public List<AccommodationInventoryVo> accommodationInventory(Connection conn, PageVo pv, String searchType, String searchValue) throws Exception{
+		String s = "";
+	
+		if("name".equals(searchType)){
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT A.NO, A.NAME, L.NAME AS LOCAL_NAME, K.KIND, A.MAX_PEOPLE, A.COUNT_YN FROM ACCOMODATION A JOIN LOCAL_CATEGORY L ON A.LOCAL_NO = L.NO JOIN ACCOMODATION_KIND K ON A.ACCOMODATION_NO = K.NO WHERE A.NAME LIKE '%'||?||'%' OR A.NAME LIKE '%?' OR A.NAME LIKE '?%' ORDER BY A.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if("countYn".equals(searchType)) {
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT A.NO, A.NAME, L.NAME AS LOCAL_NAME, K.KIND, A.MAX_PEOPLE, A.COUNT_YN FROM ACCOMODATION A JOIN LOCAL_CATEGORY L ON A.LOCAL_NO = L.NO JOIN ACCOMODATION_KIND K ON A.ACCOMODATION_NO = K.NO WHERE A.COUNT_YN = ? ORDER BY A.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			return accommodationInventory(conn, pv);
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(s);	
+		pstmt.setString(1, searchValue);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<AccommodationInventoryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String name = rs.getString("NAME");
+			String localName = rs.getString("LOCAL_NAME");
+			String kind = rs.getString("KIND");
+			String maxPeople = rs.getString("MAX_PEOPLE");
+			String countYn = rs.getString("COUNT_YN");
+			
+			AccommodationInventoryVo vo = new AccommodationInventoryVo();
+			vo.setNo(no);
+			vo.setName(name);
+			vo.setLocalName(localName);
+			vo.setKind(kind);
+			vo.setMaxPeople(maxPeople);
+			vo.setCountYn(countYn);
+			
+			voList.add(vo);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	}
+	
+	//기념품재고조회
+	public List<SouvenirInventoryVo> souvenirInventory(Connection conn, PageVo pv) throws Exception {
+		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT S.NO, S.NAME, L.NAME AS LOCAL_NAME, S.PRICE, TO_CHAR(S.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, S.DELETE_YN, S.COUNT FROM SOUVENIR S JOIN LOCAL_CATEGORY L ON S.LOCAL_NO = L.NO ORDER BY S.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<SouvenirInventoryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String name = rs.getString("NAME");
+			String localName = rs.getString("LOCAL_NAME");
+			String price = rs.getString("PRICE");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String count = rs.getString("COUNT");
+			
+			SouvenirInventoryVo vo = new SouvenirInventoryVo();
+			vo.setNo(no);
+			vo.setName(name);
+			vo.setLocalName(localName);
+			vo.setPrice(price);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setCount(count);
+			
+			voList.add(vo);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return voList;
+	}
+	
+	//기념품재고조회 카테고리 설정
+	public List<SouvenirInventoryVo> souvenirInventory(Connection conn, PageVo pv, String searchType, String searchValue) throws Exception {
+		String s = "";
+		
+		if("souvenirName".equals(searchType)) {
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT S.NO, S.NAME, L.NAME AS LOCAL_NAME, S.PRICE, TO_CHAR(S.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, S.DELETE_YN, S.COUNT FROM SOUVENIR S JOIN LOCAL_CATEGORY L ON S.LOCAL_NO = L.NO WHERE S.NAME LIKE '%'||?||'%' OR S.NAME LIKE '%?' OR S.NAME LIKE '?%' ORDER BY S.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";	
+		}else if("areaName".equals(searchType)){
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT S.NO, S.NAME, L.NAME AS LOCAL_NAME, S.PRICE, TO_CHAR(S.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, S.DELETE_YN, S.COUNT FROM SOUVENIR S JOIN LOCAL_CATEGORY L ON S.LOCAL_NO = L.NO WHERE L.NAME = ? ORDER BY S.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			return souvenirInventory(conn, pv);
+		}
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, searchValue);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<SouvenirInventoryVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String name = rs.getString("NAME");
+			String localName = rs.getString("LOCAL_NAME");
+			String price = rs.getString("PRICE");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String count = rs.getString("COUNT");
+			
+			SouvenirInventoryVo vo = new SouvenirInventoryVo();
+			vo.setNo(no);
+			vo.setName(name);
+			vo.setLocalName(localName);
+			vo.setPrice(price);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setCount(count);
+			
+			voList.add(vo);
+		}
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		

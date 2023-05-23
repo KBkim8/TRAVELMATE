@@ -179,6 +179,19 @@ button:hover, input[type="submit"]:hover, #memberStop:hover {background-color: #
     display: none;
 }
 
+#noResult{
+    grid-column: span 6;
+    grid-row: span 17;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#noResult>h4{
+    font-size: 22px;
+    font-weight: 600;
+}
+
 /* 모달부분 */
 #reportMore{
     display: none;

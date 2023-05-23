@@ -1,4 +1,4 @@
-package com.kh.app.admin.controller;
+package com.kh.app.admin.banner.controller;
 
 import java.io.IOException;
 

@@ -125,6 +125,18 @@ select[name="searchType"]{
     display: none;
 }
 
+#noResult{
+    grid-column: span 6;
+    grid-row: span 17;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#noResult>h4{
+    font-size: 22px;
+    font-weight: 600;
+}
 
 /* 세부내용영역 */
 

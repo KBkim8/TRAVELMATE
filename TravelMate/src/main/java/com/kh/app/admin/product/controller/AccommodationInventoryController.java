@@ -1,4 +1,4 @@
-package com.kh.app.admin.controller;
+package com.kh.app.admin.product.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.app.admin.service.AdminService;
-import com.kh.app.admin.vo.AdBannerVo;
+import com.kh.app.admin.vo.AccommodationInventoryVo;
+import com.kh.app.admin.vo.CarInventoryVo;
 import com.kh.app.common.page.PageVo;
 
-@WebServlet("/admin/banner")
-public class BannerController extends HttpServlet{
+@WebServlet("/admin/accommodationinventory")
+public class AccommodationInventoryController extends HttpServlet{
 	private final AdminService as = new AdminService();
 	
 	@Override
@@ -24,50 +25,45 @@ public class BannerController extends HttpServlet{
 		try {
 			String searchType = req.getParameter("searchType");
 			String searchValue = req.getParameter("searchValue");
-			int listCount = as.adBannerCnt();
-			int currentPage = Integer.parseInt(req.getParameter("page"));
-			int pageLimit = 5;
-			int boardLimit = 7;
-			
+
+			int cnt = as.accommodationInventoryCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";
 			}
-			
-			PageVo pv = new PageVo(listCount, currentPage, pageLimit, boardLimit);
+			int page = Integer.parseInt(page_);
+			PageVo pv = new PageVo(cnt, page, 5, 3);
 			
 			//서비스
-			List<AdBannerVo> voList = null;
+			List<AccommodationInventoryVo> voList = null;
 			if(searchType == null || searchType.equals("")) {
-				voList = as.adBanner(pv);			
+				voList = as.accommodationInventory(pv);			
 			}else {
-				voList = as.adBanner(pv, searchType, searchValue);				
+				voList = as.accommodationInventory(pv, searchType, searchValue);			
 			}
 			
 			Map<String, String> map = new HashMap<>();
 			map.put("searchType", searchType);
 			map.put("searchValue", searchValue);
-			
-			
-			if(voList != null) {
-				req.setAttribute("searchVo", map);
-				req.setAttribute("voList", voList);
-				req.setAttribute("pv", pv);
-				req.getRequestDispatcher("/WEB-INF/views/admin/adBanner.jsp").forward(req, resp);
-			}else {
-				throw new Exception();
-			}
+						
+			//화면보여주기
+			req.setAttribute("searchVo", map);
+			req.setAttribute("pv", pv);
+			req.setAttribute("voList", voList);
+
+			req.getRequestDispatcher("/WEB-INF/views/admin/accommodationInventory.jsp").forward(req, resp);
 		}catch(Exception e) {
-			req.setAttribute("errMsg", "판매등록요청조회 에러");
+			req.setAttribute("errMsg", "신고내역 조회 에러");
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
-			System.out.println("[ERR-301] 광고배너관리 에러");
+			System.out.println("[ERR-202] 숙소재고조회 에러");
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
+
 }

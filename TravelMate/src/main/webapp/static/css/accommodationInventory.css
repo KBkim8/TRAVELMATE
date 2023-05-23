@@ -36,32 +36,126 @@
 #declaration{
     position: absolute;
     width: 1070px;
-    height: 1000px;
+    height: 1100px;
     left: 150px;
     top: 260px;
     border-radius: 30px;
     border: 1px dashed black;
-    font-size: 18px;
+    font-size: 20px;
     display: grid;
-    grid-template-columns: repeat(3, 4fr);
-    grid-template-rows: 320px 320px 320px 40px;
+    grid-template-columns: 400px 200px 30px 350px 90px;
+    grid-template-rows: repeat(23, 43px);
 }
 
 #declaration>div{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 10px;
+    
 }
 
-#declaration>div>img{
-    width: 320px;
-    height: 290px;
+#img-area01{
+    grid-row: span 7;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
 }
 
-#declaration>div>img:hover{
-    filter: brightness(0.8);
-    cursor: pointer;
+#hr01{
+    grid-column: span 5;
+    width: 1070px;
+    height: 1px;
+    border: 1px solid rgba(100, 100, 100, 0.547);
+    margin-bottom: 20px;
 }
+
+#page-area{
+    grid-column: span 5;
+}
+
+#page-area>a{
+    font-size: 18px;
+    margin: 20px;
+}
+
+#page-area>a:focus{
+    text-decoration: solid;
+    background-color: #96C378;
+}
+
+#hr>hr{
+    width: 1070px;
+}
+
+#name1, #name2, #name3, #name4, #name5, #name6, #name7{
+    background-color: #79b3d067;
+}
+
+#declaration img{
+    width: 300px;
+    height: 240px;
+}
+
+
+input[type="text"], input[type="date"]{
+    width: 300px;
+    background: none;
+    border: none;
+    font-size: 20px;
+}
+
+#code, #dName, #localArea, #dPrice, #dEnroll, #dYn, #dCount{
+    display: flex;
+    justify-content: start;
+    grid-column: span 2;
+    margin-right: 70px;
+}
+
+#dCount{
+    margin-right: 70px;
+}
+
+#dCount label{
+    margin-right: 15px;
+}
+
+input[type="number"]{
+    width: 80px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    border: 1px solid black;
+    margin-right: 220px;
+}
+
+select[name="searchType"]{
+    width: 130px;
+    height: 40px;
+    font-size: 16px;
+    margin-right: 5px;
+    position: absolute;
+    right: 225px;
+}
+
+.semiCategory{
+    width: 220px;
+    height: 40px;
+    font-size: 16px;
+    position: absolute;
+    right: 0px;
+    display: none;
+    -webkit-appearance:none; /* 크롬 화살표 없애기 */
+}
+
+.active{
+    display: block;
+}
+
+.hidden{
+    display: none;
+}
+
 
 /* 카테고리 및 검색 */
 #report-search input[type="submit"]{
@@ -87,6 +181,8 @@
     width: 220px;
     height: 40px;
     font-size: 16px;
+    background-color: white;
+    border: 1px solid gray;
 }
 
 select[name="searchType"]{
@@ -97,98 +193,23 @@ select[name="searchType"]{
 }
 
 /* 세부내용영역 */
-#page-area{
-    grid-column: span 3;
-}
-
-#page-area>a{
-    font-size: 20px;
-    margin: 20px;
-    margin-top: 10px;
-}
-
-/* 모달부분 */
-#accomMore{
-    display: none;
-    margin-left: 400px;
-    margin-top: -400px;
-}
-
-.stop-active1{
-    width: 500px;
-    height: 500px;
-    background-color: rgb(232, 232, 232);
-    border: 1px solid black;
-    position: fixed;
-    box-shadow : rgba(0, 0, 0, 0.791) 0 0 0 9999px;
-    z-index: 8;
+#countEdit{
+    border: 0;
     display: inline-block;
-    font-size: 20px;
-}
-
-#modal-content div:nth-child(2), #modal-content div:nth-child(5),
-#modal-content div:nth-child(8), #modal-content div:nth-child(11),
-#modal-content div:nth-child(14), #modal-content div:nth-child(17),
-#modal-content div:nth-child(20), #modal-content div:nth-child(23){
-    display: flex;
-    justify-content: center;
-}
-
-#modal-content div:nth-child(4), #modal-content div:nth-child(7),
-#modal-content div:nth-child(10), #modal-content div:nth-child(13),
-#modal-content div:nth-child(16), #modal-content div:nth-child(19),
-#modal-content div:nth-child(22), #modal-content div:nth-child(25){
-    display: flex;
-    justify-content: start;
-}
-
-#modal-content div:nth-child(3), #modal-content div:nth-child(6),
-#modal-content div:nth-child(9), #modal-content div:nth-child(12),
-#modal-content div:nth-child(15), #modal-content div:nth-child(18),
-#modal-content div:nth-child(21), #modal-content div:nth-child(24){
-   color: rgb(164, 164, 164);
-   display: flex;
-   justify-content: center;
-}
-
-#modal-content{
-    width: 500px;
-    height: 500px;
-    display: grid;
-    grid-template-columns: 2fr 50px 5fr;
-    grid-template-rows: repeat(9, 1fr);
-    padding-left: 20px;
-}
-
-#close{
-    grid-column: span 3;
-    display: flex;
-    justify-content: end;
-    margin-top: 20px;
-}
-
-#close svg{
-    margin-right: 20px;
-}
-
-#close svg:hover{
+    text-align: center;
+    border-radius: 6px;
+    width: 80px;
+    height: 35px;
+    font-size: 17px;
+    background-color: #08354D;
+    color:white;
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.193);
+    position: relative;
+    right: -470px;
+    bottom: 45px;
 }
 
-#modal-content input[type="text"], #modal-content input[type="date"]{
-    font-size: 20px;
-    border: none;
-    background: none;
+#countEdit:hover{
+    cursor: pointer;
+    background-color: rgba(122, 196, 122, 0.589);
 }
-
-#modal-content input{
-    width: 300px;
-    height: 30px;
-    color: #558B32;
-}
-
-/* body 스크롤 방지용 */
-.stop-scroll{
-    overflow: hidden;
-  }
