@@ -157,7 +157,7 @@ table{
 	
 	      <hr>
 		</form>
-	        <button id="btn02">관심상품 담기</button>
+	        <button id="btn02" onclick="favorite();">관심상품 담기</button>
 	        <button id="btn01" onclick="backPage()">뒤로가기</button>
 
       
@@ -185,6 +185,10 @@ table{
     location.href="${root}/souvenir/list";
   }
   
+  function favorite(){
+	  location.href="${root}/favorite?no=${vo.no}&name=${vo.name}";
+	  alert("상품이 등록되었습니다.");
+  }
 
   
   
