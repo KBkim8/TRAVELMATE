@@ -17,7 +17,7 @@ import com.kh.app.board.vo.CommentVo;
 import com.kh.app.member.vo.MemberVo;
 
 @WebServlet(urlPatterns = "/notice/reply/list")
-public class NoticeReplyListController extends HttpServlet{
+public class BoardNoticeReplyListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -3,6 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -13,6 +18,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 450px;
     }
     
 
@@ -124,7 +130,7 @@
             <a>자유 글 작성</a>
         </div>
         <div id="write-area" >
-            <form action="${root}/free/write" method="POST" enctype="multipart/form-data">
+            <form action="${root}/free/write" method="POST">
                 <input type="text" name="title" placeholder="제목을 입력하세요">
                
                 <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
@@ -137,12 +143,8 @@
     </div>
 
 
-</body>
-</html>
-
-<script>
-
-$('#summernote').summernote({
+    <script>
+        $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
         height: 320,
@@ -163,19 +165,16 @@ $('#summernote').summernote({
         ]
       });
 
-	  //파일업로드 발생시 동작
-	  function f01(fileList) {
-		console.log(fileList);
 
-		const  fd = new FormData();
+      function f01(FileList) {
 
-		for(let file of fileList){
-			fd.append( 'f' ,file);   // f에 파일담아서보냄
-		}
-		
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
 
-		$.ajax({
-			url :'/upload' ,
+      $.ajax({
+			url :'${root}/upload' ,
 			type : 'post',
 			data : fd,
 			processData : false,
@@ -184,13 +183,17 @@ $('#summernote').summernote({
 			success : (changeNameList)=>{
 				console.log(changeNameList);
 				for(let changeName of changeNameList){
-					$('#summernote').summernote('insertImage' , '/app/static/img/' + changeName);
+					$('#summernote').summernote('insertImage' , '${root}/static/free-board-img/' + changeName);
 				}
 			},
 			error : (e)=>{
 				alert(e);
 			}
 		});
-	  }
+    }
 
-</script>
+    </script>
+
+</body>
+</html>
+

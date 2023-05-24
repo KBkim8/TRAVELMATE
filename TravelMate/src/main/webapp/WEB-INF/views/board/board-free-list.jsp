@@ -184,7 +184,7 @@
 	const tbody = document.querySelector("tbody");
 	tbody.addEventListener("click" , function(e){
 		const no = e.target.parentNode.children[0].innerText;
-		location.href = "${root}/notice/detail?no=" + no;
+		location.href = "${root}/free/detail?no=" + no;
 	});
 
 </script>

@@ -46,49 +46,30 @@ public class BoardFreeWriteController extends HttpServlet{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
-			//파일 업로드
-			List<Part> fList = new ArrayList<>();
-			Collection<Part> parts = req.getParts();
-			for(Part part : parts) {
-				if( part.getName().equals("f") ) {
-					fList.add(part);
-				}
-			}
-			String path = req.getServletContext().getRealPath("/static/img/board/"); //경로수정해야함
-			List<BoardImgVo> BoardImgVoList = FileUploader.saveFile(path , fList);
 			
 			// 데꺼
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
-			String categoryNo = req.getParameter("categoryNo");
 			String memberNo = loginMember.getNo();
 			
 			// 데뭉
 			BoardVo bvo = new BoardVo();
 			bvo.setTitle(title);
 			bvo.setContent(content);
-			bvo.setBoardCategoryNo(categoryNo);
 			bvo.setMemberNo(memberNo);
 			
 			// 서비스
 			BoardService bs = new BoardService();
-//			int result = bs.freeWrite(bvo , BoardImgVoList);
-//			
+			
 //			// 화면
 //			if(result == 1) {
-//				//성공
-//				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
-//				resp.sendRedirect(req.getContextPath() + "/list");
+//				resp.sendRedirect(req.getContextPath() + "/free/list");
 //			}else {
-//				//실패
 //				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
 //			}
 			
 		} catch (Exception e) {
-			//실패
 			e.printStackTrace();
-			req.setAttribute("errorMsg", "게시글 작성 실패 ...");
-			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 		
 	}
