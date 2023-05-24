@@ -118,14 +118,7 @@ public class MemberService {
 		return vo;
 	}
 
-	// 강분-비밀번호 확인
-	public MemberVo checkPwd(MemberVo vo) {
 
-		
-		
-		return null;
-	}
-	
 	// 강분-회원정보 수정
 	public MemberVo edit(MemberVo vo) throws Exception {
 		

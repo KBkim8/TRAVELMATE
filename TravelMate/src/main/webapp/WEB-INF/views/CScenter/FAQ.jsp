@@ -122,7 +122,7 @@
                   <div class="accordion-body">
                     로그인 페이지에서 아이디/비밀번호 찾기를 진행해주세요.
                     <br>
-                    <a href="">아이디, 비밀번호 찾기</a>
+                    <a href="${root}/find-id">아이디, 비밀번호 찾기</a>
                   </div>
                 </div>
               </div>
