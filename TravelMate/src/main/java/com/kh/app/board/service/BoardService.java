@@ -217,6 +217,15 @@ private final BoardDao dao;
 			return replyList;
 			
 		}
+
+		//자유게시판 상세조회
+		public BoardVo freeDetail(String no) throws Exception {
+
+			try(Connection conn = JDBCTemplate.getConnection();){
+				BoardVo fvo = dao.freeDetail(conn ,no);
+				return fvo;
+			}
+		}
 	
 	
 	

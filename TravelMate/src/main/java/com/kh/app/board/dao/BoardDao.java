@@ -433,4 +433,48 @@ public class BoardDao {
 		return replyList;
 	}
 
+	public BoardVo freeDetail(Connection conn, String no) throws Exception {
+
+		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B. PRO_CATEGORY_NO ,B. MEMBER_NO ,B. BOARD_IMG_NO ,B. TITLE ,B. CONTENT ,B. ENROLL_DATE ,B. DELETE_YN ,B. HIT ,B. UPLOAD_YN ,B. MODIFY_DATE ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO =3 AND B.NO =? AND DELETE_YN='N'";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		BoardVo fvo = null;
+		if(rs.next()) {
+			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
+			String proCategoryNo = rs.getString("PRO_CATEGORY_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String memberNick = rs.getString("MEMBER_NICK");
+			String boardImgNo = rs.getString("BOARD_IMG_NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String hit = rs.getString("HIT");
+			String uploadYn = rs.getString("UPLOAD_YN");
+			String modifyDate = rs.getString("MODIFY_DATE");
+			
+			fvo = new BoardVo();
+			
+			fvo.setNo(no);
+			fvo.setProCategoryNo(proCategoryNo);
+			fvo.setMemberNo(memberNo);
+			fvo.setMemberNick(memberNick);
+			fvo.setBoardImgNo(boardImgNo);
+			fvo.setTitle(title);
+			fvo.setTitle(title);
+			fvo.setContent(content);
+			fvo.setEnrollDate(enrollDate);
+			fvo.setDeleteYn(deleteYn);
+			fvo.setHit(hit);
+			fvo.setUploadYn(uploadYn);
+			fvo.setModifyDate(modifyDate);
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return fvo;
+	}
+
 }//class
