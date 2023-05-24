@@ -229,7 +229,7 @@ button:hover, input[type="submit"]:hover, #enroll:hover {background-color: #96C3
     width: 280px;
 }
 
-input[type="submit"], #close{
+input[type="submit"], #sell{
     border: 0;
     display: inline-block;
     text-align: center;
@@ -241,6 +241,8 @@ input[type="submit"], #close{
     color:white;
     cursor: pointer;
 }
+
+#sell:hover {background-color: #96C378; color: black;}
 
 #submitDiv{
     grid-column: span 2;

@@ -40,13 +40,13 @@
             <div>작성자</div>
             <div>제목</div>
             <div>작성일</div>
-            <div>이미지명</div>
+            <div></div>
             <div id="hr"><hr></div>
 
             <c:forEach var="voList" items="${voList}">
             <div id="report-content">
                 <label class="chk_box">
-                <input type="checkbox" value="" name="stop">
+                <input type="checkbox" value="${voList.no}" name="stop">
                 <span class="on"></span>
         
                 </label>
@@ -55,11 +55,10 @@
                 <div>${voList.writer}</div>
                 <div>${voList.title}</div>
                 <div>${voList.enrollDate}</div>
-                <div>${voList.img}</div>
+                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
                 <div id="hr"><hr></div>
             </c:forEach>
             
-            <div><button id="enroll">등록하기</button></div>
             <div id="page-area">
                 <c:if test="${pv.currentPage > 1}">
                     <a href="${root}/admin/sellrequest?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
@@ -98,10 +97,9 @@
                   <div>▶</div>                              
                   <div><input type="date" value="2023-01-01" name="enrollDate" readonly></div>                              
                   <div>이미지</div>                              
-                  <div id="plus">▶</div>                       
-                  <div id="modal-img">
-                    <input type="image" src="${root}/static/img/adBanner/adBanner01.jpg" alt="모달이미지" readonly>
-                  </div>                       
+                  <div id="img-area">
+                    <img src="${root}/static/img/adBanner/adBanner02.jpg" alt="배너이미지">
+                    </div>                     
                   <div id="submitDiv"><input type="submit" value="등록"></input></div>
                   <div id="buttonDiv"><button type="button" id="close">취소</button></div>
                 </div>
@@ -113,6 +111,11 @@
 </body>
 </html>
 <script>
+    //게시글 상세조회
+	function sellEnroll(no){
+        location.href = "${root}/admin/sellrequestdetail?no=" + no;
+    }
+
     //서치타입 변경 시 함수 실행
     const searchType = '${searchVo.searchType}';
     const searchValue = '${searchVo.searchValue}';

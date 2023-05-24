@@ -47,8 +47,7 @@
     grid-template-rows: 80px 30px 50px 30px 50px 30px 50px 30px 50px 30px 50px 30px 50px 30px 50px 50px 30px;
 }
 
-
-#no:hover{
+.no:hover{
     background-color: rgba(122, 196, 122, 0.451);
     cursor: pointer;
 }
@@ -198,6 +197,11 @@ select[name="searchType"]{
 #noResult>h4{
     font-size: 22px;
     font-weight: 600;
+}
+
+#no:hover{
+    background-color: rgba(122, 196, 122, 0.451);
+    cursor: pointer;
 }
 
 /* 모달부분 */

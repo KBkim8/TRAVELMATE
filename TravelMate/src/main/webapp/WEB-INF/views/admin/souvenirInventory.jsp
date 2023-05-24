@@ -45,10 +45,10 @@
               </div>
           </div>
           
-        <form action="" method="post">
           <div id="declaration">
               
               <c:forEach var="voList" items="${voList}">
+                 <div id="cbx"><input type="checkbox" value="${voList.no}"></div>
                  <div id="img-area01"><img src="${root}/static/img/adBanner/adBanner01.jpg" alt="기념품이미지"></div>
                  <div id="name1">기념품코드</div>
                  <div>|</div>
@@ -68,7 +68,7 @@
                  <div id="name7">재고</div>
                  <div>|</div>
                  <div id="dCount"><input type="number" value="${voList.count}" name="count" min="0" max="100"></div>
-                 <div><button id="countEdit">재고수정</button></div>
+                 <div><button id="edit" onclick="souvenirEdit(${voList.no});">재고수정</button></div>
                  <div id="hr01"></div>
 			 </c:forEach>
 
@@ -88,11 +88,23 @@
                         <a href="${root}/admin/souvenirinventory?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
                     </c:if>
                 </div>
+
             </div>
-        </form>
+            <div><button id="write" onclick="souvenirWrite();">재고등록</button></div>
+
 </body>
 </html>
 <script>
+    //재고수정
+    function souvenirEdit(no){
+        console.log(no);
+    }
+
+    //재고등록
+    function souvenirWrite(){
+        window.location.href = '${root}/admin/souvenirinventoryWrite';
+    };
+
     //가격에 콤마찍기
     const prices = document.querySelectorAll('input[name="price"]');
 

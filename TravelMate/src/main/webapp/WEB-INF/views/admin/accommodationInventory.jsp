@@ -36,11 +36,11 @@
                     </form>
                 </div>
             </div>
-            
-        <form action="" method="post">
+        
             <div id="declaration">
     
                 <c:forEach var="voList" items="${voList}">
+                    <div id="cbx"><input type="checkbox" value="${voList.no}"></div>
                     <div id="img-area01"><img src="${root}/static/img/accommodationImg/accomImg02.png" alt="기념품이미지"></div>
                     <div id="name1">숙소코드</div>
                     <div>|</div>
@@ -67,7 +67,7 @@
                             <input type="text" name='countYn' value='빈방없음'>
                         </c:if>
                     </div>
-                    <div><button id="countEdit">재고수정</button></div>
+                    <div><button id="edit" onclick="carEdit(${voList.no});">재고수정</button></div>
                     <div id="hr01"></div>
                 </c:forEach>
                     
@@ -87,14 +87,23 @@
                         <a href="${root}/admin/accommodationinventory?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
                     </c:if>
                 </div>
-
             </div>
-        </form>
+            <div><button id="write" onclick="accomWrite();">재고등록</button></div>
 </body>
 </html>
 </body>
 </html>
 <script>
+     //재고수정
+     function carEdit(no){
+        console.log(no);
+    }
+
+    //재고등록
+    function accomWrite(){
+        window.location.href = '${root}/admin/accommodationWrite';
+    };
+    
      //서치타입 변경 시 함수 실행
      const searchType = '${searchVo.searchType}';
     const searchValue = '${searchVo.searchValue}';

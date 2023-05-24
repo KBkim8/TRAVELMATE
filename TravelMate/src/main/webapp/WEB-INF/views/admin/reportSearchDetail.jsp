@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/reportListDetail.css">
+<link rel="stylesheet" href="${root}/static/css/reportSearchDetail.css">
 </head>
 <body>
 
@@ -18,19 +18,19 @@
             <div id="declaration">
             
                 <div>제재내역번호</div>
-                <div><input type="text" name="no"></div>
+                <div><input type="text" value="${vo.no}"></div>
                 <div>신고내역번호</div>
-                <div><input type="text" name="memberNo"></div>
+                <div><input type="text" value="${vo.reportListNo}"></div>
                 <div>제재사유</div>
-                <div><input type="text" name="memberId"></div>
+                <div><input type="text" value="${vo.name}"></div>
                 <div>회원아이디</div>
-                <div><input type="text" name="memberNick"></div>
+                <div><input type="text" value="${vo.memberId}"></div>
                 <div>회원차단일</div>
-                <div><input type="text" name="boardName"></div>
+                <div><input type="text" value="${vo.enrollDate}"></div>
                 <div>차단종료일</div>
-                <div><input type="text" name="boardName"></div>
+                <div><input type="text" value="${vo.cancelEnrollDate}"></div>
                 <div>제재횟수</div>
-                <div><input type="text" name="boardName"></div>
+                <div><input type="text" value="${vo.count}"></div>
 
                 <button id="close" onclick="goHome();">닫기</button>
             </div>

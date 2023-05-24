@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.app.admin.service.AdminService;
+import com.kh.app.admin.vo.MemberDetailVo;
 import com.kh.app.admin.vo.MemberSearchVo;
 import com.kh.app.common.page.PageVo;
 
@@ -55,7 +56,7 @@ public class MemberSearchController extends HttpServlet{
 				throw new Exception();
 			}
 		}catch(Exception e) {
-			req.setAttribute("errMsg", "신고내역 조회 에러");
+			req.setAttribute("errMsg", "회원조회 에러");
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 			System.out.println("[ERR-103] 회원조회 에러");
 			e.printStackTrace();
@@ -64,8 +65,6 @@ public class MemberSearchController extends HttpServlet{
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
 	}
 
 }
