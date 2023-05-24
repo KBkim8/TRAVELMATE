@@ -6,14 +6,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.kh.app.admin.dao.AdminDao;
 import com.kh.app.admin.vo.AccommodationInventoryVo;
 import com.kh.app.admin.vo.AdBannerVo;
 import com.kh.app.admin.vo.CarInventoryVo;
+import com.kh.app.admin.vo.MemberDetailVo;
 import com.kh.app.admin.vo.MemberSearchVo;
+import com.kh.app.admin.vo.ReportListDetailVo;
 import com.kh.app.admin.vo.ReportListVo;
+import com.kh.app.admin.vo.ReportSearchDetailVo;
 import com.kh.app.admin.vo.ReportSearchVo;
+import com.kh.app.admin.vo.SellRequestDetailVo;
 import com.kh.app.admin.vo.SellRequestVo;
 import com.kh.app.admin.vo.SouvenirInventoryVo;
 import com.kh.app.common.db.JDBCTemplate;
@@ -331,6 +336,67 @@ public class AdminService {
 		JDBCTemplate.close(conn);
 		
 		return voList;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	//신고내역상세조회
+	public ReportListDetailVo reportListDetail(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ReportListDetailVo vo = dao.reportListDetail(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	//제재이력조회 상세조회
+	public ReportSearchDetailVo reportSearchDetail(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ReportSearchDetailVo vo = dao.reportSearchDetail(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	//회원상세조회
+	public MemberDetailVo memberSearchDetail(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		MemberDetailVo vo = dao.memberSearchDetail(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	//판매등록요청 상세조회
+	public SellRequestDetailVo sellRequestDetail(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		SellRequestDetailVo vo = dao.sellRequestDetail(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	//판매등록요청 등록
+	public int sellRequestEnroll(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.sellRequestEnroll(conn, no);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 
 }

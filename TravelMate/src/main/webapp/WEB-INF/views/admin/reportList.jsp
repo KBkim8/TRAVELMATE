@@ -10,6 +10,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/static/css/reportList.css">
 <script defer src="${root}/static/js/reportList.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
@@ -47,29 +48,28 @@
           <div id="declaration">
                 <div></div>
                 <div>신고번호</div>
-                <div>회원번호</div>
                 <div>회원닉네임</div>
                 <div>게시판이름</div>
                 <div>신고사유</div>
+                <div>🚨🚨🚨</div>
                 <div id="hr"><hr></div>
 
 				<c:forEach var="reportVoList" items="${reportVoList}">
                 <div id="report-content">
                     <label class="chk_box">
-                    <input type="checkbox" value="" name="stop">
+                    <input type="checkbox" value="${reportVoList.no}" name="stop">
                     <span class="on"></span>
             
                     </label>
                 </div>
 	                <div id="no">${reportVoList.no}</div>
-	                <div>${reportVoList.memberNo}</div>
 	                <div>${reportVoList.nick}</div>
 	                <div>${reportVoList.categoryName}</div>
 	                <div>${reportVoList.reasonName}</div>
+                    <div><button id="report" onclick="memberStop(${reportVoList.no});">회원정지</button></div>
                     <div id="hr"><hr></div>
 				</c:forEach>
                 
-                <div id="stopBtn"><button id="memberStop">회원정지</button></div>
                 <div id="page-area">
                         <c:if test="${pv.currentPage > 1}">
                         <a href="${root}/admin/reportlist?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
@@ -92,10 +92,9 @@
                 <div id="stop-go" class="stop-active2">차단시작일 |</div>
                 <div id="stop-back" class="stop-active3">차단종료일 |</div>
 
-                <form action="" method="POST">
-
-                    <div><input type="date" name="stop-start" id="stop-start" class="stop-active4"></div>
-                    <div><input type="date" name="stop-end" id="stop-end" class="stop-active5"></div>
+                <form action="${root}/admin/reportlist" method="POST">
+                    <div><input type="date" name="stopStart" id="stop-start" class="stop-active4"></div>
+                    <div><input type="date" name="stopEnd" id="stop-end" class="stop-active5"></div>
 
                     <input type="submit" value="적용" id="btn01" class="stop-active6">
                 </form>
@@ -107,6 +106,42 @@
 </body>
 </html>
 <script>
+    //회원정지
+    function memberStop(no){
+        console.log(no);
+
+        //상세조회 누르면 모달
+        document.getElementById("report").onclick = function() {
+            document.getElementById("member-stop").style.display="block";
+            document.body.classList.add("stop-scroll");
+        }
+
+        document.getElementById("btn02").onclick = function() {
+            document.getElementById("member-stop").style.display="none";
+            document.body.classList.remove("stop-scroll");
+        }   
+
+        const btn01 = document.querySelector('#btn01');
+        btn01.addEventListener("click", function(event){
+            const no = document.querySelector('input[name="stop"]:checked').value;
+            console.log(no);
+            $.ajax({
+                url : '${root}/admin/reportlist',
+                type: 'POST',
+                data: {
+                    'no' : no
+                },
+                success: function(data) {
+                 console.log(data);
+
+                },
+                error: function(error) {
+                console.error(error);
+                }
+            });
+        });
+    }
+
 	//게시글 상세조회
 	const declaration = document.querySelector("#declaration");
 	

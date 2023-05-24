@@ -43,7 +43,7 @@
     border: 1px dashed black;
     font-size: 20px;
     display: grid;
-    grid-template-columns: 400px 200px 30px 350px 90px;
+    grid-template-columns: 50px 400px 200px 50px 370px;
     grid-template-rows: repeat(23, 43px);
 }
 
@@ -52,7 +52,8 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    
+    position: relative;
+    top: 10px;
 }
 
 #img-area01{
@@ -108,7 +109,6 @@ input[type="text"], input[type="date"]{
 #code, #dName, #localArea, #dPrice, #dEnroll, #dYn, #dCount{
     display: flex;
     justify-content: start;
-    grid-column: span 2;
     margin-right: 70px;
 }
 
@@ -156,6 +156,14 @@ select[name="searchType"]{
     display: none;
 }
 
+#cbx{
+    grid-row: span 7;
+}
+
+input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
 
 /* 카테고리 및 검색 */
 #report-search input[type="submit"]{
@@ -205,11 +213,42 @@ select[name="searchType"]{
     color:white;
     cursor: pointer;
     position: relative;
-    right: -470px;
-    bottom: 45px;
+    left: 1100px;
+    top: 1100px;
 }
 
-#countEdit:hover{
+#write{
+    border: 0;
+    display: inline-block;
+    text-align: center;
+    border-radius: 6px;
+    width: 80px;
+    height: 35px;
+    font-size: 17px;
+    background-color: #08354D;
+    color:white;
+    cursor: pointer;
+    position: relative;
+    left: 1100px;
+    top: 1100px;
+}
+
+#edit{
+    border: 0;
+    display: inline-block;
+    text-align: center;
+    border-radius: 6px;
+    width: 80px;
+    height: 35px;
+    font-size: 17px;
+    background-color: #08354D;
+    color:white;
+    cursor: pointer;
+    position: relative;
+    left: 430px;
+}
+
+#edit:hover, #write:hover{
     cursor: pointer;
     background-color: rgba(122, 196, 122, 0.589);
 }

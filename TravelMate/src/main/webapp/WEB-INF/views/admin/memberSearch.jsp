@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
     <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -10,8 +9,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/static/css/memberSearch.css">
 <script defer src="${root}/static/js/memberSearch.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
+
 	<%@ include file="/WEB-INF/views/common/header.jsp" %>
 
      <!-- 내용영역 -->
@@ -45,7 +46,7 @@
             <div>회원등급</div>
             <div>상태</div>
             <div id="hr"><hr></div>
-            
+
             <c:forEach var="voList" items="${voList}">
                 <div>💚</div>
                 <div id="no">${voList.no}</div>
@@ -55,22 +56,22 @@
                 <div>${voList.status}</div>
                 <div id="hr"><hr></div>
             </c:forEach>
-            
+        
             <div id="page-area">
                 <c:if test="${pv.currentPage > 1}">
-                        <a href="${root}/admin/memberSearch?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
-                        </c:if>
-                        <c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
-                            <c:if test="${pv.currentPage != i}">
-                                <a href="${root}/admin/memberSearch?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
-                            </c:if>
-                            <c:if test="${pv.currentPage == i}">
-                                <a>${i}</a>
-                            </c:if>
-                        </c:forEach>
-                    <c:if test="${pv.currentPage < pv.maxPage}">
-                        <a href="${root}/admin/memberSearch?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
+                    <a href="${root}/admin/memberSearch?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
                     </c:if>
+                    <c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
+                        <c:if test="${pv.currentPage != i}">
+                            <a href="${root}/admin/memberSearch?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
+                        </c:if>
+                        <c:if test="${pv.currentPage == i}">
+                            <a>${i}</a>
+                        </c:if>
+                    </c:forEach>
+                <c:if test="${pv.currentPage < pv.maxPage}">
+                    <a href="${root}/admin/memberSearch?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
+                </c:if>
             </div>
         </div>
 
@@ -84,10 +85,10 @@
                   </div>                                                    
                   <div>회원번호</div>                             
                   <div>▶</div>                             
-                  <div>1</div>                             
+                  <div>${vo.no}</div>                             
                   <div>아이디</div>                             
                   <div>▶</div>                             
-                  <div>user01</div>                             
+                  <div>${vo.id}</div>                             
                   <div>닉네임</div>                             
                   <div>▶</div>                             
                   <div>nick01</div>                             
@@ -116,13 +117,22 @@
 
             </div>
         </div>  
-        
-
+    
 </body>
 </html>
 <script>
-     //서치타입 변경 시 함수 실행
-     const searchType = '${searchVo.searchType}';
+    //회원 상세조회
+	const declaration = document.querySelector("#declaration");
+	
+	declaration.addEventListener("click", function(e) {
+	  if (e.target.id === "no") {
+          const no = e.target.innerText;
+	    location.href = "${root}/admin/membersearchdetail?no=" + no;
+	  }
+	});
+
+    //서치타입 변경 시 함수 실행
+    const searchType = '${searchVo.searchType}';
     const searchValue = '${searchVo.searchValue}';
     
     const searchValueSelectTag = document.querySelector("select[name='searchValue']");

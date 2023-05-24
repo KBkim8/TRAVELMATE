@@ -22,7 +22,7 @@
     top: 260px;
     border-radius: 30px;
     border: 1px dashed black;
-    font-size: 18px;
+    font-size: 20px;
     background-image: url(/app/static/img/bannerWrite.png);
     display: grid;
     grid-template-columns: 2fr 5fr 1fr;
@@ -46,6 +46,14 @@
 #declaration input[type="text"]{
     width: 500px;
     height: 50px;
+    font-size: 18px;
+    border-top: 1px solid #08354d54;
+    border-bottom: 1px solid #08354d54;
+    border-left: none;
+    border-right: none;
+    background: none;
+    color: #08354D;
+    font-weight: 600;
 }
 
 #declaration>#close{

@@ -10,9 +10,13 @@ import java.util.List;
 import com.kh.app.admin.vo.AccommodationInventoryVo;
 import com.kh.app.admin.vo.AdBannerVo;
 import com.kh.app.admin.vo.CarInventoryVo;
+import com.kh.app.admin.vo.MemberDetailVo;
 import com.kh.app.admin.vo.MemberSearchVo;
+import com.kh.app.admin.vo.ReportListDetailVo;
 import com.kh.app.admin.vo.ReportListVo;
+import com.kh.app.admin.vo.ReportSearchDetailVo;
 import com.kh.app.admin.vo.ReportSearchVo;
+import com.kh.app.admin.vo.SellRequestDetailVo;
 import com.kh.app.admin.vo.SellRequestVo;
 import com.kh.app.admin.vo.SouvenirInventoryVo;
 import com.kh.app.common.db.JDBCTemplate;
@@ -728,7 +732,7 @@ public class AdminDao {
 
 	//판매등록요청조회
 	public List<SellRequestVo> sellRequest(Connection conn, PageVo pv) throws Exception {
-		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, TO_CHAR(B.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, M.NICK, I.TITLE AS IMG FROM BOARD B JOIN MEMBER M ON M.NO = B.MEMBER_NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.UPLOAD_YN = 'Y' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, TO_CHAR(B.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, M.NICK, I.TITLE AS IMG FROM BOARD B JOIN MEMBER M ON M.NO = B.MEMBER_NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.BOARD_CATEGORY_NO = '2' AND B.UPLOAD_YN = 'N' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -765,10 +769,10 @@ public class AdminDao {
 		String s = "";
 		if("title".equals(searchType)) {
 			//제목조회
-			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, TO_CHAR(B.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, M.NICK, I.TITLE AS IMG FROM BOARD B JOIN MEMBER M ON M.NO = B.MEMBER_NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.UPLOAD_YN = 'Y' AND B.TITLE LIKE '%'||?||'%' OR B.TITLE LIKE '%?' OR B.TITLE LIKE '?%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";			
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, TO_CHAR(B.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, M.NICK, I.TITLE AS IMG FROM BOARD B JOIN MEMBER M ON M.NO = B.MEMBER_NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.BOARD_CATEGORY_NO = '2' AND B.UPLOAD_YN = 'N' AND B.TITLE LIKE '%'||?||'%' OR B.TITLE LIKE '%?' OR B.TITLE LIKE '?%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";			
 		}else if("writer".equals(searchType)) {
 			//작성자조회
-			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, TO_CHAR(B.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, M.NICK, I.TITLE AS IMG FROM BOARD B JOIN MEMBER M ON M.NO = B.MEMBER_NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.UPLOAD_YN = 'Y' AND M.NICK LIKE '%'||?||'%' OR M.NICK LIKE '%?' OR M.NICK LIKE '?%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";			
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, TO_CHAR(B.ENROLL_DATE, 'YY-MM-DD') AS ENROLL_DATE, M.NICK, I.TITLE AS IMG FROM BOARD B JOIN MEMBER M ON M.NO = B.MEMBER_NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.BOARD_CATEGORY_NO = '2' AND B.UPLOAD_YN = 'N' AND M.NICK LIKE '%'||?||'%' OR M.NICK LIKE '%?' OR M.NICK LIKE '?%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";			
 		}else {
 			return sellRequest(conn, pv);
 		}
@@ -874,6 +878,147 @@ public class AdminDao {
 		JDBCTemplate.close(pstmt);
 		
 		return voList;
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////////////
+	//신고내역 상세조회
+	public ReportListDetailVo reportListDetail(Connection conn, String no) throws Exception {
+		String s = "SELECT R.NO, R.MEMBER_NO, M.ID, M.NICK, B.NAME, R.CONTENT, N.NAME AS REPORT_REASON FROM REPORT_LIST R JOIN MEMBER M ON R.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON R.BOARD_NO = B.NO JOIN REPORT_REASON N ON R.SANCTION_REASON_NO = N.NO WHERE R.NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		ReportListDetailVo vo = null;
+		if(rs.next()) {
+			String memberNo = rs.getString("MEMBER_NO");
+			String id = rs.getString("ID");
+			String nick = rs.getString("NICK");
+			String boardName = rs.getString("NAME");
+			String content = rs.getString("CONTENT");
+			String reportReason = rs.getString("REPORT_REASON");
+			
+			vo = new ReportListDetailVo();
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setMemberId(id);
+			vo.setMemberNick(nick);
+			vo.setBoardName(boardName);
+			vo.setContent(content);
+			vo.setReasonName(reportReason);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return vo;
+	}
+
+	//제재이력조회 상세조회
+	public ReportSearchDetailVo reportSearchDetail(Connection conn, String no) throws Exception {
+		String s = "SELECT S.NO, S.REPORT_LIST_NO, R.NAME, M.ID, TO_CHAR(S.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, TO_CHAR(S.CANCEL_ENROLL_DATE, 'YYYY-MM-DD') AS CANCEL_ENROLL_DATE, S.COUNT FROM MEMBER_SANCTIONS S JOIN REPORT_LIST L ON S.REPORT_LIST_NO = L.NO JOIN REPORT_REASON R ON L.SANCTION_REASON_NO = R.NO JOIN MEMBER M ON L.MEMBER_NO = M.NO WHERE S.NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		ReportSearchDetailVo vo = null;
+		if(rs.next()) {
+			String reportListNo = rs.getString("REPORT_LIST_NO");
+			String name = rs.getString("NAME");
+			String id = rs.getString("ID");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String cancelEnrollDate = rs.getString("CANCEL_ENROLL_DATE");
+			String count = rs.getString("COUNT");
+			
+			vo = new ReportSearchDetailVo();
+			vo.setNo(no);
+			vo.setReportListNo(reportListNo);
+			vo.setName(name);
+			vo.setMemberId(id);
+			vo.setEnrollDate(enrollDate);
+			vo.setCancelEnrollDate(cancelEnrollDate);
+			vo.setCount(count);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return vo;
+	}
+
+	//회원상세조회
+	public MemberDetailVo memberSearchDetail(Connection conn, String no) throws Exception {
+		String s = "SELECT M.NO, M.ID, M.NICK, M.EMAIL, M.ADDRESS, C.NAME, TO_CHAR(M.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, TO_CHAR(M.UPDATE_DATE, 'YYYY-MM-DD') AS UPDATE_DATE, M.STATUS, M.WITHDRAWAL_YN FROM MEMBER M JOIN MEMBER_CATEGORY C ON M.MEMBER_CATEGORY_NO = C.NO WHERE M.NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberDetailVo vo = null;
+		if(rs.next()) {
+			String id = rs.getString("ID");
+			String nick = rs.getString("NICK");
+			String email = rs.getString("EMAIL");
+			String address = rs.getString("ADDRESS");
+			String name = rs.getString("NAME");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String updateDate = rs.getString("UPDATE_DATE");
+			String status = rs.getString("STATUS");
+			String withdrawalYn = rs.getString("WITHDRAWAL_YN");
+			
+			vo = new MemberDetailVo();
+			vo.setNo(no);
+			vo.setId(id);
+			vo.setNick(nick);
+			vo.setEmail(email);
+			vo.setAddress(address);
+			vo.setName(name);
+			vo.setEnrollDate(enrollDate);
+			vo.setUpdateDate(updateDate);
+			vo.setStatus(status);
+			vo.setWithdrawalYn(withdrawalYn);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return vo;
+	}
+
+	//판매등록요청 상세조회
+	public SellRequestDetailVo sellRequestDetail(Connection conn, String no) throws Exception {
+		String s = "SELECT B.NO, M.NICK, B.TITLE, B.CONTENT, TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, B.BOARD_IMG_NO FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE BOARD_CATEGORY_NO = '2' AND B.NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, no);
+		ResultSet rs = pstmt.executeQuery();
+		
+		SellRequestDetailVo vo = null;
+		if(rs.next()) {
+			String nick = rs.getString("NICK");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String boardImgNo = rs.getString("BOARD_IMG_NO");
+			
+			vo = new SellRequestDetailVo();
+			vo.setNo(no);
+			vo.setWriter(nick);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setEnrollDate(enrollDate);
+			vo.setBoardImg(boardImgNo);
+		}
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return vo;
+	}
+
+	//판매등록요청 등록
+	public int sellRequestEnroll(Connection conn, String no) throws Exception {
+		String s = "UPDATE BOARD SET UPLOAD_YN = 'Y' WHERE NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, no);
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 
 }

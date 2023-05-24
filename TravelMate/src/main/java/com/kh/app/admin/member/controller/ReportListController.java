@@ -60,8 +60,23 @@ public class ReportListController extends HttpServlet{
 		}
 	}
 	
+	//회원제재
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//데꺼
+		String enrollDate = req.getParameter("stopStart");
+		String cancelEnrollDate = req.getParameter("stopEnd");
+		String no = req.getParameter("no");
 		
+		System.out.println(enrollDate + cancelEnrollDate + no);
+		//데뭉
+		Map<String, String> map = new HashMap<>();
+		map.put("enrollDate", enrollDate);
+		map.put("cancelEnrollDate", cancelEnrollDate);
+		
+		//서비스
+//		int result = as.memberStop(map);
+		
+		//화면
 	}
 }

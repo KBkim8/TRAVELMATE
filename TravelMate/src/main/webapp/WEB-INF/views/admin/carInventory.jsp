@@ -38,10 +38,10 @@
                 </div>
             </div>
             
-        <form action="" method="post">
             <div id="declaration">
                 
                 <c:forEach var="voList" items="${voList}">
+                    <div id="cbx"><input type="checkbox" value="${voList.no}"></div>
                     <div id="img-area01"><img src="${root}/static/img/carImg/carImg01.png" alt="기념품이미지"></div>
                     <div id="name1">차량코드</div>
                     <div>|</div>
@@ -68,15 +68,14 @@
                             <input type="text" name='countYn' value='재고없음'>
                         </c:if>
                     </div>
-                    <div><button id="countEdit">재고수정</button></div>
+                    <div><button id="edit" onclick="carEdit(${voList.no});">재고수정</button></div>
                     <div id="hr01"></div>
                 </c:forEach>
-                    
-
+                
                 <div id="page-area">
-                        <c:if test="${pv.currentPage > 1}">
+                    <c:if test="${pv.currentPage > 1}">
                         <a href="${root}/admin/carinventory?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">◀ 이전</a>
-                        </c:if>
+                    </c:if>
                         <c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
                             <c:if test="${pv.currentPage != i}">
                                 <a href="${root}/admin/carinventory?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">${i}</a>
@@ -85,18 +84,28 @@
                                 <a>${i}</a>
                             </c:if>
                         </c:forEach>
-                    <c:if test="${pv.currentPage < pv.maxPage}">
-                        <a href="${root}/admin/carinventory?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
-                    </c:if>
+                        <c:if test="${pv.currentPage < pv.maxPage}">
+                            <a href="${root}/admin/carinventory?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}">다음 ▶</a>
+                        </c:if>
+                    </div>
                 </div>
-
             </div>
-        </form>
+            <div><button id="write" onclick="carWrite();">재고등록</button></div>
 </body>
 </html>
 </body>
 </html>
 <script>
+    //재고수정
+    function carEdit(no){
+        console.log(no);
+    }
+
+    //재고등록
+    function carWrite(){
+        window.location.href = '${root}/admin/carinventoryWrite';
+    };
+
      //서치타입 변경 시 함수 실행
      const searchType = '${searchVo.searchType}';
     const searchValue = '${searchVo.searchValue}';
