@@ -12,7 +12,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 1100px;
+	    bottom: 900px;
 	    left: 400px;
     }
 
@@ -74,6 +74,7 @@
         width: 30px;
         height: 30px;
         margin-bottom: 170px;
+        background-color: transparent;
     }
 
     #car-area > div, #accomo-area > div, #souvenir-area > div {
@@ -166,7 +167,7 @@
                     <c:forEach var="cvo" items="${cvoList}">
                         <div id="car-wrap">
                             <input type="hidden" value="${cvo.no}" name="no">
-                            <img src="${root}/static/img/소나타DN8.jpg" alt="차량이미지">
+                            <img src="${root}/static/img/carImg/${cvo.carImg}" alt="차량이미지">
                             <button id="delBtn" onclick="cdel('${cvo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
                             <div>${cvo.carKind}</div>
                         </div>
@@ -180,7 +181,7 @@
                     <c:forEach var="avo" items="${avoList}">
                         <div id="accomo-wrap">
                             <input type="hidden" value="${avo.no}" name="no">
-                            <img src="${root}/static/img/accommodationImg/금호리조트.jpg" alt="숙소이미지">
+                            <img src="${root}/static/img/accommodationImg/${avo.accomodationImg}" alt="숙소이미지">
                             <button id="delBtn" onclick="adel('${avo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
                             <div>${avo.accomodationName}</div>
                         </div>
@@ -194,7 +195,7 @@
                     <c:forEach var="svo" items="${svoList}">
                         <div id="souvenir-wrap">
                             <input type="hidden" value="${svo.no}" name="no">
-                            <img src="${root}/static/img/아베베도넛.jpg" alt="기념품이미지">
+                            <img src="${root}/static/img/souvenir_img/${svo.souvenirImg}" alt="기념품이미지">
                             <button id="delBtn" onclick="sdel('${svo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
                             <div>${svo.souvenirName}</div>
                             <div>${svo.souvenirPrice}</div>
@@ -202,7 +203,6 @@
                     </c:forEach>
                 </div>
             </div>
-            <hr>
             <div id="page-area">
 				<c:if test="${pv.currentPage > 1 }">
 				<a id="btn01" href="${root}/mypage/favorites?page=${pv.currentPage-1}">이전</a>

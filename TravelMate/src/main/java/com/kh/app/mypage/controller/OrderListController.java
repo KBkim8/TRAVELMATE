@@ -1,9 +1,7 @@
 package com.kh.app.mypage.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.app.board.service.BoardService;
-import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
 import com.kh.app.mypage.service.OrderListService;
@@ -45,7 +41,7 @@ public class OrderListController extends HttpServlet{
 			
 			// 서비스
 			List<OrderListVo> voList = null;
-			voList = ols.getMyBoardListByNo(pv, mno);
+			voList = ols.getOrderListByNo(pv, mno);
 			
 			// 화면
 			req.setAttribute("pv", pv);
