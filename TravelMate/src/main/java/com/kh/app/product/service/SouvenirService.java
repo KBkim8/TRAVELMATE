@@ -65,10 +65,10 @@ public class SouvenirService {
 	}
 
 
-	public int order(SouvenirVo vo) throws Exception {
+	public int order(SouvenirVo vo, MemberVo loginMember) throws Exception {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = dao.order(vo, conn);
+		int result = dao.order(vo, conn, loginMember);
 		if(result == 1) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -83,11 +83,11 @@ public class SouvenirService {
 	}
 
 
-	public SouvenirVo selectOrder(String no) throws Exception {
+	public SouvenirVo selectOrder(String no, MemberVo loginMember) throws Exception {
 		SouvenirVo vo = null;
 		//conn
 		try (Connection conn = JDBCTemplate.getConnection();){
-			vo = dao.selectOrder(conn , no);
+			vo = dao.selectOrder(conn , no, loginMember);
 		}
 		return vo;
 	}

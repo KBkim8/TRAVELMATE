@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.service.SouvenirService;
 import com.kh.app.product.vo.SouvenirVo;
 
@@ -18,6 +20,14 @@ public class PaySouvenirController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
+			HttpSession session = req.getSession();
+			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+			
+			if(loginMember == null) {
+				throw new IllegalStateException("로그인 하고 오세요");
+			}
+			
+			
 			String no = req.getParameter("no");
 			String mname = req.getParameter("mname");
 			String ph = req.getParameter("ph");
@@ -25,6 +35,7 @@ public class PaySouvenirController extends HttpServlet{
 			String cnt = req.getParameter("cnt");
 			String totalPrice = req.getParameter("totalPrice");
 			
+			System.out.println(ph);
 			SouvenirVo vo = new SouvenirVo();
 			vo.setNo(no);
 			vo.setMname(mname);
@@ -35,8 +46,8 @@ public class PaySouvenirController extends HttpServlet{
 
 			
 			SouvenirService ss = new SouvenirService();
-			int result = ss.order(vo);
-			vo = ss.selectOrder(no); 
+			int result = ss.order(vo, loginMember);
+			vo = ss.selectOrder(no, loginMember); 
 			if(vo != null) {
 				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/pay/pay_souvenir.jsp").forward(req, resp);
