@@ -171,5 +171,26 @@ public class MemberService {
 		return result;
 		
 	}
+
+
+	// 회원 누적 출석 수 
+	public MemberVo cntAttendByNo(String mno) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		String sql = "SELECT COUNT(*) AS TOTAL_ATTEND FROM ATTEND A JOIN MEMBER M ON (A.NO = M.NO) WHERE M.NO = ? AND M.STATUS='O' ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mno);
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberVo vo = null;
+		if(rs.next()) {
+			String total_attend = rs.getString("TOTAL_ATTEND");
+			
+			vo = new MemberVo();
+			vo.setTotalAttend(total_attend);
+		}
+		
+		return vo;
+	}
 	
 }

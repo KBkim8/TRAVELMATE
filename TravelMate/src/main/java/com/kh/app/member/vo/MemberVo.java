@@ -17,6 +17,14 @@ public class MemberVo {
 	
 	private String memberCategoryName;
 	private String memberGradeName;
+	private String totalAttend;
+	
+	public String getTotalAttend() {
+		return totalAttend;
+	}
+	public void setTotalAttend(String totalAttend) {
+		this.totalAttend = totalAttend;
+	}
 	public String getNo() {
 		return no;
 	}

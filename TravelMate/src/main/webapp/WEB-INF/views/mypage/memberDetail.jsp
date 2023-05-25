@@ -182,7 +182,7 @@
                           </tr>
                           <tr>
                             <td><span>누적 출석일수</span></td>
-                            <td>${loginMember.totalAttend}</td>
+                            <td>${vo.totalAttend}</td>
                           </tr>
                     </table>
             </div>
