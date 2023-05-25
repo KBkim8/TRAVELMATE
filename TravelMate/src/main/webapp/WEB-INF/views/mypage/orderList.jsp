@@ -163,10 +163,13 @@
             </div>
             <!-- 반복문 처리 -->
             <div id="content-wrap">
-                <div>1</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/마음샌드.jpg" alt="" id="img"><div id="order-info">[파리바게트]제주 마음샌드<br>주문수량 : 1개<br>주문금액:20,000원</div></div></div>
-                <div>2023.05.01 13:55:21</div>
-                <div><div id="order-goods-status">결제완료<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
+                <c:forEach items="${cvoList}" var="cvo">
+                <div>${cvo.carPayNo}</div>
+                <div><div id="order-goods-wrap01"><img src="${root}/static/img/${cvo.carImg}" alt="" id="img">
+                <div id="order-info">${cvo.carName}<br>주문금액:${cvo.carPrice}</div></div></div>
+                <div>${cvo.carPayDate}</div>
+                <div><div id="order-goods-status">${cvo.carPayType}<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
+                </c:forEach>
             </div>
       </div>
     </div>

@@ -11,37 +11,65 @@ import com.kh.app.mypage.vo.OrderListVo;
 
 public class OrderListService {
 
-	OrderListDao dao = null;
+	OrderListDao dao = new OrderListDao();
 	// 주문 내역 개수(회원번호로)
 	public int getOrderListCntByNo(String mno) throws Exception {
 
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		dao = new OrderListDao();
 		int cnt = dao.getOrderListCntByNo(conn, mno);
-		
-		// tx || rs
 		
 		// close
 		JDBCTemplate.close(conn);
 		
 		return cnt;
 	}
-
-	// 주문 내역 조회(회원번호로)
-	public List<OrderListVo> getMyBoardListByNo(PageVo pv, String mno) throws Exception {
+	
+	// 렌트카 주문내역 (회원번호로)
+	public List<OrderListVo> getCarOrderListByNo(PageVo pv, String mno) throws Exception {
 
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<OrderListVo> voList = dao.getMyBoardListByNo(conn,pv,mno);
+		List<OrderListVo> cvoList = dao.getCarOrderListByNo(conn,pv,mno);
+		
 		
 		// close
 		JDBCTemplate.close(conn);
 		
-		return voList;
 		
+		return cvoList;
 	}
+
+	// 숙소 주문내역 
+	public List<OrderListVo> getAccomodationOrderListByNo(PageVo pv, String mno) throws Exception {
+
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<OrderListVo> avoList = dao.getAccomodationOrderListByNo(conn,pv,mno);
+
+		JDBCTemplate.close(conn);
+		
+		
+		return null;
+	}
+
+	// 기념품 주문내역 조회
+	public List<OrderListVo> getSouvenirOrderListByNo(PageVo pv, String mno) throws Exception {
+
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<OrderListVo> svoList = dao.getSouvenirOrderListByNo(conn,pv,mno);
+
+		JDBCTemplate.close(conn);
+		
+		
+		return null;
+	}
+
+	
 
 }

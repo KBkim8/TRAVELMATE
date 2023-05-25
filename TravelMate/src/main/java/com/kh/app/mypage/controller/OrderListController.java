@@ -37,15 +37,21 @@ public class OrderListController extends HttpServlet{
 				page_ = "1";
 			}
 			int page = Integer.parseInt(page_);
-			PageVo pv = new PageVo(cnt, page, 5, 10);
+			PageVo pv = new PageVo(cnt, page, 5, 5);
 			
 			// 서비스
-			List<OrderListVo> voList = null;
-			voList = ols.getOrderListByNo(pv, mno);
+			List<OrderListVo> cvoList = null;
+			List<OrderListVo> avoList = null;
+			List<OrderListVo> svoList = null;
+			cvoList = ols.getCarOrderListByNo(pv, mno);
+			avoList = ols.getAccomodationOrderListByNo(pv, mno);
+			svoList = ols.getSouvenirOrderListByNo(pv, mno);
 			
 			// 화면
 			req.setAttribute("pv", pv);
-			req.setAttribute("voList", voList);
+			req.setAttribute("cvoList", cvoList);
+			req.setAttribute("avoList", avoList);
+			req.setAttribute("svoList", svoList);
 			req.getRequestDispatcher("/WEB-INF/views/mypage/orderList.jsp").forward(req, resp);
 			
 		} catch (Exception e) {
