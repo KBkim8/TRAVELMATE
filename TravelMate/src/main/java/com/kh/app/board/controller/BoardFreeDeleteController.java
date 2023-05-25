@@ -24,7 +24,8 @@ public class BoardFreeDeleteController extends HttpServlet{
 		int result =0;
 		try {
 			result = bs.freeDelete(no);
-		} catch (SQLException e) {
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
