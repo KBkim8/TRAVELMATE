@@ -14,11 +14,11 @@ import com.kh.app.mypage.vo.OrderListVo;
 
 public class OrderListDao {
 
-	// 주문내역 개수(회원번호로)
+	// 주문내역 개수 (회원번호로)
 	public int getOrderListCntByNo(Connection conn, String mno) throws Exception {
 
 		// SQL
-		String sql = "SELECT COUNT(*) FROM ( SELECT OP.NO ,OP.MEMBER_NO ,OP.TOTAL , OP.PAY_YN FROM ORDER_PRODUCT OP JOIN MEMBER M ON (OP.MEMBER_NO = M.NO) WHERE OP.PAY_YN = 'Y' AND OP.MEMBER_NO=?)";
+		String sql = "";
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, mno);

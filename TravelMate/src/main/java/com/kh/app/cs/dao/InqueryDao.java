@@ -156,7 +156,7 @@ public class InqueryDao {
 			String no = rs.getString("NO");
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
-//			String memberNo = rs.getString("MEMBER_NO");
+			String memberNo = rs.getString("MEMBER_NO");
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String deleteYn = rs.getString("DELETE_YN");
 			String memberNick = rs.getString("NICK");
@@ -165,6 +165,7 @@ public class InqueryDao {
 			vo.setNo(no);
 			vo.setTitle(title);
 			vo.setContent(content);
+			vo.setMemberNo(memberNo);
 			vo.setEnrollDate(enrollDate);
 			vo.setDeleteYn(deleteYn);
 			vo.setMemberNick(memberNick);
@@ -207,6 +208,7 @@ public class InqueryDao {
 			String no = rs.getString("NO");
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String deleteYn = rs.getString("DELETE_YN");
 			String memberNick = rs.getString("NICK");
@@ -215,6 +217,7 @@ public class InqueryDao {
 			vo.setNo(no);
 			vo.setTitle(title);
 			vo.setContent(content);
+			vo.setMemberNo(memberNo);
 			vo.setEnrollDate(enrollDate);
 			vo.setDeleteYn(deleteYn);
 			vo.setMemberNick(memberNick);

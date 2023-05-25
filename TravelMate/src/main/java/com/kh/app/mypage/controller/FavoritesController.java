@@ -41,7 +41,7 @@ public class FavoritesController extends HttpServlet{
 				page_ = "1";
 			}
 			int page = Integer.parseInt(page_);
-			PageVo pv = new PageVo(cnt, page, 5, 9);
+			PageVo pv = new PageVo(cnt, page, 5, 3);
 			
 			// 서비스
 			List<FavoriteVo> cvoList = null;
@@ -58,7 +58,6 @@ public class FavoritesController extends HttpServlet{
 			req.setAttribute("svoList", svoList);
 			
 			req.getRequestDispatcher("/WEB-INF/views/mypage/favorites.jsp").forward(req, resp);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);

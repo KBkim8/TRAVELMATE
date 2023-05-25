@@ -12,7 +12,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 1100px;
+	    bottom: 900px;
 	    left: 400px;
     }
 
@@ -179,6 +179,10 @@
                           <tr>
                             <td><span>회원등급</span></td>
                             <td>${loginMember.memberGradeName} <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
+                          </tr>
+                          <tr>
+                            <td><span>누적 출석일수</span></td>
+                            <td>${loginMember.totalAttend}</td>
                           </tr>
                     </table>
             </div>
