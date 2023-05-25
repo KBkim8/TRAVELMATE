@@ -32,11 +32,11 @@ public class BoardFreeListController extends HttpServlet{
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
 			//tqt
-			List<BoardVo> bvoList = bs.freeList(pv);
+			List<BoardVo> fvoList = bs.freeList(pv);
 			
 			//gd
 			req.setAttribute("pv", pv);
-			req.setAttribute("bvoList", bvoList);
+			req.setAttribute("fvoList", fvoList);
 			req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
 			
 		}catch (Exception e) {
