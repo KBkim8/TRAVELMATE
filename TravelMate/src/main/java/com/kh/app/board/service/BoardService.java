@@ -199,11 +199,11 @@ private final BoardDao dao;
 			
 			Connection conn = JDBCTemplate.getConnection();
 			
-			List<BoardVo>bvoList= dao.freeList(conn ,pv);
+			List<BoardVo>fvoList= dao.freeList(conn ,pv);
 			
 			JDBCTemplate.close(conn);
 			
-			return bvoList;
+			return fvoList;
 		}
 
 		public List<CommentVo> noticeReplyList(String boardNo) throws Exception {
@@ -225,6 +225,24 @@ private final BoardDao dao;
 				BoardVo fvo = dao.freeDetail(conn ,no);
 				return fvo;
 			}
+		}
+
+		//자유게시판 삭제
+		public int freeDelete(String no) throws SQLException {
+			
+			Connection conn =JDBCTemplate.getConnection();
+			
+			int result = dao.freeDelete(conn ,no);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			return result;
+			
 		}
 	
 	

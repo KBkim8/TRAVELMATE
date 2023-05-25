@@ -193,7 +193,7 @@
             <hr>
             <a>공지사항 상세 조회</a>  
         </div>
-		<form action="${root}/notice/edit" method="POST">
+		<form action="${root}/free/edit" method="POST">
 			<div id="write-area">
 				<input type="hidden" name="no" value="${fvo.no}"> 
 				<input type="text" name="title" value="${fvo.title }" readonly="readonly">

@@ -1,5 +1,36 @@
 package com.kh.app.board.controller;
 
-public class BoardFreeDeleteController {
+import java.io.IOException;
+import java.sql.SQLException;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.kh.app.board.service.BoardService;
+
+@WebServlet(urlPatterns = "/free/del")
+public class BoardFreeDeleteController extends HttpServlet{
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String no = req.getParameter("no");
+		
+		BoardService bs = new BoardService();
+		
+		int result =0;
+		try {
+			result = bs.freeDelete(no);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		if(result ==1) {
+			req.getRequestDispatcher("/WEB-INF/views/board/board-free-list.jsp").forward(req, resp);
+		}
+	}
+	
 }

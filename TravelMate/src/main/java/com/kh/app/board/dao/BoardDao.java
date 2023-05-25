@@ -356,7 +356,7 @@ public class BoardDao {
 		pstmt.setInt(2, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
-		List<BoardVo> bvoList = new ArrayList<>();
+		List<BoardVo> fvoList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
 			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
@@ -385,13 +385,13 @@ public class BoardDao {
 			vo.setUploadYn(uploadYn);
 			vo.setModifyDate(modifyDate);
 			
-			bvoList.add(vo);
+			fvoList.add(vo);
 		}
 		
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		
-		return bvoList;
+		return fvoList;
 	}
 
 	//댓글 보여주기
@@ -475,6 +475,17 @@ public class BoardDao {
 		JDBCTemplate.close(rs);
 		
 		return fvo;
+	}
+
+	//자유게시판 삭제
+	public int freeDelete(Connection conn, String no) throws Exception {
+		
+		String sql = "UPDATE BOARD SET DELETE_YN='Y' WHERE NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+		int result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
 	}
 
 }//class
