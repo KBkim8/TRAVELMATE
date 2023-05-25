@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.dao.SouvenirDao;
 import com.kh.app.product.vo.SouvenirVo;
 
@@ -92,11 +93,11 @@ public class SouvenirService {
 	}
 
 
-	public int souvenirFavorite(String no, String name) throws Exception {
+	public int souvenirFavorite(String no, String name, MemberVo loginMember) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = dao.souvenirFavorite(conn, no, name);
+		int result = dao.souvenirFavorite(conn, no, name, loginMember);
 		
 		
 		if(result == 1) {

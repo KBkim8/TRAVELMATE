@@ -98,7 +98,7 @@ table{
 
       <div id="first2">
         <div>
-          <h2>${vo.title}</h2>
+          <h2><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100%" height="100%"  ></h2>
         </div>
         <div>
           <h2>상품 이름: ${vo.name}</h2>
@@ -124,7 +124,7 @@ table{
 	            </tr>
 	            <tr>
 	                <td>휴대폰 번호:</td>
-	                <td><input type="text" name="ph" placeholder=" ‘ - ’ 제외하고 입력">
+	                <td><input type="text" name="phone" placeholder=" ‘ - ’ 제외하고 입력">
 	            </tr>
 	            <tr>
 	                <td>배송 받을 주소:</td>
@@ -160,11 +160,11 @@ table{
 	        <button id="btn02" onclick="favorite();">관심상품 담기</button>
 	        <button id="btn01" onclick="backPage()">뒤로가기</button>
 
-      
+        
     </div>
         
         
-    
+  
 
    
 
@@ -186,8 +186,14 @@ table{
   }
   
   function favorite(){
+	  if(${loginMember == null}){
+			alert("로그인 하고 오세요")	  
+			return;
+		  }else{
+			  alert("상품이 등록되었습니다.");
+		  }
 	  location.href="${root}/favorite?no=${vo.no}&name=${vo.name}";
-	  alert("상품이 등록되었습니다.");
+	 
   }
 
   
