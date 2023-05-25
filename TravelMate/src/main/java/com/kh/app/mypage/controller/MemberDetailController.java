@@ -27,10 +27,12 @@ public class MemberDetailController extends HttpServlet{
 			
 			// 서비스
 			loginMember = ms.selectMemberOneByNo(mno);
+		 	MemberVo vo = ms.cntAttendByNo(mno);
 			
 			// 화면
 			if(loginMember != null) {
 				req.setAttribute("loginMember", loginMember);
+				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/mypage/memberDetail.jsp").forward(req, resp);
 			}else {
 				throw new Exception();
