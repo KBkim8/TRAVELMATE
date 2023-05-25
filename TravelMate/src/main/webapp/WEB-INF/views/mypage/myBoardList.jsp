@@ -13,7 +13,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 1100px;
+	    bottom: 900px;
 	    left: 400px;
     }
 

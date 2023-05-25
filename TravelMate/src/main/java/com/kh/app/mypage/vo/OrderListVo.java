@@ -3,59 +3,73 @@ package com.kh.app.mypage.vo;
 public class OrderListVo {
 	
 	private String no;
-	private String orderProductNo;
-	private String accomodationNo;
-	private String carNo;
-	private String souvenirNo;
-	
-	private String souvenirName;
-	private String carKind;
+	private String accomodationPayNo;
+	private String accomodationPayType;
+	private String accomodationPayDate;
+	private String accomodationImg;
 	private String accomodationName;
+	private String accomodationStartDate;
+	private String accomodationEndDate;
+	private String accomodationPrice;
+	private String accomodationCancelYn;
 	
+	private String carPayNo;
+	private String carPayType;
+	private String carPayDate;
+	private String carImg;
+	private String carName;
+	private String carStartDate;
+	private String carEndDate;
+	private String carPrice;
+	private String carCancelYn;
+	
+	private String souvenirPayNo;
+	private String souvenirPayType;
+	private String souvenirnPayDate;
+	private String souvenirImg;
+	private String souvenirName;
+	private String souvenirPrice;
+	private String souvenirCancelYn;
+	private String souvenirAddress;
+	private String souvenirOderName;
 	private String souvenirCnt;
-	private String orderTotal;
-	private String orderProductDate;
+	
+	
+	public String getSouvenirCnt() {
+		return souvenirCnt;
+	}
+	public void setSouvenirCnt(String souvenirCnt) {
+		this.souvenirCnt = souvenirCnt;
+	}
 	public String getNo() {
 		return no;
 	}
 	public void setNo(String no) {
 		this.no = no;
 	}
-	public String getOrderProductNo() {
-		return orderProductNo;
+	public String getAccomodationPayNo() {
+		return accomodationPayNo;
 	}
-	public void setOrderProductNo(String orderProductNo) {
-		this.orderProductNo = orderProductNo;
+	public void setAccomodationPayNo(String accomodationPayNo) {
+		this.accomodationPayNo = accomodationPayNo;
 	}
-	public String getAccomodationNo() {
-		return accomodationNo;
+	public String getAccomodationPayType() {
+		return accomodationPayType;
 	}
-	public void setAccomodationNo(String accomodationNo) {
-		this.accomodationNo = accomodationNo;
+	public void setAccomodationPayType(String accomodationPayType) {
+		this.accomodationPayType = accomodationPayType;
 	}
-	public String getCarNo() {
-		return carNo;
+	public String getAccomodationPayDate() {
+		return accomodationPayDate;
 	}
-	public void setCarNo(String carNo) {
-		this.carNo = carNo;
+	public void setAccomodationPayDate(String accomodationPayDate) {
+		this.accomodationPayDate = accomodationPayDate;
 	}
-	public String getSouvenirNo() {
-		return souvenirNo;
+	public String getAccomodationImg() {
+		return accomodationImg;
 	}
-	public void setSouvenirNo(String souvenirNo) {
-		this.souvenirNo = souvenirNo;
-	}
-	public String getSouvenirName() {
-		return souvenirName;
-	}
-	public void setSouvenirName(String souvenirName) {
-		this.souvenirName = souvenirName;
-	}
-	public String getCarKind() {
-		return carKind;
-	}
-	public void setCarKind(String carKind) {
-		this.carKind = carKind;
+	public void setAccomodationImg(String accomodationImg) {
+		this.accomodationImg = accomodationImg;
 	}
 	public String getAccomodationName() {
 		return accomodationName;
@@ -63,46 +77,189 @@ public class OrderListVo {
 	public void setAccomodationName(String accomodationName) {
 		this.accomodationName = accomodationName;
 	}
-	public String getSouvenirCnt() {
-		return souvenirCnt;
+	public String getAccomodationStartDate() {
+		return accomodationStartDate;
 	}
-	public void setSouvenirCnt(String souvenirCnt) {
-		this.souvenirCnt = souvenirCnt;
+	public void setAccomodationStartDate(String accomodationStartDate) {
+		this.accomodationStartDate = accomodationStartDate;
 	}
-	public String getOrderTotal() {
-		return orderTotal;
+	public String getAccomodationEndDate() {
+		return accomodationEndDate;
 	}
-	public void setOrderTotal(String orderTotal) {
-		this.orderTotal = orderTotal;
+	public void setAccomodationEndDate(String accomodationEndDate) {
+		this.accomodationEndDate = accomodationEndDate;
 	}
-	public String getOrderProductDate() {
-		return orderProductDate;
+	public String getAccomodationPrice() {
+		return accomodationPrice;
 	}
-	public void setOrderProductDate(String orderProductDate) {
-		this.orderProductDate = orderProductDate;
+	public void setAccomodationPrice(String accomodationPrice) {
+		this.accomodationPrice = accomodationPrice;
+	}
+	public String getAccomodationCancelYn() {
+		return accomodationCancelYn;
+	}
+	public void setAccomodationCancelYn(String accomodationCancelYn) {
+		this.accomodationCancelYn = accomodationCancelYn;
+	}
+	public String getCarPayNo() {
+		return carPayNo;
+	}
+	public void setCarPayNo(String carPayNo) {
+		this.carPayNo = carPayNo;
+	}
+	public String getCarPayType() {
+		return carPayType;
+	}
+	public void setCarPayType(String carPayType) {
+		this.carPayType = carPayType;
+	}
+	public String getCarPayDate() {
+		return carPayDate;
+	}
+	public void setCarPayDate(String carPayDate) {
+		this.carPayDate = carPayDate;
+	}
+	public String getCarImg() {
+		return carImg;
+	}
+	public void setCarImg(String carImg) {
+		this.carImg = carImg;
+	}
+	public String getCarName() {
+		return carName;
+	}
+	public void setCarName(String carName) {
+		this.carName = carName;
+	}
+	public String getCarStartDate() {
+		return carStartDate;
+	}
+	public void setCarStartDate(String carStartDate) {
+		this.carStartDate = carStartDate;
+	}
+	public String getCarEndDate() {
+		return carEndDate;
+	}
+	public void setCarEndDate(String carEndDate) {
+		this.carEndDate = carEndDate;
+	}
+	public String getCarPrice() {
+		return carPrice;
+	}
+	public void setCarPrice(String carPrice) {
+		this.carPrice = carPrice;
+	}
+	public String getCarCancelYn() {
+		return carCancelYn;
+	}
+	public void setCarCancelYn(String carCancelYn) {
+		this.carCancelYn = carCancelYn;
+	}
+	public String getSouvenirPayNo() {
+		return souvenirPayNo;
+	}
+	public void setSouvenirPayNo(String souvenirPayNo) {
+		this.souvenirPayNo = souvenirPayNo;
+	}
+	public String getSouvenirPayType() {
+		return souvenirPayType;
+	}
+	public void setSouvenirPayType(String souvenirPayType) {
+		this.souvenirPayType = souvenirPayType;
+	}
+	public String getSouvenirnPayDate() {
+		return souvenirnPayDate;
+	}
+	public void setSouvenirnPayDate(String souvenirnPayDate) {
+		this.souvenirnPayDate = souvenirnPayDate;
+	}
+	public String getSouvenirImg() {
+		return souvenirImg;
+	}
+	public void setSouvenirImg(String souvenirImg) {
+		this.souvenirImg = souvenirImg;
+	}
+	public String getSouvenirName() {
+		return souvenirName;
+	}
+	public void setSouvenirName(String souvenirName) {
+		this.souvenirName = souvenirName;
+	}
+	public String getSouvenirPrice() {
+		return souvenirPrice;
+	}
+	public void setSouvenirPrice(String souvenirPrice) {
+		this.souvenirPrice = souvenirPrice;
+	}
+	public String getSouvenirCancelYn() {
+		return souvenirCancelYn;
+	}
+	public void setSouvenirCancelYn(String souvenirCancelYn) {
+		this.souvenirCancelYn = souvenirCancelYn;
+	}
+	public String getSouvenirAddress() {
+		return souvenirAddress;
+	}
+	public void setSouvenirAddress(String souvenirAddress) {
+		this.souvenirAddress = souvenirAddress;
+	}
+	public String getSouvenirOderName() {
+		return souvenirOderName;
+	}
+	public void setSouvenirOderName(String souvenirOderName) {
+		this.souvenirOderName = souvenirOderName;
 	}
 	@Override
 	public String toString() {
-		return "OrderListVo [no=" + no + ", orderProductNo=" + orderProductNo + ", accomodationNo=" + accomodationNo
-				+ ", carNo=" + carNo + ", souvenirNo=" + souvenirNo + ", souvenirName=" + souvenirName + ", carKind="
-				+ carKind + ", accomodationName=" + accomodationName + ", souvenirCnt=" + souvenirCnt + ", orderTotal="
-				+ orderTotal + ", orderProductDate=" + orderProductDate + "]";
+		return "OrderListVo [no=" + no + ", accomodationPayNo=" + accomodationPayNo + ", accomodationPayType="
+				+ accomodationPayType + ", accomodationPayDate=" + accomodationPayDate + ", accomodationImg="
+				+ accomodationImg + ", accomodationName=" + accomodationName + ", accomodationStartDate="
+				+ accomodationStartDate + ", accomodationEndDate=" + accomodationEndDate + ", accomodationPrice="
+				+ accomodationPrice + ", accomodationCancelYn=" + accomodationCancelYn + ", carPayNo=" + carPayNo
+				+ ", carPayType=" + carPayType + ", carPayDate=" + carPayDate + ", carImg=" + carImg + ", carName="
+				+ carName + ", carStartDate=" + carStartDate + ", carEndDate=" + carEndDate + ", carPrice=" + carPrice
+				+ ", carCancelYn=" + carCancelYn + ", souvenirPayNo=" + souvenirPayNo + ", souvenirPayType="
+				+ souvenirPayType + ", souvenirnPayDate=" + souvenirnPayDate + ", souvenirImg=" + souvenirImg
+				+ ", souvenirName=" + souvenirName + ", souvenirPrice=" + souvenirPrice + ", souvenirCancelYn="
+				+ souvenirCancelYn + ", souvenirAddress=" + souvenirAddress + ", souvenirOderName=" + souvenirOderName
+				+ "]";
 	}
-	public OrderListVo(String no, String orderProductNo, String accomodationNo, String carNo, String souvenirNo,
-			String souvenirName, String carKind, String accomodationName, String souvenirCnt, String orderTotal,
-			String orderProductDate) {
+	public OrderListVo(String no, String accomodationPayNo, String accomodationPayType, String accomodationPayDate,
+			String accomodationImg, String accomodationName, String accomodationStartDate, String accomodationEndDate,
+			String accomodationPrice, String accomodationCancelYn, String carPayNo, String carPayType,
+			String carPayDate, String carImg, String carName, String carStartDate, String carEndDate, String carPrice,
+			String carCancelYn, String souvenirPayNo, String souvenirPayType, String souvenirnPayDate,
+			String souvenirImg, String souvenirName, String souvenirPrice, String souvenirCancelYn,
+			String souvenirAddress, String souvenirOderName) {
 		super();
 		this.no = no;
-		this.orderProductNo = orderProductNo;
-		this.accomodationNo = accomodationNo;
-		this.carNo = carNo;
-		this.souvenirNo = souvenirNo;
-		this.souvenirName = souvenirName;
-		this.carKind = carKind;
+		this.accomodationPayNo = accomodationPayNo;
+		this.accomodationPayType = accomodationPayType;
+		this.accomodationPayDate = accomodationPayDate;
+		this.accomodationImg = accomodationImg;
 		this.accomodationName = accomodationName;
-		this.souvenirCnt = souvenirCnt;
-		this.orderTotal = orderTotal;
-		this.orderProductDate = orderProductDate;
+		this.accomodationStartDate = accomodationStartDate;
+		this.accomodationEndDate = accomodationEndDate;
+		this.accomodationPrice = accomodationPrice;
+		this.accomodationCancelYn = accomodationCancelYn;
+		this.carPayNo = carPayNo;
+		this.carPayType = carPayType;
+		this.carPayDate = carPayDate;
+		this.carImg = carImg;
+		this.carName = carName;
+		this.carStartDate = carStartDate;
+		this.carEndDate = carEndDate;
+		this.carPrice = carPrice;
+		this.carCancelYn = carCancelYn;
+		this.souvenirPayNo = souvenirPayNo;
+		this.souvenirPayType = souvenirPayType;
+		this.souvenirnPayDate = souvenirnPayDate;
+		this.souvenirImg = souvenirImg;
+		this.souvenirName = souvenirName;
+		this.souvenirPrice = souvenirPrice;
+		this.souvenirCancelYn = souvenirCancelYn;
+		this.souvenirAddress = souvenirAddress;
+		this.souvenirOderName = souvenirOderName;
 	}
 	public OrderListVo() {
 		super();
