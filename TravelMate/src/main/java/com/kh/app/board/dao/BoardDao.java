@@ -488,4 +488,16 @@ public class BoardDao {
 		return result;
 	}
 
+	public int freeEdit(Connection conn, BoardVo vo) throws Exception {
+		
+		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT=? WHERE BOARD_CATEGORY_NO =3 AND NO=?"; 
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getTitle());
+		pstmt.setString(2, vo.getContent());
+		pstmt.setString(3, vo.getNo());
+		int result = pstmt.executeUpdate();
+		
+		return result;
+	}
+
 }//class

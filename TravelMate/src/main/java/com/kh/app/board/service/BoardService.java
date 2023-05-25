@@ -218,17 +218,24 @@ private final BoardDao dao;
 			
 		}
 
-		//자유게시판 상세조회
+		//자유게시판 상세조회 + 조회수
 		public BoardVo freeDetail(String no) throws Exception {
 
 			try(Connection conn = JDBCTemplate.getConnection();){
-				BoardVo fvo = dao.freeDetail(conn ,no);
+				
+				int result = dao.updateHit(conn , no);
+				BoardVo fvo = null;
+				if (result ==1) {
+					fvo = dao.freeDetail(conn ,no);
+				}else {
+					throw new Exception();
+				}
 				return fvo;
 			}
 		}
 
 		//자유게시판 삭제
-		public int freeDelete(String no) throws SQLException {
+		public int freeDelete(String no) throws Exception {
 			
 			Connection conn =JDBCTemplate.getConnection();
 			
@@ -239,10 +246,21 @@ private final BoardDao dao;
 			}else {
 				JDBCTemplate.rollback(conn);
 			}
-			
 			JDBCTemplate.close(conn);
 			return result;
 			
+		}
+
+		//자유게시판 수정
+		public int freeEdit(BoardVo vo) throws Exception {
+			
+			Connection conn =JDBCTemplate.getConnection();
+			
+			int result = dao.freeEdit(conn,vo);
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
 		}
 	
 	

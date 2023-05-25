@@ -58,7 +58,7 @@ public class BoardFreeEditController extends HttpServlet{
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			req.setAttribute("errorMsg", "갤러리 수정 실패");
+			req.setAttribute("errorMsg", " 수정 실패");
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 	
