@@ -38,138 +38,85 @@ public class OrderListDao {
 				
 	}
 
-	// 렌트카 주문내역 조회(회원번호로)
-	public List<OrderListVo> getCarOrderListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
-		// SQL
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT CP.NO, CP.TYPE, CP.PAY_DATE, CR.RENTCAR_NO, CR.PRICE, CR.MEMBER_NO, CR.START_DATE, CR.END_DATE, CI.TITLE, CK.KIND FROM CAR_PAYMENT CP JOIN CAR_RESERVATION CR ON (CP.CAR_RESERVATION_CODE = CR.NO) JOIN RENTCAR R ON (R.NO = CR.RENTCAR_NO) JOIN CAR_IMG CI ON (CI.RENTCAR_NO = CR.RENTCAR_NO) JOIN CAR_KIND CK ON (CK.NO = R.CAR_KIND_NO) WHERE CP.CANCEL_YN = 'N' AND CR.MEMBER_NO = ?)T ) WHERE RNUM BETWEEN ? AND ?";
+	// 주문내역 조회 (카테고리 값에 맞게 동적 쿼리 작성)
+	public List<OrderListVo> getOrderListByNo(Connection conn, PageVo pv, String mno, String searchType, String searchValue) throws Exception {
+		
+		String sql = "";
+		if("category".equals(searchType) && searchValue.equals("1")) {
+			// sql (렌트카로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT CP.NO, CP.TYPE, CP.PAY_DATE, CR.RENTCAR_NO, CR.PRICE, CR.MEMBER_NO, CR.START_DATE, CR.END_DATE, CI.TITLE, CK.KIND AS GOODS_NAME FROM CAR_PAYMENT CP JOIN CAR_RESERVATION CR ON (CP.CAR_RESERVATION_CODE = CR.NO) JOIN RENTCAR R ON (R.NO = CR.RENTCAR_NO) JOIN CAR_IMG CI ON (CI.RENTCAR_NO = CR.RENTCAR_NO) JOIN CAR_KIND CK ON (CK.NO = R.CAR_KIND_NO) WHERE CP.CANCEL_YN = 'N' AND CR.MEMBER_NO = ?)T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if("category".equals(searchType) && searchValue.equals("2")) {
+			// sql (숙소로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT AP.NO, AP.TYPE, AP.PAY_DATE, AR.ACCOMODATION_NO, AR.PRICE, AR.MEMBER_NO, AR.START_DATE, AR.END_DATE, AI.TITLE, A.NAME AS GOODS_NAME FROM ACCOMODATION_PAYMENT AP JOIN ACCOMODATION_RESERVATION AR ON (AP.ACCOMODATION_RESERVATION_CODE = AR.NO) JOIN ACCOMODATION A ON (A.NO = AR.ACCOMODATION_NO) JOIN ACCOMODATION_IMG AI ON (AI.ACCOMODATION_NO = AR.ACCOMODATION_NO) WHERE AP.CANCEL_YN = 'N' AND AR.MEMBER_NO = ?)T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if("category".equals(searchType) && searchValue.equals("3")) {
+			// sql (기념품으로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT SP.NO, SP.TYPE, SP.PAY_DATE, SR.SOUVENIR_NO, SR.PRICE, SR.MEMBER_NO, SR.ADDRESS, SR.NAME AS ONAME , SR.CNT ,SI.TITLE, S.NAME AS GOODS_NAME FROM SOUVENIR_PAYMENT SP JOIN SOUVENIR_RESERVATION SR ON (SP.SOUVENIR_RESERVATION_CODE = SR.NO) JOIN SOUVENIR S ON (S.NO = SR.SOUVENIR_NO) JOIN SOUVENIR_IMG SI ON (SI.SOUVENIR_NO = SR.SOUVENIR_NO) WHERE SP.CANCEL_YN = 'N' AND SR.MEMBER_NO = ?) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			// 예외 던져주기
+//			 throw new Exception();
+			// 값이 이상하면 렌트카 목록 조회
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT CP.NO, CP.TYPE, CP.PAY_DATE, CR.RENTCAR_NO, CR.PRICE, CR.MEMBER_NO, CR.START_DATE, CR.END_DATE, CI.TITLE, CK.KIND AS GOODS_NAME FROM CAR_PAYMENT CP JOIN CAR_RESERVATION CR ON (CP.CAR_RESERVATION_CODE = CR.NO) JOIN RENTCAR R ON (R.NO = CR.RENTCAR_NO) JOIN CAR_IMG CI ON (CI.RENTCAR_NO = CR.RENTCAR_NO) JOIN CAR_KIND CK ON (CK.NO = R.CAR_KIND_NO) WHERE CP.CANCEL_YN = 'N' AND CR.MEMBER_NO = ?)T ) WHERE RNUM BETWEEN ? AND ?";
+		}
+
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, mno);
 		pstmt.setInt(2, pv.getBeginRow());
 		pstmt.setInt(3, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
+		
 		// tx || rs
-		List<OrderListVo> cvoList = new ArrayList<>();
+		List<OrderListVo> voList = new ArrayList<>();
+		String startDate = null;
+		String endDate = null;
+		String address = null;
+		String oderName = null;
+		String cnt = null;
 		while(rs.next()) {
 			String no = rs.getString("NO");
 			String payType = rs.getString("TYPE");
 			String payDate = rs.getString("PAY_DATE");
 			String price = rs.getString("PRICE");
-			String startDate = rs.getString("START_DATE");
-			String endDate = rs.getString("END_DATE");
-			String carImg = rs.getString("TITLE");
-			String carKind = rs.getString("KIND");
+			String img = rs.getString("TITLE");
+			String goodsName = rs.getString("GOODS_NAME");
+			if("3".equals(searchValue)) {
+				address = rs.getString("ADDRESS");
+				oderName = rs.getString("ONAME");
+				cnt = rs.getString("CNT");
+			}
+			if(!"3".equals(searchValue)) {
+				startDate = rs.getString("START_DATE");
+				endDate = rs.getString("END_DATE");
+			}
 			
 			OrderListVo vo = new OrderListVo();
-			vo.setCarPayNo(no);
-			vo.setCarPayType(payType);
-			vo.setCarPayDate(payDate);
-			vo.setCarPrice(price);
-			vo.setCarStartDate(startDate);
-			vo.setCarEndDate(endDate);
-			vo.setCarName(carKind);
-			vo.setCarImg(carImg);
+			vo.setPayNo(no);
+			vo.setPayType(payType);
+			vo.setPayDate(payDate);
+			vo.setPrice(price);
+			vo.setImg(img);
+			vo.setName(goodsName);
+			if(!"3".equals(searchValue)) {
+				vo.setStartDate(startDate);
+				vo.setEndDate(endDate);
+			}
+			if("3".equals(searchValue)) {
+				vo.setAddress(address);
+				vo.setOderName(oderName);
+				vo.setCnt(cnt);
+			}
 			
-			cvoList.add(vo);
+			voList.add(vo);
 			
 		}
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 
-		return cvoList;
+		return voList;
 	}
 
-	// 숙소 주문내역 조회
-	public List<OrderListVo> getAccomodationOrderListByNo(Connection conn, PageVo pv, String mno) throws Exception {
 
-		// SQL
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT AP.NO, AP.TYPE, AP.PAY_DATE, AR.ACCOMODATION_NO, AR.PRICE, AR.MEMBER_NO, AR.START_DATE, AR.END_DATE, AI.TITLE, A.NAME FROM ACCOMODATION_PAYMENT AP JOIN ACCOMODATION_RESERVATION AR ON (AP.ACCOMODATION_RESERVATION_CODE = AR.NO) JOIN ACCOMODATION A ON (A.NO = AR.ACCOMODATION_NO) JOIN ACCOMODATION_IMG AI ON (AI.ACCOMODATION_NO = AR.ACCOMODATION_NO) WHERE AP.CANCEL_YN = 'N' AND AR.MEMBER_NO = ?)T ) WHERE RNUM BETWEEN ? AND ?";
-		
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, mno);
-		pstmt.setInt(2, pv.getBeginRow());
-		pstmt.setInt(3, pv.getLastRow());
-		ResultSet rs = pstmt.executeQuery();
-		
-		// tx || rs
-		List<OrderListVo> avoList = new ArrayList<>();
-		while(rs.next()) {
-			String no = rs.getString("NO");
-			String payType = rs.getString("TYPE");
-			String payDate = rs.getString("PAY_DATE");
-			String price = rs.getString("PRICE");
-			String startDate = rs.getString("START_DATE");
-			String endDate = rs.getString("END_DATE");
-			String accomodationImg = rs.getString("TITLE");
-			String accomodationName = rs.getString("NAME");
-			
-			OrderListVo vo = new OrderListVo();
-			vo.setAccomodationPayNo(no);
-			vo.setAccomodationPayType(payType);
-			vo.setAccomodationPayDate(payDate);
-			vo.setAccomodationPrice(price);
-			vo.setAccomodationStartDate(startDate);
-			vo.setAccomodationEndDate(endDate);
-			vo.setAccomodationImg(accomodationImg);
-			vo.setAccomodationName(accomodationName);
-			
-			avoList.add(vo);
-			
-		}
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(rs);
-
-		return avoList;
-		
-	}
-
-	// 기념품 주문내역 조회
-	public List<OrderListVo> getSouvenirOrderListByNo(Connection conn, PageVo pv, String mno) throws Exception {
-		
-		// SQL
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT SP.NO, SP.TYPE, SP.PAY_DATE, SR.SOUVENIR_NO, SR.PRICE, SR.MEMBER_NO, SR.ADDRESS, SR.NAME, SR.CNT ,SI.TITLE, S.NAME AS SOUVENIR_NAME FROM SOUVENIR_PAYMENT SP JOIN SOUVENIR_RESERVATION SR ON (SP.SOUVENIR_RESERVATION_CODE = SR.NO) JOIN SOUVENIR S ON (S.NO = SR.SOUVENIR_NO) JOIN SOUVENIR_IMG SI ON (SI.SOUVENIR_NO = SR.SOUVENIR_NO) WHERE SP.CANCEL_YN = 'N' AND SR.MEMBER_NO = ?) T ) WHERE RNUM BETWEEN ? AND ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, mno);
-		pstmt.setInt(2, pv.getBeginRow());
-		pstmt.setInt(3, pv.getLastRow());
-		ResultSet rs = pstmt.executeQuery();
-		
-		// tx || rs
-		List<OrderListVo> svoList = new ArrayList<>();
-		while(rs.next()) {
-			String no = rs.getString("NO");
-			String payType = rs.getString("TYPE");
-			String payDate = rs.getString("PAY_DATE");
-			String price = rs.getString("PRICE");
-			String address = rs.getString("ADDRESS");
-			String orderName = rs.getString("NAME");
-			String cnt = rs.getString("CNT");
-			String souvenirImg = rs.getString("TITLE");
-			String souvenirName = rs.getString("SOUVENIR_NAME");
-			
-			OrderListVo vo = new OrderListVo();
-			vo.setSouvenirPayNo(no);
-			vo.setSouvenirPayType(payType);
-			vo.setSouvenirnPayDate(payDate);
-			vo.setSouvenirPrice(price);
-			vo.setSouvenirAddress(address);
-			vo.setSouvenirOderName(orderName);
-			vo.setSouvenirCnt(cnt);
-			vo.setSouvenirImg(souvenirImg);
-			vo.setSouvenirName(souvenirName);
-			
-			svoList.add(vo);
-			
-		}
-		JDBCTemplate.close(pstmt);
-		JDBCTemplate.close(rs);
-
-		return svoList;
-		
-	}
-	
-	
 	
 
 }

@@ -13,7 +13,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 1100px;
+	    bottom: 900px;
 	    left: 400px;
     }
 
@@ -47,50 +47,46 @@
     #order-list-box{
         width: 1300px;
         border-radius: 30px;
-        border: 1px dashed black;
+        border: 1px solid black;
         height: 1000px;
         left: 100px;
         top: 230px;
         font-size: 25px;
         position: absolute;
         display: grid;
-        grid-template-rows: 1fr 2fr 2fr 2fr;
         justify-content: center;
         align-content: center;
     }
 
-    #img {
+    #orderList-area {
+        width: 1300px;
+        height: 80%;
+        text-align: center;
+    }
+
+    #orderList-area  table > tbody > td{
+        vertical-align: middle;
+        border-bottom: 1px solid black;
+    }
+
+    #orderList-area thead th {
+        font-weight: bold;
+        font-size: 25px;
+    }
+
+    img {
         width: 150px;
         height: 150px;
         margin-right: 0;
     }
 
-    #title-wrap ,#content-wrap{
+    #page-area{
         width: 100%;
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr 1fr;
+        display: flex;
         justify-content: center;
         align-items: center;
-        text-align: center;
-        margin: auto;
+        font-size: 20px;
     }
-
-
-    #order-goods-wrap01 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        justify-items: center;
-    }
-
-    #order-goods-status{
-        display: grid;
-        grid-template-rows: 1fr 1fr;
-        justify-items: center;
-        width: 120px;
-        height: 180px;
-        align-items: center;
-    }
-
 
     #btn01 {
         background-color: #73D38E;
@@ -115,30 +111,58 @@
 
     /* 카테고리 및 검색 */
     #report-search input[type="submit"]{
-        background-image: url('./검색이미지.jpg');
-        background-repeat: no-repeat;
-        background-color: rgba(120, 120, 120, 0);
+       /* background-image: url('./img/검색이미지.png'); */
+        /* background-repeat: no-repeat; */
+        background-color: rgba(84, 190, 128, 0.562);
         border: 0px;
         cursor:pointer;
         outline: 0;
+        color: rgb(4, 4, 4);
         position: absolute;
-        left: 200px;
+        left: 385px;
         top: 5px;
+        width: 50px;
+        height: 30px;
+        font-size: 17px;
+    }
+
+    select[name=searchType] {
+        height: 40px;
+        font-size: 17px;
     }
 
     #report-search{
         position: absolute;
-        right: 200px;
+        right: 300px;
         top: 141px;
         width: 150px;
-        height: 30px;
+        height: 40px;
     }
 
     #report-search>form>input[type="text"]{
-        width: 180px;
-        height: 30px;
-        font-size: 14px;
+        width: 240px;
+        height: 40px;
+        font-size: 17px;
+        position: absolute;
+        left: 100px;
     }
+    
+
+	.searchValueElem {
+		position: absolute;
+        left: 100px;
+        top: 1px;
+        width: 120px;
+        height: 40px;
+        font-size: 20px;
+	}
+
+    #goods_detail {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+
+
 
 </style>
 </head>
@@ -152,28 +176,141 @@
             <hr>
             <a>주문내역</a>
         </div>
-        
+        <!-- 검색 -->
+        <div id="report-search">
+            <form action="${root}/mypage/orderList" method="GET">
+            <select name="searchType">
+                <option value="category">카테고리</option>
+            </select>
+            <select name="searchValue" class="searchValueElem">
+                <option value="1">렌트카</option>
+                <option value="2">숙소</option>
+                <option value="3">기념품</option>
+            </select>
+                <input type="submit" value="검색">
+            </form>
+        </div>
         <div id="order-list-box">
-            <div id="title-wrap">
-                <div>주문 번호</div>
-                <div>주문 상세 내용</div>
-                <div>주문 날짜</div>
-                <div>주문 상태</div>
-
-            </div>
             <!-- 반복문 처리 -->
-            <div id="content-wrap">
-                <c:forEach items="${cvoList}" var="cvo">
-                <div>${cvo.carPayNo}</div>
-                <div><div id="order-goods-wrap01"><img src="${root}/static/img/${cvo.carImg}" alt="" id="img">
-                <div id="order-info">${cvo.carName}<br>주문금액:${cvo.carPrice}</div></div></div>
-                <div>${cvo.carPayDate}</div>
-                <div><div id="order-goods-status">${cvo.carPayType}<br><button id="btn01"><a href="${root}/mypage/refund">환불</a></button></div></div>
+            <table id="orderList-area">
+                <thead>
+                    <tr>
+                        <th>주문번호</th>
+                        <th>주문상세내용</th>
+                        <th>주문날짜</th>
+                        <th>결제수단</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <c:forEach items="${voList}" var="vo">
+                    <tr>
+                        <td>${vo.payNo}</td>
+                        <td>
+                            <div id="goods_detail">
+                                <div id="goods_img">
+                                    <c:choose> 
+                                        <c:when test="${searchVo.searchValue eq '2' }">
+                                            <img src="${root}/static/img/accommodationImg/${vo.img}" alt="숙소이미지">
+                                        </c:when> 
+                                        <c:when test="${searchVo.searchValue eq '1' }">
+                                            <img src="${root}/static/img/carImg/${vo.img}" alt="차량이미지">
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <img src="${root}/static/img/souvenir_img/${vo.img}" alt="기념품이미지">
+                                        </c:otherwise> 
+                                    </c:choose> 
+                                </div>
+                                <div id="content_area">
+                                    상품명 : ${vo.name}
+                                    <br>
+                                    상품 가격 : ${vo.price}
+                                    <br>
+                                <c:if test="${searchVo.searchValue eq '1' || searchVo.searchValue eq '2' }">
+                                    예약 시작 날짜 : ${vo.startDate}
+                                    <br>
+                                    예약 종료 날짜 : ${vo.endDate}
+                                    <br>
+                                </c:if>
+                                <c:if test="${searchVo.searchValue eq '3'}">
+                                    주문 주소 : ${vo.address}
+                                    <br>
+                                    주문자명 : ${vo.oderName}
+                                    <br>
+                                    주문 수량 : ${vo.cnt}
+                                </c:if>
+                                </div>
+                            </div>
+                        </td>
+                        <td>${vo.payDate}</td>
+                        <td>${vo.payType}</td>
+                    </tr>
                 </c:forEach>
-            </div>
+                </tbody>
+                </table>
+                <div id="page-area">
+                    <c:if test="${pv.currentPage > 1 }">
+                    <a id="btn01" href="${root}/mypage/orderList?page=${pv.currentPage-1}">이전</a>
+                    </c:if>
+                    <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
+                        <a id="btn02" href="${root}/mypage/orderList?page=${i}">${i}</a>
+                    </c:forEach>
+                    <c:if test="${pv.currentPage < pv.maxPage}">
+                    <a id="btn01" href="${root}/mypage/orderList?page=${pv.currentPage+1}">다음</a>
+                    </c:if>
+                </div>
+        </div>
       </div>
     </div>
+    
+    <script>
+	const searchType = '${searchVo.searchType}';
+	const searchValue = '${searchVo.searchValue}';
+	
+	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+	const searchValueInputTag = document.querySelector("input[name='searchValue']");
 
+	// if(searchType.length > 0){
+	// 	initSearchType();
+	// }
+	
+	// // 검색 타입 초기 세팅
+	// function initSearchType(){
+	// 	const x = document.querySelector('select > option[value="' + searchType + '"]');
+	// 	x.selected = true;
+	// }
+	
+	// 서치타입 변경 시 함수 실행
+	// const searchTypeTag = document.querySelector('select[name=searchType]');
+	// searchTypeTag.addEventListener("change", setSearchValueTag);
+
+	// function setSearchValueTag(){
+
+	// 	// 현재 타입이 카테고리인지 구분
+	// 	const searchType = searchTypeTag.value;
+	// 	if(searchType == 'category'){
+	// 		setSearchValueTagSelect();
+	// 	}else{
+	// 		setSearchValueTagInput();
+	// 	}
+	// }
+
+
+	// 카테고리로 검색한 이후에 검색 값이 유지되게 
+	function initSearchValueSelect(){
+		if(searchType != 'category'){
+			return;
+		}
+		const optionTag = document.querySelector("option[value='" + searchValue + "']");
+		optionTag.selected = true;	
+	}
+	
+
+	// setSearchValueTag();
+	initSearchValueSelect();
+
+
+	
+</script>
 
 </body>
 

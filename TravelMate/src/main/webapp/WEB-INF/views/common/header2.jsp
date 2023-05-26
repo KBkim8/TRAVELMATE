@@ -20,25 +20,29 @@
     <div id="wrap">
         <!-- 헤더영역 -->
        	<div id="realLogo">
-            <a href="${root}/admin/home">
+            <a href="${root}/home">
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
             
         <div id="logoCategory">
-            <a href="${root}/join">회원가입</a>
             <a>|</a>
-            <a href="${root}/login">로그인</a>
+        	</c:if>
+        	
+        	<c:if test="${not empty loginMember}">
+        	<a href="${root}/logout">로그아웃</a>
             <a>|</a>
-            <a href="">장바구니</a>
+        	</c:if>
+        	
+            <a href="${root}/mypage/member/detail">마이페이지</a>
             <a>|</a>
-            <a href="">고객센터</a>
+            <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
             <div></div>
             <div><a data-hover="예약">예약</a></div>
-            <div><a href="">숙소</a></div>
-            <div><a href="">차량</a></div>
+            <div><a href="${root}/room/list">숙소</a></div>
+            <div><a href="${root}/car/list">차량</a></div>
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
             <div><a href="">정보</a></div>

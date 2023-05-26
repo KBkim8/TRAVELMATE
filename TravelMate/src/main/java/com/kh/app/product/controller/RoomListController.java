@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
-import com.kh.app.product.service.ProductService;
-import com.kh.app.product.vo.ProductVo;
-@WebServlet("/product/list")
-public class ProductListController extends HttpServlet{
+import com.kh.app.product.service.RoomService;
+import com.kh.app.product.vo.RoomVo;
+@WebServlet("/room/list")
+public class RoomListController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +27,7 @@ public class ProductListController extends HttpServlet{
 			String searchValue = req.getParameter("searchValue");
 			String local = req.getParameter("local");
 			
-			ProductService ps = new ProductService();
+			RoomService ps = new RoomService();
 			
 			int cnt = ps.getProductListCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
@@ -38,7 +38,7 @@ public class ProductListController extends HttpServlet{
 			PageVo pv = new PageVo(cnt, page, 5, 5);
 			
 			//서비스
-			List<ProductVo> voList = null;
+			List<RoomVo> voList = null;
 			if(searchType == null || searchType.equals("")) {
 				voList = ps.getProductList(pv);
 			}else {
