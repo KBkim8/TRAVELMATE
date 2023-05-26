@@ -103,16 +103,31 @@ private final BoardDao dao;
 	}
 
 	//도연 - 공지사항 게시글 목록 조회
-	public List<BoardVo> list(PageVo pv) throws Exception {
+	//전체조회
+	public List<BoardVo> noticeList(PageVo pv ) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<BoardVo>bvoList = dao.list(conn ,pv);
+		List<BoardVo>bvoList = dao.noticeList(conn ,pv);
 		
 		JDBCTemplate.close(conn);
 	
 		return bvoList;
 	}
+	
+	// 검색해서 글목록조회
+	public List<BoardVo> noticeList(PageVo pv, String searchValue, String searchType) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<BoardVo>bvoList = dao.noticeList(conn ,pv ,searchValue ,searchType);
+		
+		JDBCTemplate.close(conn);
+	
+		return bvoList;
+	}
+	
+	
 
 	//board cnt
 	public int selectCnt() throws Exception {
@@ -258,10 +273,36 @@ private final BoardDao dao;
 			
 			int result = dao.freeEdit(conn,vo);
 			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
 			JDBCTemplate.close(conn);
 			
 			return result;
 		}
+
+		//자유게시판 작성하기
+		public int freeWrite(BoardVo bvo) throws Exception {
+
+			Connection conn =JDBCTemplate.getConnection();
+			
+			int result = dao.freeWrite(conn,bvo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		
 	
 	
 	

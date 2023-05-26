@@ -30,7 +30,7 @@ public class BoardFreeDetailController extends HttpServlet{
 		
 		if(fvo != null) {
 			req.setAttribute("fvo", fvo);
-			req.getRequestDispatcher("/WEB-INF/views/board/board-free/detail.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/board/board-free-detail.jsp").forward(req, resp);
 		}
 		
 	}

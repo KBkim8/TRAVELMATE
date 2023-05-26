@@ -26,9 +26,9 @@
         </div>
             
         <div id="logoCategory">
-            <a href="${root}/static/img/logo.png">회원가입</a>
+            <a href="${root}/join">회원가입</a>
             <a>|</a>
-            <a href="">로그인</a>
+            <a href="${root}/login">로그인</a>
             <a>|</a>
             <a href="">장바구니</a>
             <a>|</a>
@@ -44,10 +44,10 @@
             <div><a href="">정보</a></div>
             <div><a href="">토론</a></div>
             <div><a href="">리뷰</a></div>
-            <div><a href="">공지</a></div>
-            <div><a href="">여행일지</a></div>
+            <div><a href="${root }/notice/list">공지</a></div>
+            <div><a href="${root }/free/list">여행일지</a></div>
             <div><a>|</a></div>
-            <div><a href="" data-hover="랜선여행">랜선여행</a></div>
+            <div><a href="${root }/online/travel" data-hover="랜선여행">랜선여행</a></div>
             <div><a>|</a></div>
             <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 

@@ -4,9 +4,6 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
 
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -79,7 +76,7 @@
         margin-left: 20%;
     }
 
-    textarea{
+   .summernote{
         height: 900px;
         width: 1000px;
         margin-top: 30px;
@@ -120,7 +117,8 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>  <!--이안에 포함된 jquery때메 안됬음-->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -193,6 +191,7 @@
     }
 
     </script>
+    
 
 </body>
 </html>

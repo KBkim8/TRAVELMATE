@@ -1,7 +1,9 @@
 package com.kh.app.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +25,10 @@ public class BoardNoticeListController extends HttpServlet{
 		
 		try {
 
+			
+			String searchValue = req.getParameter("searchValue");
+			String searchType = req.getParameter("searchType");
+			
 			int listCount = bs.selectCnt();
 			String page = req.getParameter("page");
 			if(page == null) page = "1";
@@ -32,12 +38,25 @@ public class BoardNoticeListController extends HttpServlet{
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
 			//tqt
-			List<BoardVo> bvoList = bs.list(pv);
+			List<BoardVo> bvoList =null;
+			if(searchValue == null || searchValue.equals("")) {
+				bvoList = bs.noticeList(pv);
+			}else {
+				bvoList = bs.noticeList(pv, searchValue, searchType);
+			}
+			
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("searchValue", searchValue);
+			map.put("searchType", searchType);
+			
 			
 			//gd
+			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("bvoList", bvoList);
 			req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
+			
 			
 		}catch (Exception e) {
 			System.out.println("error");
