@@ -15,9 +15,9 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.product.service.CarService;
-import com.kh.app.product.service.ProductService;
+import com.kh.app.product.service.RoomService;
 import com.kh.app.product.vo.CarVo;
-import com.kh.app.product.vo.ProductVo;
+import com.kh.app.product.vo.RoomVo;
 @WebServlet("/car/list")
 public class CarListController extends HttpServlet{
 
@@ -29,9 +29,9 @@ public class CarListController extends HttpServlet{
 			String searchValue = req.getParameter("searchValue");
 			String local = req.getParameter("local");
 			
-			CarService ps = new CarService();
+			CarService cs = new CarService();
 			
-			int cnt = ps.getCarListCnt(searchType , searchValue);
+			int cnt = cs.getCarListCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";
@@ -42,9 +42,9 @@ public class CarListController extends HttpServlet{
 			//서비스
 			List<CarVo> voList = null;
 			if(searchType == null || searchType.equals("")) {
-				voList = ps.getCarList(pv);
+				voList = cs.getCarList(pv);
 			}else {
-				voList = ps.getCarList(pv, searchType, searchValue, local);
+				voList = cs.getCarList(pv, searchType, searchValue, local);
 			}
 			
 			Map<String, String> map = new HashMap<>();
@@ -56,7 +56,7 @@ public class CarListController extends HttpServlet{
 			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("voList", voList);
-			req.getRequestDispatcher("/WEB-INF/views/product/CarList.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/product/carList.jsp").forward(req, resp);
 		}catch (Exception e) {
 			System.out.println("[ERROR] 차량 목록 조회 에러 ...");
 			e.printStackTrace();

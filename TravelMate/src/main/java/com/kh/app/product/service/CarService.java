@@ -1,14 +1,18 @@
 package com.kh.app.product.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.product.vo.CarVo;
-import com.kh.app.product.vo.ProductVo;
+import com.kh.app.product.vo.RoomVo;
+import com.kh.app.product.vo.SouvenirVo;
 import com.kh.app.product.dao.CarDao;
-import com.kh.app.product.dao.ProductDao;
+import com.kh.app.product.dao.RoomDao;
 
 public class CarService {
 	
@@ -53,35 +57,15 @@ public class CarService {
 	}
 
 
-	public CarVo edit(CarVo vo) {
+	public CarVo selectCarOneByName(String name) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		CarVo updatedCar = null;
-		try {
-			//SQL
-			int result = dao.edit(conn , vo);
-			
-			//tx || rs
-			if(result == 1) {
-				updatedCar = dao.selectOneByNo(conn , vo.getNo());
-				if(updatedCar == null) {
-					throw new Exception();
-				}
-				JDBCTemplate.commit(conn);
-			}else {
-				JDBCTemplate.rollback(conn);
-			}
-			
-		}finally {
-			//close
-			JDBCTemplate.close(conn);
-		}
+		CarVo vo = dao.selectCarOneByName(conn, name);
+		JDBCTemplate.close(conn);
 		
-		return updatedCar;
+		return vo;
 	
 	}
 	
-	
-
 }

@@ -5,12 +5,12 @@ import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
-import com.kh.app.product.vo.ProductVo;
-import com.kh.app.product.dao.ProductDao;
+import com.kh.app.product.vo.RoomVo;
+import com.kh.app.product.dao.RoomDao;
 
-public class ProductService {
+public class RoomService {
 	
-	private final ProductDao dao = new ProductDao();
+	private final RoomDao dao = new RoomDao();
 	
 	public int getProductListCnt(String searchType, String searchValue) throws Exception {
 		//conn
@@ -25,11 +25,11 @@ public class ProductService {
 	}
 
 
-	public List<ProductVo> getProductList(PageVo pv) throws Exception {
+	public List<RoomVo> getProductList(PageVo pv) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<ProductVo> voList = dao.getProductList(conn , pv);
+		List<RoomVo> voList = dao.getProductList(conn , pv);
 		
 		//close
 		JDBCTemplate.close(conn);
@@ -38,11 +38,11 @@ public class ProductService {
 	}
 
 
-	public List<ProductVo> getProductList(PageVo pv, String searchType, String searchValue, String local) throws Exception {
+	public List<RoomVo> getProductList(PageVo pv, String searchType, String searchValue, String local) throws Exception {
 		//conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<ProductVo> voList = dao.getProductList(conn , pv , searchType, searchValue, local);
+		List<RoomVo> voList = dao.getProductList(conn , pv , searchType, searchValue, local);
 		
 		//close
 		JDBCTemplate.close(conn);

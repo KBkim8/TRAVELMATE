@@ -153,17 +153,17 @@
 	            <div id="box">
 	
 	                <div class="boxtitle">
-	                    <h3 id="h3">아반떼떼떼떼</h3>
-	                    <br>
-	                    <br>
-	                    <h3 id="h3">5인승   //  자동 변속   //  Gasoline</h3>
-	                    <br>
-	                    <br>
-	                    <h3 id="h3">이용일      //       2023.05.01(월) - 2023.05.02(화)</h3>
-	                    <br>
-	                    <br>                    
-	                    <h3 id="h3">인수 장소       //      제주시 제성1길 30</h3>
-	                               
+	                    ${vo.carname}
+	                    ${vo.no}
+	                    ${vo.carKindNo}
+	                    ${vo.count}
+	                    ${vo.enrollDate}
+	                    ${vo.max}
+	                    ${vo.licensePlate}
+	                    ${vo.licenseDate}
+	                    ${vo.price}
+	                    
+
 	                </div>
 	                <br>
 	                <div id="rebtn">
@@ -200,7 +200,15 @@
 	
 	        <h2 id="h2">이메일 주소</h2>
 	        <input type="email" id="email" placeholder="example@mail.com">
+	        <br>
+	        <br>
+	        <br>
+	        <input type="text" id="calender" name="daterange" value="06/01/2023 - 06/05/2023" />
 	    </div>
+	    <br>
+	    <br>
+	    <br>
+	    <br>
 	    <br>
 	    <br>
 	    <br>
@@ -251,4 +259,22 @@
 
 
 </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+	let x;
+	
+	$(function() {
+  		$('input[name="daterange"]').daterangepicker({
+    	opens: 'left'
+	  	}, function(start, end, label) {
+    	console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    	x = start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD');
+	console.log(x);
+	  });
+});
+</script>
 </html>
+

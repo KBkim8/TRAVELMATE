@@ -56,6 +56,7 @@ th, td {
   border-bottom: 1px solid #444444;
   height: 100px;
   text-align: center;
+  align-items: center center;
 }
 
 #page-area{
@@ -94,7 +95,8 @@ table td{
 		      <select name="searchType">					
 		        <option value="carKind">차량이름</option>
 		        <option value="carKind">차량크기</option>
-		        <option value="price">가격</option>					
+		        <option value="price">가격</option>	
+		        <option value="lo">인수지역</option>				
 		      </select>
 		      
 		      <input type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
@@ -107,17 +109,17 @@ table td{
 	    <div id="local-checkbox">
 	      <div>
 		    강원도 <input type="checkbox" name="local" value="gang">
-	        충천남/북도<input type="checkbox" name="local" value="">
-	        경상남/북도<input type="checkbox" name="local" value="">
-	        전라남/북도<input type="checkbox" name="local" value="">
+	        충천남/북도<input type="checkbox" name="local" value="chung">
+	        경상남/북도<input type="checkbox" name="local" value="kung">
+	        전라남/북도<input type="checkbox" name="local" value="jun">
 	      </div>
 	      <div>
-	        대전<input type="checkbox">
-	        울산<input type="checkbox">
-	        대구<input type="checkbox">
-	        광주<input type="checkbox">
-	        부산<input type="checkbox">
-	        제주도<input type="checkbox">
+	        대전<input type="checkbox" name="local" value="dae">
+	        울산<input type="checkbox" name="local" value="ull">
+	        대구<input type="checkbox" name="local" value="daegu">
+	        광주<input type="checkbox" name="local" value="gwang">
+	        부산<input type="checkbox" name="local" value="bu">
+	        제주도<input type="checkbox" name="local" value="je">
 	      </div>
 	    </div>
 	  	</div>
@@ -135,12 +137,12 @@ table td{
       </tr>
     </thead>
     <tbody>
-      <c:forEach items="${voList}" var="vo"> 
+      <c:forEach items="${voList}" var="vo">
          <tr>
-             <td>${vo.title}</td>
-             <td>${vo.carKindKind}</td>
+             <td><img src="${root}/static/img/car_img/${vo.title}" alt="NOIMGVO.." width="100px" height="100px" ></td>
+             <td>${vo.carname}</td>
              <td>${vo.price}</td>
-             <td>${vo.lcname}</td>
+             <td>${vo.local}</td>
          </tr>
       </c:forEach>
     </tbody>
@@ -166,3 +168,65 @@ table td{
 </div>
 </body>
 </html>
+<script>
+const searchType = '${searchVo.searchType}';
+const searchValue = '${searchVo.searchValue}';
+
+const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+const searchValueInputTag = document.querySelector("input[name='searchValue']");
+
+if(searchType.length > 1){
+	initSearchType();
+}
+
+// 검색 타입 초기셋팅
+function initSearchType(){
+	const x = document.querySelector('select > option[value="' + searchType + '"]');
+	x.selected = true;
+}
+
+
+//서치타입 변경 시 함수 실행
+const searchTypeTag = document.querySelector('select[name="searchType"]');
+searchTypeTag.addEventListener("change" , setSearchValueTag);
+
+function setSearchValueTag(){
+	const searchType = searchTypeTag.value;
+	if(searchType == 'category'){
+		setSearchValueTagSelect();
+	}else{
+		setSearchValueTagInput();
+	}
+}
+
+//검색값 영역을 셀렉트가 보이게 (타입이 카테고리일 때)
+function setSearchValueTagSelect(){
+	searchValueSelectTag.classList.add("active");
+	searchValueSelectTag.disabled = false;
+	searchValueInputTag.classList.remove("active");
+	searchValueInputTag.disabled = true;
+
+	searchValueInputTag.value = '';
+}
+
+//검색값 영역을 인풋이 보이게 (타입이 카테고리가 아닐 때)
+function setSearchValueTagInput(){
+	searchValueInputTag.classList.add("active");
+	searchValueInputTag.disabled = false;
+	searchValueSelectTag.classList.remove("active");
+	searchValueSelectTag.disabled = true;
+}
+
+	//테이블 행 클릭시 상세조회
+	const tbody = document.querySelector('tbody');
+	tbody.addEventListener('click', (event)=>{
+		//글번호 가져와서
+		const name = event.target.parentNode.children[1].innerText;
+
+		//요청보내기
+		location.href='${root}/order/car?name=' + name;
+
+
+	});
+
+</script>

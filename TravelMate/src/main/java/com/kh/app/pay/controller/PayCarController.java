@@ -48,10 +48,10 @@ try {
 			
 			//서비스
 			CarService cs = new CarService();
-			CarVo updatedCar = cs.edit(vo);
+			int result = cs.paying(vo);
 			
 			//화면
-			if(updatedCar != null) {
+			if(result == 1) {
 				req.getSession().setAttribute("alertMsg", "결제 완료!");
 				req.getSession().setAttribute("cvo", updatedCar);
 				resp.sendRedirect(req.getContextPath() + "/마이페이지/주문내역조회");

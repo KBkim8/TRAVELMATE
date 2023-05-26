@@ -10,12 +10,12 @@ import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
-import com.kh.app.product.vo.ProductVo;
+import com.kh.app.product.vo.RoomVo;
 
 
-public class ProductDao {
+public class RoomDao {
 	
-	public List<ProductVo> getProductList(Connection conn, PageVo pv) throws Exception {
+	public List<RoomVo> getProductList(Connection conn, PageVo pv) throws Exception {
 		// SQL
 	    String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT A.NO, A.LOCAL_NO, A.ACCOMODATION_NO, A.NAME, A.ENROLL_DATE, A.MAX_PEOPLE, A.CONTENT, A.DELETE_YN, A.PRICE, AI.TITLE, LC.NAME AS LOCAL FROM ACCOMODATION A JOIN ACCOMODATION_IMG AI ON AI.ACCOMODATION_NO = A.ACCOMODATION_NO JOIN LOCAL_CATEGORY LC ON LC.NO = A.LOCAL_NO WHERE A.DELETE_YN = 'N' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -24,10 +24,10 @@ public class ProductDao {
 	    ResultSet rs = pstmt.executeQuery();
 	    
 	    // tx || rs
-	    List<ProductVo> voList = new ArrayList<>();
+	    List<RoomVo> voList = new ArrayList<>();
 
 	    while (rs.next()) {
-	    	ProductVo vo = new ProductVo();
+	    	RoomVo vo = new RoomVo();
 	    	
 	        String no = rs.getString("NO");
 	        String localNo = rs.getString("LOCAL_NO");
@@ -52,7 +52,7 @@ public class ProductDao {
 	        vo.setTitle(title);;
 
 	        voList.add(vo);
-	        
+	       
 	    }
 
 	    JDBCTemplate.close(rs);
@@ -95,7 +95,7 @@ public class ProductDao {
 
 	
 
-	public List<ProductVo> getProductList(Connection conn, PageVo pv, String searchType, String searchValue, String local) throws Exception {
+	public List<RoomVo> getProductList(Connection conn, PageVo pv, String searchType, String searchValue, String local) throws Exception {
 		String sql = "";
 		
 		if(searchType.equals("name")) {
@@ -119,7 +119,7 @@ public class ProductDao {
 		ResultSet rs = pstmt.executeQuery();
 		
 		//tx || rs
-		List<ProductVo> voList = new ArrayList<>();
+		List<RoomVo> voList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
 			String localNo = rs.getString("LOCAL_NO");
@@ -134,7 +134,7 @@ public class ProductDao {
 			String lcName = rs.getString("LOCAL");
 			
 		
-			ProductVo vo = new ProductVo();
+			RoomVo vo = new RoomVo();
 			
 			vo.setNo(no);
 			vo.setLocalNo(localNo);

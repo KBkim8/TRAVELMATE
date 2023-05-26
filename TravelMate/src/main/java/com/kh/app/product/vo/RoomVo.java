@@ -1,6 +1,6 @@
 package com.kh.app.product.vo;
 
-public class ProductVo {
+public class RoomVo {
 
 	private String no;
 	private String localNo;
@@ -85,7 +85,7 @@ public class ProductVo {
 				+ ", enrollDate=" + enrollDate + ", maxPeople=" + maxPeople + ", content=" + content + ", deleteYn="
 				+ deleteYn + ", price=" + price + ", title=" + title + ", local=" + local + "]";
 	}
-	public ProductVo(String no, String localNo, String accomodationNo, String name, String enrollDate, String maxPeople,
+	public RoomVo(String no, String localNo, String accomodationNo, String name, String enrollDate, String maxPeople,
 			String content, String deleteYn, String price, String title, String local) {
 		super();
 		this.no = no;
@@ -100,7 +100,7 @@ public class ProductVo {
 		this.title = title;
 		this.local = local;
 	}
-	public ProductVo() {
+	public RoomVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

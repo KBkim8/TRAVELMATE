@@ -2,19 +2,21 @@ package com.kh.app.product.vo;
 
 public class CarVo {
 
-	private String max;
-	private String licensePlate;
-	private String price;
-	private String lcname;
-	private String title;
-	private String carKindKind;
 	private String no;
 	private String carKindNo;
-	private String localNo;
 	private String count;
 	private String enrollDate;
 	private String deleteYn;
+	private String max;
+	private String licensePlate;
 	private String licenseDate;
+	private String price;
+	private String local;
+	private String carname;
+	private String title;
+	private String localNo;
+	private String carKindKind;
+	private String lcname;
 	public String getNo() {
 		return no;
 	}
@@ -26,12 +28,6 @@ public class CarVo {
 	}
 	public void setCarKindNo(String carKindNo) {
 		this.carKindNo = carKindNo;
-	}
-	public String getLocalNo() {
-		return localNo;
-	}
-	public void setLocalNo(String localNo) {
-		this.localNo = localNo;
 	}
 	public String getCount() {
 		return count;
@@ -75,11 +71,17 @@ public class CarVo {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	public String getLcname() {
-		return lcname;
+	public String getLocal() {
+		return local;
 	}
-	public void setLcname(String lcname) {
-		this.lcname = lcname;
+	public void setLocal(String local) {
+		this.local = local;
+	}
+	public String getCarname() {
+		return carname;
+	}
+	public void setCarname(String carname) {
+		this.carname = carname;
 	}
 	public String getTitle() {
 		return title;
@@ -87,26 +89,37 @@ public class CarVo {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	public String getLocalNo() {
+		return localNo;
+	}
+	public void setLocalNo(String localNo) {
+		this.localNo = localNo;
+	}
 	public String getCarKindKind() {
 		return carKindKind;
 	}
 	public void setCarKindKind(String carKindKind) {
 		this.carKindKind = carKindKind;
 	}
+	public String getLcname() {
+		return lcname;
+	}
+	public void setLcname(String lcname) {
+		this.lcname = lcname;
+	}
 	@Override
 	public String toString() {
-		return "CarVo [no=" + no + ", carKindNo=" + carKindNo + ", localNo=" + localNo + ", count=" + count
-				+ ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn + ", max=" + max + ", licensePlate="
-				+ licensePlate + ", licenseDate=" + licenseDate + ", price=" + price + ", lcname=" + lcname + ", title="
-				+ title + ", carKindKind=" + carKindKind + "]";
+		return "CarVo [no=" + no + ", carKindNo=" + carKindNo + ", count=" + count + ", enrollDate=" + enrollDate
+				+ ", deleteYn=" + deleteYn + ", max=" + max + ", licensePlate=" + licensePlate + ", licenseDate="
+				+ licenseDate + ", price=" + price + ", local=" + local + ", carname=" + carname + ", title=" + title
+				+ ", localNo=" + localNo + ", carKindKind=" + carKindKind + ", lcname=" + lcname + "]";
 	}
-	public CarVo(String no, String carKindNo, String localNo, String count, String enrollDate, String deleteYn,
-			String max, String licensePlate, String licenseDate, String price, String lcname, String title,
-			String carKindKind) {
+	public CarVo(String no, String carKindNo, String count, String enrollDate, String deleteYn, String max,
+			String licensePlate, String licenseDate, String price, String local, String carname, String title,
+			String localNo, String carKindKind, String lcname) {
 		super();
 		this.no = no;
 		this.carKindNo = carKindNo;
-		this.localNo = localNo;
 		this.count = count;
 		this.enrollDate = enrollDate;
 		this.deleteYn = deleteYn;
@@ -114,16 +127,17 @@ public class CarVo {
 		this.licensePlate = licensePlate;
 		this.licenseDate = licenseDate;
 		this.price = price;
-		this.lcname = lcname;
+		this.local = local;
+		this.carname = carname;
 		this.title = title;
+		this.localNo = localNo;
 		this.carKindKind = carKindKind;
+		this.lcname = lcname;
 	}
 	public CarVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 	
 	
