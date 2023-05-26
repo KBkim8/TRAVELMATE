@@ -1,7 +1,9 @@
 package com.kh.app.mypage.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +26,9 @@ public class OrderListController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			
 		try {
+			String searchType = req.getParameter("searchType");
+			String searchValue = req.getParameter("searchValue");
+			
 			HttpSession session = req.getSession();
 		 	MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
 		 	String mno = loginMember.getNo();
@@ -37,21 +42,24 @@ public class OrderListController extends HttpServlet{
 				page_ = "1";
 			}
 			int page = Integer.parseInt(page_);
-			PageVo pv = new PageVo(cnt, page, 5, 5);
+			PageVo pv = new PageVo(cnt, page, 3, 4);
 			
 			// 서비스
-			List<OrderListVo> cvoList = null;
-			List<OrderListVo> avoList = null;
-			List<OrderListVo> svoList = null;
-			cvoList = ols.getCarOrderListByNo(pv, mno);
-			avoList = ols.getAccomodationOrderListByNo(pv, mno);
-			svoList = ols.getSouvenirOrderListByNo(pv, mno);
+			List<OrderListVo> voList = null;
+//			if(searchType == null || searchValue.equals("")) {
+				voList = ols.getOrderListByNo(pv, mno, searchType, searchValue);
+//			}else {
+//				voList = ols.getOrderListByNo(pv, mno);
+//			}
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("searchType", searchType);
+			map.put("searchValue", searchValue);
 			
 			// 화면
+			req.setAttribute("searchVo", map);	
 			req.setAttribute("pv", pv);
-			req.setAttribute("cvoList", cvoList);
-			req.setAttribute("avoList", avoList);
-			req.setAttribute("svoList", svoList);
+			req.setAttribute("voList", voList);
 			req.getRequestDispatcher("/WEB-INF/views/mypage/orderList.jsp").forward(req, resp);
 			
 		} catch (Exception e) {
