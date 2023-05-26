@@ -13,6 +13,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 500px;
     }
     
 
@@ -128,8 +129,12 @@
        
         <div id="write-area">
             <form action="${root}/notice/search">
-                <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="submit" value="검색"> 
-            
+                <select name="searchType">
+                    <option value="title">제목</option>
+                    <option value="writer">작성자</option>
+                </select>
+                    <input type="text" class="searchValueElem" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
+                    <input type="submit" value="검색">
             </form>
             <c:if test="${not empty loginMember }">
 	            <a href="${root}/notice/write" id="btn01">글 작성하러 가기</a>

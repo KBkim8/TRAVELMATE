@@ -60,13 +60,13 @@ public class BoardFreeWriteController extends HttpServlet{
 			
 			// 서비스
 			BoardService bs = new BoardService();
-			
-//			// 화면
-//			if(result == 1) {
-//				resp.sendRedirect(req.getContextPath() + "/free/list");
-//			}else {
-//				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
-//			}
+			int result = bs.freeWrite(bvo);
+			// 화면
+			if(result == 1) {
+				resp.sendRedirect(req.getContextPath() + "/free/list");
+			}else {
+				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

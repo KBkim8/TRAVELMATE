@@ -27,7 +27,7 @@ public class BoardNoticeReplyWriteController extends HttpServlet{
 			String memberNo = loginMember.getNo();
 			
 			//데꺼
-			String noticeNo = req.getParameter("noticeNo");
+			String noticeNo = req.getParameter("boardNo");
 			String content = req.getParameter("content");
 			
 			//데뭉

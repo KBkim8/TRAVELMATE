@@ -13,6 +13,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 500px;
     }
     
 
