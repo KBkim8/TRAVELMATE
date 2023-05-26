@@ -16,22 +16,10 @@
         bottom: 1300px;
         left: 400px;
     }
-    
-    #h1{
-    	font: bolder;
-    	font-size: xx-large;
-    }
-    #h2{
-    	font: bolder;
-    	font-size: x-large;
-    }
+
     #h3{
     	font: bold;
     	font-size: larger;
-    }
-    #h4{
-    	font: bold;
-    	font-size: large;
     }
     
     #start{
@@ -54,7 +42,7 @@
     #box{
         margin-left: 50px;
         width: 600px;
-        height: 400px;
+        height: 200px;
         background-color: rgba(0, 0, 0, 0.288);
         border: 1px solid black;
         
@@ -148,6 +136,62 @@
         margin: auto;
     }
     
+    #first, #second, #third, #third2{
+ 		display: flex;
+  		height: 50px;
+	}
+    
+    #first > :nth-child(1), #second >:nth-child(1), #third >:nth-child(1){
+    background-color: #39ec93;
+    width: 25px;
+    height: 50px;
+	}
+
+	#first > :nth-child(2), #second > :nth-child(2), #third > :nth-child(2){
+	    width: 100%;
+	    line-height: 50px;   
+	}
+	
+	#second2, #first2, #third2{
+	  width: 100%;
+	  height: 200px;
+	  margin-top: 50px;
+	  margin-bottom: 50px;
+	  background-color: lightgray;
+	}
+	
+	#first2, #third2{
+	  display: grid;
+	  grid-template-columns: 1fr 5fr;
+	}
+	
+	#third2{height: 100px;}
+	
+	#btn01{
+	  margin-top: 50px;
+	  margin-right: 250px;
+	  margin-left: 250px;
+	  margin-bottom: 50px;
+	}
+	
+	#btn02{margin-right: 300px;}
+	
+	#btn01, #btn02, #btn03, #btn04{
+  background-color: #73D38E;
+  border: 0;
+  padding: 15px 25px; 
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border-radius: 6px;
+}
+
+#btn01:hover, #btn02:hover, #btn03:hover, #btn04:hover  {background-color: #80C49D;}
+#btn01:active, #btn02:active, #btn03:active, #btn04:active {
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 0 0 1px rgba(0,0,0,0.4);
+}
     
 </style>
 </head>
@@ -170,7 +214,7 @@
         </div>
          <br>  
          <br>
-    <br><br><br><br><br><br><br>
+    <br><br><br><br>
     <div id="box">
         <h3  id="h3">체크인 : 3:00 PM ~ midnight // 체크아웃:11:00PM</h3>
         <h3  id="h3">${vo.name}</h3> 
@@ -183,8 +227,6 @@
         <br>
         <h3  id="h3"></h3>
         <br>
-        <h4>애완동물 출입금지</h4>
-        <br>          
     </div>
     </div>
     <br>
@@ -192,48 +234,61 @@
     <br>
     <br>
     <div id="start">
-    <h1 id="h1">객실 선택<hr></h1>
+    <div id="second">
+        <div></div>
+        <div>
+          <h3>시간 선택<hr></h3>
+        </div>
+      </div>
     <br>
-    <div id="box">
-        <input type="search" placeholder="숙소 조건 선택란(ex. 인원, 지역, 달력)">
-        <h4 id="h4" class="dlsdnjstn">인원수</h4>
-        <select id="maxPeopleSelect">
-            <option value="4">4인</option>
-            <option value="4">5인</option>
-            <option value="4">6인</option>
-            <option value="4">8인</option>
-            <option value="4">10인</option>
-        </select>
-
-        <input type="submit" id="searchBtn" value="검색하기">       
-    </div>
-    <div>
-
-	<input type="text" id="calender" name="daterange" value="06/01/2023 - 06/05/2023" />
-
-    </div>
-    
-    <div id="box">
-        <h3 id="h3">예약 가능 숙소 목록</h3>
-        <input id="px" type="submit" value="예약하기">       
-        <input id="px" type="submit" value="예약하기">       
-        <input id="px" type="submit" value="예약하기">       
-        <input id="px" type="submit" value="예약하기">       
-    </div>
+   <form action="${root}/pay/room" method="post">
+	    <div>
+			<input type="text" id="calender" name="daterange" value="06/01/2023 - 06/05/2023" />
+	    </div>
+	    
+	    <div id="second">
+	        <div></div>
+	        <div>
+	          <h3>주문 정보<hr></h3>
+	        </div>
+	      </div>
+	
+		  
+	      <div id="second2">
+	        <table>
+	            <tr>
+	                <td>예약자 명:</td>
+	                <td><input type="text" name="mname" placeholder="이름입력" >
+	            </tr>
+	            <tr>
+	                <td>휴대폰 번호:</td>
+	                <td><input type="text" name="phone" placeholder=" ‘ - ’ 제외하고 입력">
+	            </tr>
+	            <tr>
+	                <td>배송 받을 주소:</td>
+	                <td><input type="text" name="address" placeholder="ex)경기도 용인시 수지구 동천로 27번길 5" style="width: 400px;"></td>
+	            </tr>
+	        </table>
+	      </div>
+			
+		<input type="hidden" value="${vo.no}" name="no">
+		<button id="btn03" type="submit">결제하기</button>
+	</form>
     
     <hr>
-    <div id="btns">
-        <button type="button" class="btn btn-success">뒤로가기</button>
-        <button type="button" class="btn btn-success">관심상품 담기</button>
-        <button type="button" class="btn btn-success">결제하기</button>
-    </div>
+    
+    <button id="btn02" onclick="favorite();">관심상품 담기</button>
+    <button id="btn01" onclick="backPage()">뒤로가기</button>
+    
 	</div>
 	</div>
+	
 </body>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	
 	<script>
 	let x;
 	
@@ -242,7 +297,8 @@
     	opens: 'left'
 	  	}, function(start, end, label) {
     	console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-    	x = start.format('YYYY-MM-DD') + end.format('YYYY-MM-DD');
+    	x = start.format('YYYY-MM-DD') 
+    	+ end.format('YYYY-MM-DD');
 	console.log(x);
 	  });
 });

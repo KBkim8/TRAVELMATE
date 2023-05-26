@@ -14,6 +14,15 @@ public class PayRoomController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		String daterange = req.getParameter("daterange");
+		String[] dateArr= daterange.split(" - ");
+		String dateStart = dateArr[0];
+		String dateEnd = dateArr[1];
+		System.out.println(dateArr);
+		System.out.println(dateStart);
+		System.out.println(dateEnd);
+		System.out.println(daterange);
+		
 		req.getRequestDispatcher("/WEB-INF/views/pay/pay_room.jsp").forward(req, resp);
 	}
 	
