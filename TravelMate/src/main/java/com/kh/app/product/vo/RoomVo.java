@@ -1,6 +1,6 @@
 package com.kh.app.product.vo;
 
-public class ProductVo {
+public class RoomVo {
 
 	private String no;
 	private String localNo;
@@ -13,6 +13,7 @@ public class ProductVo {
 	private String price;
 	private String title;
 	private String local;
+	private String kind;
 	public String getNo() {
 		return no;
 	}
@@ -79,14 +80,20 @@ public class ProductVo {
 	public void setLocal(String local) {
 		this.local = local;
 	}
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 	@Override
 	public String toString() {
-		return "ProductVo [no=" + no + ", localNo=" + localNo + ", accomodationNo=" + accomodationNo + ", name=" + name
+		return "RoomVo [no=" + no + ", localNo=" + localNo + ", accomodationNo=" + accomodationNo + ", name=" + name
 				+ ", enrollDate=" + enrollDate + ", maxPeople=" + maxPeople + ", content=" + content + ", deleteYn="
-				+ deleteYn + ", price=" + price + ", title=" + title + ", local=" + local + "]";
+				+ deleteYn + ", price=" + price + ", title=" + title + ", local=" + local + ", kind=" + kind + "]";
 	}
-	public ProductVo(String no, String localNo, String accomodationNo, String name, String enrollDate, String maxPeople,
-			String content, String deleteYn, String price, String title, String local) {
+	public RoomVo(String no, String localNo, String accomodationNo, String name, String enrollDate, String maxPeople,
+			String content, String deleteYn, String price, String title, String local, String kind) {
 		super();
 		this.no = no;
 		this.localNo = localNo;
@@ -99,11 +106,14 @@ public class ProductVo {
 		this.price = price;
 		this.title = title;
 		this.local = local;
+		this.kind = kind;
 	}
-	public ProductVo() {
+	public RoomVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 	
 	

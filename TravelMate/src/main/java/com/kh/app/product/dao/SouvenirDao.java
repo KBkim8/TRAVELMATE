@@ -11,7 +11,7 @@ import java.util.List;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
-import com.kh.app.product.vo.ProductVo;
+import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.vo.SouvenirVo;
 
 

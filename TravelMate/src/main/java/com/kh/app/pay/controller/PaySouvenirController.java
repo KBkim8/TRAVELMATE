@@ -30,7 +30,7 @@ public class PaySouvenirController extends HttpServlet{
 			
 			String no = req.getParameter("no");
 			String mname = req.getParameter("mname");
-			String ph = req.getParameter("ph");
+			String ph = req.getParameter("phone");
 			String address = req.getParameter("address");
 			String cnt = req.getParameter("cnt");
 			String totalPrice = req.getParameter("totalPrice");
