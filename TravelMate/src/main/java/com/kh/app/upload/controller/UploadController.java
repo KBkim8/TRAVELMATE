@@ -33,7 +33,7 @@ public class UploadController extends HttpServlet{
 		List<String>changeNameList = new ArrayList<>();
 		
 		Collection<Part> fileList = req.getParts();
-		String path = req.getServletContext().getRealPath("/static/free-board-img/");
+		String path = req.getServletContext().getRealPath("/static/img/board-img/");
 		
 		for(Part f : fileList) {
 			if(!f.getName().equals("f")) {

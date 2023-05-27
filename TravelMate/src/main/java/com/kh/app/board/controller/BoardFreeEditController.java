@@ -23,15 +23,15 @@ import com.kh.app.util.FileUploader;
 public class BoardFreeEditController extends HttpServlet{
 	
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		try {
 			
 			//데꺼
 			String no = req.getParameter("no");
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
-			Part f = req.getPart("f");
+//			Part f = req.getPart("f");
 			
 			//데뭉
 			BoardVo vo = new BoardVo();
@@ -39,13 +39,13 @@ public class BoardFreeEditController extends HttpServlet{
 			vo.setTitle(title);
 			vo.setContent(content);
 			
-			if(f.getSize() > 0) {
-				String path = req.getServletContext().getRealPath("/static/free-board-img/");
-				BoardImgVo biVo = FileUploader.saveFile(path, f);
-				biVo.setOriginName(biVo.getOriginName());
-				biVo.setChangeName(biVo.getChangeName());
-			}
-			
+//			if(f.getSize() > 0) {
+//				String path = req.getServletContext().getRealPath("/static/free-board-img/");
+//				BoardImgVo biVo = FileUploader.saveFile(path, f);
+//				biVo.setOriginName(biVo.getOriginName());
+//				biVo.setChangeName(biVo.getChangeName());
+//			}
+//			
 			//서비스
 			BoardService bs = new BoardService();
 			int result = bs.freeEdit(vo);
@@ -62,8 +62,7 @@ public class BoardFreeEditController extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 	
-
-}
+	}
 }
 
 

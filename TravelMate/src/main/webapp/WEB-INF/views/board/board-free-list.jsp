@@ -13,6 +13,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 600px;
     }
     
 
@@ -96,7 +97,7 @@
 		cursor: pointer;
 	}
 
-    input[name=title]{
+    input[name=searchValue]{
         font-size: 2em;
         width: 500px;
         height: 70px;
@@ -127,10 +128,17 @@
             <a>자유게시판 목록</a>  
         </div>
         <div id="write-area">
-            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색"> 
-            <c:if test="${not empty loginMember }">
-	            <a href="${root }/notice/write" id="btn01">글 작성하러 가기</a>
-            </c:if>
+            <form action="${root}/free/search">
+                <select id="btn01" name="searchType">
+                    <option value="title">제목</option>
+                    <option value="writer">작성자</option>
+                </select>
+                    <input type="text" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
+                    <input  id="btn01" type="submit" value="검색">
+            </form>
+                <c:if test="${not empty loginMember }">
+	                <a href="${root}/free/write" id="btn01">글 작성하러 가기</a>
+                </c:if>
             <br>
             <br>
             <table>
@@ -144,33 +152,33 @@
                 </thead>
                 <hr>
                 <tbody>
-                	<c:forEach items="${bvoList}" var="bvoList" begin="1">
+                	<c:forEach items="${fvoList}" var="fvoList" begin="1">
 	                    <tr>
-	                        <td>${bvoList.no}</td>
-	                        <td>${bvoList.title}</td>
-	                        <td>${bvoList.enrollDate}</td>
-	                        <td>${bvoList.hit}</td>
+	                        <td>${fvoList.no}</td>
+	                        <td>${fvoList.title}</td>
+	                        <td>${fvoList.enrollDate}</td>
+	                        <td>${fvoList.hit}</td>
 	                    </tr>
                 	</c:forEach>
 
                 </tbody>
             </table>
-                <div id="page-area">
-                     <c:if test="${pv.currentPage > 1}">
-                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage-1}">이전</a>
-                    </c:if>
-                    <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-                        <c:if test="${pv.currentPage ne i}">
-                            <a id="btn01" href="${root}/notice/list?page=${i}">${i}</a>
-                        </c:if>
-                        <c:if test="${pv.currentPage == i}">
-                            <a class="btn btn-success" style="font-size: 0.5em">${i}</a>
-                        </c:if>
-                    </c:forEach>
-                    <c:if test="${pv.currentPage < pv.maxPage}">
-                        <a id="btn01" href="${root}/notice/list?page=${pv.currentPage+1}">다음</a>
-                    </c:if> 
-                </div>   
+            <div id="page-area">
+                <c:if test="${pv.currentPage > 1}">
+                   <a id="btn01" href="${root}/free/list?page=${pv.currentPage-1}">이전</a>
+               </c:if>
+               <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
+                   <c:if test="${pv.currentPage ne i}">
+                       <a id="btn01" href="${root}/free/list?page=${i}">${i}</a>
+                   </c:if>
+                   <c:if test="${pv.currentPage == i}">
+                       <a id="btn01" style="font-size: 0.5em;">${i}</a>
+                   </c:if>
+               </c:forEach>
+               <c:if test="${pv.currentPage < pv.maxPage}">
+                   <a id="btn01" href="${root}/free/list?page=${pv.currentPage+1}">다음</a>
+               </c:if> 
+           </div>   
         </div>
     </div>
 

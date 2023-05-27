@@ -3,13 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -20,6 +14,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+		margin-top: 650px;
     }
     
 
@@ -185,6 +180,7 @@
 <body>
 
     <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -206,7 +202,7 @@
 				<span style="font-size: 1.5em;">작성일시:${fvo.enrollDate }</span>
 				&nbsp;
 				<span style="font-size: 1.5em;">조회수 :${fvo.hit }</span>
-				<textarea name="content" id="summernote" readonly>${fvo.content }</textarea>
+				<textarea name="content" id="summernote" readonly="readOnly">${fvo.content }</textarea>
 			</div>
 				
 			<!-- 글 수정 삭제는 not empty loginMember처리  -->
@@ -255,12 +251,12 @@
 
 // summernote
 $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+        placeholder: '내용입력',
         tabsize: 2,
-        height: 320,
-        maxHeight:900,
-        minHeight:500,
-        width: 800,
+        height: 1300,
+        maxHeight:1300,
+        minHeight:1000,
+        width: 1400,
 		callbacks : {
 			onImageUpload : f01
 		},
@@ -276,6 +272,31 @@ $('#summernote').summernote({
       });
 
 
+      function f01(FileList) {
+
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
+
+      $.ajax({
+			url :'${root}/upload' ,
+			type : 'post',
+			data : fd,
+			processData : false,
+			contentType : false,
+			dataType:'json',
+			success : (changeNameList)=>{
+				console.log(changeNameList);
+				for(let changeName of changeNameList){
+					$('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
+				}
+			},
+			error : (e)=>{
+				alert(e);
+			}
+		});
+    }
 ///////////////////////////////////////////////////////////////////////////////////
 
 
@@ -293,7 +314,7 @@ $('#summernote').summernote({
 
 	function edit(){
 			document.querySelector('input[name=title]').readOnly = false;
-			document.querySelector('textarea').readOnly = false;
+			document.querySelector('#summernote').readOnly = false;
 		} 
 
 
@@ -316,6 +337,7 @@ $('#summernote').summernote({
 				if(x == 'ok'){
 					alert("댓글이 등록되었습니다.");
 					document.querySelector("input[name=content]").value = '';
+					loadComment();
 				}else{
 					alert("로그인 후 작성 가능합니다...");
 				}
@@ -325,14 +347,14 @@ $('#summernote').summernote({
 			} ,
 		});
 	}
-	loadComment();
+	
 
 	//댓글 불러오기
 	function loadComment(){
 		const replyListArea = document.querySelector("#reply-list-area");
 		
 		$.ajax({
-			url : '${root}/notice/reply/list' ,
+			url : '${root}/free/reply/list' ,
 			type : "GET" ,
 			data : {
 				no : '${fvo.no}'

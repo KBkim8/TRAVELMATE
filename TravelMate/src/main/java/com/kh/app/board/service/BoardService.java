@@ -126,8 +126,6 @@ private final BoardDao dao;
 	
 		return bvoList;
 	}
-	
-	
 
 	//board cnt
 	public int selectCnt() throws Exception {
@@ -221,6 +219,7 @@ private final BoardDao dao;
 			return fvoList;
 		}
 
+		//공지사항 댓글보여주기
 		public List<CommentVo> noticeReplyList(String boardNo) throws Exception {
 			
 			Connection conn = JDBCTemplate.getConnection();
@@ -300,6 +299,34 @@ private final BoardDao dao;
 			JDBCTemplate.close(conn);
 			
 			return result;
+		}
+
+		//자유게시판 댓글달기
+		public int freeBoardRplyWrite(CommentVo cvo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.freeBoardRplyWrite(conn ,cvo);
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			return result;
+		}
+
+		//자유게시판 댓글 보여주기이이
+		public List<CommentVo> freeReplyList(String boardNo) throws Exception {
+		
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<CommentVo> relpyList = dao.freeReplyList(conn ,boardNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return relpyList;
 		}
 
 		
