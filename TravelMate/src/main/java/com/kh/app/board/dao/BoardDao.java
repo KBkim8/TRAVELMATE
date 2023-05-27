@@ -351,7 +351,7 @@ public class BoardDao {
 	//자유게시판 리스트
 	public List<BoardVo> freeList(Connection conn, PageVo pv) throws Exception {
 		
-		String sql = "SELECT NO ,TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO=3 AND DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO ,TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO=5 AND DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -466,7 +466,7 @@ public class BoardDao {
 	//자유게시판 삭제
 	public int freeDelete(Connection conn, String no) throws Exception {
 		
-		String sql = "UPDATE BOARD SET DELETE_YN='Y' WHERE NO = ? AND BOARD_CATEGORY_NO=3";
+		String sql = "UPDATE BOARD SET DELETE_YN='Y' WHERE NO = ? AND BOARD_CATEGORY_NO=5";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		int result = pstmt.executeUpdate();
@@ -477,7 +477,7 @@ public class BoardDao {
 	//자유게시판 수정
 	public int freeEdit(Connection conn, BoardVo vo) throws Exception {
 		
-		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT=? WHERE BOARD_CATEGORY_NO = 3 AND NO=?"; 
+		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT=? WHERE BOARD_CATEGORY_NO = 5 AND NO=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getTitle());
 		pstmt.setString(2, vo.getContent());
@@ -530,7 +530,7 @@ public class BoardDao {
 	//자유게시판 작성
 	public int freeWrite(Connection conn, BoardVo bvo) throws Exception {
 		
-		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO  , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,3 , ? , ?, ?)";
+		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO  , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,5 , ? , ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, bvo.getMemberNo());
 		pstmt.setString(2, bvo.getTitle());

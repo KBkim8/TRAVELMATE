@@ -329,6 +329,19 @@ private final BoardDao dao;
 			return relpyList;
 		}
 
+		//관리자 신분으로 판매요청글 조회
+		public List<BoardVo> sellRequestList(PageVo pv) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+		
+		//판매지ㅏ 신분으로 판매요청글 조회
+		public List<BoardVo> sellRequestList(PageVo pv, String memberCategoryNo) {
+			return null;
+		}
+
+		
+
 		
 	
 	
