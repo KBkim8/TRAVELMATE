@@ -183,7 +183,6 @@
             <form action="${root}/cs/inqueryList" method="GET">
             <select name="searchType">
                 <option value="title">제목</option>
-                <option value="writer">작성자</option>
             </select>
                 <input type="text" class="searchValueElem" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
                 <input type="submit" value="검색">

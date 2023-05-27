@@ -12,7 +12,7 @@
         position: relative;
 	    width: 1390px;
 	    height: 100%;
-	    bottom: 1100px;
+	    bottom: 900px;
 	    left: 400px;
     }
 
@@ -168,8 +168,6 @@
                               <td><span>닉네임</span></td>
                               <td>
                                 <input type="text" name="memberNick" value="${loginMember.nick}"> 
-                                <button type="button" id="btn02" onclick="checkDup();">중복확인</button>
-                                <span id="nickSpan"></span>
                             </td>
                             </tr>
                             <tr>
