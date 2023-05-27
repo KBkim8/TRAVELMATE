@@ -183,7 +183,7 @@
 			<form action="" method="POST" id="join-form">
 
                 <div id="edit-area">  <span id="idSpan"></span>
-                    아이디<input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input  id="btn01" type="button" value="아이디 중복확인">
+                    아이디<input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input id="btn01" type="button" value="아이디 중복확인">
 					<br>
 					비밀번호<input type="password" name="memberPwd" placeholder="비밀번호를 입력하세요" maxlength="100" size="35" > <span id="passwordMessage"></span>
 					<br>
@@ -191,8 +191,7 @@
 					<br>
 					E-MAIL<input type="text" name="memberEmail" placeholder="이메일을 입력하세요" maxlength="100" size="35" >  <input id="btn00" type="button" value="이메일 확인"> <span id="message"></span>
 					<br>
-                    <span id="nickSpan"></span>
-					닉네임<input type="text" name="memberNick" placeholder="닉네임을 입력하세요" maxlength="100" size="35" >  <input id="btn03" type="button" value="닉네임 중복확인">
+					닉네임<input type="text" name="memberNick" placeholder="닉네임을 입력하세요" maxlength="100" size="35" >  
 					<br>
                     주소<input type="text" name="memberAddress" placeholder="주소를입력하세요" maxlength="100" size="35" >  
 					<br>
@@ -277,36 +276,36 @@
   });
 });
 
-    //닉네임 중복 확인
-    $(document).ready(function() {
-    $('#btn03').click(function() {
-        var memberNick = $('input[name="memberNick"]').val();
+    // //닉네임 중복 확인
+    // $(document).ready(function() {
+    // $('#btn03').click(function() {
+    //     var memberNick = $('input[name="memberNick"]').val();
 
-        const nickSpan = document.querySelector('#nickSpan');
+    //     const nickSpan = document.querySelector('#nickSpan');
 
-        $.ajax({
-        url: '${root}/join',  
-        method: 'POST',
-        data: { 'memberNick' : memberNick },
-        success: function(response) {
-            // 서버로부터의 응답 처리
-            if (response === 'duplicate') {
-            // 중복된 아이디인 경우 처리 로직
-            nickSpan.textContent = '이미 사용중인 닉네임 입니다.';
-            nickSpan.style.color = 'red';
-            } else {
-            // 사용 가능한 아이디인 경우 처리 로직
-            nickSpan.textContent = '사용 가능한 닉네임 입니다.';
-            nickSpan.style.color = 'green';
-            }
-        },
-        error: function(xhr, status, error) {
+    //     $.ajax({
+    //     url: '${root}/join',  
+    //     method: 'POST',
+    //     data: { 'memberNick' : memberNick },
+    //     success: function(response) {
+    //         // 서버로부터의 응답 처리
+    //         if (response === 'duplicate') {
+    //         // 중복된 아이디인 경우 처리 로직
+    //         nickSpan.textContent = '이미 사용중인 닉네임 입니다.';
+    //         nickSpan.style.color = 'red';
+    //         } else {
+    //         // 사용 가능한 아이디인 경우 처리 로직
+    //         nickSpan.textContent = '사용 가능한 닉네임 입니다.';
+    //         nickSpan.style.color = 'green';
+    //         }
+    //     },
+    //     error: function(xhr, status, error) {
            
-            console.error(error);
-        }
-        });
-    });
-    });
+    //         console.error(error);
+    //     }
+    //     });
+    // });
+    // });
 
 
     //이메일체크
