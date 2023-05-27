@@ -15,7 +15,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
-        margin-top: 450px;
+        margin-top: 750px;
     }
     
 
@@ -130,7 +130,7 @@
         <div id="write-area" >
             <form action="${root}/free/write" method="POST">
                 <input type="text" name="title" placeholder="제목을 입력하세요">
-               
+                <br>
                 <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
             </div>
     
@@ -145,10 +145,10 @@
         $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
-        height: 320,
-        maxHeight:900,
-        minHeight:500,
-        width: 800,
+        height: 1300,
+        maxHeight:1300,
+        minHeight:1000,
+        width: 1400,
 		callbacks : {
 			onImageUpload : f01
 		},
@@ -181,7 +181,7 @@
 			success : (changeNameList)=>{
 				console.log(changeNameList);
 				for(let changeName of changeNameList){
-					$('#summernote').summernote('insertImage' , '${root}/static/free-board-img/' + changeName);
+					$('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
 				}
 			},
 			error : (e)=>{

@@ -25,7 +25,6 @@ public class BoardNoticeListController extends HttpServlet{
 		
 		try {
 
-			
 			String searchValue = req.getParameter("searchValue");
 			String searchType = req.getParameter("searchType");
 			

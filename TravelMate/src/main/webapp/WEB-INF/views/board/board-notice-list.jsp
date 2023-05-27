@@ -13,7 +13,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
-        margin-top: 500px;
+        margin-top: 600px;
     }
     
 
@@ -43,16 +43,6 @@
         color: black;
         font-size: 28px;
         font-weight: bold;
-    }
-
-    #edit-area{
-        position: absolute;
-        width: 1300px;
-        height: 1000px;
-        left: 130px;
-        top: 230px;
-        display: grid;
-        grid-template-rows: 3fr 1fr;
     }
 
     #btn01 {
@@ -96,7 +86,7 @@
 		cursor: pointer;
 	}
 
-    input[name=title]{
+    input[name=searchValue]{
         font-size: 2em;
         width: 500px;
         height: 70px;
@@ -111,7 +101,10 @@
         margin-top: 30px;
     }
 
-    
+ 
+    /* -------------------------------------------------- */
+
+   
 </style>
 </head>
 <body>
@@ -129,15 +122,16 @@
        
         <div id="write-area">
             <form action="${root}/notice/search">
-                <select name="searchType">
+                <select id="btn01" name="searchType">
                     <option value="title">제목</option>
                     <option value="writer">작성자</option>
                 </select>
-                    <input type="text" class="searchValueElem" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
-                    <input type="submit" value="검색">
+                    <input type="text" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
+                    <input  id="btn01" type="submit" value="검색">
             </form>
+            <br>
             <c:if test="${not empty loginMember }">
-	            <a href="${root}/notice/write" id="btn01">글 작성하러 가기</a>
+	            <a  href="${root}/notice/write" id="btn01">글 작성하러 가기</a>
             </c:if>
             <br>
             <br>

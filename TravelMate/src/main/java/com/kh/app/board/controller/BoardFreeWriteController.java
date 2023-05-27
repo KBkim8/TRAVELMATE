@@ -26,14 +26,14 @@ public class BoardFreeWriteController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		//로그인 안하면 에러페이지로 보내기
-//		HttpSession session = req.getSession();
-//		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-//		if(loginMember == null) {
-//			req.setAttribute("errorMsg", "로그인을 먼저 해주세요");
-//			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
-//			return;
-//		}
+//		로그인 안하면 에러페이지로 보내기
+		HttpSession session = req.getSession();
+		MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+		if(loginMember == null) {
+			req.setAttribute("errorMsg", "로그인을 먼저 해주세요");
+			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+			return;
+		}
 		req.getRequestDispatcher("/WEB-INF/views/board/board-free-write.jsp").forward(req, resp);
 	}
 	
@@ -45,7 +45,6 @@ public class BoardFreeWriteController extends HttpServlet{
 			
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-			
 			
 			// 데꺼
 			String title = req.getParameter("title");

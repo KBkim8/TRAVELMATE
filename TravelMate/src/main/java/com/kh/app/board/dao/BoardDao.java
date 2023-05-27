@@ -44,7 +44,7 @@ public class BoardDao {
 
 	public int write(Connection conn, BoardVo bvo) throws Exception {
 		
-		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO  , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,3 , ? , ? , ? )";
+		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO  , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,1 , ? , ? , ? )";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, bvo.getMemberNo());
 		pstmt.setString(2, bvo.getTitle());
@@ -360,31 +360,17 @@ public class BoardDao {
 		List<BoardVo> fvoList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
-			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
-			String proCategoryNo = rs.getString("PRO_CATEGORY_NO");
-			String memberNo = rs.getString("MEMBER_NO");
-			String boardImgNo = rs.getString("BOARD_IMG_NO");
 			String title = rs.getString("TITLE");
-			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
 			String enrollDate = rs.getString("ENROLL_DATE");
-			String deleteYn = rs.getString("DELETE_YN");
 			String hit = rs.getString("HIT");
-			String uploadYn = rs.getString("UPLOAD_YN");
-			String modifyDate = rs.getString("MODIFY_DATE");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
-			vo.setBoardCategoryNo(boardCategoryNo);
-			vo.setProCategoryNo(proCategoryNo);
-			vo.setMemberNo(memberNo);
-			vo.setBoardImgNo(boardImgNo);
 			vo.setTitle(title);
-			vo.setContent(content);
+			vo.setMemberNo(memberNo);
 			vo.setEnrollDate(enrollDate);
-			vo.setDeleteYn(deleteYn);
 			vo.setHit(hit);
-			vo.setUploadYn(uploadYn);
-			vo.setModifyDate(modifyDate);
 			
 			fvoList.add(vo);
 		}
@@ -434,9 +420,10 @@ public class BoardDao {
 		
 	}
 
+	//자유게시판 상세조회
 	public BoardVo freeDetail(Connection conn, String no) throws Exception {
 
-		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B. PRO_CATEGORY_NO ,B. MEMBER_NO ,B. BOARD_IMG_NO ,B. TITLE ,B. CONTENT ,B. ENROLL_DATE ,B. DELETE_YN ,B. HIT ,B. UPLOAD_YN ,B. MODIFY_DATE ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO =3 AND B.NO =? AND DELETE_YN='N'";
+		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B. MEMBER_NO ,B. BOARD_IMG_NO ,B. TITLE ,B. CONTENT ,TO_CHAR(B. ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE ,B. DELETE_YN ,B. HIT ,B. UPLOAD_YN ,B. MODIFY_DATE ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO =3 AND B.NO = ? AND DELETE_YN='N'";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -444,9 +431,8 @@ public class BoardDao {
 		BoardVo fvo = null;
 		if(rs.next()) {
 			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
-			String proCategoryNo = rs.getString("PRO_CATEGORY_NO");
 			String memberNo = rs.getString("MEMBER_NO");
-			String memberNick = rs.getString("MEMBER_NICK");
+			String memberNick = rs.getString("NICK");
 			String boardImgNo = rs.getString("BOARD_IMG_NO");
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
@@ -459,11 +445,10 @@ public class BoardDao {
 			fvo = new BoardVo();
 			
 			fvo.setNo(no);
-			fvo.setProCategoryNo(proCategoryNo);
+			fvo.setBoardCategoryNo(boardCategoryNo);
 			fvo.setMemberNo(memberNo);
 			fvo.setMemberNick(memberNick);
 			fvo.setBoardImgNo(boardImgNo);
-			fvo.setTitle(title);
 			fvo.setTitle(title);
 			fvo.setContent(content);
 			fvo.setEnrollDate(enrollDate);
@@ -481,7 +466,7 @@ public class BoardDao {
 	//자유게시판 삭제
 	public int freeDelete(Connection conn, String no) throws Exception {
 		
-		String sql = "UPDATE BOARD SET DELETE_YN='Y' WHERE NO = ?";
+		String sql = "UPDATE BOARD SET DELETE_YN='Y' WHERE NO = ? AND BOARD_CATEGORY_NO=3";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		int result = pstmt.executeUpdate();
@@ -489,9 +474,10 @@ public class BoardDao {
 		return result;
 	}
 
+	//자유게시판 수정
 	public int freeEdit(Connection conn, BoardVo vo) throws Exception {
 		
-		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT=? WHERE BOARD_CATEGORY_NO =3 AND NO=?"; 
+		String sql = "UPDATE BOARD SET TITLE = ? , CONTENT=? WHERE BOARD_CATEGORY_NO = 3 AND NO=?"; 
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getTitle());
 		pstmt.setString(2, vo.getContent());
@@ -502,7 +488,7 @@ public class BoardDao {
 	}
 
 	public List<BoardVo> noticeList(Connection conn, PageVo pv, String searchValue, String searchType) throws Exception {
-		//쿼리문 만꾸면됨
+
 		String sql = "";
 		if(searchType.equals("title")) {
 			// sql (제목으로 검색)
@@ -513,26 +499,102 @@ public class BoardDao {
 			return noticeList(conn, pv);
 		}
 		
-		 /*
-		  * rs 작성후
-		  *  return bvoList; 
-		 * */
-		return null;
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		
+		List<BoardVo> bvoList = new ArrayList<>();
+		while(rs.next()) {
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String enrolldate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			
+			BoardVo vo = new BoardVo();
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setEnrollDate(enrolldate);
+			vo.setDeleteYn(deleteYn);
+			
+			bvoList.add(vo);
+		}
+
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		return bvoList;
 	}
 
 	//자유게시판 작성
 	public int freeWrite(Connection conn, BoardVo bvo) throws Exception {
 		
-		String sql = "";
+		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO  , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL ,3 , ? , ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, bvo.getTitle());
-		pstmt.setString(2, bvo.getContent());
+		pstmt.setString(1, bvo.getMemberNo());
+		pstmt.setString(2, bvo.getTitle());
+		pstmt.setString(3, bvo.getContent());
 		int result = pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);
 		
 		return result;
 		
+	}
+
+	
+	//자유게시판  댓글 달기
+	public int freeBoardRplyWrite(Connection conn, CommentVo cvo) throws Exception {
+
+		String sql = "INSERT INTO \"COMMENT\" ( NO , MEMBER_NO , BOARD_NO , CONTENT ) VALUES ( SEQ_COMMENT_NO.NEXTVAL , ? , ? , ? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, cvo.getMemberNo());
+		pstmt.setString(2, cvo.getBoardNo());
+		pstmt.setString(3, cvo.getContent());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
+	//자유게시판 댓글 보여주기
+	public List<CommentVo> freeReplyList(Connection conn, String boardNo) throws Exception {
+
+		String sql = "SELECT M.NICK AS MEMBER_NICK, B.NO, B.BOARD_CATEGORY_NO, C.NO, C.MEMBER_NO, C.BOARD_NO, C.QNA_NO, C.CONTENT, TO_CHAR(C.ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE ,C.MODIFY_DATE ,C.DELETE_YN FROM \"COMMENT\" C JOIN BOARD B ON C.BOARD_NO = B.NO JOIN MEMBER M ON C.MEMBER_NO = M.NO WHERE B.NO = ? ORDER BY C.NO DESC";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, boardNo);
+		ResultSet rs = pstmt.executeQuery();
+
+		List<CommentVo> replyList = new ArrayList<>();
+		while(rs.next()) {
+
+			String no = rs.getString("NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String modiFyDate = rs.getString("MODIFY_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String memberNick = rs.getString("MEMBER_NICK");
+			
+			CommentVo vo = new CommentVo();
+			vo.setNo(no);
+			vo.setMemberNo(memberNo);
+			vo.setContent(content);
+			vo.setBoardNo(boardNo);
+			vo.setEnrollDate(enrollDate);
+			vo.setModifyDate(modiFyDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMemberNick(memberNick);
+			
+			replyList.add(vo);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return replyList;
 	}
 
 }//class

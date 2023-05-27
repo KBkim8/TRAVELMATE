@@ -25,12 +25,11 @@ public class BoardFreeDeleteController extends HttpServlet{
 		try {
 			result = bs.freeDelete(no);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		if(result ==1) {
-			req.getRequestDispatcher("/WEB-INF/views/board/board-free-list.jsp").forward(req, resp);
+			resp.sendRedirect(req.getContextPath()+"/free/list");
 		}
 	}
 	

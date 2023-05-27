@@ -37,7 +37,7 @@ public class BoardFreeListController extends HttpServlet{
 			//gd
 			req.setAttribute("pv", pv);
 			req.setAttribute("fvoList", fvoList);
-			req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/board/board-free-list.jsp").forward(req, resp);
 			
 		}catch (Exception e) {
 			System.out.println("error");

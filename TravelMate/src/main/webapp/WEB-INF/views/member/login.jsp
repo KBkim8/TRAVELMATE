@@ -13,7 +13,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
-        margin-top: 300px;  /*이녀석도*/
+        margin-top: 8   00px;  /*이녀석도*/
     }
 
     #first-content>img{
