@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <style>
 
 
@@ -44,29 +45,31 @@
         font-weight: bold;
     }
     
-    #order-list-box{
-        width: 1300px;
-        border-radius: 30px;
-        border: 1px solid black;
+
+    #orderList-area {
         height: 1000px;
         left: 100px;
         top: 230px;
-        font-size: 25px;
+        font-size: 22px;
         position: absolute;
-        display: grid;
-        justify-content: center;
-        align-content: center;
-    }
-
-    #orderList-area {
         width: 1300px;
         height: 80%;
         text-align: center;
+        border-collapse: separate;
+        border-spacing: 2px;
+        
     }
 
-    #orderList-area  table > tbody > td{
+    #orderList-area thead th {
+            font-weight: bold;
+            font-size: 25px;
+            border-bottom: 2px solid black; /* 선 스타일 및 색상 설정 */
+        }
+
+    #orderList-area tbody td {
+        border-bottom: 1px solid black; /* 선 스타일 및 색상 설정 */
+        text-align: center;
         vertical-align: middle;
-        border-bottom: 1px solid black;
     }
 
     #orderList-area thead th {
@@ -81,6 +84,9 @@
     }
 
     #page-area{
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -99,6 +105,20 @@
         width: 100px;
         height: 30px;
         font-size: 25px;
+        margin-left: 15px;
+    }
+
+    #btn02 {
+        background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+        width: 90px;
+        height: 40px;
+        font-size: 20px;
         margin-left: 15px;
     }
 
@@ -190,9 +210,9 @@
                 <input type="submit" value="검색">
             </form>
         </div>
-        <div id="order-list-box">
+        <!-- <div id="order-list-box"> -->
             <!-- 반복문 처리 -->
-            <table id="orderList-area">
+            <table id="orderList-area" align="center">
                 <thead>
                     <tr>
                         <th>주문번호</th>
@@ -242,7 +262,12 @@
                             </div>
                         </td>
                         <td>${vo.payDate}</td>
-                        <td>${vo.payType}</td>
+                        <td>
+                            ${vo.payType}
+                            <br>
+                            <br>
+                            <button id="btn02"><a href="">환불</a></button>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -258,7 +283,7 @@
                     <a id="btn01" href="${root}/mypage/orderList?page=${pv.currentPage+1}">다음</a>
                     </c:if>
                 </div>
-        </div>
+        <!-- </div> -->
       </div>
     </div>
     
@@ -300,7 +325,7 @@
 		if(searchType != 'category'){
 			return;
 		}
-		const optionTag = document.querySelector("option[value='" + searchValue + "']");
+		const optionTag = document.querySelector("option[value='1' || '2' || '3']");
 		optionTag.selected = true;	
 	}
 	

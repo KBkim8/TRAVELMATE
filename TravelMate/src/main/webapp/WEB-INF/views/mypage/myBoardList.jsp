@@ -311,11 +311,23 @@
 	const tbody = document.querySelector('tbody');
 	tbody.addEventListener('click', (event)=>{
 		
-		// 글 번호 가져와서 
+        // 카테고리 이름 가져오기
+        const categoryName = event.target.parentNode.children[0].innerText;
+		console.log(categoryName);
+        // 글 번호 가져와서 
 		const no = event.target.parentNode.children[1].innerText;
+        console.log(no);
 
 		// 요청 보내기
-		location.href = '${root}/board/detail?no=' + no;
+        if(categoryName == '자유'){
+            location.href = '${root}/free/detail?no=' + no;
+        }else if (categoryName == '리뷰'){
+            location.href = '${root}/review/detail?no=' + no;
+        }else if(categoryName == '판매등록요청'){
+            location.href = '${root}/?/detail?no=' + no;
+        }else if (categoryName == '랜선여행'){
+            location.href = '${root}/online/travel/detail?no=' + no;
+        }
 
 	});
 

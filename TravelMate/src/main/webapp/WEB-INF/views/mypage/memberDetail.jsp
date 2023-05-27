@@ -118,7 +118,7 @@
         border-radius: 6px;
         width: 250px;
         height: 50px;
-        font-size: 28px;
+        font-size: 30px;
         margin-left: 80px;
     }
 
@@ -178,7 +178,28 @@
                           </tr>
                           <tr>
                             <td><span>회원등급</span></td>
-                            <td>${loginMember.memberGradeName} <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
+                            <td>
+                           		<c:choose> 
+                                        <c:when test="${vo.totalAttend <= 50 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeA.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 50 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeB.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 200 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeC.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 500 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeD.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 1000 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeE.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeF.png" id="rankImg" alt="기념품이미지">
+                                        </c:otherwise> 
+                                 </c:choose> 
+                          </td>
                           </tr>
                           <tr>
                             <td><span>누적 출석일수</span></td>
