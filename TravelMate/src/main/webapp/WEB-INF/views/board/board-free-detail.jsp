@@ -187,7 +187,7 @@
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>공지사항 상세 조회</a>  
+            <a>자유게시판 상세 조회</a>  
         </div>
 		<form action="${root}/free/edit" method="POST">
 			<div id="write-area">

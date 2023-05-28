@@ -10,6 +10,7 @@ import java.util.List;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
 import com.kh.app.board.vo.CommentVo;
+import com.kh.app.board.vo.ReviewBoardVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
@@ -293,7 +294,7 @@ public class BoardDao {
 	//조회수 처리
 	public int updateHit(Connection conn, String no) throws Exception {
 		
-		String sql = "UPDATE BOARD SET HIT = HIT+1 WHERE NO = ? AND DELETE_YN = 'N'";
+		String sql = "UPDATE BOARD SET HIT = HIT+1 WHERE NO = ? AND DELETE_YN = 'N' AND BOARD_CATEGORY_NO=1";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		int result = pstmt.executeUpdate();
@@ -301,7 +302,30 @@ public class BoardDao {
 		return result;
 		
 	}
+	
+	//조회수 처리
+		public int carReviewupdateHit(Connection conn, String no) throws Exception {
+			
+			String sql = "UPDATE BOARD SET HIT = HIT+1 WHERE NO = ? AND DELETE_YN = 'N' AND BOARD_CATEGORY_NO=4";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+			int result = pstmt.executeUpdate();
+			JDBCTemplate.close(pstmt);
+			return result;
+			
+		}
 
+		public int freeUpdateHit(Connection conn, String no) throws Exception {
+			
+			String sql = "UPDATE BOARD SET HIT = HIT+1 WHERE NO = ? AND DELETE_YN = 'N' AND BOARD_CATEGORY_NO=5";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+			int result = pstmt.executeUpdate();
+			JDBCTemplate.close(pstmt);
+			return result;
+			
+		}
+		
 	// 공지사항 삭제 처리
 	public int noticeDelete(Connection conn, String no) throws Exception {
 		
@@ -635,6 +659,98 @@ public class BoardDao {
 		
 		return cnt;
 
+	}
+
+	
+	//차량 리뷰
+	public int carReviewWrite(Connection conn, ReviewBoardVo rbVo) throws Exception {
+		
+		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL , 4, ? , ? , ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, rbVo.getMemberNo());
+		pstmt.setString(2, rbVo.getTitle());
+		pstmt.setString(3, rbVo.getContent());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	//차량 리뷰 게시글 리스트
+	public List<BoardVo> carReviewList(Connection conn, PageVo pv) throws Exception {
+
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT * FROM BOARD B JOIN BOARD_CATEGORY BC  ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE BC.NO=4  AND B.DELETE_YN='N' ORDER BY B.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<BoardVo> rvoList = new ArrayList<>();
+		while(rs.next()) {
+			
+			String no = rs.getString("NO");
+			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String boardImgNo = rs.getString("BOARD_IMG_NO");
+			String content = rs.getString("CONTENT");
+			String deletYn = rs.getString("DELETE_YN");
+			String uploadYn = rs.getString("UPLOAD_YN");
+			String modifyDate = rs.getString("MODIFY_DATE");
+			String title = rs.getString("TITLE");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String hit = rs.getString("HIT");
+
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setEnrollDate(enrollDate);
+			vo.setHit(hit);
+			vo.setBoardCategoryNo(boardCategoryNo);
+			vo.setBoardImgNo(boardImgNo);
+			vo.setMemberNo(memberNo);
+			vo.setContent(content);
+			vo.setDeleteYn(deletYn);
+			vo.setUploadYn(uploadYn);
+			vo.setModifyDate(modifyDate);
+			
+			rvoList.add(vo);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		return rvoList;
+	}
+
+	//차량 리뷰 상세조회
+	public BoardVo carReviewDetail(Connection conn, String no) throws Exception {
+
+		String sql = "SELECT B.NO ,B.TITLE ,B.CONTENT ,TO_CHAR(B.ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE ,B.HIT ,M.NICK AS MEMBER_NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE BOARD_CATEGORY_NO =4 AND B.NO = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, no);
+
+		ResultSet rs = pstmt.executeQuery();
+		
+		BoardVo vo = null;
+		if(rs.next()) {
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String hit = rs.getString("HIT");
+			String nick = rs.getString("MEMBER_NICK");
+			
+			 vo = new BoardVo();
+			 vo.setTitle(title);
+			 vo.setContent(content);
+			 vo.setEnrollDate(enrollDate);
+			 vo.setHit(hit);
+			 vo.setMemberNick(nick);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return vo;
+	
 	}
 
 }//class

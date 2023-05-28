@@ -22,7 +22,7 @@ import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
 @WebServlet(urlPatterns = "/room/reivew/write")
-public class BoardReviewWriteRoomController extends HttpServlet{
+public class BoardRoomReviewWriteController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

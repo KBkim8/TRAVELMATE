@@ -3,14 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-    
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>   
-    <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
-    
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -21,6 +14,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+		margin-top: 650px;
     }
     
 
@@ -51,6 +45,36 @@
         font-size: 28px;
         font-weight: bold;
     }
+
+    #edit-area{
+        position: absolute;
+        width: 1300px;
+        height: 1000px;
+        left: 130px;
+        top: 230px;
+        display: grid;
+        grid-template-rows: 3fr 1fr;
+    }
+    
+    #edit-input-box{
+        width: 1300px;
+        border-radius: 30px;
+        border: 1px dashed black;
+        height: 90%;
+        margin: auto;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+
+   
+    #btn-area{
+        margin: auto;
+        margin-top: 10%;
+        place-items: center center;
+    }
     
     #btn-area > input{
         width: 200px;
@@ -79,7 +103,6 @@
 
     #write-area{
         margin-left: 20%;
-        margin-top: 200px;
     }
 
     textarea{
@@ -104,60 +127,102 @@
         margin-top: 210px;
     }
 
-    #submit{
-        display: flex;
-        height: 100px;
-        justify-content: center;
-        align-items: center;
-    }
+	#hr{
+		border: 3px groove black;
+		margin-left: 200px;
+	}
 
-    #submit input{
-        margin-left: 300px;
-        font-size: 1.3em;
-        height: 70px;
-        text-align: center;
-    }
+	#reply-write-area{
+		display: grid;
+		grid-template-columns: 5fr 1fr;
+	}
 
-    
+	#reply-write-area > input{
+		margin-left: 280px;
+		width: 900px;
+		border-radius: 20px;
+		font-size: 1.5em;
+		background-color: #d8f1c7;
+		height: 60px;
+	}
+
+	#btn01{
+		font-size: 1.5em;
+		height: 60px;
+	}	
+
+	#reply-list-area > table{
+		margin-left: 280px;
+		margin-top: 20px;
+		width: 900px;
+		border-radius: 20px;
+		font-size: 1.5em;
+		border-spacing: 4px;
+		background-color: #d8f1c7;
+	}
+
+	#reply-list-area > table > tbody > tr > td{
+		text-align: center;
+	}
+
+	#reply-list-area > table > thead > tr > th , #reply-area > table > tbody > tr > td{
+ 		 border: 3px solid black;
+		border-radius: 10px;
+		box-sizing: border-box;
+	}
+
+	#btn-area{
+		box-sizing: border-box;
+		margin-left: 300px;
+	}
 </style>
 </head>
 <body>
 
     <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 	<!-- 내용영역 -->
     <div id="content">
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>리뷰글 작성</a>
+            <a>리뷰 글 상세 조회</a>  
         </div>
-        <div id="write-area" >
-            <form action="${root}/car/review/write" method="POST">
-                <input type="text" name="title" placeholder="제목을 입력하세요">
-                <br>
-                <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
-            </div>
-    
-            <div id="submit">
-                <input type="submit" value="작성하기" id="btn01">
-            </div>
-            </form>
-    </div>
-
-
+		<form action="${root}/free/edit" method="POST">
+			<div id="write-area">
+				<input type="hidden" name="no" value="${cvo.no}"> 
+				<input type="text" name="title" value="${cvo.title}" readonly="readonly">
+				&nbsp;
+				&nbsp;
+				&nbsp;
+				<span style="font-size: 1.5em;">작성자:${cvo.memberNick }</span>
+				&nbsp;
+				&nbsp;
+				<span style="font-size: 1.5em;">작성일시:${cvo.enrollDate }</span>
+				&nbsp;
+				<span style="font-size: 1.5em;">조회수 :${cvo.hit }</span>
+				<textarea name="content" id="summernote" >${cvo.content }</textarea>
+			</div>
+				
+		</form>
 </body>
 </html>
-
 <script>
 
+
+
+
+// summernote
 $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
+	
+        placeholder: '내용입력',
         tabsize: 2,
-        height: 320,
-        maxHeight:900,
+        height: 800,
+        maxHeight:100,
         minHeight:500,
-        width: 800,
+        width: 1400,
+		
 		callbacks : {
 			onImageUpload : f01
 		},
@@ -172,19 +237,15 @@ $('#summernote').summernote({
         ]
       });
 
-	  //파일업로드 발생시 동작
-	  function f01(fileList) {
-		console.log(fileList);
+      function f01(FileList) {
 
-		const  fd = new FormData();
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
 
-		for(let file of fileList){
-			fd.append( 'f' ,file);   // f에 파일담아서보냄
-		}
-		
-
-		$.ajax({
-			url :'/upload' ,
+      $.ajax({
+			url :'${root}/upload' ,
 			type : 'post',
 			data : fd,
 			processData : false,
@@ -193,22 +254,12 @@ $('#summernote').summernote({
 			success : (changeNameList)=>{
 				console.log(changeNameList);
 				for(let changeName of changeNameList){
-					$('#summernote').summernote('insertImage' , '${root}/static/car-review-img/' + changeName);
+					$('#summernote').summernote('insertImage' , '${root}/static/img/car-review-img/' + changeName);
 				}
 			},
 			error : (e)=>{
 				alert(e);
 			}
 		});
-	  }
-
-
-
-
-
-
-
-
-
-
+    }
 </script>
