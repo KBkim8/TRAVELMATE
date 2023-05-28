@@ -202,7 +202,7 @@
 				<span style="font-size: 1.5em;">작성일시:${fvo.enrollDate }</span>
 				&nbsp;
 				<span style="font-size: 1.5em;">조회수 :${fvo.hit }</span>
-				<textarea name="content" id="summernote" readonly="readOnly">${fvo.content }</textarea>
+				<textarea name="content" id="summernote" >${fvo.content }</textarea>
 			</div>
 				
 			<!-- 글 수정 삭제는 not empty loginMember처리  -->
@@ -251,12 +251,14 @@
 
 // summernote
 $('#summernote').summernote({
+	
         placeholder: '내용입력',
         tabsize: 2,
         height: 1300,
         maxHeight:1300,
         minHeight:1000,
         width: 1400,
+		
 		callbacks : {
 			onImageUpload : f01
 		},
@@ -270,7 +272,6 @@ $('#summernote').summernote({
           ['view', ['fullscreen', 'codeview', 'help']]
         ]
       });
-
 
       function f01(FileList) {
 

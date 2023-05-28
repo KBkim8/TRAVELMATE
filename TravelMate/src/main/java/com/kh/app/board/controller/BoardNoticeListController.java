@@ -28,13 +28,13 @@ public class BoardNoticeListController extends HttpServlet{
 			String searchValue = req.getParameter("searchValue");
 			String searchType = req.getParameter("searchType");
 			
-			int listCount = bs.selectCnt();
-			String page = req.getParameter("page");
-			if(page == null) page = "1";
-			int currentPage = Integer.parseInt(page);
-			int pageLimit = 5;
-			int boardLimit = 10;
-			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
+			int cnt = bs.getBoardListCnt(searchType , searchValue);
+			String page_ = req.getParameter("page");
+			if(page_ == null) {
+				page_ = "1";
+			}
+			int page = Integer.parseInt(page_);
+			PageVo pv = new PageVo(cnt, page, 5, 10);
 			
 			//tqt
 			List<BoardVo> bvoList =null;

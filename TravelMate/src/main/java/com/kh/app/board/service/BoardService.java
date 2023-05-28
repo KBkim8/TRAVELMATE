@@ -329,15 +329,52 @@ private final BoardDao dao;
 			return relpyList;
 		}
 
-		//관리자 신분으로 판매요청글 조회
-		public List<BoardVo> sellRequestList(PageVo pv) {
-			// TODO Auto-generated method stub
+		//관리자 신분으로 모든 판매요청 리스트 조회
+		public List<BoardVo> sellRequestList(PageVo pv) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			String sql = "";
+			PreparedStatement pstmtPreparedStatement = conn.prepareStatement(sql);
+			
+			return null;
+			
+		
+		}
+		
+		//판매자 자신이 쓴 판매요청 리스트 조회
+		public List<BoardVo> sellRequestList(PageVo pv, String memberCategoryNo) {
+
 			return null;
 		}
 		
-		//판매지ㅏ 신분으로 판매요청글 조회
-		public List<BoardVo> sellRequestList(PageVo pv, String memberCategoryNo) {
-			return null;
+		
+		//판매 요청글 쓰기 멤버카테고리 3번(판매자)        파라미터로 받아온건 작성자번호임 
+		public int sellRequestWrite(BoardVo vo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.sellRequestWrite(conn, vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			return result;
+		}
+
+		public int getBoardListCnt(String searchType, String searchValue) throws Exception {
+
+			//conn
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int cnt = dao.getBoardListCnt(conn , searchType , searchValue);
+			
+			//close
+			JDBCTemplate.close(conn);
+			
+			return cnt;
 		}
 
 		

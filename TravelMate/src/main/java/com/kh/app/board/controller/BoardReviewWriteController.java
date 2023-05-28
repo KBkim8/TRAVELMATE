@@ -21,7 +21,7 @@ import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
-@WebServlet(urlPatterns = "/review/write")
+@WebServlet(urlPatterns = {"/review/write/car" , "review/write/lodging" , "review/write/souvenir"})
 public class BoardReviewWriteController extends HttpServlet{
 	
 	@Override
@@ -35,65 +35,55 @@ public class BoardReviewWriteController extends HttpServlet{
 //			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 //			return;
 //		}
-//		
+		
+		
 		
 		req.getRequestDispatcher("/WEB-INF/views/board/board-review-write.jsp").forward(req, resp);
 	}
 	
-//	@Override
-	//
-//	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//		try {
-//			
-//			HttpSession session = req.getSession();
-//			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-//			
-//			//파일 업로드
-//			List<Part> fList = new ArrayList<>();
-//			Collection<Part> parts = req.getParts();
-//			for(Part part : parts) {
-//				if( part.getName().equals("f") ) {
-//					fList.add(part);
-//				}
-//			}
-//			String path = req.getServletContext().getRealPath("/static/img/board/");
-//			List<BoardImgVo> BoardImgVoList = FileUploader.saveFile(path , fList);
-//			
-//			// 데꺼
-//			String title = req.getParameter("title");
-//			String content = req.getParameter("content");
-//			String categoryNo = req.getParameter("categoryNo");
-//			String memberNo = loginMember.getNo();
-//			
-//			// 데뭉
-//			BoardVo bvo = new BoardVo();
-//			bvo.setTitle(title);
-//			bvo.setContent(content);
-//			bvo.setBoardCategoryNo(categoryNo);
-//			bvo.setMemberNo(memberNo);
-//			
-//			// 서비스
-//			BoardService bs = new BoardService();
-//			int result = bs.reviewWrite(bvo , BoardImgVoList);
-//			
-//			// 화면
-//			if(result == 1) {
-//				//성공
-//				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
-//				resp.sendRedirect(req.getContextPath() + "/list");
-//			}else {
-//				//실패
-//				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
-//			}
-//			
-//		} catch (Exception e) {
-//			//실패
-//			e.printStackTrace();
-//			req.setAttribute("errorMsg", "게시글 작성 실패 ...");
-//			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
-//		}
-//		
-//	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		try {
+			
+			HttpSession session = req.getSession();
+			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+			
+			//파일 업로드
+			
+			// 데꺼
+			String memberNo = loginMember.getNo();
+			String title = req.getParameter("title");
+			String content = req.getParameter("content");
+			String categoryNo = req.getParameter("categoryNo");
+			
+			// 데뭉
+			BoardVo bvo = new BoardVo();
+			bvo.setTitle(title);
+			bvo.setContent(content);
+			bvo.setBoardCategoryNo(categoryNo);
+			bvo.setMemberNo(memberNo);
+			
+			// 서비스
+			BoardService bs = new BoardService();
+			
+			// 화면
+			if(result == 1) {
+				//성공
+				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
+				resp.sendRedirect(req.getContextPath() + "/list");
+			}else {
+				//실패
+				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
+			}
+			
+		} catch (Exception e) {
+			//실패
+			e.printStackTrace();
+			req.setAttribute("errorMsg", "게시글 작성 실패 ...");
+			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+		}
+		
+	}
 
 }

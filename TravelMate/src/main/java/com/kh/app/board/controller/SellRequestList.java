@@ -15,8 +15,8 @@ import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet(urlPatterns = "/admin/private/sell/request")
-public class AdminPrivateSellRequestListController extends HttpServlet{
+@WebServlet(urlPatterns = "/sell/request/list")
+public class SellRequestList extends HttpServlet{
 	
 	//	멤버 카테고리 "1" 번인 관리자의 신분으로 모든 판매등록글 리스트 조회
 	@Override
@@ -39,6 +39,7 @@ public class AdminPrivateSellRequestListController extends HttpServlet{
 			int pageLimit = 5;
 			int boardLimit = 10;
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
+			
 			List<BoardVo> voList = null;
 			if(memberCategoryNo =="1") {
 				voList = bs.sellRequestList(pv);
