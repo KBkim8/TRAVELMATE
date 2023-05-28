@@ -423,7 +423,7 @@ public class BoardDao {
 	//자유게시판 상세조회
 	public BoardVo freeDetail(Connection conn, String no) throws Exception {
 
-		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B. MEMBER_NO ,B. BOARD_IMG_NO ,B. TITLE ,B. CONTENT ,TO_CHAR(B. ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE ,B. DELETE_YN ,B. HIT ,B. UPLOAD_YN ,B. MODIFY_DATE ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO =3 AND B.NO = ? AND DELETE_YN='N'";
+		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B. MEMBER_NO ,B. BOARD_IMG_NO ,B. TITLE ,B. CONTENT ,TO_CHAR(B. ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE ,B. DELETE_YN ,B. HIT ,B. UPLOAD_YN ,B. MODIFY_DATE ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO =5 AND B.NO = ? AND DELETE_YN='N'";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -595,6 +595,46 @@ public class BoardDao {
 		JDBCTemplate.close(rs);
 		
 		return replyList;
+	}
+
+	//판매 요청글
+	public int sellRequestWrite(Connection conn, BoardVo vo) throws Exception {
+
+		String sql = "INSERT INTO BOARD (NO , BOARD_CATEGORY_NO , MEMBER_NO , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL , 2, ? , ? , ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getTitle());
+		pstmt.setString(3, vo.getContent());
+		int result = pstmt.executeUpdate();
+		
+		return result;
+	}
+
+	//이거 모르겠다
+	public int getBoardListCnt(Connection conn, String searchType, String searchValue) throws Exception {
+
+		//SQL
+		String sql = "SELECT COUNT(*) FROM ( SELECT B.NO ,B.TITLE ,B.CONTENT ,B.BOARD_CATEGORY_NO ,B.ENROLL_DATE ,B.DELETE_YN ,B.MODIFY_DATE ,B.HIT ,M.NICK FROM BOARD B JOIN MEMBER M ON (B.MEMBER_NO = M.NO) ) WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO =1";
+		if("title".equals(searchType)) {
+			sql += "AND TITLE LIKE '%" + searchValue + "%'";
+		}else if("writer".equals(searchType)) {
+			sql += "AND NICK LIKE '%" + searchValue + "%'";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+
 	}
 
 }//class

@@ -121,7 +121,7 @@
         </div>
        
         <div id="write-area">
-            <form action="${root}/notice/search">
+            <form action="${root}/notice/list">
                 <select id="btn01" name="searchType">
                     <option value="title">제목</option>
                     <option value="writer">작성자</option>
