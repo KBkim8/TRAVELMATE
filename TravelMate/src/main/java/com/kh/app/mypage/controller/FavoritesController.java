@@ -18,12 +18,6 @@ import com.kh.app.mypage.vo.FavoriteVo;
 @WebServlet("/mypage/favorites")
 public class FavoritesController extends HttpServlet{
 
-	// 관심상품 화면
-//	@Override
-//	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//		req.getRequestDispatcher("/WEB-INF/views/mypage/favorites.jsp").forward(req, resp);
-//	}
-	
 	// 관심상품 
 	// 회원번호로 select 해서 차량, 숙소, 기념품 
 	@Override

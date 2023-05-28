@@ -14,9 +14,10 @@
     #content{
         position: relative;
 	    width: 1390px;
-	    height: 100%;
-	    bottom: 900px;
-	    left: 400px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
+        margin-top: 800px;
     }
 
     #first-content>img{
@@ -193,8 +194,13 @@
 					<tr>
 						<th>문의번호</th>
 						<th>제목</th>
-						<th>작성자</th>
+						<c:if test="${loginMember.id eq 'admin'}">
+							<th>작성자</th>
+						</c:if>
 						<th>작성일시</th>
+						<c:if test="${loginMember.id not eq 'admin' }">
+							<th>답변상태</th>
+						</c:if>
 					</tr>
 				</thead>
 
@@ -204,8 +210,15 @@
 					<tr>
 						<td>${ inq.no }</td>
 						<td>${ inq.title }</td>
-						<td>${ inq.memberNick }</td>
+						<c:if test="${loginMember.id eq 'admin'}">
+							<td>${ inq.memberNick }</td>
+						</c:if>
 						<td>${ inq.enrollDate }</td>
+						<c:if test="${loginMember.id not eq 'admin' }">
+							<td>
+								
+							</td>
+						</c:if>
 					</tr>
 					</c:forEach>
 					

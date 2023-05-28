@@ -122,6 +122,20 @@
         margin-left: 15px;
     }
 
+    #review-btn {
+        background-color: rgb(150, 237, 161);
+        color: black;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        border-radius: 6px;
+        width: 230px;
+        height: 30px;
+        font-size: 20px;
+        margin-left: 15px;
+    }
+
     #btn01:hover {background-color: #80C49D;}
     #btn01:active {
         box-shadow: 0 0 0 1px #82c8a0 inset,
@@ -258,6 +272,9 @@
                                     <br>
                                     주문 수량 : ${vo.cnt}
                                 </c:if>
+                                <br>
+                                <br>
+                                <button id="review-btn" onclick="writeReview(event);">리뷰 쓰러가기!</button>
                                 </div>
                             </div>
                         </td>
@@ -288,36 +305,12 @@
     </div>
     
     <script>
+
 	const searchType = '${searchVo.searchType}';
 	const searchValue = '${searchVo.searchValue}';
 	
 	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
 	const searchValueInputTag = document.querySelector("input[name='searchValue']");
-
-	// if(searchType.length > 0){
-	// 	initSearchType();
-	// }
-	
-	// // 검색 타입 초기 세팅
-	// function initSearchType(){
-	// 	const x = document.querySelector('select > option[value="' + searchType + '"]');
-	// 	x.selected = true;
-	// }
-	
-	// 서치타입 변경 시 함수 실행
-	// const searchTypeTag = document.querySelector('select[name=searchType]');
-	// searchTypeTag.addEventListener("change", setSearchValueTag);
-
-	// function setSearchValueTag(){
-
-	// 	// 현재 타입이 카테고리인지 구분
-	// 	const searchType = searchTypeTag.value;
-	// 	if(searchType == 'category'){
-	// 		setSearchValueTagSelect();
-	// 	}else{
-	// 		setSearchValueTagInput();
-	// 	}
-	// }
 
 
 	// 카테고리로 검색한 이후에 검색 값이 유지되게 
@@ -325,13 +318,34 @@
 		if(searchType != 'category'){
 			return;
 		}
-		const optionTag = document.querySelector("option[value='1' || '2' || '3']");
+		const optionTag = document.querySelector("option[value='1']");
 		optionTag.selected = true;	
 	}
 	
 
 	// setSearchValueTag();
 	initSearchValueSelect();
+
+    const payNo01 = '${vo.payNo}';
+
+    function writeReview(event) {
+
+        const target = event.target.parentElement;
+        const payNo = target.closest("tr").querySelector("td:first-child").textContent;
+
+    
+    let reviewPageUrl = 'root/reviewPage?payNo=payNo';
+    
+    if (searchValue === '1') {
+        reviewPageUrl = '${root}/reviewPage?payNo=' + payNo;
+    } else if (searchValue === '2') {
+        reviewPageUrl = '${root}/AccomodationReviewPage?payNo=' + payNo;
+    } else if (searchValue === '3') {
+        reviewPageUrl = '${root}/SouvenirReviewPage?payNo=' + payNo;
+    }
+    
+    window.location.href = reviewPageUrl;
+    }
 
 
 	

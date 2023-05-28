@@ -32,6 +32,7 @@ public class InqueryDetailController extends HttpServlet{
 			// 서비스
 			InqueryVo vo = is.selectInqueryOneByNo(no);
 			
+			
 			// 화면
 			if(vo != null) {
 				req.setAttribute("loginMember", loginMember);

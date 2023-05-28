@@ -46,11 +46,7 @@ public class OrderListController extends HttpServlet{
 			
 			// 서비스
 			List<OrderListVo> voList = null;
-//			if(searchType == null || searchValue.equals("")) {
-				voList = ols.getOrderListByNo(pv, mno, searchType, searchValue);
-//			}else {
-//				voList = ols.getOrderListByNo(pv, mno);
-//			}
+			voList = ols.getOrderListByNo(pv, mno, searchType, searchValue);
 			
 			Map<String, String> map = new HashMap<>();
 			map.put("searchType", searchType);

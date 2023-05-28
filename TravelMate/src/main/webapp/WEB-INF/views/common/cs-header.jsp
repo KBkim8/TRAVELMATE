@@ -10,9 +10,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${root}/static/css/header.css">
+<link rel="stylesheet" href="${root}/static/css/header2.css">
 <script defer src="${root}/static/js/header.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 </head>
 <body bottommargin="0">
     
@@ -23,8 +24,6 @@
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
-        
-
             
         <div id="logoCategory">
             
