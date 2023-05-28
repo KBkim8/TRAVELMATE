@@ -7,19 +7,21 @@ public class ReportSearchVo {
 	private String memberNick;
 	private String enrollDate;
 	private String cancelEnrollDate;
+	private String count;
 	
 	public ReportSearchVo() {
 		super();
 	}
 
-	public ReportSearchVo(String no, String sanctionName, String memberNick, String enrollDate,
-			String cancelEnrollDate) {
+	public ReportSearchVo(String no, String sanctionName, String memberNick, String enrollDate, String cancelEnrollDate,
+			String count) {
 		super();
 		this.no = no;
 		this.sanctionName = sanctionName;
 		this.memberNick = memberNick;
 		this.enrollDate = enrollDate;
 		this.cancelEnrollDate = cancelEnrollDate;
+		this.count = count;
 	}
 
 	public String getNo() {
@@ -62,10 +64,18 @@ public class ReportSearchVo {
 		this.cancelEnrollDate = cancelEnrollDate;
 	}
 
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
 	@Override
 	public String toString() {
 		return "ReportSearchVo [no=" + no + ", sanctionName=" + sanctionName + ", memberNick=" + memberNick
-				+ ", enrollDate=" + enrollDate + ", cancelEnrollDate=" + cancelEnrollDate + "]";
+				+ ", enrollDate=" + enrollDate + ", cancelEnrollDate=" + cancelEnrollDate + ", count=" + count + "]";
 	}
 
 }

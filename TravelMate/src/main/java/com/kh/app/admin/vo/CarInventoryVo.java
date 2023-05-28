@@ -6,26 +6,33 @@ public class CarInventoryVo {
 	private String kind;
 	private String count;
 	private String name;
+	private String max;
 	private String licensePlate;
 	private String weekdayPrice;
 	private String weekendPrice;
 	private String licenseDate;
+	private String changeName;
+	private String originName;
+	
 	
 	public CarInventoryVo() {
 		super();
 	}
 
-	public CarInventoryVo(String no, String kind, String count, String name, String licensePlate, String weekdayPrice,
-			String weekendPrice, String licenseDate) {
+	public CarInventoryVo(String no, String kind, String count, String name, String max, String licensePlate,
+			String weekdayPrice, String weekendPrice, String licenseDate, String changeName, String originName) {
 		super();
 		this.no = no;
 		this.kind = kind;
 		this.count = count;
 		this.name = name;
+		this.max = max;
 		this.licensePlate = licensePlate;
 		this.weekdayPrice = weekdayPrice;
 		this.weekendPrice = weekendPrice;
 		this.licenseDate = licenseDate;
+		this.changeName = changeName;
+		this.originName = originName;
 	}
 
 	public String getNo() {
@@ -60,6 +67,14 @@ public class CarInventoryVo {
 		this.name = name;
 	}
 
+	public String getMax() {
+		return max;
+	}
+
+	public void setMax(String max) {
+		this.max = max;
+	}
+
 	public String getLicensePlate() {
 		return licensePlate;
 	}
@@ -92,11 +107,27 @@ public class CarInventoryVo {
 		this.licenseDate = licenseDate;
 	}
 
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getOriginName() {
+		return originName;
+	}
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
+	}
+
 	@Override
 	public String toString() {
-		return "CarInventoryVo [no=" + no + ", kind=" + kind + ", count=" + count + ", name=" + name + ", licensePlate="
-				+ licensePlate + ", weekdayPrice=" + weekdayPrice + ", weekendPrice=" + weekendPrice + ", licenseDate="
-				+ licenseDate + "]";
+		return "CarInventoryVo [no=" + no + ", kind=" + kind + ", count=" + count + ", name=" + name + ", max=" + max
+				+ ", licensePlate=" + licensePlate + ", weekdayPrice=" + weekdayPrice + ", weekendPrice=" + weekendPrice
+				+ ", licenseDate=" + licenseDate + ", changeName=" + changeName + ", originName=" + originName + "]";
 	}
 	
 }

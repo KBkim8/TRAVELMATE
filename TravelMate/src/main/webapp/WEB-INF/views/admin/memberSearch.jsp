@@ -7,13 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/memberSearch.css">
-<script defer src="${root}/static/js/memberSearch.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/memberSearch.css">
+<script defer src="${root}/static/admin/js/memberSearch.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 
      <!-- 내용영역 -->
      <div id="content">
@@ -77,7 +77,7 @@
 
         <div id="memberMore" class="stop-active1">
               
-              <div id="modal-content">
+            <div id="modal-content">
                   <div id="close">
                       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                       <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>

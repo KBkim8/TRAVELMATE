@@ -42,7 +42,7 @@ public class ReportSearchController extends HttpServlet{
 				voList = as.reportSearch(pv, searchType, searchValue);				
 			}
 			
-			Map map = new HashMap<>();
+			Map<String, String> map = new HashMap<>();
 			map.put("searchType", searchType);
 			map.put("searchValue", searchValue);
 			

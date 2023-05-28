@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/adBanner.css">
-<script defer src="${root}/static/js/adBanner.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/adBanner.css">
+<script defer src="${root}/static/js/admin/adBanner.js"></script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 
      <!-- 내용영역 -->
      <div id="content">
@@ -39,28 +39,29 @@
             <div>배너번호</div>
             <div>닉네임</div>
             <div>배너명</div>
-            <div>기념품명</div>
             <div>이미지명</div>
+            <div></div>
             <div id="hr"><hr></div>
 
             <c:forEach var="voList" items="${voList}">
             <div id="report-content">
                 <label class="chk_box">
-                <input type="checkbox" value="" name="stop">
+                <input type="checkbox" value="${voList.no}" name="stop">
                 <span class="on"></span>
-        
                 </label>
             </div>
                 <div id="no">${voList.no}</div>
                 <div>${voList.nick}</div>
                 <div>${voList.name}</div>
-                <div>${voList.souvenirName}</div>
-                <div><h6 id="voImg">${voList.image}</h6></div>
+                <div><button id="voImg" onclick="showImg('${voList.image}')">${voList.image}</button></div>
+                <div>
+                    <button id="delete" onclick="bannerDel('${voList.no}')">삭제</button>
+                    <button id="update" onclick="bannerEdit('${voList.no}');">수정</button>
+                </div>
                 <div id="hr"><hr></div>
             </c:forEach>
 
-            <button id="delete">삭제</button>
-            <button id="update" onclick="bannerEdit();">수정</button>
+            
             <button id="write" onclick="bannerWrite();">글쓰기</button>
             <div id="page-area">
                 <c:if test="${pv.currentPage > 1}">
@@ -90,7 +91,7 @@
                   </div>                                                    
                   
                   <div id="bannerImg">
-                    <img src="${root}/static/img/adBanner/adBanner01.jpg" alt="광고배너">
+                    
                   </div>
               </div>
 
@@ -99,3 +100,70 @@
 
 </body>
 </html>
+<script>
+    //게시글 삭제
+	function bannerDel(no){
+        console.log(no);
+        $.ajax({
+            url : '${root}/admin/bannerdelete',
+            type : 'post',
+            data : { no : no },
+            success : function(data){
+                const result = confirm("정말 삭제하시겠습니까?");
+                if(!result) {
+                    return;
+                }
+
+                location.reload();
+            },
+            error : function(err){
+                console.log(err);
+            }
+        });
+
+        
+    }
+
+    //게시글 수정
+    function bannerEdit(no){
+        console.log(no);
+        location.href = "${root}/admin/banneredit?no=" + no;
+    }
+
+    //게시글 작성
+    function bannerWrite(){
+        location.href = "${root}/admin/bannerwrite"
+    }
+
+    //모달창안에 이미지
+    function showImg(imgName) {
+        //해당이미지 누르면 모달
+        const voImg = document.querySelectorAll('#voImg');
+
+        voImg.forEach(function(voImg) {
+            voImg.addEventListener('click', function() {
+                const imgMore = document.querySelector('#imgMore')
+                imgMore.style.display = 'block'; 
+            });
+        });
+
+         //모달 닫기
+        const closeBtn = document.querySelector('#close');
+        closeBtn.addEventListener('click', function() {
+            const imgMore = document.querySelector('#imgMore')
+            imgMore.style.display = 'none'; 
+        });
+
+        const bannerImg = document.querySelector('#bannerImg');
+
+        bannerImg.innerHTML = '';
+
+        const imgTag = document.createElement('img');
+        imgTag.src = '${root}/static/img/adBanner/' + imgName;
+        imgTag.alt = '미리보기 이미지 사진';
+        imgTag.width = 100;
+        imgTag.height = 100;
+        bannerImg.appendChild(imgTag);
+    }
+    
+</script>

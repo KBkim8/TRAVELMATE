@@ -8,11 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/souvenirInventory.css">
+<link rel="stylesheet" href="${root}/static/css/admin/souvenirInventory.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 	
 	  <!-- 내용영역 -->
       <div id="content">
@@ -35,7 +36,7 @@
                         <option value="전북">전북</option>
                         <option value="경남">경남</option>
                         <option value="경북">경북</option>
-                        <option value="경기도">경기도</option>
+                        <option value="수도권">수도권</option>
                         <option value="대전">대전</option>
                         <option value="대구">대구</option>
                         <option value="부산">부산</option>
@@ -46,10 +47,15 @@
           </div>
           
           <div id="declaration">
-              
               <c:forEach var="voList" items="${voList}">
-                 <div id="cbx"><input type="checkbox" value="${voList.no}"></div>
-                 <div id="img-area01"><img src="${root}/static/img/adBanner/adBanner01.jpg" alt="기념품이미지"></div>
+                <div id="cbx">
+                    <label class="chk_box">
+                    <input type="checkbox" value="${voList.no}" name="souvenirNo">
+                    <span class="on"></span>
+            
+                    </label>
+                </div>
+                 <div id="img-area01"><img src="${root}/static/img/souvenir/${voList.changeName}" alt="${voList.originName}"></div>
                  <div id="name1">기념품코드</div>
                  <div>|</div>
                  <div id="code"><input type="text" value="${voList.no}" name="no" readonly></div>
@@ -67,7 +73,7 @@
                  <div id="dEnroll"><input type="date" value="${voList.enrollDate}" name="enrollDate" readonly></div>
                  <div id="name7">재고</div>
                  <div>|</div>
-                 <div id="dCount"><input type="number" value="${voList.count}" name="count" min="0" max="100"></div>
+                 <div id="dCount"><input type="number" value="${voList.count}" name="count" readonly></div>
                  <div><button id="edit" onclick="souvenirEdit(${voList.no});">재고수정</button></div>
                  <div id="hr01"></div>
 			 </c:forEach>
@@ -97,8 +103,8 @@
 <script>
     //재고수정
     function souvenirEdit(no){
-        console.log(no);
-    }
+        location.href = '${root}/admin/souvenirEdit?no=' + no;
+    };
 
     //재고등록
     function souvenirWrite(){

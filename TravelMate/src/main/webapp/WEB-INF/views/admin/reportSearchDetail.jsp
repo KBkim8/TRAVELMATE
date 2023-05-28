@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/reportSearchDetail.css">
+<link rel="stylesheet" href="${root}/static/css/admin/reportSearchDetail.css">
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 	
 	 <div id="content">
             <div id="declaration">
@@ -40,6 +40,6 @@
 </html>
 <script>
     function goHome(){
-        window.location.href = '${root}/admin/reportlist?page=1';
+        window.location.href = '${root}/admin/reportSearch?page=1';
     };
 </script>

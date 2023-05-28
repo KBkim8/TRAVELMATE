@@ -8,12 +8,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/reportSearch.css">
-<script defer src="${root}/static/js/reportSearch.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/reportSearch.css">
+<script defer src="${root}/static/js/admin/reportSearch.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 	
 	  <!-- 내용영역 -->
       <div id="content">
@@ -50,7 +51,7 @@
             <div id="hr"><hr></div>
 
             <c:forEach var="voList" items="${voList}">
-                <div>💚</div>
+                <div><button id="reportCancel" onclick="reportCancel('${voList.memberNick}')">차단취소</button></div>
                 <div id="no">${voList.no}</div>
                 <div>${voList.sanctionName}</div>
                 <div>${voList.memberNick}</div>
@@ -76,44 +77,33 @@
                 </c:if>
             </div>
         </div>
-
-          <div id="reportMore" class="stop-active1">
-                
-                <div id="modal-content">
-                    <div id="close">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                        </svg>
-                    </div>                                                    
-                    <div>제재내역번호</div>                             
-                    <div>▶</div>                             
-                    <div>1</div>                             
-                    <div>신고내역번호</div>                             
-                    <div>▶</div>                             
-                    <div>1</div>                             
-                    <div>제재사유</div>                             
-                    <div>▶</div>                             
-                    <div>욕설</div>                             
-                    <div>회원아이디</div>                             
-                    <div>▶</div>                             
-                    <div>soyeon</div>                             
-                    <div>회원차단일</div>                             
-                    <div>▶</div>                             
-                    <div>2023-01-01</div>                             
-                    <div>차단종료일</div>                             
-                    <div>▶</div>                             
-                    <div>2023-01-01</div>                             
-                    <div>제재횟수</div>                             
-                    <div>▶</div>                             
-                    <div>3</div>                             
-                </div>
-
-          </div>
-      </div>
-        
 </body>
 </html>
 <script>
+    //회원정지 취소
+    function reportCancel(nick){
+        const result = confirm(nick + " 님의 차단을 취소하시겠습니까?");
+        const no = document.querySelector("#no").innerText; 
+
+        if(result){
+            $.ajax({
+                url : '${root}/admin/reportsearchCancel',
+                type : 'post',
+                data : {
+                    nick : nick,
+                    no : no
+                },
+                success : function(data){
+                    alert("차단이 취소되었습니다.");
+                    window.location.reload();
+                },
+                error : function(err){
+                    console.log(err);
+                }
+            })
+        }
+    }
+
    //게시글 상세조회
 	const declaration = document.querySelector("#declaration");
 	

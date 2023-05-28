@@ -360,6 +360,70 @@ public class AdminService {
 		
 		return vo;
 	}
+	
+	//회원제재하기
+	public int memberStopDate(Map<String, String> map) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+
+		int result = dao.memberStopDate(conn, map);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//회원제재하기(member테이블)
+	public int memberStop(Map<String, String> map) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.memberStop(conn, map);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//회원제재횟수 쿼리
+	public int sanctionCount(Map<String, String> map) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.sanctionCount(conn, map);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//회원제재취소
+	public int reportSearchCancel(String memberNick) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.reportSearchCancel(conn, memberNick);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 
 	//회원상세조회
 	public MemberDetailVo memberSearchDetail(String no) throws Exception {
@@ -371,7 +435,136 @@ public class AdminService {
 		
 		return vo;
 	}
+	
+	//차량재고조회 글작성
+	public int carInventoryWrite(CarInventoryVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.carInventoryWrite(conn, vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//차량재고수정전 화면
+	public CarInventoryVo carInventoryEdit(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		CarInventoryVo vo = dao.carInventoryEdit(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+	
+	//차량재고수정
+	public int carCountEdit(String no, String count) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.carCountEdit(conn, no, count);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
 
+	//숙소재고수정전 화면
+	public AccommodationInventoryVo accommodationEdit(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		AccommodationInventoryVo vo = dao.accommodationEdit(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+	
+	//숙소재고조회 게시글작성
+	public int accommodationInventoryWrite(AccommodationInventoryVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.accommodationInventoryWrite(conn, vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//숙소재고수정
+	public int accommodationCountEdit(Map<String, String> map) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.accommodationCountEdit(conn, map);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//기념품재고조회 글작성
+	public int souvenirInventoryWrite(SouvenirInventoryVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.souvenirInventoryWrite(conn, vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//기념품재고조회 수정화면
+	public SouvenirInventoryVo souvenirEdit(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		SouvenirInventoryVo vo = dao.souvenirEdit(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	//기념품재고조회 재고수정
+	public int souvenirCountEdit(Map<String, String> map) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.souvenirCountEdit(conn, map);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
 	//판매등록요청 상세조회
 	public SellRequestDetailVo sellRequestDetail(String no) throws Exception {
 		Connection conn = JDBCTemplate.getConnection();
@@ -399,4 +592,88 @@ public class AdminService {
 		return result;
 	}
 
+	//판매등록요청 거절
+	public int sellRequestRefuse(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.sellRequestRefuse(conn, no);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
+	//배너삭제
+	public int bannerDelete(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.bannerDelete(conn, no);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	//배너 글작성
+	public int AdbannerWrite(AdBannerVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.AdbannerWrite(conn, vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.close(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+	//배너 글작성 회원번호 받아오기
+	public String bannerMemberNo(Connection conn, AdBannerVo vo) throws Exception {		
+		String memberNo = dao.bannerMemberNo(conn, vo);
+		
+		JDBCTemplate.close(conn);
+		
+		return memberNo;
+	}
+
+	//배너 게시글수정화면
+	public AdBannerVo AdBannerEdit(String no) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		AdBannerVo vo = dao.AdBannerEdit(conn, no);
+		
+		JDBCTemplate.close(conn);
+		
+		return vo;
+	}
+
+	//배너 게시글수정
+	public int adBannerContentEdit(AdBannerVo vo) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.adBannerContentEdit(conn, vo);
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+	
 }

@@ -7,21 +7,23 @@ public class SellRequestDetailVo {
 	private String title;
 	private String content;
 	private String enrollDate;
-	private String boardImg;
+	private String changeName;
+	private String originName;
 	
 	public SellRequestDetailVo() {
 		super();
 	}
 
 	public SellRequestDetailVo(String no, String writer, String title, String content, String enrollDate,
-			String boardImg) {
+			String changeName, String originName) {
 		super();
 		this.no = no;
 		this.writer = writer;
 		this.title = title;
 		this.content = content;
 		this.enrollDate = enrollDate;
-		this.boardImg = boardImg;
+		this.changeName = changeName;
+		this.originName = originName;
 	}
 
 	public String getNo() {
@@ -64,18 +66,26 @@ public class SellRequestDetailVo {
 		this.enrollDate = enrollDate;
 	}
 
-	public String getBoardImg() {
-		return boardImg;
+	public String getChangeName() {
+		return changeName;
 	}
 
-	public void setBoardImg(String boardImg) {
-		this.boardImg = boardImg;
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
+	public String getOriginName() {
+		return originName;
+	}
+
+	public void setOriginName(String originName) {
+		this.originName = originName;
 	}
 
 	@Override
 	public String toString() {
 		return "SellRequestDetailVo [no=" + no + ", writer=" + writer + ", title=" + title + ", content=" + content
-				+ ", enrollDate=" + enrollDate + ", boardImg=" + boardImg + "]";
+				+ ", enrollDate=" + enrollDate + ", changeName=" + changeName + ", originName=" + originName + "]";
 	}
-	
+
 }
