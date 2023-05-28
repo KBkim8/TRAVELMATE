@@ -33,12 +33,16 @@ public class InqueryListController extends HttpServlet{
 			
 			if(loginMember == null) {
 				req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요");
+//				resp.sendRedirect("/TravelMate/login");
 			}
 					
 			String searchType = req.getParameter("searchType");
 			String searchValue = req.getParameter("searchValue");
+			String no = req.getParameter("no");
 			String mno = loginMember.getNo();
 			String mId = loginMember.getId();
+			InqueryVo vo = new InqueryVo();
+			vo.setNo(no);
 			
 			// 데이터 준비
 			int cnt = is.getInqueryListCnt(searchType, searchValue);
@@ -48,6 +52,8 @@ public class InqueryListController extends HttpServlet{
 			}
 			int page = Integer.parseInt(page_);
 			PageVo pv = new PageVo(cnt, page, 5, 10);
+			int replyCnt = is.getReplyCnt(vo);
+			System.out.println(replyCnt);
 			
 			// 서비스
 			// 전체 목록과 검색 결과 목록과 관리자 로그인 시, 전체 회원의 내역 목록 나눠주기
@@ -75,11 +81,11 @@ public class InqueryListController extends HttpServlet{
 			map.put("searchValue", searchValue);
 			
 			// 화면
+			req.setAttribute("replyCnt", replyCnt);
 			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("voList", voList);
 			req.getRequestDispatcher("/WEB-INF/views/CScenter/inqueryList.jsp").forward(req, resp);
-			System.out.println(mno);
 			
 			} catch (Exception e) {
 				System.out.println("[ERROR] inquery list controller err");
