@@ -7,18 +7,20 @@ public class AdBannerVo {
 	private String image;
 	private String nick;
 	private String souvenirName;
+	private String souvenirNo;
 	
 	public AdBannerVo() {
 		super();
 	}
 
-	public AdBannerVo(String no, String name, String image, String nick, String souvenirName) {
+	public AdBannerVo(String no, String name, String image, String nick, String souvenirName, String souvenirNo) {
 		super();
 		this.no = no;
 		this.name = name;
 		this.image = image;
 		this.nick = nick;
 		this.souvenirName = souvenirName;
+		this.souvenirNo = souvenirNo;
 	}
 
 	public String getNo() {
@@ -61,10 +63,19 @@ public class AdBannerVo {
 		this.souvenirName = souvenirName;
 	}
 
+	public String getSouvenirNo() {
+		return souvenirNo;
+	}
+
+	public void setSouvenirNo(String souvenirNo) {
+		this.souvenirNo = souvenirNo;
+	}
+
 	@Override
 	public String toString() {
 		return "AdBannerVo [no=" + no + ", name=" + name + ", image=" + image + ", nick=" + nick + ", souvenirName="
-				+ souvenirName + "]";
+				+ souvenirName + ", souvenirNo=" + souvenirNo + "]";
 	}
+
 	
 }

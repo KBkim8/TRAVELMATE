@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/carInventory.css">
+<link rel="stylesheet" href="${root}/static/css/admin/carInventory.css">
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/admin/header.jsp" %>
     
         <!-- 내용영역 -->
         <div id="content">
@@ -41,8 +41,14 @@
             <div id="declaration">
                 
                 <c:forEach var="voList" items="${voList}">
-                    <div id="cbx"><input type="checkbox" value="${voList.no}"></div>
-                    <div id="img-area01"><img src="${root}/static/img/carImg/carImg01.png" alt="기념품이미지"></div>
+                    <div id="cbx">
+                        <label class="chk_box">
+                        <input type="checkbox" value="${voList.no}" name="carNo">
+                        <span class="on"></span>
+                
+                        </label>
+                    </div>
+                    <div id="img-area01"><img src="${root}/static/img/carImg/${voList.changeName}" alt="${voList.originName}"></div>
                     <div id="name1">차량코드</div>
                     <div>|</div>
                     <div id="code"><input type="text" value="${voList.no}" name="no" readonly></div>
@@ -98,7 +104,7 @@
 <script>
     //재고수정
     function carEdit(no){
-        console.log(no);
+        location.href = '${root}/admin/carinventoryEdit?no=' + no;
     }
 
     //재고등록

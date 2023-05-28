@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/memberSearchDetail.css">
+<link rel="stylesheet" href="${root}/static/css/admin/memberSearchDetail.css">
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 	
 	 <div id="content">
             <div id="declaration">

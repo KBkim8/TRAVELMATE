@@ -8,12 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/reportList.css">
-<script defer src="${root}/static/js/reportList.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/reportList.css">
+<script defer src="${root}/static/js/admin/reportList.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 	
 	  <!-- 내용영역 -->
       <div id="content">
@@ -92,12 +92,10 @@
                 <div id="stop-go" class="stop-active2">차단시작일 |</div>
                 <div id="stop-back" class="stop-active3">차단종료일 |</div>
 
-                <form action="${root}/admin/reportlist" method="POST">
                     <div><input type="date" name="stopStart" id="stop-start" class="stop-active4"></div>
                     <div><input type="date" name="stopEnd" id="stop-end" class="stop-active5"></div>
 
                     <input type="submit" value="적용" id="btn01" class="stop-active6">
-                </form>
 
                 <button id="btn02" class="stop-active7">닫기</button>
           </div>
@@ -106,6 +104,10 @@
 </body>
 </html>
 <script>
+
+    let startData;
+    let endData;
+
     //회원정지
     function memberStop(no){
         console.log(no);
@@ -122,18 +124,31 @@
         }   
 
         const btn01 = document.querySelector('#btn01');
-        btn01.addEventListener("click", function(event){
-            const no = document.querySelector('input[name="stop"]:checked').value;
-            console.log(no);
+        
+        btn01.addEventListener("click", function(){
+
+            const result = confirm("해당회원을 차단하시겠습니까?");
+            
+            if(!result){
+                return;
+            }
+
+            startData = document.querySelector("#stop-start").value;
+            endData = document.querySelector("#stop-end").value;
+
             $.ajax({
                 url : '${root}/admin/reportlist',
                 type: 'POST',
                 data: {
-                    'no' : no
+                    no : no,
+                    startData : startData,
+                    endData : endData
                 },
                 success: function(data) {
-                 console.log(data);
 
+                    alert("해당회원을 " + startData + " 부터 " + endData + " 까지 차단하였습니다.");
+
+                    location.reload();
                 },
                 error: function(error) {
                 console.error(error);

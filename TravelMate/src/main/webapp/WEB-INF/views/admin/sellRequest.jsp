@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/sellRequest.css">
-<script defer src="${root}/static/js/sellRequest.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/sellRequest.css">
+<script defer src="${root}/static/js/admin/sellRequest.js"></script>
 </head>
 <body>
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/admin/header.jsp" %>
 
       <!-- 내용영역 -->
       <div id="content">

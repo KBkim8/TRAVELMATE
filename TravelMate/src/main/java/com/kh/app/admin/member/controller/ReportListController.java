@@ -25,7 +25,7 @@ public class ReportListController extends HttpServlet{
 			String searchType = req.getParameter("searchType");
 			String searchValue = req.getParameter("searchValue");
 			
-			int cnt = as.carInventoryCnt(searchType , searchValue);
+			int cnt = as.reportListCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";
@@ -36,7 +36,7 @@ public class ReportListController extends HttpServlet{
 			//서비스
 			List<ReportListVo> reportVoList = null;
 			if(searchType == null || searchType.equals("")) {
-				reportVoList = as.reportList(pv);				
+				reportVoList = as.reportList(pv);		
 			}else {
 				reportVoList = as.reportList(pv, searchType, searchValue);				
 			}
@@ -63,20 +63,32 @@ public class ReportListController extends HttpServlet{
 	//회원제재
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//데꺼
-		String enrollDate = req.getParameter("stopStart");
-		String cancelEnrollDate = req.getParameter("stopEnd");
-		String no = req.getParameter("no");
-		
-		System.out.println(enrollDate + cancelEnrollDate + no);
-		//데뭉
-		Map<String, String> map = new HashMap<>();
-		map.put("enrollDate", enrollDate);
-		map.put("cancelEnrollDate", cancelEnrollDate);
-		
-		//서비스
-//		int result = as.memberStop(map);
-		
-		//화면
+		try {
+			//데꺼
+			String enrollDate = req.getParameter("startData");
+			String cancelEnrollDate = req.getParameter("endData");
+			String no = req.getParameter("no");
+			
+			//데뭉
+			Map<String, String> map = new HashMap<>();
+			map.put("enrollDate", enrollDate);
+			map.put("cancelEnrollDate", cancelEnrollDate);
+			map.put("no", no);
+			
+			//서비스
+			int result = as.memberStopDate(map);
+			int result2 = as.memberStop(map);
+			int count = as.sanctionCount(map);
+			
+			if(result != 1 || result2 != 1 || count != 1) {
+				throw new IllegalStateException();
+			}
+
+		}catch(Exception e) {
+			req.setAttribute("errMsg", "신고내역 조회 에러");
+			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
+			System.out.println("[ERR-101] 신고내역 조회 에러");
+			e.printStackTrace();
+		}
 	}
 }

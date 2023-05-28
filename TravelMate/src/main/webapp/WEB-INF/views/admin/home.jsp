@@ -9,12 +9,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/home.css">
-<script defer src="${root}/static/js/home.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/home.css">
+<script defer src="${root}/static/js/admin/home.js"></script>
 </head>
 <body bottommargin="0">
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/admin/header.jsp" %>
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -35,12 +35,11 @@
             <div id="memberManage">
                 <a>신고내역</a>
                 <div id="report">
-                    <a>욕설사용</a>
-                    <a>닉네임01</a>
-                    <a>23-01-01</a>
-                    <a>광고글도배</a>
-                    <a>닉네임02</a>
-                    <a>23-01-01</a>
+                    <c:forEach items="${reportList}" var="reportList">
+                    	<a>${reportList.content}</a>
+                    	<a>${reportList.nick}</a>
+                    	<a>${reportList.categoryName}</a>
+                    </c:forEach>
                 </div>
                 <div id="report-more">
                     <a href="${root}/admin/reportlist?page=1">더보기 ▶</a>
@@ -50,10 +49,10 @@
             <div id="productManage">
                 <a>판매등록요청조회</a>
                 <div id="sellList">
-                    <a>렌트카 판매등록 요청합니다.</a>
-                    <a>23-01-01</a>
-                    <a>숙소 판매등록 요청합니다.</a>
-                    <a>23-01-01</a>
+                    <c:forEach items="${sellRequestList}" var="sellRequestList">
+                    	<a>${sellRequestList.title}</a>
+                    	<a>${sellRequestList.enrollDate}</a>
+                    </c:forEach>
                 </div>
                 <div id="sell-more">
                     <a href="${root}/admin/sellrequest?page=1">더보기 ▶</a>
@@ -63,12 +62,11 @@
             <div id="bannerManage">
                 <a>광고배너관리</a>
                 <div id="adBanner">
-                    <a>성심당 할인광고</a>
-                    <a>(주)성심당</a>
-                    <a>23-01-01</a>
-                    <a>성심당 할인광고</a>
-                    <a>(주)성심당</a>
-                    <a>23-01-01</a>
+                    <c:forEach items="${bannerList}" var="bannerList">
+                    	<a>${bannerList.name}</a>
+                    	<a>${bannerList.nick}</a>
+                    	<a>${bannerList.image}</a>
+                    </c:forEach>
                 </div>
                 <div id="banner-more">
                     <a href="${root}/admin/banner?page=1">더보기 ▶</a>
