@@ -21,8 +21,8 @@ import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
-@WebServlet(urlPatterns = {"/review/write/car" , "review/write/lodging" , "review/write/souvenir"})
-public class BoardReviewWriteController extends HttpServlet{
+@WebServlet(urlPatterns = "/car/reivew/write")
+public class BoardReviewWriteCarController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,9 +36,7 @@ public class BoardReviewWriteController extends HttpServlet{
 //			return;
 //		}
 		
-		
-		
-		req.getRequestDispatcher("/WEB-INF/views/board/board-review-write.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/board/board-car-review-write.jsp").forward(req, resp);
 	}
 	
 	@Override
