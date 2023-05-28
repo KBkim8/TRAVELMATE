@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.AbstractDocument.Content;
+
 import com.kh.app.board.dao.BoardDao;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
 import com.kh.app.board.vo.CommentVo;
+import com.kh.app.board.vo.ReviewBoardVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
@@ -237,7 +240,7 @@ private final BoardDao dao;
 
 			try(Connection conn = JDBCTemplate.getConnection();){
 				
-				int result = dao.updateHit(conn , no);
+				int result = dao.freeUpdateHit(conn , no);
 				BoardVo fvo = null;
 				if (result ==1) {
 					fvo = dao.freeDetail(conn ,no);
@@ -375,6 +378,55 @@ private final BoardDao dao;
 			JDBCTemplate.close(conn);
 			
 			return cnt;
+		}
+
+		//차량 리뷰 글쓰기
+		public int carReviewWrite(ReviewBoardVo rbVo) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.carReviewWrite(conn ,rbVo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+			
+			return result;
+			
+		}
+
+		//차량 리뷰 리스트 보여주기
+		public List<BoardVo> carReviewList(PageVo pv) throws Exception {
+		
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> rvoList = dao.carReviewList(conn,pv);
+			
+			JDBCTemplate.close(conn);
+		
+			return rvoList;
+			
+		}
+
+		//차량 리뷰 상세조회
+		public BoardVo carReviewDetail(String no) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.carReviewupdateHit(conn , no);
+			
+			BoardVo vo = null; 
+			if(result ==1) {
+				vo = dao.carReviewDetail(conn ,no);
+			}else {
+				throw new Exception();
+			}
+			JDBCTemplate.close(conn);
+			
+			return vo;
 		}
 
 		

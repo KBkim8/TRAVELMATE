@@ -17,12 +17,13 @@ import javax.servlet.http.Part;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
+import com.kh.app.board.vo.ReviewBoardVo;
 import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
 @WebServlet(urlPatterns = "/car/reivew/write")
-public class BoardReviewWriteCarController extends HttpServlet{
+public class BoardCarReviewWriteController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +40,7 @@ public class BoardReviewWriteCarController extends HttpServlet{
 		req.getRequestDispatcher("/WEB-INF/views/board/board-car-review-write.jsp").forward(req, resp);
 	}
 	
+	//차량리뷰 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -47,26 +49,23 @@ public class BoardReviewWriteCarController extends HttpServlet{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
-			//파일 업로드
-			
-			// 데꺼
 			String memberNo = loginMember.getNo();
+			String payNo = req.getParameter("payNo");
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
-			String categoryNo = req.getParameter("categoryNo");
-			
-			// 데뭉
-			BoardVo bvo = new BoardVo();
-			bvo.setTitle(title);
-			bvo.setContent(content);
-			bvo.setBoardCategoryNo(categoryNo);
-			bvo.setMemberNo(memberNo);
 			
 			// 서비스
 			BoardService bs = new BoardService();
+			ReviewBoardVo rbVo = new ReviewBoardVo();
+			rbVo.setNo(memberNo);
+			rbVo.setNo(payNo);
+			rbVo.setTitle(title);
+			rbVo.setContent(content);
+			
+			int result = bs.carReviewWrite(rbVo);
 			
 			// 화면
-			if(result == 1) {
+			if(result ==1) {
 				//성공
 				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
 				resp.sendRedirect(req.getContextPath() + "/list");
