@@ -25,7 +25,7 @@ public class InqueryDetailController extends HttpServlet{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
 			// 데꺼
-			String no = req.getParameter("no");
+			String no = req.getParameter("ino");
 			
 			// 데뭉 X
 			

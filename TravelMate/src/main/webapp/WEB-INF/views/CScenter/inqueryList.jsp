@@ -194,36 +194,25 @@
 					<tr>
 						<th>문의번호</th>
 						<th>제목</th>
-						<c:if test="${loginMember.id eq 'admin'}">
-							<th>작성자</th>
-						</c:if>
+                        <th>작성자</th>
 						<th>작성일시</th>
-						<c:if test="${loginMember.id not eq 'admin' }">
-							<th>답변상태</th>
-						</c:if>
 					</tr>
 				</thead>
 
 				<tbody>
-				
-					<c:forEach items="${ voList }" var="inq">
-					<tr>
-						<td>${ inq.no }</td>
-						<td>${ inq.title }</td>
-						<c:if test="${loginMember.id eq 'admin'}">
-							<td>${ inq.memberNick }</td>
-						</c:if>
-						<td>${ inq.enrollDate }</td>
-						<c:if test="${loginMember.id not eq 'admin' }">
-							<td>
-								
-							</td>
-						</c:if>
-					</tr>
-					</c:forEach>
-					
-				</tbody>
-
+                        <c:forEach items="${ voList }" var="inq">
+                            <tr>
+                                <td>${ inq.no }</td>
+                                <td>
+                                    <input type="hidden" value="${inq.no}" name="no">
+                                    ${ inq.title }
+                                </td>
+                                <td>${ inq.memberNick }</td>
+                                <td>${ inq.enrollDate }</td>
+                            </tr>
+                        </c:forEach>
+                </tbody>
+                
 			</table>
 		
             <div id="page-area">
@@ -251,10 +240,10 @@
 	tbody.addEventListener('click', (event)=>{
 
 		// 글 번호 가져와서 
-		const no = event.target.parentNode.children[0].innerText;
+		const ino = event.target.parentNode.children[0].innerText;
 
 		// 요청 보내기
-		location.href = "${root}/cs/detail?no=" + no;
+		location.href = "${root}/cs/detail?ino=" + ino;
 
 	});
 

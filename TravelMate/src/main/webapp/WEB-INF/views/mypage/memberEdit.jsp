@@ -11,9 +11,10 @@
     #content{
         position: relative;
 	    width: 1390px;
-	    height: 100%;
-	    bottom: 900px;
-	    left: 400px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
+        margin-top: 800px;
     }
 
     #first-content>img{
@@ -57,7 +58,7 @@
         width: 1300px;
         border-radius: 30px;
         border: 1px solid black;
-        height: 500px;
+        height: 600px;
         margin: auto;
         font-size: 20px;
         display: flex;
@@ -170,7 +171,8 @@
                                 <input type="text" name="memberNick" value="${loginMember.nick}"> 
                             </td>
                             </tr>
-                            <tr>
+                            
+                                                        <tr>
                               <td><span>주소</span></td>
                               <td><input type="text" name="address" value="${loginMember.address}"></td>
                             </tr>
@@ -190,64 +192,17 @@
 </body>
 
 <script>
-
-	function checkDup(){
-        //닉네임 중복 확인
-        $(document).ready(function() {
-        $('#btn02').click(function() {
-            var memberNick = $('input[name="memberNick"]').val();
-        
-            const nickSpan = document.querySelector('#nickSpan');
-        
-            $.ajax({
-            url: '/app/join',  // 중복 확인을 처리하는 서버의 URL을 입력하세요
-            method: 'POST',
-            data: { 'memberNick' : memberNick },
-            success: function(response) {
-                // 서버로부터의 응답 처리
-                if (response === 'duplicate') {
-                // 중복된 아이디인 경우 처리 로직
-                nickSpan.textContent = '이미 사용중인 닉네임 입니다.';
-                nickSpan.style.color = 'red';
-                } else {
-                // 사용 가능한 아이디인 경우 처리 로직
-                nickSpan.textContent = '사용 가능한 닉네임 입니다.';
-                nickSpan.style.color = 'green';
-                }
-            },
-            error: function(xhr, status, error) {
-                // 오류 발생 시 처리 로직
-                console.error(error);
-            }
-            });
-        });
-        });
+	
+	
+    // 비번 입력해야 수정하기 진행가능
+    function checkValidation(){
+        const pwd = document.querySelector('input[name=memberPwd]').value;
+        if(pwd.length >= 1){
+            return true;
+        }else{
+            return false;
+        }
     }
-	
-	
-	//이메일체크
-	const emailInput = document.querySelector('input[name="memberEmail"]');
-	const checkButton = document.getElementById('btn00');
-	const messageElement = document.getElementById('message');
-	
-	// 이메일 체크 
-	function validateEmail(email) {
-	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-	return emailRegex.test(email);
-	}
-	
-	// 버튼 클릭 이벤트 처리
-	checkButton.addEventListener('click', function() {
-	const email = emailInput.value;
-	
-	if (validateEmail(email)) {
-	    messageElement.textContent = '유효한 이메일 주소입니다.';
-	    messageElement.style.color = 'green';
-	} else {
-	    messageElement.textContent = '유효하지 않은 이메일 주소입니다.';
-	    messageElement.style.color = 'red';
-	}
-	});
 
 
 </script>

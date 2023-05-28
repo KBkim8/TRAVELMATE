@@ -1,6 +1,9 @@
 package com.kh.app.cs.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.kh.app.board.vo.BoardVo;
@@ -157,6 +160,21 @@ public class InqueryService {
 		
 		return voList;
 		
+	}
+
+
+	// 문의글 번호로 답변 개수가 카운팅
+	public int getReplyCnt(InqueryVo vo) throws Exception {
+
+		// conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.getReplyCnt(conn,vo);
+		
+		// close
+		JDBCTemplate.close(conn);
+		
+		return cnt;
 	}
 	
 		

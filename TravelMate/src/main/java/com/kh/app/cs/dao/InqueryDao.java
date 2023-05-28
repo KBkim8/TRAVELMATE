@@ -383,4 +383,25 @@ public class InqueryDao {
 		
 	}
 
+	public int getReplyCnt(Connection conn, InqueryVo vo) throws Exception {
+		
+		// SQL
+		String sql = "SELECT COUNT(*) FROM \"COMMENT\" C JOIN QNA Q ON (Q.NO = C.QNA_NO) WHERE Q.NO =?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNo());
+		ResultSet rs = pstmt.executeQuery();
+		
+		// tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+
+	}
+
 }

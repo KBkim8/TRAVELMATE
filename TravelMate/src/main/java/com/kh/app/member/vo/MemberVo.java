@@ -17,6 +17,13 @@ public class MemberVo {
 	
 	private String memberCategoryName;
 	private String memberGradeName;
+	private String memberGradeImg;
+	public String getMemberGradeImg() {
+		return memberGradeImg;
+	}
+	public void setMemberGradeImg(String memberGradeImg) {
+		this.memberGradeImg = memberGradeImg;
+	}
 	private String totalAttend;
 	
 	public String getTotalAttend() {

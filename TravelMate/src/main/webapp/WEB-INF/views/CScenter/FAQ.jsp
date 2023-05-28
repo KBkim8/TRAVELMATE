@@ -13,10 +13,11 @@
 
     #content{
         position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+        width: 1390px;
+        height: 100%;
+        bottom: 1500px;
+        left: 300px;
+        margin-top: 800px;
     }
 
     #first-content>img{

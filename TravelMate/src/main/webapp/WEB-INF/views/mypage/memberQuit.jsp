@@ -15,7 +15,7 @@
         height: 100%;
         bottom: 1500px;
         left: 300px;
-        margin-top: 300px;
+        margin-top: 800px;
     }
 
     #first-content>img{

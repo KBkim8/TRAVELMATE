@@ -41,6 +41,8 @@ public class MemberEditController extends HttpServlet{
 			String memberNick = req.getParameter("memberNick");
 			String address = req.getParameter("address");
 			String email = req.getParameter("email");
+			String memberGrade = req.getParameter("memberGrade");
+			String totalAttend = req.getParameter("totalAttend");
 			
 			// 데뭉
 			MemberVo vo = new MemberVo();
@@ -49,15 +51,19 @@ public class MemberEditController extends HttpServlet{
 			vo.setNick(memberNick);
 			vo.setAddress(address);
 			vo.setEmail(email);
+			vo.setMemberGradeImg(memberGrade);
+			vo.setTotalAttend(totalAttend);
 			
 			// 서비스
 			MemberService ms = new MemberService();
 			MemberVo updatedMember = ms.edit(vo);
-
+			MemberVo vo2 = ms.cntAttendByNo(no);
+			
 			// 화면
 			if(updatedMember != null) {
 				req.getSession().setAttribute("alertMsg", "수정이 완료되었습니다.");
-				req.getSession().setAttribute("loginMember", updatedMember);
+				req.setAttribute("loginMember", updatedMember);
+				req.setAttribute("vo", vo2);
 				req.getRequestDispatcher("/WEB-INF/views/mypage/memberDetail.jsp").forward(req, resp);
 			}else {
 				throw new Exception();
