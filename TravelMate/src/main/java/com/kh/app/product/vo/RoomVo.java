@@ -14,6 +14,12 @@ public class RoomVo {
 	private String title;
 	private String local;
 	private String kind;
+	private String mname;
+	private String ph;
+	private String address;
+	private String dateStart;
+	private String dateEnd;
+	
 	public String getNo() {
 		return no;
 	}
@@ -86,14 +92,47 @@ public class RoomVo {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	public String getPh() {
+		return ph;
+	}
+	public void setPh(String ph) {
+		this.ph = ph;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getDateStart() {
+		return dateStart;
+	}
+	public void setDateStart(String dateStart) {
+		this.dateStart = dateStart;
+	}
+	public String getDateEnd() {
+		return dateEnd;
+	}
+	public void setDateEnd(String dateEnd) {
+		this.dateEnd = dateEnd;
+	}
 	@Override
 	public String toString() {
 		return "RoomVo [no=" + no + ", localNo=" + localNo + ", accomodationNo=" + accomodationNo + ", name=" + name
 				+ ", enrollDate=" + enrollDate + ", maxPeople=" + maxPeople + ", content=" + content + ", deleteYn="
-				+ deleteYn + ", price=" + price + ", title=" + title + ", local=" + local + ", kind=" + kind + "]";
+				+ deleteYn + ", price=" + price + ", title=" + title + ", local=" + local + ", kind=" + kind
+				+ ", mname=" + mname + ", ph=" + ph + ", address=" + address + ", dateStart=" + dateStart + ", dateEnd="
+				+ dateEnd + "]";
 	}
 	public RoomVo(String no, String localNo, String accomodationNo, String name, String enrollDate, String maxPeople,
-			String content, String deleteYn, String price, String title, String local, String kind) {
+			String content, String deleteYn, String price, String title, String local, String kind, String mname,
+			String ph, String address, String dateStart, String dateEnd) {
 		super();
 		this.no = no;
 		this.localNo = localNo;
@@ -107,11 +146,18 @@ public class RoomVo {
 		this.title = title;
 		this.local = local;
 		this.kind = kind;
+		this.mname = mname;
+		this.ph = ph;
+		this.address = address;
+		this.dateStart = dateStart;
+		this.dateEnd = dateEnd;
 	}
 	public RoomVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 	
 	
 	

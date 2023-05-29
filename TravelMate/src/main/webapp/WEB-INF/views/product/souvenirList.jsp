@@ -54,7 +54,7 @@ table {
   
 }
 th, td {
-  height: 200px;
+  height: 100px;
   text-align: center;
   vertical-align : middle;
 }
