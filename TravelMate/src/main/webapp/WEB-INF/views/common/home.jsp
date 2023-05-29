@@ -7,7 +7,6 @@
 <title>Travel_Mate</title>
 
 <style>
-	
   #search-area {
   display:flex;
   justify-content: space-around;
@@ -44,7 +43,6 @@ background-color: blueviolet;
 #banner{
 display: grid;
 grid-template-columns: 0.5fr 6fr 0.5fr;
-height: 230px;
 }
 
 #img ,#img2 ,#img3  {
@@ -250,7 +248,8 @@ height: 450px;
 		</div>
 		
 		</div>
-
+</div>
+</div>
 </body>
 </html>
 
