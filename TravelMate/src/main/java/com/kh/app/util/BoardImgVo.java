@@ -8,24 +8,6 @@ public class BoardImgVo {
 	private String changeName;
 	private String enrollDate;
 	private String status;
-	public BoardImgVo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public BoardImgVo(String no, String bno, String title, String changeName, String enrollDate, String status) {
-		super();
-		this.no = no;
-		this.bno = bno;
-		this.title = title;
-		this.changeName = changeName;
-		this.enrollDate = enrollDate;
-		this.status = status;
-	}
-	@Override
-	public String toString() {
-		return "AttachmentVo [no=" + no + ", bno=" + bno + ", title=" + title + ", changeName=" + changeName
-				+ ", enrollDate=" + enrollDate + ", status=" + status + "]";
-	}
 	public String getNo() {
 		return no;
 	}
@@ -38,11 +20,11 @@ public class BoardImgVo {
 	public void setBno(String bno) {
 		this.bno = bno;
 	}
-	public String getOriginName() {
+	public String getTitle() {
 		return title;
 	}
-	public void setOriginName(String originName) {
-		this.title = originName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	public String getChangeName() {
 		return changeName;
@@ -62,7 +44,27 @@ public class BoardImgVo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
+	@Override
+	public String toString() {
+		return "BoardImgVo [no=" + no + ", bno=" + bno + ", title=" + title + ", changeName=" + changeName
+				+ ", enrollDate=" + enrollDate + ", status=" + status + "]";
+	}
+	public BoardImgVo(String no, String bno, String title, String changeName, String enrollDate, String status) {
+		super();
+		this.no = no;
+		this.bno = bno;
+		this.title = title;
+		this.changeName = changeName;
+		this.enrollDate = enrollDate;
+		this.status = status;
+	}
+	public BoardImgVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
 	
 	
 }

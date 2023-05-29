@@ -63,9 +63,9 @@ public class FileUploader {
 		}
 		
 		BoardImgVo vo = new BoardImgVo();
-		vo.setOriginName(originName);
 		vo.setChangeName(changeName);
 		return vo;
+		
 	}//method
 
 }//class

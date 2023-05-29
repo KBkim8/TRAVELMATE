@@ -753,4 +753,66 @@ public class BoardDao {
 	
 	}
 
+	//관리자 신분으로 모든 판매요청 리스트 조회
+	public List<BoardVo> sellRequestList(Connection conn, PageVo pv) throws Exception {
+
+		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO=2 ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt= conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		 List<BoardVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String hit = rs.getString("HIT");
+			
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setEnrollDate(enrollDate);
+			vo.setHit(hit);
+			voList.add(vo);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return voList;
+	
+	}
+
+	//판매자 자신이 쓴 판매요청 리스트 조회
+	public List<BoardVo> sellRequestList(Connection conn, PageVo pv, String memberNo) throws Exception {
+
+		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO=2 AND MEMBER_NO = ? ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt= conn.prepareStatement(sql);
+		pstmt.setString(1, memberNo);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		 List<BoardVo> voList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String hit = rs.getString("HIT");
+			
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setEnrollDate(enrollDate);
+			vo.setHit(hit);
+			voList.add(vo);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return voList;
+	}
+
 }//class

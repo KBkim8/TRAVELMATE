@@ -55,9 +55,7 @@
                 <div>${voList.writer}</div>
                 <div>${voList.title}</div>
                 <div>${voList.enrollDate}</div>
-                <c:if test="${loginMember.category_no == 3  }">
 	                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
-                </c:if>
                 <div id="hr"><hr></div>
             </c:forEach>
             
