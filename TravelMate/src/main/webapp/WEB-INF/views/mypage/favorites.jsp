@@ -183,7 +183,7 @@
                     <c:forEach var="avo" items="${avoList}">
                         <div id="accomo-wrap">
                             <input type="hidden" value="${avo.no}" name="no">
-                            <a href="${root}/order/room?name=${avo.accomodationName}"><img src="${root}/static/img/accommodationImg/${avo.accomodationImg}" alt="숙소이미지"></a>
+                            <a href="${root}/order/room?name=${avo.accomodationName}"><img src="${root}/static/img/accomodation_img/${avo.accomodationImg}" alt="숙소이미지"></a>
                             <button id="delBtn" onclick="adel('${avo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
                             <br>
                             <div>${avo.accomodationName}</div>

@@ -320,10 +320,10 @@
         const payNo = target.closest("tr").querySelector("td:first-child").textContent;
 
     
-    let reviewPageUrl = 'root/review/write?payNo=payNo';
+    let reviewPageUrl = 'root/reivew/write?payNo=payNo';
     
     if (searchValue === '1') {
-        reviewPageUrl = '${root}/car/review/write?payNo=' + payNo;
+        reviewPageUrl = '${root}/car/reivew/write?payNo=' + payNo;
     } else if (searchValue === '2') {
         reviewPageUrl = '${root}/room/review/write?payNo=' + payNo;
     } else if (searchValue === '3') {
