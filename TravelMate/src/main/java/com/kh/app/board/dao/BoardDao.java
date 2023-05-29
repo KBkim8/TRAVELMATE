@@ -756,7 +756,7 @@ public class BoardDao {
 	//관리자 신분으로 모든 판매요청 리스트 조회
 	public List<BoardVo> sellRequestList(Connection conn, PageVo pv) throws Exception {
 
-		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO=2 ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO, TITLE, TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, HIT, NICK FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, B.ENROLL_DATE, B.HIT, M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO = 2 ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -768,12 +768,14 @@ public class BoardDao {
 			String title = rs.getString("TITLE");
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String hit = rs.getString("HIT");
+			String memberNick = rs.getString("NICK");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
 			vo.setTitle(title);
 			vo.setEnrollDate(enrollDate);
 			vo.setHit(hit);
+			vo.setMemberNick(memberNick);
 			voList.add(vo);
 		}
 		

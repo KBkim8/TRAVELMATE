@@ -52,7 +52,7 @@
                 </label>
             </div>
                 <div id="no">${voList.no}</div>
-                <div>${voList.writer}</div>
+                <div>${voList.memberNick}</div>
                 <div>${voList.title}</div>
                 <div>${voList.enrollDate}</div>
 	                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
