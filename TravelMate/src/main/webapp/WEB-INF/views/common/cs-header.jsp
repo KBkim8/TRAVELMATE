@@ -66,7 +66,7 @@
         <div id="side-bar">
             <img src="${root}/static/img/삼각형.png" alt="삼각형">
             <div id="small-logo">
-                <img src="${root}/static/img/TM small logo.png" alt="프로필사진">
+                <img src="${root}/static/img/TM small logo.png" alt="로고사진">
             </div>
             <div id="side">
                 <div id="side-content">
@@ -81,9 +81,9 @@
                             <ul class="big_menu">
                                 <li>고객센터<i class="arrow fas fa-angle-right"></i></li>
                                 <ul class="small_menu">
-                                    <li><a href="${root}/admin/reportlist?page=1">· 자주 묻는 질문</a></li>
-                                    <li><a href="${root}/admin/reportSearch?page=1">· 1:1 문의하기</a></li>
-                                    <li><a href="${root}/admin/memberSearch?page=1">· 1:1 문의내역</a></li>
+                                    <li><a href="${root}/cs/faq">· 자주 묻는 질문</a></li>
+                                    <li><a href="${root}/cs/inquery">· 1:1 문의하기</a></li>
+                                    <li><a href="${root}/cs/inqueryList">· 1:1 문의내역</a></li>
                                 </ul>
                             </ul>
                         </div>
