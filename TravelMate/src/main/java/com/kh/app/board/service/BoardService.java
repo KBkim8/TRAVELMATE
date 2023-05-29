@@ -351,7 +351,7 @@ private final BoardDao dao;
 		}
 		
 		
-		//판매 요청글 쓰기 멤버카테고리 3번(판매자)        파라미터로 받아온건 작성자번호임 
+		//판매 요청글 쓰기 멤버카테고리 3번(판매자)       
 		public int sellRequestWrite(BoardVo vo) throws Exception {
 			
 			Connection conn = JDBCTemplate.getConnection();

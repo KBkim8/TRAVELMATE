@@ -49,6 +49,7 @@ public class SellRequestList extends HttpServlet{
 			
 			//화면 
 			if( voList !=null ){
+				req.setAttribute("lgoinMember", loginMember);
 				req.setAttribute("voList", voList);
 				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
 			}

@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/sellRequest.css">
+<link rel="stylesheet" href="${root}/static/css/admin/sellrequestDetail.css">
 <script defer src="${root}/static/js/sellRequest.js"></script>
 </head>
 <body>
@@ -55,7 +55,9 @@
                 <div>${voList.writer}</div>
                 <div>${voList.title}</div>
                 <div>${voList.enrollDate}</div>
-                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
+                <c:if test="${loginMember.category_no == 3  }">
+	                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
+                </c:if>
                 <div id="hr"><hr></div>
             </c:forEach>
             
