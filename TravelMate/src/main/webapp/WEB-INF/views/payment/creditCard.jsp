@@ -9,7 +9,7 @@
     
     #content{
         position: relative;
-        margin-top: 400px;
+        margin-top: 1100px;
         width: 1390px;
         height: 100%;
         bottom: 1300px;
@@ -113,7 +113,7 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/common/product-header.jsp" %>
 
 	<div id="content">
 

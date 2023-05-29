@@ -10,7 +10,7 @@
     
     #content{
         position: relative;
-        margin-top: 400px;
+        margin-top: 1000px;
         width: 1390px;
         height: 100%;
         bottom: 1300px;
@@ -54,7 +54,7 @@
     #box{
         margin-left: 0px;
         width: 600px;
-        height: 250px;
+        height: 550px;
         background-color: rgba(0, 0, 0, 0.288);
         border: 1px solid black;
         
@@ -133,12 +133,29 @@
     	margin: auto;
     }
     
+    #btn01, #btn02, #btn03, #btn04{
+	  background-color: #73D38E;
+	  border: 0;
+	  padding: 15px 25px; 
+	  display: inline-block;
+	  text-align: center;
+	  color: white;
+	  border-radius: 6px;
+	}
+
+	#btn01:hover, #btn02:hover, #btn03:hover, #btn04:hover  {background-color: #80C49D;}
+	#btn01:active, #btn02:active, #btn03:active, #btn04:active {
+	  box-shadow: 0 0 0 1px #82c8a0 inset,
+	        0 0 0 2px rgba(255,255,255,0.15) inset,
+	        0 0 0 1px rgba(0,0,0,0.4);
+	}
+    
     
     
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header2.jsp" %>
+	<%@ include file="/WEB-INF/views/common/product-header.jsp" %>
 	
 	<!-- 내용영역 -->
 <div id="content">
@@ -159,7 +176,7 @@
 	                    <h3 id="h3"> 탑승가능인원 : ${vo.max}  //  자동 변속   //  Gasoline</h3>
 	                    <br>
 	                    <br>
-	                    <h3 id="h3">이용일      //       2023.05.01(월) - 2023.05.02(화)</h3>
+	                    <h3 id="h3">이용일      //    ${vo.dateStart} ~ ${vo.endDate}   </h3>
 	                    <br>
 	                    <br>                    
 	                    <h3 id="h3">인수지역 : ${vo.lcname}</h3>
@@ -184,7 +201,7 @@
 	                	<br>
 	                	<br>
 	                	
-	                    <button type="button" class="btn btn-success">후기 보러가기</button>
+	                    <button type="button" class="btn btn-success" onclick="review();">후기 보러가기</button>
 	                </div>
 	                <br>
 	            </div>
@@ -219,26 +236,25 @@
 	   <div>
 			<input type="text" id="calender" name="daterange" value="06/01/2023 - 06/05/2023" />
 	    </div>
-
-	    <h1 id="h1">최종 결제 정보<hr></h1>
+		<br>
+		<br>
+	    <h1 id="h1">※유의사항※<hr></h1>
 	    <br>
 	    <h3 id="h3">${vo.price}</h3>
-	   					<!-- 
-	                    최종 가격 어떻게? 하루 가격 x 대여한 날짜수 구해야댐
-	                    (vo.price) * (end_date - start_date) 
-	                     -->
-	    <br>
-	    <h3 id="h3">※유의사항※</h3>
 	    <br>
 	    <h3 id="h3">차량 내 절대금연</h3>
+	    <br>
+	    <h3 id="h3">과속운전 금지</h3>
+	    <br>
+	    <h3 id="h3">반납할땐 깨끗하게</h3>
 	    <br>
 	    
 	    
 	    <hr>
 	    <div id="btns">
-	        <button type="button" class="btn btn-success" onclick="backPage();">뒤로가기</button>
-	        <button type="button" class="btn btn-success" onclick="favorite();">관심상품 담기</button>
-	        <button type="submit" class="btn btn-success">결제하기</button>
+	        <button type="button" class="btn btn-success" onclick="backPage();" id="btn01">뒤로가기</button>
+	        <button type="button" class="btn btn-success" onclick="favorite();" id="btn02">관심상품 담기</button>
+	        <button type="submit" class="btn btn-success" id="btn03">결제하기</button>
 	    </div>
     </div>
 </div>
@@ -268,6 +284,10 @@
 	
 	 function backPage() {
 	    location.href="${root}/car/list";
+	  }
+
+	 function review() {
+	    location.href="${root}/car/review/list";
 	  }
 		  
 	  function favorite(){

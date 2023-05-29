@@ -75,36 +75,31 @@
                             </div>
                         </div>        
                         <div class="sub_menu">
-                            <h2 id="admin-private" data-hover="마이페이지" class="SMN_effect-23-2">마이페이지</h2>
+                            <h2 id="admin-private" data-hover="마이페이지" class="SMN_effect-23-2">상품과 결제</h2>
                             <ul class="big_menu">
-                                     <li>회원정보 <i class="arrow fas fa-angle-right"></i></li>
+                                     <li>상품목록<i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/member/detail">회원정보조회</a></li>
-                                         <li><a href="${root}/mypage/member/edit">회원정보수정</a></li>
+                                         <li><a href="${root}/car/list">차량</a></li>
+                                         <li><a href="${root}/room/list">숙소</a></li>
+                                         <li><a href="${root}/souvenir/list">기념품</a></li>
                                      </ul>
                                  </ul>
                                  <ul class="big_menu">
-                                     <li>주문내역 <i class="arrow fas fa-angle-right"></i></li>
+                                     <li>주문 <i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
                                          <li><a href="${root}/mypage/orderList">주문내역조회</a></li>
                                      </ul>
                                  </ul>
                                  <ul class="big_menu">
-                                     <li>관심상품 <i class="arrow fas fa-angle-right"></i></li>
+                                     <li>결제 <i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/favorites">관심상품조회</a></li>
+                                         <li><a href="${root}/mypage/orderList">환불하기</a></li>
                                      </ul>
                                  </ul>
                                  <ul class="big_menu">
-                                     <li>출석 <i class="arrow fas fa-angle-right"></i></li>
+                                     <li>리뷰게시판<i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/attend">출석현황</a></li>
-                                     </ul>
-                                 </ul>
-                                 <ul class="big_menu">
-                                     <li>작성게시글 목록<i class="arrow fas fa-angle-right"></i></li>
-                                     <ul class="small_menu">
-                                         <li><a href="${root}/mypage/myBoardList">목록조회</a></li>
+                                         <li><a href="${root}/car/review/list">차량리뷰게시판</a></li>
                                      </ul>
                                  </ul>
                         </div>
