@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.app.common.db.JDBCTemplate;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.service.CarService;
 import com.kh.app.product.vo.CarVo;
 @WebServlet("/pay/car")
@@ -31,6 +32,7 @@ try {
 			
 			HttpSession session = req.getSession();
 			CarVo cvo = (CarVo) session.getAttribute("cvo");
+			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
 			//데꺼
 			String carReservationCode = req.getParameter("carReservationCode");
@@ -40,19 +42,17 @@ try {
 			cvo = new CarVo();
 			cvo.setCarReservationCode(carReservationCode);
 			cvo.setType(type);
-					
-
+			
 			CarService cs = new CarService();
 			int result = cs.pay(cvo);
 			
-			
-			//서비스
+			int result2 = cs.updateReservation(cvo, loginMember);
 			
 			//화면
-			if(result == 1) {
+			if(result == 1 && result2 == 1) {
 				req.getSession().setAttribute("alertMsg", "결제 완료!");
 				req.getSession().setAttribute("cvo", cvo);
-				resp.sendRedirect(req.getContextPath() + "/마이페이지/주문내역조회");
+				resp.sendRedirect(req.getContextPath() + "/mypage/orderList");
 			}else {
 				throw new Exception();
 			}

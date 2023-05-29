@@ -1,6 +1,7 @@
 package com.kh.app.product.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,6 @@ import java.util.List;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
-import com.kh.app.product.service.conn;
 import com.kh.app.product.vo.CarVo;
 import com.kh.app.product.vo.RoomVo;
 
@@ -172,18 +172,18 @@ public class CarDao {
 	}
 	
 	//car_reservation table insert
-	public int order(Connection conn, String carKindKind, MemberVo loginMember, CarVo vo) throws Exception {
+	public int order(Connection conn, String carKindKind, MemberVo loginMember, CarVo cvo) throws Exception {
 		
 		String sql = "INSERT INTO CAR_RESERVATION (NO , RENTCAR_NO , MEMBER_NO , RESERVATION_YN , START_DATE , END_DATE , PRICE) VALUES (SEQ_CAR_RESERVATION_NO.NEXTVAL , ? , ? , 'Y' , ? , ? , ?);";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getNo());
+		pstmt.setString(1, cvo.getNo());
 		pstmt.setString(2, loginMember.getNo());
-		pstmt.setString(3, vo.getStartDate());
-		pstmt.setString(4, vo.getEndDate());
-		int endDate = Integer.valueOf(vo.getEndDate()); 
-		int startDate = Integer.valueOf(vo.getStartDate()); 
+		pstmt.setString(3, cvo.getStartDate());
+		pstmt.setString(4, cvo.getEndDate());
+		int endDate = Integer.valueOf(cvo.getEndDate()); 
+		int startDate = Integer.valueOf(cvo.getStartDate()); 
 		int totalDay = endDate - startDate;
-		int price = Integer.valueOf(vo.getPrice());
+		int price = Integer.valueOf(cvo.getPrice());
 		int totalPrice = price * totalDay;
 		pstmt.setInt(5, totalPrice);
 		
@@ -223,6 +223,30 @@ public class CarDao {
 		JDBCTemplate.close(pstmt);
 		
 		return result;
+	
+	}
+
+
+	//결제완료시 car_reservation table의 reservation_yn 칼럼값 'Y'로 UPDATE
+	public int updateReservation(CarVo cvo, MemberVo loginMember, Connection conn) throws Exception {
+		
+		String sql = "UPDATE CAR_RESERVATION SET RESERVATION_YN = 'Y' WHERE RENTCAR_NO = ? AND MEMBER_NO = ? AND START_DATE = ? AND END_DATE = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, cvo.getNo());
+		pstmt.setString(2, loginMember.getNo());
+		pstmt.setString(3, cvo.getStartDate());
+		pstmt.setString(4, cvo.getEndDate());
+		
+		int result2 = pstmt.executeUpdate();
+		if(result2 == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+			
+		JDBCTemplate.close(pstmt);
+		
+		return result2;
 	
 	}
 	
