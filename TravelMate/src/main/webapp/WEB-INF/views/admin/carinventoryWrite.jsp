@@ -56,10 +56,8 @@
                 <div><input type="date" name="outDate"></div>
                 <div>최대탑승인원</div>
                 <div><input type="number" name="maxPeople" min="1"></div>
-                <div>평일가격</div>
-                <div><input type="text" name="weekdayPrice"></div>
-                <div>주말가격</div>
-                <div><input type="text" name="weekenddayPrice"></div>
+                <div>가격</div>
+                <div><input type="text" name="price"></div>
                 <div>이미지</div>
                 <div><input type="file" name="f"></div>
                 <input type="submit" value="등록하기">

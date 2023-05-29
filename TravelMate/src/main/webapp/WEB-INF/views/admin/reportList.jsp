@@ -57,13 +57,13 @@
 				<c:forEach var="reportVoList" items="${reportVoList}">
                 <div id="report-content">
                     <label class="chk_box">
-                    <input type="checkbox" value="${reportVoList.no}" name="stop">
+                    <input type="checkbox" value="${reportVoList.no}" name="stop" onchange="handleCheckboxChange(this)">
                     <span class="on"></span>
             
                     </label>
                 </div>
 	                <div id="no">${reportVoList.no}</div>
-	                <div>${reportVoList.nick}</div>
+	                <div id="memberNick">${reportVoList.nick}</div>
 	                <div>${reportVoList.categoryName}</div>
 	                <div>${reportVoList.reasonName}</div>
                     <div><button id="report" onclick="memberStop(${reportVoList.no});">회원정지</button></div>
@@ -109,53 +109,56 @@
     let endData;
 
     //회원정지
-    function memberStop(no){
-        console.log(no);
+    function memberStop(no) {
+    const memberStop = document.querySelector('#member-stop');
+    memberStop.style.display = 'block';
+    document.body.classList.add("stop-scroll");
 
-        //상세조회 누르면 모달
-        document.getElementById("report").onclick = function() {
-            document.getElementById("member-stop").style.display="block";
-            document.body.classList.add("stop-scroll");
+    document.getElementById("btn02").onclick = function() {
+        document.getElementById("member-stop").style.display = "none";
+        document.body.classList.remove("stop-scroll");
+    };
+
+    const btn01 = document.querySelector('#btn01');
+
+    btn01.addEventListener("click", function() {
+        const result = confirm("해당회원을 차단하시겠습니까?");
+
+        if (!result) {
+        	return;
         }
 
-        document.getElementById("btn02").onclick = function() {
-            document.getElementById("member-stop").style.display="none";
-            document.body.classList.remove("stop-scroll");
-        }   
+        startData = document.querySelector("#stop-start").value;
+        endData = document.querySelector("#stop-end").value;
+        memberNick = document.querySelector("#memberNick").innerText;
 
-        const btn01 = document.querySelector('#btn01');
-        
-        btn01.addEventListener("click", function(){
-
-            const result = confirm("해당회원을 차단하시겠습니까?");
-            
-            if(!result){
-                return;
-            }
-
-            startData = document.querySelector("#stop-start").value;
-            endData = document.querySelector("#stop-end").value;
-
-            $.ajax({
-                url : '${root}/admin/reportlist',
-                type: 'POST',
-                data: {
-                    no : no,
-                    startData : startData,
-                    endData : endData
-                },
-                success: function(data) {
-
-                    alert("해당회원을 " + startData + " 부터 " + endData + " 까지 차단하였습니다.");
-
-                    location.reload();
-                },
-                error: function(error) {
-                console.error(error);
-                }
-            });
+        $.ajax({
+        url: '${root}/admin/reportlist',
+        type: 'POST',
+        data: {
+            no: no,
+            startData: startData,
+            endData: endData,
+            memberNick: memberNick
+        },
+        success: function(data) {
+            alert(memberNick + " 님을 " + startData + " 부터 " + endData + " 까지 차단하였습니다.");
+            location.reload();
+        },
+        error: function(error) {
+            console.error(error);
+        }
         });
+    });
     }
+
+    //체크박스 하나만
+    function handleCheckboxChange(checkbox) {
+    var checkboxes = document.getElementsByName('stop');
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].disabled = checkboxes[i] !== checkbox && checkbox.checked;
+    }
+  }
 
 	//게시글 상세조회
 	const declaration = document.querySelector("#declaration");

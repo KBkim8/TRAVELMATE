@@ -103,7 +103,6 @@
             })
         }
     }
-
    //게시글 상세조회
 	const declaration = document.querySelector("#declaration");
 	

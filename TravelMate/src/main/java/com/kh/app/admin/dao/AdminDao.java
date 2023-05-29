@@ -242,7 +242,7 @@ public class AdminDao {
 		return cnt;
 	}
 	
-	//회원제재하기화면
+	//신고내역화면
 	public List<ReportListVo> reportList(Connection conn, PageVo pv) throws Exception {
 		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM (SELECT L.NO, L.MEMBER_NO, L.BOARD_NO, L.SANCTION_REASON_NO, L.CONTENT, R.NAME AS REASON_NAME, M.NICK, M.STATUS, B.NAME AS CATEGORY_NAME FROM REPORT_LIST L JOIN REPORT_REASON R ON L.SANCTION_REASON_NO = R.NO JOIN MEMBER M ON L.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON L.BOARD_NO = B.NO WHERE M.STATUS = 'O' ORDER BY L.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
@@ -289,7 +289,7 @@ public class AdminDao {
 		}else if("boardName".equals(searchType)) {
 			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT L.NO, L.MEMBER_NO, L.BOARD_NO, L.SANCTION_REASON_NO, L.CONTENT, R.NAME AS REASON_NAME, M.NICK, M.STATUS, B.NAME AS CATEGORY_NAME FROM REPORT_LIST L JOIN REPORT_REASON R ON L.SANCTION_REASON_NO = R.NO JOIN MEMBER M ON L.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON L.BOARD_NO = B.NO WHERE M.STATUS = 'O' AND B.NAME LIKE '%'||?||'%' OR B.NAME LIKE '%?' OR B.NAME LIKE '?%' ORDER BY L.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";		
 		}else if("reportReason".equals(searchType)) {
-			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT L.NO, L.MEMBER_NO, L.BOARD_NO, L.SANCTION_REASON_NO, L.CONTENT, R.NAME AS REASON_NAME, M.NICK, M.STATUS B.NAME AS CATEGORY_NAME FROM REPORT_LIST L JOIN REPORT_REASON R ON L.SANCTION_REASON_NO = R.NO JOIN MEMBER M ON L.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON L.BOARD_NO = B.NO WHERE M.STATUS = 'O' AND R.NAME = ? ORDER BY L.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";			
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT L.NO, L.MEMBER_NO, L.BOARD_NO, L.SANCTION_REASON_NO, L.CONTENT, R.NAME AS REASON_NAME, M.NICK, M.STATUS, B.NAME AS CATEGORY_NAME FROM REPORT_LIST L JOIN REPORT_REASON R ON L.SANCTION_REASON_NO = R.NO JOIN MEMBER M ON L.MEMBER_NO = M.NO JOIN BOARD_CATEGORY B ON L.BOARD_NO = B.NO WHERE M.STATUS = 'O' AND R.NAME = ? ORDER BY L.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";			
 		}else {
 			return reportList(conn, pv);
 		}
@@ -497,7 +497,7 @@ public class AdminDao {
 	//차량재고관리
 	public List<CarInventoryVo> carInventory(Connection conn, PageVo pv) throws Exception {
 		//sql
-		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' ORDER BY C.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
+		String s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' ORDER BY C.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -510,8 +510,7 @@ public class AdminDao {
 			String count = rs.getString("COUNT");
 			String name = rs.getString("NAME");
 			String licensePlate = rs.getString("LICENSE_PLATE");
-			String weekdayPrice = rs.getString("WEEKDAY_PRICE");
-			String weekendPrice = rs.getString("WEEKEND_PRICE");
+			String price = rs.getString("PRICE");
 			String licenseDate = rs.getString("LICENSE_DATE");
 			String changeName = rs.getString("CHANGE_NAME");
 			String originName = rs.getString("ORIGIN_NAME");
@@ -522,8 +521,7 @@ public class AdminDao {
 			vo.setCount(count);
 			vo.setName(name);
 			vo.setLicensePlate(licensePlate);
-			vo.setWeekdayPrice(weekdayPrice);
-			vo.setWeekendPrice(weekendPrice);
+			vo.setPrice(price);
 			vo.setLicenseDate(licenseDate);
 			vo.setChangeName(changeName);
 			vo.setOriginName(originName);
@@ -541,11 +539,11 @@ public class AdminDao {
 		String s = "";
 		
 		if("name".equals(searchType)) {
-			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND K.KIND LIKE '%'||?||'%' OR K.KIND LIKE '%?' OR K.KIND LIKE '?%' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND K.KIND LIKE '%'||?||'%' OR K.KIND LIKE '%?' OR K.KIND LIKE '?%' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if("license".equals(searchType)) {
-			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND C.LICENSE_PLATE LIKE '%'||?||'%' OR C.LICENSE_PLATE LIKE '%?' OR C.LICENSE_PLATE LIKE '?%' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND C.LICENSE_PLATE LIKE '%'||?||'%' OR C.LICENSE_PLATE LIKE '%?' OR C.LICENSE_PLATE LIKE '?%' ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if("countYn".equals(searchType)) {
-			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.WEEKDAY_PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.WEEKEND_PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND C.COUNT = ? ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			s = "SELECT * FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT C.NO, K.KIND, C.COUNT, L.NAME, C.LICENSE_PLATE, C.PRICE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE DELETE_YN = 'N' AND C.COUNT = ? ORDER BY C.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else {
 			return carInventory(conn, pv);
 		}
@@ -562,8 +560,7 @@ public class AdminDao {
 			String count = rs.getString("COUNT");
 			String name = rs.getString("NAME");
 			String licensePlate = rs.getString("LICENSE_PLATE");
-			String weekdayPrice = rs.getString("WEEKDAY_PRICE");
-			String weekendPrice = rs.getString("WEEKEND_PRICE");
+			String price = rs.getString("PRICE");
 			String licenseDate = rs.getString("LICENSE_DATE");
 			String changeName = rs.getString("CHANGE_NAME");
 			String originName = rs.getString("ORIGIN_NAME");
@@ -574,8 +571,7 @@ public class AdminDao {
 			vo.setCount(count);
 			vo.setName(name);
 			vo.setLicensePlate(licensePlate);
-			vo.setWeekdayPrice(weekdayPrice);
-			vo.setWeekendPrice(weekendPrice);
+			vo.setPrice(price);
 			vo.setLicenseDate(licenseDate);
 			vo.setChangeName(changeName);
 			vo.setOriginName(originName);
@@ -1064,17 +1060,16 @@ public class AdminDao {
 	
 	//차량재고조회 글작성
 	public int carInventoryWrite(Connection conn, CarInventoryVo vo) throws Exception {
-		String s = "INSERT INTO RENTCAR(NO, CAR_KIND_NO, LOCAL_NO, COUNT, ENROLL_DATE, MAX, LICENSE_PLATE, LICENSE_DATE, WEEKDAY_PRICE, WEEKEND_PRICE, CHANGE_NAME, ORIGIN_NAME) VALUES(SEQ_RENTCAR_NO.NEXTVAL, ?, ?, 1, SYSDATE, ?, ?, ?, ?, ?, ?, ?)";
+		String s = "INSERT INTO RENTCAR(NO, CAR_KIND_NO, LOCAL_NO, COUNT, ENROLL_DATE, MAX, LICENSE_PLATE, LICENSE_DATE, PRICE, CHANGE_NAME, ORIGIN_NAME) VALUES(SEQ_RENTCAR_NO.NEXTVAL, ?, ?, 1, SYSDATE, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, vo.getKind());
 		pstmt.setString(2, vo.getName());
 		pstmt.setString(3, "4");
 		pstmt.setString(4, vo.getLicensePlate());
 		pstmt.setString(5, vo.getLicenseDate());
-		pstmt.setString(6, vo.getWeekdayPrice());
-		pstmt.setString(7, vo.getWeekendPrice());
-		pstmt.setString(8, vo.getChangeName());
-		pstmt.setString(9, vo.getOriginName());
+		pstmt.setString(6, vo.getPrice());
+		pstmt.setString(7, vo.getChangeName());
+		pstmt.setString(8, vo.getOriginName());
 		int result = pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);
@@ -1084,7 +1079,7 @@ public class AdminDao {
 	
 	//차량재고조회 재고수정 화면조회
 	public CarInventoryVo carInventoryEdit(Connection conn, String no) throws Exception {
-		String s = "SELECT C.COUNT, C.NO, K.KIND, L.NAME, C.LICENSE_PLATE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.MAX, C.WEEKDAY_PRICE, C.WEEKEND_PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE C.NO = ?";
+		String s = "SELECT C.COUNT, C.NO, K.KIND, L.NAME, C.LICENSE_PLATE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.MAX, C.PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE C.NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -1096,8 +1091,7 @@ public class AdminDao {
 			String licensePlate = rs.getString("LICENSE_PLATE");
 			String licenseDate = rs.getString("LICENSE_DATE");
 			String max = rs.getString("MAX");
-			String weekdayPrice = rs.getString("WEEKDAY_PRICE");
-			String weekendPrice = rs.getString("WEEKEND_PRICE");
+			String price = rs.getString("PRICE");
 			String changeName = rs.getString("CHANGE_NAME");
 			String originName = rs.getString("ORIGIN_NAME");
 			String count = rs.getString("COUNT");
@@ -1109,8 +1103,7 @@ public class AdminDao {
 			vo.setLicensePlate(licensePlate);
 			vo.setLicenseDate(licenseDate);
 			vo.setMax(max);
-			vo.setWeekdayPrice(weekdayPrice);
-			vo.setWeekendPrice(weekendPrice);
+			vo.setPrice(price);
 			vo.setChangeName(changeName);
 			vo.setOriginName(originName);
 			vo.setCount(count);
@@ -1267,7 +1260,7 @@ public class AdminDao {
 	
 	//판매등록요청 상세조회
 	public SellRequestDetailVo sellRequestDetail(Connection conn, String no) throws Exception {
-		String s = "SELECT B.NO, M.NICK, B.TITLE, B.CONTENT, TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, B.ORIGIN_NAME, B.CHANGE_NAME FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO = '2' AND UPLOAD_YN = 'Y' AND B.NO = ?";
+		String s = "SELECT B.NO, M.NICK, B.TITLE, B.CONTENT, TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, I.TITLE AS IMG_TITLE FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.BOARD_CATEGORY_NO = '2' AND UPLOAD_YN = 'Y' AND B.NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -1278,8 +1271,7 @@ public class AdminDao {
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
 			String enrollDate = rs.getString("ENROLL_DATE");
-			String originName = rs.getString("ORIGIN_NAME");
-			String changeName = rs.getString("CHANGE_NAME");
+			String changeName = rs.getString("IMG_TITLE");
 
 			
 			vo = new SellRequestDetailVo();
@@ -1288,7 +1280,6 @@ public class AdminDao {
 			vo.setTitle(title);
 			vo.setContent(content);
 			vo.setEnrollDate(enrollDate);
-			vo.setOriginName(originName);
 			vo.setChangeName(changeName);
 		}
 		JDBCTemplate.close(rs);

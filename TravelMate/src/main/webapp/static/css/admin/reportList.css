@@ -74,7 +74,7 @@
 
 /* 카테고리 및 검색 */
 #report-search input[type="submit"]{
-    background-image: url('/app/static/img/검색이미지.png');
+    background-image: url('/TravelMate/static/img/검색이미지.png');
     background-repeat: no-repeat;
     background-color: rgba(255, 255, 255, 0);
     border: 0px;

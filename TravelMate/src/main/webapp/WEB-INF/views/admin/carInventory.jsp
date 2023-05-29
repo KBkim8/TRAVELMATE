@@ -43,12 +43,12 @@
                 <c:forEach var="voList" items="${voList}">
                     <div id="cbx">
                         <label class="chk_box">
-                        <input type="checkbox" value="${voList.no}" name="carNo">
+                        <input type="checkbox" value="${voList.no}" name="carNo" onchange="handleCheckboxChange(this)">
                         <span class="on"></span>
                 
                         </label>
                     </div>
-                    <div id="img-area01"><img src="${root}/static/img/carImg/${voList.changeName}" alt="${voList.originName}"></div>
+                    <div id="img-area01"><img id="img-area" src="${root}/static/img/carImg/${voList.changeName}" alt="${voList.originName}"></div>
                     <div id="name1">차량코드</div>
                     <div>|</div>
                     <div id="code"><input type="text" value="${voList.no}" name="no" readonly></div>
@@ -101,7 +101,27 @@
 </html>
 </body>
 </html>
-<script>
+<script>    
+    //재고없으면 품절상태
+    const images = document.querySelectorAll("#img-area");
+    const countYnInputs = document.querySelectorAll("input[name='countYn']");
+
+    images.forEach((img, index) => {
+    const countYn = countYnInputs[index].value;
+
+        if (countYn === '재고없음') {
+            img.src = '${root}/static/img/carImg/SOLDOUT.png';
+            img.alt = '품절';
+        }
+    });
+
+    //체크박스 하나만
+    function handleCheckboxChange(checkbox) {
+    var checkboxes = document.getElementsByName('carNo');
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].disabled = checkboxes[i] !== checkbox && checkbox.checked;
+    }
+  }
     //재고수정
     function carEdit(no){
         location.href = '${root}/admin/carinventoryEdit?no=' + no;
