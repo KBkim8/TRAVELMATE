@@ -1,6 +1,7 @@
 package com.kh.app.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -38,13 +39,14 @@ public class SellRequestListController extends HttpServlet{
 			int boardLimit = 10;
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
-			List<BoardVo> voList = null;
+			List<BoardVo> voList = new ArrayList<>();;
 			if(loginMember.getMemberCategoryNo() =="1") {
 				voList = bs.sellRequestList(pv);
+				
 				req.setAttribute("voList", voList);
 				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
 				
-			}else {
+			}else{
 				voList = bs.sellRequestList(pv , memberNo);
 				req.setAttribute("voList", voList);
 				req.getRequestDispatcher("/WEB-INF/views/board/sell-request-list.jsp").forward(req, resp);
