@@ -83,7 +83,7 @@ table td{
 </head>
 <body>
   
-  <%@ include file="/WEB-INF/views/common/header.jsp" %>
+  <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
   
 <div id="shape">
   
@@ -95,7 +95,6 @@ table td{
 		        <option value="asd">지역선택</option>					
 		        <option value="name">제목</option>					
 		        <option value="price">가격</option>					
-		        <option value="souvenir">기념품</option>					
 		      </select>
 			      <input type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
 		      <input type="submit" value="검색">
@@ -146,6 +145,7 @@ table td{
     </tbody>
   </table>  
   
+  <br><br>
    <div id="page-area">
     	<c:if test="${pv.currentPage > 1}">
      	<a class="btn btn-primary btn-sm" href="${root}/room/list?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">이전</a>
