@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.vo.SouvenirVo;
 import com.kh.app.product.dao.RoomDao;
@@ -59,6 +60,53 @@ public class RoomService {
 			vo = dao.selectSouvenirOneByNo(conn , name);
 		}
 		return vo;
+	}
+
+
+	public int roomOrder(RoomVo vo, MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.order(vo, conn, loginMember);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
+	public RoomVo roomSelectOrder(String no, MemberVo loginMember) throws Exception {
+		RoomVo vo = null;
+		//conn
+		try (Connection conn = JDBCTemplate.getConnection();){
+			vo = dao.roomSelectOrder(conn , no, loginMember);
+		}
+		return vo;
+	}
+
+
+	public int roomFavorite(String no, String name, MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.roomFavorite(conn, no, name, loginMember);
+		
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
 	}
 
 }

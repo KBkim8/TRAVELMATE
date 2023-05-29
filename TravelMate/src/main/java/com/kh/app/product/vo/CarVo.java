@@ -2,9 +2,9 @@ package com.kh.app.product.vo;
 
 public class CarVo {
 
+	private int price;
 	private String max;
 	private String licensePlate;
-	private String price;
 	private String lcname;
 	private String title;
 	private String carKindKind;
@@ -21,6 +21,49 @@ public class CarVo {
 	private String type;
 	private String cancelYn;
 	private String payDate;
+	public CarVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CarVo(int price, String max, String licensePlate, String lcname, String title, String carKindKind, String no,
+			String carKindNo, String localNo, String count, String enrollDate, String deleteYn, String licenseDate,
+			String startDate, String endDate, String carReservationCode, String type, String cancelYn, String payDate) {
+		super();
+		this.price = price;
+		this.max = max;
+		this.licensePlate = licensePlate;
+		this.lcname = lcname;
+		this.title = title;
+		this.carKindKind = carKindKind;
+		this.no = no;
+		this.carKindNo = carKindNo;
+		this.localNo = localNo;
+		this.count = count;
+		this.enrollDate = enrollDate;
+		this.deleteYn = deleteYn;
+		this.licenseDate = licenseDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.carReservationCode = carReservationCode;
+		this.type = type;
+		this.cancelYn = cancelYn;
+		this.payDate = payDate;
+	}
+	@Override
+	public String toString() {
+		return "CarVo [price=" + price + ", max=" + max + ", licensePlate=" + licensePlate + ", lcname=" + lcname
+				+ ", title=" + title + ", carKindKind=" + carKindKind + ", no=" + no + ", carKindNo=" + carKindNo
+				+ ", localNo=" + localNo + ", count=" + count + ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn
+				+ ", licenseDate=" + licenseDate + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", carReservationCode=" + carReservationCode + ", type=" + type + ", cancelYn=" + cancelYn
+				+ ", payDate=" + payDate + "]";
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
 	public String getMax() {
 		return max;
 	}
@@ -32,12 +75,6 @@ public class CarVo {
 	}
 	public void setLicensePlate(String licensePlate) {
 		this.licensePlate = licensePlate;
-	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
 	}
 	public String getLcname() {
 		return lcname;
@@ -135,46 +172,5 @@ public class CarVo {
 	public void setPayDate(String payDate) {
 		this.payDate = payDate;
 	}
-	@Override
-	public String toString() {
-		return "CarVo [max=" + max + ", licensePlate=" + licensePlate + ", price=" + price + ", lcname=" + lcname
-				+ ", title=" + title + ", carKindKind=" + carKindKind + ", no=" + no + ", carKindNo=" + carKindNo
-				+ ", localNo=" + localNo + ", count=" + count + ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn
-				+ ", licenseDate=" + licenseDate + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", carReservationCode=" + carReservationCode + ", type=" + type + ", cancelYn=" + cancelYn
-				+ ", payDate=" + payDate + "]";
-	}
-	public CarVo(String max, String licensePlate, String price, String lcname, String title, String carKindKind,
-			String no, String carKindNo, String localNo, String count, String enrollDate, String deleteYn,
-			String licenseDate, String startDate, String endDate, String carReservationCode, String type,
-			String cancelYn, String payDate) {
-		super();
-		this.max = max;
-		this.licensePlate = licensePlate;
-		this.price = price;
-		this.lcname = lcname;
-		this.title = title;
-		this.carKindKind = carKindKind;
-		this.no = no;
-		this.carKindNo = carKindNo;
-		this.localNo = localNo;
-		this.count = count;
-		this.enrollDate = enrollDate;
-		this.deleteYn = deleteYn;
-		this.licenseDate = licenseDate;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.carReservationCode = carReservationCode;
-		this.type = type;
-		this.cancelYn = cancelYn;
-		this.payDate = payDate;
-	}
-	public CarVo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	
-	
 	
 }
