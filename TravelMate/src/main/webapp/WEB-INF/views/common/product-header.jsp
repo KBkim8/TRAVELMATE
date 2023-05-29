@@ -20,7 +20,7 @@
     <div id="wrap">
         <!-- 헤더영역 -->
        	<div id="realLogo">
-            <a href="${root}/admin/home">
+            <a href="${root}/home">
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
@@ -45,8 +45,8 @@
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
             <div></div>
             <div><a data-hover="예약">예약</a></div>
-            <div><a href="${root}/room/list">숙소</a></div>
-            <div><a href="${root}/car/list">차량</a></div>
+            <div><a href="">숙소</a></div>
+            <div><a href="">차량</a></div>
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
             <div><a href="">정보</a></div>

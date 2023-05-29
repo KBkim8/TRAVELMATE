@@ -138,7 +138,7 @@ img{
     <tbody>
       <c:forEach items="${voList}" var="vo"> 
          <tr>
-             <td><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100px" height="100px"  ></td>
+             <td><img src="${root}/static/img/souvenir/${vo.title}" alt="ASD" width="100px" height="100px"  ></td>
              <td>${vo.name}</td>
              <td>${vo.price}</td>
              <td>${vo.local}</td>
