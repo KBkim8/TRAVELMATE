@@ -12,7 +12,7 @@
          position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 420px;
+	    left: 350px;
 	    bottom: 450px;
     }
 
@@ -57,7 +57,7 @@
         width: 1300px;
         height: 70%;
         border-radius: 30px;
-        font-size: 25px;
+        font-size: 23px;
         justify-content: center;
         align-content: center;
     }
@@ -81,23 +81,23 @@
         text-align: center;
     }
 
-    #car-wrap > img {
+    #car-wrap > a >img {
         width: 200px;
         height: 200px;
     }
 
-    #accomo-wrap > img {
+    #accomo-wrap > a > img {
         width: 200px;
         height: 200px;
     }
 
-    #souvenir-wrap > img {
+    #souvenir-wrap > a >img {
         width: 200px;
         height: 200px;
     }
 
     #small-title{
-        font-size: 25px;
+        font-size: 23px;
         font-weight: bold;
         display: flex;
         justify-content: center;
@@ -109,6 +109,7 @@
         justify-content: center;
         align-items: center;
         font-size: 20px;
+        margin-top: 60px;
     }
 
     #btn01, #btn02 {
@@ -167,8 +168,9 @@
                     <c:forEach var="cvo" items="${cvoList}">
                         <div id="car-wrap">
                             <input type="hidden" value="${cvo.no}" name="no">
-                            <img src="${root}/static/img/carImg/${cvo.carImg}" alt="차량이미지">
+                            <a href="${root}/order/car?name=${cvo.carKind}"><img src="${root}/static/img/carImg/${cvo.carImg}" alt="차량이미지"></a>
                             <button id="delBtn" onclick="cdel('${cvo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <br>
                             <div>${cvo.carKind}</div>
                         </div>
                     </c:forEach>
@@ -181,8 +183,9 @@
                     <c:forEach var="avo" items="${avoList}">
                         <div id="accomo-wrap">
                             <input type="hidden" value="${avo.no}" name="no">
-                            <img src="${root}/static/img/accommodationImg/${avo.accomodationImg}" alt="숙소이미지">
+                            <a href="${root}/order/room?name=${avo.accomodationName}"><img src="${root}/static/img/accommodationImg/${avo.accomodationImg}" alt="숙소이미지"></a>
                             <button id="delBtn" onclick="adel('${avo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <br>
                             <div>${avo.accomodationName}</div>
                         </div>
                     </c:forEach>
@@ -195,10 +198,11 @@
                     <c:forEach var="svo" items="${svoList}">
                         <div id="souvenir-wrap">
                             <input type="hidden" value="${svo.no}" name="no">
-                            <img src="${root}/static/img/souvenir_img/${svo.souvenirImg}" alt="기념품이미지">
+                            <a href="${root}/order/souvenir?name=${svo.souvenirName}"><img src="${root}/static/img/souvenir/${svo.souvenirImg}" alt="기념품이미지"></a>
                             <button id="delBtn" onclick="sdel('${svo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
-                            <div>${svo.souvenirName}</div>
-                            <div>${svo.souvenirPrice}</div>
+                            <br>
+                            <div>상품명 : ${svo.souvenirName}</div>
+                            <div>상품가격 : ${svo.souvenirPrice}원</div>
                         </div>
                     </c:forEach>
                 </div>

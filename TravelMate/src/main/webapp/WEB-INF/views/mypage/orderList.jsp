@@ -14,7 +14,7 @@
          position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 390px;
+	    left: 300px;
 	    bottom: 350px;
     }
 
@@ -82,7 +82,7 @@
     #page-area{
         position: absolute;
         top: 1100px;
-        left: 0;
+        left: 100px;
         width: 100%;
         display: flex;
         justify-content: center;
@@ -91,39 +91,23 @@
     }
 
     #btn01 {
-        background-color: #73D38E;
+        background-color: #73d38e75;
         border: 0;
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
         color: black;
         border-radius: 6px;
-        width: 140px;
-        height: 40px;
-        font-size: 18px;
+        width: 100px;
+        height: 30px;
+        font-size: 16px;
         margin-left: 80px;
-        position: absolute;
-        left: 500px;
-        top: 650px;
         vertical-align: middle;
     }
 
-    #btn02 {
-        background-color: #73D38E;
-        border: 0;
-        padding: 0px 25px; 
-        display: inline-block;
-        text-align: center;
-        color: white;
-        border-radius: 6px;
-        width: 90px;
-        height: 30px;
-        font-size: 16px;
-        margin-left: 15px;
-    }
 
     #review-btn {
-        background-color: rgb(150, 237, 161);
+        background-color: rgba(150, 237, 162, 0.508);
         color: black;
         border: 0;
         padding: 0px 25px; 
@@ -186,6 +170,19 @@
         grid-template-columns: 1fr 3fr;
     }
 
+    #btn02 {
+        background-color: rgba(150, 237, 162, 0.508);
+        color: black;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        border-radius: 6px;
+        width: 80px;
+        height: 30px;
+        font-size: 15px;
+        margin-left: 10px;
+    }
 
 
 </style>
@@ -240,7 +237,7 @@
                                             <img src="${root}/static/img/carImg/${vo.img}" alt="차량이미지">
                                         </c:when> 
                                         <c:otherwise>
-                                            <img src="${root}/static/img/souvenir_img/${vo.img}" alt="기념품이미지">
+                                            <img src="${root}/static/img/souvenir/${vo.img}" alt="기념품이미지">
                                         </c:otherwise> 
                                     </c:choose> 
                                 </div>
@@ -263,7 +260,6 @@
                                     주문 수량 : ${vo.cnt}
                                 </c:if>
                                 <br>
-                                <br>
                                 <button id="review-btn" onclick="writeReview(event);">리뷰 쓰러가기!</button>
                                 </div>
                             </div>
@@ -273,7 +269,7 @@
                             ${vo.payType}
                             <br>
                             <br>
-                            <button id="btn02"><a href="">환불</a></button>
+                            <button id="btn02" onclick="refund(event);">환불</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -284,7 +280,7 @@
                     <a id="btn01" href="${root}/mypage/orderList?page=${pv.currentPage-1}">이전</a>
                     </c:if>
                     <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-                        <a id="btn02" href="${root}/mypage/orderList?page=${i}">${i}</a>
+                        <a id="btn01" href="${root}/mypage/orderList?page=${i}">${i}</a>
                     </c:forEach>
                     <c:if test="${pv.currentPage < pv.maxPage}">
                     <a id="btn01" href="${root}/mypage/orderList?page=${pv.currentPage+1}">다음</a>
@@ -337,6 +333,24 @@
     window.location.href = reviewPageUrl;
     }
 
+    function refund(event) {
+
+        const target = event.target.parentElement;
+        const payNo = target.closest("tr").querySelector("td:first-child").textContent;
+
+
+        let refundPageUrl = 'root/refund/payNo=payNo';
+
+        if (searchValue === '1') {
+        refundPageUrl = '${root}/car/refund?payNo=' + payNo;
+        } else if (searchValue === '2') {
+        refundPageUrl = '${root}/room/refund?payNo=' + payNo;
+        } else if (searchValue === '3') {
+        refundPageUrl = '${root}/souvenir/refund?payNo=' + payNo;
+        }
+
+        window.location.href = refundPageUrl;
+        }
 
 	
 </script>

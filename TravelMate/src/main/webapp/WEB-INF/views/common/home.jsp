@@ -9,9 +9,9 @@
 <style>
 	
   #search-area {
-display:flex;
-justify-content: space-around;
-margin-left: 20px;
+  display:flex;
+  justify-content: space-around;
+  margin-left: 20px;
 
 }
 
@@ -44,7 +44,7 @@ background-color: blueviolet;
 #banner{
 display: grid;
 grid-template-columns: 0.5fr 6fr 0.5fr;
-height: 230px;   
+height: 230px;
 }
 
 #img ,#img2 ,#img3  {
@@ -60,11 +60,11 @@ margin-left: 240px;
  
 }
 
-body{
+/* body{
 background-color: rgb(204, 231, 162);
-}
+} */
 
-#wrap{
+#wrap02{
 width: 100%;
 height: 500px;
 background-color: rgb(204, 231, 162);
@@ -73,7 +73,7 @@ grid-template-columns:1.5fr 1fr ;
 border: 3px solid black;
 }
 
-#wrap > div{
+#wrap02 > div{
 border: 3px solid black;
 }
 
@@ -175,11 +175,9 @@ height: 450px;
 		  </svg>
 		</button>
 	  
-		 <a href="">
-		  <img id="img" src="${root}/static/img/banner.png" alt="이미지">
+		  <a href="${root}/"><img id="img" src="${root}/static/img/banner.png" alt="이미지"></a>
 		  <img id="img2" src="${root}/static/img/d오메기떡.jpg" alt="이미지">
 		  <img id="img3" src="${root}/static/img/마음샌드.jpg" alt="이미지">
-		</a>
 	  
 		<!-- 오른쪽화살표 -->
 		<button id="btn02">
@@ -196,7 +194,7 @@ height: 450px;
 		  <a href="">
 		  <img id="bn" src="${root}/static/img/a.png" alt="이미지">
 		  <img id="bn" src="${root}/static/img/b.png" alt="이미지"> 
-		   <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
+		  <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
 		  </a>
 		</div>
 	  
@@ -228,7 +226,7 @@ height: 450px;
 	   
 		</div>
 	  
-		<div id="wrap">
+		<div id="wrap02">
 	  
 		<div id="pr">
 		 <a href=""><h2 align="center">지인에게 특산품을 선물해보세요!</h2></a>

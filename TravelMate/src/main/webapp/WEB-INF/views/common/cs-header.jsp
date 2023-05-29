@@ -45,17 +45,19 @@
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
             <div></div>
             <div><a data-hover="예약">예약</a></div>
-            <div><a href="">숙소</a></div>
-            <div><a href="">차량</a></div>
+            <div><a href="${root}/room/list">숙소</a></div>
+            <div><a href="${root}/car/list">차량</a></div>
+            <div><a href="${root}/souvenir/list">기념품</a></div>
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
-            <div><a href="">정보</a></div>
-            <div><a href="">토론</a></div>
+            <div><a href="">자유</a></div>
             <div><a href="">리뷰</a></div>
             <div><a href="">공지</a></div>
-            <div><a href="">여행일지</a></div>
+            <c:if test="${loginMember.memberCategoryNo != '2'}">
+            <div><a href="${root}/sell/request/list">판매요청</a></div>
             <div><a>|</a></div>
-            <div><a href="" data-hover="랜선여행">랜선여행</a></div>
+            </c:if>
+            <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
             <div><a>|</a></div>
             <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 

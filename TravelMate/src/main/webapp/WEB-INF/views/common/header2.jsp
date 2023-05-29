@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${root}/static/css/header2.css">
+<link rel="stylesheet" href="${root}/static/css/header2 home.css">
 <script defer src="${root}/static/js/header.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
@@ -26,12 +26,18 @@
         </div>
             
         <div id="logoCategory">
+            <c:if test="${empty loginMember}">
+            <a href="${root}/static/img/logo.png">회원가입</a>
             <a>|</a>
+             <a href="${root}/login">로그인</a>
+            <a>|</a>
+        	</c:if>
+        	
         	<c:if test="${not empty loginMember}">
-            	<a href="${root}/logout">로그아웃</a>
-            </c:if>
+        	<a href="${root}/logout">로그아웃</a>
             <a>|</a>
-        	 <a href="${root}/login">로그인</a>
+        	</c:if>
+        	
             <a href="${root}/mypage/member/detail">마이페이지</a>
             <a>|</a>
             <a href="${root}/cs/faq">고객센터</a>
