@@ -150,7 +150,9 @@ table{
 	    
 	      </div>
 	      <b>총 결제 금액:  <input type="number" id="num2" name="totalPrice" value="${vo.price}"> 원</b>
-	      <button id="btn03" type="submit">결제하기</button>
+	      <c:if test="${loginMember != null }">
+			<button id="btn03" type="submit">결제하기</button>
+	      </c:if>
 	      <br><br><br>
 		
 		<input type="hidden" value="${vo.no}" name="no">

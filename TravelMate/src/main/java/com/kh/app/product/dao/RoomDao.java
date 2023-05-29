@@ -222,7 +222,7 @@ public class RoomDao {
 	}
 
 	public int order(RoomVo vo, Connection conn, MemberVo loginMember) throws Exception {
-		String sql = "INSERT INTO ACCOMODATION_RESERVATION ( NO, ACCOMODATION_NO, PRICE, START_DATE, END_DATE, PHONE, ADDRESS, MEMBER_NO ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO ACCOMODATION_RESERVATION ( NO, ACCOMODATION_NO, PRICE, START_DATE, END_DATE, PHONE, ADDRESS, MEMBER_NO, NAME ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getNo());
 		pstmt.setString(2, vo.getPrice());
@@ -231,6 +231,7 @@ public class RoomDao {
 		pstmt.setString(5, vo.getPh());
 		pstmt.setString(6, vo.getAddress());
 		pstmt.setString(7, loginMember.getNo());
+		pstmt.setString(8, vo.getMname());
 		
 		
 		int result = pstmt.executeUpdate();
@@ -242,7 +243,7 @@ public class RoomDao {
 
 	public RoomVo roomSelectOrder(Connection conn, String no, MemberVo loginMember) throws Exception {
 		//SQL
-		String sql = "SELECT AR.NO, A.NAME ,AR.ACCOMODATION_NO ,AR.MEMBER_NO ,AR.RESERVATION_YN ,AR.START_DATE ,AR.END_DATE ,AR.PRICE ,AR.PHONE ,AR.ADDRESS ,AI.TITLE FROM ACCOMODATION_RESERVATION AR JOIN ACCOMODATION A ON A.NO = AR.ACCOMODATION_NO JOIN ACCOMODATION_IMG AI ON AI.ACCOMODATION_NO = A.NO WHERE A.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
+		String sql = "SELECT AR.NO, A.NAME ,AR.ACCOMODATION_NO ,AR.MEMBER_NO, AR.NAME AS MNAME ,AR.RESERVATION_YN ,AR.START_DATE ,AR.END_DATE ,AR.PRICE ,AR.PHONE ,AR.ADDRESS ,AI.TITLE FROM ACCOMODATION_RESERVATION AR JOIN ACCOMODATION A ON A.NO = AR.ACCOMODATION_NO JOIN ACCOMODATION_IMG AI ON AI.ACCOMODATION_NO = A.NO WHERE A.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, loginMember.getNo());
 		ResultSet rs = pstmt.executeQuery();
@@ -253,6 +254,7 @@ public class RoomDao {
 			
 			
 			String name = rs.getString("NAME");
+			String mname = rs.getString("MNAME");
 			String title = rs.getString("TITLE");
 			String price = rs.getString("PRICE");
 			String phone = rs.getString("PHONE");
@@ -262,7 +264,8 @@ public class RoomDao {
 			
 			vo.setNo(no);
 	        vo.setName(name);
-			vo.setTitle(title);
+	        vo.setMname(mname);
+	        vo.setTitle(title);
 			vo.setPrice(price);
 			vo.setPh(phone);
 			vo.setAddress(address);
