@@ -98,12 +98,13 @@ table{
 
       <div id="first2">
         <div>
-          <h2><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100%" height="100%"  ></h2>
+          <h2><img src="${root}/static/img/souvenir/${vo.title}" alt="ASD" width="220px" height="200px"  ></h2>
         </div>
         <div>
-          <h2>상품 이름: ${vo.name}</h2>
-          <h2>상품 상세: ${vo.content}</h2>
-          <h2>상품 가격: ${vo.price}원</h2>
+        <br>
+          <h2>상품 이름: ${vo.name}</h2><br>
+          <h2>상품 상세: ${vo.content}</h2><br>
+          <h2>상품 가격: ${vo.price}원</h2><br>
           <h2>상품 지역: ${vo.local}</h2>
         </div>
       </div>
@@ -117,6 +118,7 @@ table{
 
 	  <form action="${root}/pay/souvenir" method="post">
 	      <div id="second2">
+	      <br>
 	        <table>
 	            <tr>
 	                <td>예약자 명:</td>

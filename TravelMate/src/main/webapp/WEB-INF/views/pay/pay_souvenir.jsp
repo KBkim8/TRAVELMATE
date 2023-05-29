@@ -123,12 +123,13 @@ textarea{
 
       <div id="second2">
         <div>
-          <h2><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100%" height="100%"  ></h2>
+          <h2><img src="${root}/static/img/souvenir/${vo.title}" alt="ASD" width="90%" height="200px%"  ></h2>
         </div>
         <div>
-            <h4>예약자 이름: ${vo.mname}</h4>
-            <h4>예약자 연락처: ${vo.ph}</h4>
-            <h4>배송 주소: ${vo.address }</h4>
+        <br>
+            <h4>예약자 이름: ${vo.mname}</h4><br>
+            <h4>예약자 연락처: ${vo.ph}</h4><br>
+            <h4>배송 주소: ${vo.address }</h4><br>
             <h4>수량: ${vo.cnt}</h4>
         </div>
       </div>
