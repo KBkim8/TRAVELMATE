@@ -100,33 +100,52 @@
         <div></div>
         
         <div>
-          <h3>최종 결제 정보<hr></h3>
+        	상품결제번호 : ${vo.no}
+        	<br>
+        	<br>
+        	<h1>결제취소사유</h1>
+        	<br>
+        	<br>
+        	<h2>제목</h2>
+        	<input type="text" name="title" placeholder="제목을 입력하세요.">
+        	<br>
+        	<textarea placeholder="내용을 입력하세요.">내용</textarea>
+        	<br>
+        	<br>
+        	
+        	
+        	
+        </div>
+        
+        
+     
         </div>
       </div>
 
-      <div id="second2">
-        <div>
-          <h2>이미지</h2>
-        </div>
-        <div>
-            <h4>예약자 이름:</h4>
-            <h4>예약자 연락처:</h4>
-            <h4>배송 주소: --</h4>
-            <h4>수량: N</h4>
-        </div>
-      </div>
-
-      <b>총 결제 금액:</b><br><br><br><br><br>
+      <b>총 결제 금액: ${vo.price}</b><br><br><br><br><br>
 
       <h2>결제를 취소 하시겠습니까?</h2>
 
       <hr>
       <div>
-        <button id="btn01">예</button>
-        <button id="btn02">아니오</button>
+        <button id="btn01" onclick="payCancel();">결제취소</button>
+        <button id="btn02" onclick="backPage();">뒤로가기</button>
       </div>
 
       
     </div>
 </body>
+
+<script>
+
+	function backPage() {
+    	location.href="${root}/mypage/orderList";
+  	}
+
+	function payCancel() {
+    	location.href="${root}/room/refund";
+  	}
+
+
+</script>
 </html>

@@ -138,7 +138,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/common/header2.jsp" %>
 	
 	<!-- 내용영역 -->
 <div id="content">
@@ -147,7 +147,7 @@
 		<h1 id="h1">차량 정보<hr></h1>
 		<div id="supbox">
 	        <div id="boxx">
-	            <img width="380px" src="${root}/static/img/car_img/${vo.title}" alt="avante">
+	            <img width="380px" src="${root}/static/img/carImg/${vo.title}" alt="carImg">
 	        </div>
 	        <div>
 	            <div id="box">
@@ -248,7 +248,7 @@
 
 
 </body>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />

@@ -6,12 +6,12 @@
 <meta charset="UTF-8">
 <title>Document</title>
 <style>
-#shape{
+#content{
 	position: relative;
-    width: 1390px;
-    height: 100%;
-    bottom: 900px;
-    left: 400px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
 }
 
 
@@ -83,12 +83,11 @@ table td{
 </head>
 <body>
   
-  <%@ include file="/WEB-INF/views/common/header.jsp" %>
+  <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
   
-<div id="shape">
-  
-  
-	<form action="${root}/car/list" method="get">
+	<div id="content">
+    
+    <form action="${root}/car/list" method="get">
 		<div id="search-area">
 		      <input type="hidden" name="page" value="1">
 		      <select name="searchType">					
@@ -162,7 +161,70 @@ table td{
      	<a class="btn btn-primary btn-sm" href="${root}/car/list?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">다음</a>
      </c:if>
     </div>
-
-</div>
+     
+ 	</div>
 </body>
 </html>
+
+<script>
+const searchType = '${searchVo.searchType}';
+const searchValue = '${searchVo.searchValue}';
+
+const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+const searchValueInputTag = document.querySelector("input[name='searchValue']");
+
+if(searchType.length > 1){
+	initSearchType();
+}
+
+// 검색 타입 초기셋팅
+function initSearchType(){
+	const x = document.querySelector('select > option[value="' + searchType + '"]');
+	x.selected = true;
+}
+
+
+//서치타입 변경 시 함수 실행
+const searchTypeTag = document.querySelector('select[name="searchType"]');
+searchTypeTag.addEventListener("change" , setSearchValueTag);
+
+function setSearchValueTag(){
+	const searchType = searchTypeTag.value;
+	if(searchType == 'category'){
+		setSearchValueTagSelect();
+	}else{
+		setSearchValueTagInput();
+	}
+}
+
+//검색값 영역을 셀렉트가 보이게 (타입이 카테고리일 때)
+function setSearchValueTagSelect(){
+	searchValueSelectTag.classList.add("active");
+	searchValueSelectTag.disabled = false;
+	searchValueInputTag.classList.remove("active");
+	searchValueInputTag.disabled = true;
+
+	searchValueInputTag.value = '';
+}
+
+//검색값 영역을 인풋이 보이게 (타입이 카테고리가 아닐 때)
+function setSearchValueTagInput(){
+	searchValueInputTag.classList.add("active");
+	searchValueInputTag.disabled = false;
+	searchValueSelectTag.classList.remove("active");
+	searchValueSelectTag.disabled = true;
+}
+
+	//테이블 행 클릭시 상세조회
+	const tbody = document.querySelector('tbody');
+	tbody.addEventListener('click', (event)=>{
+		//글번호 가져와서
+		const name = event.target.parentNode.children[1].innerText;
+
+		//요청보내기
+		location.href='${root}/order/car?name=' + name;
+
+
+	});
+
+</script>

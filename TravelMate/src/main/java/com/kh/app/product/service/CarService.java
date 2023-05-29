@@ -76,21 +76,15 @@ public class CarService {
 
 
 	public int pay(CarVo cvo) throws Exception {
-		//가격 가져오기
+		//가격 cvo에 넣기
 		Connection conn = JDBCTemplate.getConnection();
-		cvo = null;
-		String sql = "SELECT PRICE FROM CAR_RESERVATION";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		ResultSet rs = pstmt.executeQuery();
-		while(rs.next()) {
-			int price = rs.getInt("PRICE");
-			//가격 가져와서 cvo에 넣기
-			cvo = new CarVo();
-			cvo.setPrice(price);
-		}
-			JDBCTemplate.close(rs);
-			JDBCTemplate.close(conn);
 		
+		int price = dao.getPrice(cvo, conn);
+		cvo.setPrice(price);
+		
+		JDBCTemplate.close(conn);
+		
+		//결제 진행하기
 		conn = JDBCTemplate.getConnection();
 		
 		int result = dao.pay(cvo, conn);

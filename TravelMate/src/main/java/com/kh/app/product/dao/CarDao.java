@@ -249,6 +249,24 @@ public class CarDao {
 		return result2;
 	
 	}
+
+
+
+	public int getPrice(CarVo cvo, Connection conn) throws Exception {
+
+		int price = 0;
+		String sql = "SELECT PRICE FROM CAR_RESERVATION";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			price = rs.getInt("PRICE");
+			
+		}
+
+			JDBCTemplate.close(rs);
+			return price;
+	
+	}
 	
 
 }
