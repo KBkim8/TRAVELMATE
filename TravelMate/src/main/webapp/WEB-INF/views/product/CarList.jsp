@@ -137,7 +137,7 @@ table td{
     <tbody>
       <c:forEach items="${voList}" var="vo"> 
          <tr>
-             <td>${vo.title}</td>
+             <td><img src="${root}/static/img/carImg/${vo.title}" alt="ASD" width="100px" height="100px"  ></td>
              <td>${vo.carKindKind}</td>
              <td>${vo.price}</td>
              <td>${vo.lcname}</td>
