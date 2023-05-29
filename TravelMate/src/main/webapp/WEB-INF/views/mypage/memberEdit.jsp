@@ -9,12 +9,11 @@
 
 
     #content{
-        position: relative;
-	    width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 800px;
+         position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
     }
 
     #first-content>img{
@@ -55,14 +54,15 @@
     }
     
     #edit-input-box{
-        width: 1300px;
+        width: 900px;
         border-radius: 30px;
         border: 1px solid black;
-        height: 600px;
+        height: 80%;
         margin: auto;
         font-size: 20px;
         display: flex;
         justify-content:center;
+        align-items: center;
     }
 
     .edit-input-area {
@@ -101,12 +101,12 @@
         grid-template-columns: 9fr 1fr;
     }
     
-    #btn-area > input{
+    /* #btn-area > input{
         width: 200px;
         height: 60px;
         font-size: 30px;
         border-spacing: 40px;
-    }
+    } */
 
 
     #btn01 {
@@ -115,20 +115,16 @@
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
-        color: white;
+        color: black;
         border-radius: 6px;
-        width: 250px;
-        height: 50px;
-        font-size: 28px;
-        margin-left: 80px;
-    }
-
-    #btn02{
-        background-color: aliceblue;
-        width: 100px;
+        width: 140px;
         height: 40px;
-        border: none;
-        font-size: 20px;
+        font-size: 18px;
+        margin-left: 80px;
+        position: absolute;
+        left: 500px;
+        top: 650px;
+        vertical-align: middle;
     }
 
     #btn01:hover {background-color: #80C49D;}
