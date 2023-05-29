@@ -1,4 +1,3 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,22 +10,23 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="${root}/static/css/header.css">
-<script defer src="${root}/static/js/header.js"></script>
+<link rel="stylesheet" href="${root}/static/css/header2.css">
+<script defer src="${root}/static/js/admin/header.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
 </head>
 <body bottommargin="0">
     
     <div id="wrap">
         <!-- 헤더영역 -->
        	<div id="realLogo">
-            <a href="${root}/home">
+            <a href="${root}/admin/home">
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
             
         <div id="logoCategory">
-        	<c:if test="${empty loginMember}">
+            <c:if test="${empty loginMember}">
             <a href="${root}/static/img/logo.png">회원가입</a>
             <a>|</a>
              <a href="${root}/login">로그인</a>
@@ -63,16 +63,20 @@
          <!-- 왼쪽사이드바 -->
         <div id="side-bar">
             <img src="${root}/static/img/삼각형.png" alt="삼각형">
+            <div id="small-logo">
+                <img src="${root}/static/img/TM small logo.png" alt="프로필사진">
+            </div>
             <div id="side">
                 <div id="side-content">
                      <div class="topbar" style="position: absolute; top:0;">
-                         <div class="left_sub_menu">
-                             <div class="sub_menu">
-                                 <div id="sub-img">
-                                     <img id="site-logo" src="${root}/static/img/TM small logo.png" alt="로고">
-                                     <img id="triangle2" src="${root}/static/img/삼각형.png" alt="삼각형2">
-                                 </div>
-                                 <ul class="big_menu">
+                        <div class="left_sub_menu">
+                            <div id="sub-img">
+                                 <img id="triangle2" src="${root}/static/img/삼각형2.png" alt="삼각형2">
+                            </div>
+                        </div>        
+                        <div class="sub_menu">
+                            <h2 id="admin-private" data-hover="마이페이지" class="SMN_effect-23-2">마이페이지</h2>
+                            <ul class="big_menu">
                                      <li>회원정보 <i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
                                          <li><a href="${root}/mypage/member/detail">회원정보조회</a></li>
@@ -103,7 +107,7 @@
                                          <li><a href="${root}/mypage/myBoardList">목록조회</a></li>
                                      </ul>
                                  </ul>
-                             </div>
+                        </div>
                          </div>
                          <div class="overlay"></div>
                      </div>
@@ -115,7 +119,7 @@
         <div id="right-sidebar">
 
             <ul>
-              <li id="cart">
+              <li>
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
@@ -154,7 +158,6 @@
         </div>
 
     </div>
-
 
 </body>
 </html>

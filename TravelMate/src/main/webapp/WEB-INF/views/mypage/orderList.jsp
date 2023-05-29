@@ -11,12 +11,11 @@
 
     /* 내용영역 */
     #content{
-        position: relative;
-	    width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 800px;
+         position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 390px;
+	    bottom: 350px;
     }
 
     #first-content>img{
@@ -51,21 +50,16 @@
         height: 1000px;
         left: 100px;
         top: 230px;
-        font-size: 22px;
+        font-size: 18px;
         position: absolute;
         width: 1300px;
         height: 80%;
         text-align: center;
         border-collapse: separate;
         border-spacing: 2px;
-        
+        margin-top: 20px;
     }
 
-    #orderList-area thead th {
-            font-weight: bold;
-            font-size: 25px;
-            border-bottom: 2px solid black; /* 선 스타일 및 색상 설정 */
-        }
 
     #orderList-area tbody td {
         border-bottom: 1px solid black; /* 선 스타일 및 색상 설정 */
@@ -74,8 +68,9 @@
     }
 
     #orderList-area thead th {
-        font-weight: bold;
-        font-size: 25px;
+        font-weight: 600;
+        font-size: 22px;
+        border-bottom: 2px solid black; /* 선 스타일 및 색상 설정 */
     }
 
     img {
@@ -86,7 +81,7 @@
 
     #page-area{
         position: absolute;
-        bottom: 0;
+        top: 1100px;
         left: 0;
         width: 100%;
         display: flex;
@@ -101,12 +96,16 @@
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
-        color: white;
+        color: black;
         border-radius: 6px;
-        width: 100px;
-        height: 30px;
-        font-size: 25px;
-        margin-left: 15px;
+        width: 140px;
+        height: 40px;
+        font-size: 18px;
+        margin-left: 80px;
+        position: absolute;
+        left: 500px;
+        top: 650px;
+        vertical-align: middle;
     }
 
     #btn02 {
@@ -118,8 +117,8 @@
         color: white;
         border-radius: 6px;
         width: 90px;
-        height: 40px;
-        font-size: 20px;
+        height: 30px;
+        font-size: 16px;
         margin-left: 15px;
     }
 
@@ -131,9 +130,9 @@
         display: inline-block;
         text-align: center;
         border-radius: 6px;
-        width: 230px;
+        width: 220px;
         height: 30px;
-        font-size: 20px;
+        font-size: 18px;
         margin-left: 15px;
     }
 
@@ -154,7 +153,7 @@
         outline: 0;
         color: rgb(4, 4, 4);
         position: absolute;
-        left: 385px;
+        left: 350px;
         top: 5px;
         width: 50px;
         height: 30px;
@@ -168,25 +167,15 @@
 
     #report-search{
         position: absolute;
-        right: 300px;
+        right: 200px;
         top: 141px;
         width: 150px;
         height: 40px;
     }
 
-    #report-search>form>input[type="text"]{
-        width: 240px;
-        height: 40px;
-        font-size: 17px;
-        position: absolute;
-        left: 100px;
-    }
-    
-
 	.searchValueElem {
 		position: absolute;
-        left: 100px;
-        top: 1px;
+        left: 90px;
         width: 120px;
         height: 40px;
         font-size: 20px;
@@ -335,14 +324,14 @@
         const payNo = target.closest("tr").querySelector("td:first-child").textContent;
 
     
-    let reviewPageUrl = 'root/reviewPage?payNo=payNo';
+    let reviewPageUrl = 'root/review/write?payNo=payNo';
     
     if (searchValue === '1') {
-        reviewPageUrl = '${root}/reviewPage?payNo=' + payNo;
+        reviewPageUrl = '${root}/car/review/write?payNo=' + payNo;
     } else if (searchValue === '2') {
-        reviewPageUrl = '${root}/AccomodationReviewPage?payNo=' + payNo;
+        reviewPageUrl = '${root}/room/review/write?payNo=' + payNo;
     } else if (searchValue === '3') {
-        reviewPageUrl = '${root}/SouvenirReviewPage?payNo=' + payNo;
+        reviewPageUrl = '${root}/souvenir/review/write?payNo=' + payNo;
     }
     
     window.location.href = reviewPageUrl;

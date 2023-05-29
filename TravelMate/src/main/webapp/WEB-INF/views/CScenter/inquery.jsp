@@ -10,10 +10,10 @@
 
 #content01{
         position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 900px;
-	    left: 400px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
     }
 
     #first-content>img{

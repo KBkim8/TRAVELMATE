@@ -12,12 +12,11 @@
 
     /* 내용영역 */
     #content{
-        position: relative;
-	    width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 800px;
+         position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
     }
 
     #first-content>img{
