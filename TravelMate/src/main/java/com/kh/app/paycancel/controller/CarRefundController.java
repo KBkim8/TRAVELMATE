@@ -52,7 +52,7 @@ public class CarRefundController extends HttpServlet{
 			
 			
 			//paycancelreason insert
-			String carPaymentNo = req.getParameter(payNo);
+			String carPaymentNo = req.getParameter("payNo");
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 			
@@ -62,6 +62,8 @@ public class CarRefundController extends HttpServlet{
 			pcvo.setContent(content);
 			
 			conn2 = JDBCTemplate.getConnection();
+			
+			pcdao = new CarPayCancelDao();
 			
 			int result2 = pcdao.carPayCancelReason(conn2, pcvo);
 		
