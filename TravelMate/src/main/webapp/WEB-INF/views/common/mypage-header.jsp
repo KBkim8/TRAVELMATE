@@ -20,7 +20,7 @@
     <div id="wrap">
         <!-- 헤더영역 -->
        	<div id="realLogo">
-            <a href="${root}/admin/home">
+            <a href="${root}/home">
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
