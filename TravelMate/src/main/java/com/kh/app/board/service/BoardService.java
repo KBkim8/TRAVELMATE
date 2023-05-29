@@ -332,22 +332,30 @@ private final BoardDao dao;
 			return relpyList;
 		}
 
-		//관리자 신분으로 모든 판매요청 리스트 조회
+		//관리자 신분(멤버 카테고리 번호 1번) 으로 모든 판매요청 리스트 조회
 		public List<BoardVo> sellRequestList(PageVo pv) throws Exception {
 			
 			Connection conn = JDBCTemplate.getConnection();
-			String sql = "";
-			PreparedStatement pstmtPreparedStatement = conn.prepareStatement(sql);
 			
-			return null;
+			List<BoardVo> voList = dao.sellRequestList(conn ,pv);
 			
+			JDBCTemplate.close(conn);
+			
+			return voList;
 		
 		}
 		
 		//판매자 자신이 쓴 판매요청 리스트 조회
-		public List<BoardVo> sellRequestList(PageVo pv, String memberCategoryNo) {
+		public List<BoardVo> sellRequestList(PageVo pv, String memberNo) throws Exception {
 
-			return null;
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> voList = dao.sellRequestList(conn ,pv ,memberNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return voList;
+			
 		}
 		
 		

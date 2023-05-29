@@ -18,8 +18,8 @@ import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
 @MultipartConfig(
-		maxFileSize = 1024 * 1024 * 100 ,
-		maxRequestSize = 1024 * 1024 * 1000
+		maxFileSize = 1024 * 1024 * 50 ,
+		maxRequestSize = 1024 * 1024 * 50 * 10
 	)
 
 @WebServlet(urlPatterns = "/sell/request/write")
@@ -35,7 +35,6 @@ public class SellrequestWriteController extends HttpServlet{
 	
 		try {
 			
-			
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
@@ -43,17 +42,17 @@ public class SellrequestWriteController extends HttpServlet{
 			String title = req.getParameter("title");
 			String contnet = req.getParameter("content");
 			
-			
-			String path = req.getServletContext().getRealPath("/static/img/gallery/");
 			Part f = req.getPart("f");
+			
+			String path = req.getServletContext().getRealPath("/static/img/sell-request-img/");
 			BoardImgVo biVo = FileUploader.saveFile(path, f);
 
 			//boardImg title 에 changename insert
 			
 			BoardVo vo = new BoardVo();
 			vo.setMemberNo(writer);
-			vo.setTitle(biVo.getChangeName());
-			vo.setContent(contnet);
+			vo.setTitle(title);
+			vo.setContent(biVo.getChangeName());
 			vo.setBoardImgNo(biVo.getBno());
 			
 			BoardService bs = new BoardService();

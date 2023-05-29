@@ -16,7 +16,7 @@ import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
 
 @WebServlet(urlPatterns = "/sell/request/list")
-public class SellRequestList extends HttpServlet{
+public class SellRequestListController extends HttpServlet{
 	
 	//	멤버 카테고리 "1" 번인 관리자의 신분으로 모든 판매등록글 리스트 조회
 	@Override
@@ -26,9 +26,7 @@ public class SellRequestList extends HttpServlet{
 			
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
-			
-			String memberCategoryNo = loginMember.getMemberCategoryNo();
-
+			String memberNo = loginMember.getNo();
 			
 			BoardService bs = new BoardService();
 			
@@ -41,18 +39,23 @@ public class SellRequestList extends HttpServlet{
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
 			List<BoardVo> voList = null;
-			if(memberCategoryNo =="1") {
+			if(loginMember.getMemberCategoryNo() =="1") {
 				voList = bs.sellRequestList(pv);
+				req.setAttribute("voList", voList);
+				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
+				
 			}else {
-				voList = bs.sellRequestList(pv , memberCategoryNo);
+				voList = bs.sellRequestList(pv , memberNo);
+				req.setAttribute("voList", voList);
+				req.getRequestDispatcher("/WEB-INF/views/board/sell-request-list.jsp").forward(req, resp);
 			}
 			
 			//화면 
-			if( voList !=null ){
-				req.setAttribute("lgoinMember", loginMember);
-				req.setAttribute("voList", voList);
-				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
-			}
+//			if( voList !=null ){
+//				req.setAttribute("lgoinMember", loginMember);
+//				req.setAttribute("voList", voList);
+//				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
+//			}
 			
 		}catch (Exception e) {
 			e.printStackTrace();

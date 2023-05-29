@@ -15,17 +15,17 @@
 	<%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
     <div id="content">
-        <form action="${root}/sell/request/write" method="post" enctype="multipart/form-data`">
+        <form action="${root}/sell/request/write" method="post" enctype="multipart/form-data">
            <div id="declaration">
                <div>제목</div>
                <div><input type="text" name="title"></div>
                <div>내용</div>
                <div><input type="text" name="content"></div>
                <div>이미지</div>
-               <div><input type="file" name="f"></div>
-               <div id="img-area">
-                                       
-               </div>
+               <div><input type="file" name="f"></div>  &nbsp;
+                   <div id="img-area">
+                                       		
+                   </div>
                <input id="close" type="submit" value="등록하기">
            </div>
        </form>
