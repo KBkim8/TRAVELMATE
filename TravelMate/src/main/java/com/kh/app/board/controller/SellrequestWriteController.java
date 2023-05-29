@@ -52,10 +52,9 @@ public class SellrequestWriteController extends HttpServlet{
 			
 			BoardVo vo = new BoardVo();
 			vo.setMemberNo(writer);
-			vo.setTitle(title);
+			vo.setTitle(biVo.getChangeName());
 			vo.setContent(contnet);
 			vo.setBoardImgNo(biVo.getBno());
-			vo.setContent(biVo.getChangeName());
 			
 			BoardService bs = new BoardService();
 			

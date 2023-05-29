@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/sellRequest.css">
+<link rel="stylesheet" href="${root}/static/css/admin/sellrequestDetail.css">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
                <div>이미지</div>
                <div><input type="file" name="f"></div>
                <div id="img-area">
-                                      
+                                       
                </div>
                <input id="close" type="submit" value="등록하기">
            </div>
