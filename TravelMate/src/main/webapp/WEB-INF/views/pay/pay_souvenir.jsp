@@ -123,7 +123,7 @@ textarea{
 
       <div id="second2">
         <div>
-          <h2><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100px" height="100px"  ></h2>
+          <h2><img src="${root}/static/img/souvenir_img/${vo.title}" alt="ASD" width="100%" height="100%"  ></h2>
         </div>
         <div>
             <h4>예약자 이름: ${vo.mname}</h4>

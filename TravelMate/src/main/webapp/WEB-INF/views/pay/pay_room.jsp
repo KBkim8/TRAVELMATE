@@ -127,7 +127,7 @@ textarea{
 
       <div id="second2">
         <div>
-          <h2>이미지</h2>
+          <img src="${root}/static/img/accomodation_img/${vo.title}" alt="ASD" width="100%" height="100%"  >
         </div>
         <div>
           <h4>예약자 이름: ${vo.mname}</h4>
