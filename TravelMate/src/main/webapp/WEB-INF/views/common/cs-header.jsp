@@ -47,12 +47,12 @@
             <div><a data-hover="예약">예약</a></div>
             <div><a href="${root}/room/list">숙소</a></div>
             <div><a href="${root}/car/list">차량</a></div>
-            <div><a href="${root}/souvenir/list">기념품</a></div>
+            
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
-            <div><a href="">자유</a></div>
-            <div><a href="">리뷰</a></div>
-            <div><a href="">공지</a></div>
+            <div><a href="${root}/free/list">자유</a></div>
+            <div><a href="${root}/reivew/list">리뷰</a></div>
+            <div><a href="${root}/notice/list">공지</a></div>
             <c:if test="${loginMember.memberCategoryNo != '2'}">
             <div><a href="${root}/sell/request/list">판매요청</a></div>
             <div><a>|</a></div>
