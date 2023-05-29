@@ -37,8 +37,7 @@ public class CarInventoryWriteController extends HttpServlet{
 			String local = req.getParameter("local");
 			String licensePlate = req.getParameter("licensePlate");
 			String outDate = req.getParameter("outDate");
-			String weekdayPrice = req.getParameter("weekdayPrice");
-			String weekendDayPrice = req.getParameter("weekenddayPrice");
+			String price = req.getParameter("price");
 			
 			String path = req.getServletContext().getRealPath("/static/img/carImg/");
 			Part f = req.getPart("f");
@@ -50,8 +49,7 @@ public class CarInventoryWriteController extends HttpServlet{
 			vo.setName(local);
 			vo.setLicensePlate(licensePlate);
 			vo.setLicenseDate(outDate);
-			vo.setWeekdayPrice(weekdayPrice);
-			vo.setWeekendPrice(weekendDayPrice);
+			vo.setPrice(price);
 			vo.setChangeName(attVo.getChangeName());
 			vo.setOriginName(attVo.getOriginName());
 			

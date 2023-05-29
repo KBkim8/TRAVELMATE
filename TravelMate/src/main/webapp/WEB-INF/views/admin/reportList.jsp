@@ -57,7 +57,7 @@
 				<c:forEach var="reportVoList" items="${reportVoList}">
                 <div id="report-content">
                     <label class="chk_box">
-                    <input type="checkbox" value="${reportVoList.no}" name="stop">
+                    <input type="checkbox" value="${reportVoList.no}" name="stop" onchange="handleCheckboxChange(this)">
                     <span class="on"></span>
             
                     </label>
@@ -151,6 +151,14 @@
         });
     });
     }
+
+    //체크박스 하나만
+    function handleCheckboxChange(checkbox) {
+    var checkboxes = document.getElementsByName('stop');
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].disabled = checkboxes[i] !== checkbox && checkbox.checked;
+    }
+  }
 
 	//게시글 상세조회
 	const declaration = document.querySelector("#declaration");

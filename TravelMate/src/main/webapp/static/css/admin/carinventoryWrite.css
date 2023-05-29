@@ -26,7 +26,7 @@
     background-image: url(/TravelMate/static/img/bannerWrite.png);
     display: grid;
     grid-template-columns: 1fr 4fr 2fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 6fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 6fr;
     padding-left: 80px;
     padding-top: 60px;
 }
@@ -91,5 +91,5 @@ input[type="file"]{
     justify-content: center;
     grid-column: span 3;
     margin-left: 350px;
-    margin-bottom: 20px;
+    margin-top: 150px;
 }

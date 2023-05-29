@@ -30,10 +30,8 @@
                 <div><input type="date" name="outDate" value="${vo.licenseDate}" readonly></div>
                 <div>최대탑승인원</div>
                 <div><input type="number" name="maxPeople" min="1" value="${vo.max}" readonly></div>
-                <div>평일가격</div>
-                <div><input type="text" name="weekdayPrice" value="${vo.weekdayPrice}" readonly></div>
-                <div>주말가격</div>
-                <div><input type="text" name="weekenddayPrice" value="${vo.weekendPrice}" readonly></div>
+                <div>가격</div>
+                <div><input type="text" name="price" value="${vo.price}" readonly></div>
                 <div id="carCount">재고</div>
                 <select name="count" id="">
                     <option value="1">재고있음</option>

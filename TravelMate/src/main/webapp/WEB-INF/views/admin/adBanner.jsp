@@ -46,7 +46,7 @@
             <c:forEach var="voList" items="${voList}">
             <div id="report-content">
                 <label class="chk_box">
-                <input type="checkbox" value="${voList.no}" name="stop">
+                <input type="checkbox" value="${voList.no}" name="stop" onchange="handleCheckboxChange(this)">
                 <span class="on"></span>
                 </label>
             </div>
@@ -101,6 +101,14 @@
 </body>
 </html>
 <script>
+    //체크박스 하나만
+    function handleCheckboxChange(checkbox) {
+        var checkboxes = document.getElementsByName('stop');
+        for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].disabled = checkboxes[i] !== checkbox && checkbox.checked;
+        }
+    }
+
     //게시글 삭제
 	function bannerDel(no){
         console.log(no);

@@ -1060,7 +1060,7 @@ public class AdminDao {
 	
 	//차량재고조회 글작성
 	public int carInventoryWrite(Connection conn, CarInventoryVo vo) throws Exception {
-		String s = "INSERT INTO RENTCAR(NO, CAR_KIND_NO, LOCAL_NO, COUNT, ENROLL_DATE, MAX, LICENSE_PLATE, LICENSE_DATE, PRICE, CHANGE_NAME, ORIGIN_NAME) VALUES(SEQ_RENTCAR_NO.NEXTVAL, ?, ?, 1, SYSDATE, ?, ?, ?, ?, ?, ?, ?)";
+		String s = "INSERT INTO RENTCAR(NO, CAR_KIND_NO, LOCAL_NO, COUNT, ENROLL_DATE, MAX, LICENSE_PLATE, LICENSE_DATE, PRICE, CHANGE_NAME, ORIGIN_NAME) VALUES(SEQ_RENTCAR_NO.NEXTVAL, ?, ?, 1, SYSDATE, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, vo.getKind());
 		pstmt.setString(2, vo.getName());
@@ -1079,7 +1079,7 @@ public class AdminDao {
 	
 	//차량재고조회 재고수정 화면조회
 	public CarInventoryVo carInventoryEdit(Connection conn, String no) throws Exception {
-		String s = "SELECT C.COUNT, C.NO, K.KIND, L.NAME, C.LICENSE_PLATE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.MAX, C.WEEKDAY_PRICE, C.WEEKEND_PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE C.NO = ?";
+		String s = "SELECT C.COUNT, C.NO, K.KIND, L.NAME, C.LICENSE_PLATE, TO_CHAR(C.LICENSE_DATE, 'YYYY-MM-DD') AS LICENSE_DATE, C.MAX, C.PRICE, C.CHANGE_NAME, C.ORIGIN_NAME FROM RENTCAR C JOIN CAR_KIND K ON C.CAR_KIND_NO = K.NO JOIN LOCAL_CATEGORY L ON C.LOCAL_NO = L.NO WHERE C.NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -1260,7 +1260,7 @@ public class AdminDao {
 	
 	//판매등록요청 상세조회
 	public SellRequestDetailVo sellRequestDetail(Connection conn, String no) throws Exception {
-		String s = "SELECT B.NO, M.NICK, B.TITLE, B.CONTENT, TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, B.ORIGIN_NAME, B.CHANGE_NAME FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO = '2' AND UPLOAD_YN = 'Y' AND B.NO = ?";
+		String s = "SELECT B.NO, M.NICK, B.TITLE, B.CONTENT, TO_CHAR(B.ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, I.TITLE AS IMG_TITLE FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO JOIN BOARD_IMG I ON B.BOARD_IMG_NO = I.NO WHERE B.BOARD_CATEGORY_NO = '2' AND UPLOAD_YN = 'Y' AND B.NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -1271,8 +1271,7 @@ public class AdminDao {
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
 			String enrollDate = rs.getString("ENROLL_DATE");
-			String originName = rs.getString("ORIGIN_NAME");
-			String changeName = rs.getString("CHANGE_NAME");
+			String changeName = rs.getString("IMG_TITLE");
 
 			
 			vo = new SellRequestDetailVo();
@@ -1281,7 +1280,6 @@ public class AdminDao {
 			vo.setTitle(title);
 			vo.setContent(content);
 			vo.setEnrollDate(enrollDate);
-			vo.setOriginName(originName);
 			vo.setChangeName(changeName);
 		}
 		JDBCTemplate.close(rs);

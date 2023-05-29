@@ -50,12 +50,12 @@
               <c:forEach var="voList" items="${voList}">
                 <div id="cbx">
                     <label class="chk_box">
-                    <input type="checkbox" value="${voList.no}" name="souvenirNo">
+                    <input type="checkbox" value="${voList.no}" name="souvenirNo" onchange="handleCheckboxChange(this)">
                     <span class="on"></span>
             
                     </label>
                 </div>
-                 <div id="img-area01"><img src="${root}/static/img/souvenir/${voList.changeName}" alt="${voList.originName}"></div>
+                 <div id="img-area01"><img id="img-area" src="${root}/static/img/souvenir/${voList.changeName}" alt="${voList.originName}"></div>
                  <div id="name1">기념품코드</div>
                  <div>|</div>
                  <div id="code"><input type="text" value="${voList.no}" name="no" readonly></div>
@@ -101,6 +101,27 @@
 </body>
 </html>
 <script>
+    //재고없으면 품절
+    const images = document.querySelectorAll("#img-area");
+    const countYnInputs = document.querySelectorAll("input[name='count']");
+
+    images.forEach((img, index) => {
+    const count = countYnInputs[index].value;
+
+        if (count === '0') {
+            img.src = '${root}/static/img/sell/SOLDOUT.png';
+            img.alt = '품절';
+        }
+    });
+
+    //체크박스 하나만
+    function handleCheckboxChange(checkbox) {
+        var checkboxes = document.getElementsByName('souvenirNo');
+        for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].disabled = checkboxes[i] !== checkbox && checkbox.checked;
+        }
+    }
+
     //재고수정
     function souvenirEdit(no){
         location.href = '${root}/admin/souvenirEdit?no=' + no;
