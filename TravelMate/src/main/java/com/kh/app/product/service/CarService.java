@@ -3,6 +3,7 @@ package com.kh.app.product.service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
@@ -59,13 +60,13 @@ public class CarService {
 	
 
 
-	public static int order(String carKindKind, MemberVo loginMember, CarVo vo) throws Exception {
+	public int order(String carKindKind, MemberVo loginMember, CarVo cvo) throws Exception {
 		
 		CarDao dao = new CarDao();
 		
 		Connection conn = JDBCTemplate.getConnection();
 	
-		int result = dao.order(conn, carKindKind, loginMember , vo);
+		int result = dao.order(conn, carKindKind, loginMember , cvo);
 		
 		JDBCTemplate.close(conn);
 		
@@ -97,6 +98,18 @@ public class CarService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+
+	public int updateReservation(CarVo cvo, MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result2 = dao.updateReservation(cvo, loginMember, conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return result2;
+		
 	}
 	
 	

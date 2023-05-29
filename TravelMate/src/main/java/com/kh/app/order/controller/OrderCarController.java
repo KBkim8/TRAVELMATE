@@ -25,6 +25,12 @@ public class OrderCarController extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		
+			HttpSession session = req.getSession();
+			CarVo cvo = (CarVo) session.getAttribute("cvo");
+			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
+		
+		
 			String daterange = req.getParameter("daterange");
 			String[] dateArr= daterange.split(" - ");
 			String startDate = dateArr[0];
@@ -39,7 +45,12 @@ public class OrderCarController extends HttpServlet{
 			
 			//서비스
 			CarService cs = new CarService();
-			int result = cs.order(carKindKind, MemberVo loginMember, CarVo vo);
+			int result = 0;
+			try {
+				result = cs.order(carKindKind, loginMember, cvo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
 			//화면
 			if(result == 1) {
@@ -50,6 +61,13 @@ public class OrderCarController extends HttpServlet{
 			}
 
 
+			
+			
+			
+			
+			
+		
+			
 	}
 	
 }//class

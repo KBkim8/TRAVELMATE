@@ -5,6 +5,22 @@ public class CarVo {
 	private int price;
 	private String max;
 	private String licensePlate;
+	private String lcname;
+	private String title;
+	private String carKindKind;
+	private String no;
+	private String carKindNo;
+	private String localNo;
+	private String count;
+	private String enrollDate;
+	private String deleteYn;
+	private String licenseDate;
+	private String startDate;
+	private String endDate;
+	private String carReservationCode;
+	private String type;
+	private String cancelYn;
+	private String payDate;
 	public CarVo() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -156,21 +172,5 @@ public class CarVo {
 	public void setPayDate(String payDate) {
 		this.payDate = payDate;
 	}
-	private String lcname;
-	private String title;
-	private String carKindKind;
-	private String no;
-	private String carKindNo;
-	private String localNo;
-	private String count;
-	private String enrollDate;
-	private String deleteYn;
-	private String licenseDate;
-	private String startDate;
-	private String endDate;
-	private String carReservationCode;
-	private String type;
-	private String cancelYn;
-	private String payDate;
 	
 }
