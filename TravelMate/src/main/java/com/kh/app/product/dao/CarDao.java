@@ -74,7 +74,7 @@ public class CarDao {
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
 	    	String lcname = rs.getString("LOCAL");
-	    	String price = rs.getString("PRICE");
+	    	int price = rs.getInt("PRICE");
 	    	
 	    	
 	    	 
@@ -144,7 +144,7 @@ public class CarDao {
 	    	String max = rs.getString("MAX");
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
-	    	String price = rs.getString("PRICE");
+	    	int price = rs.getInt("PRICE");
 	    	
 			
 		
@@ -171,7 +171,8 @@ public class CarDao {
 		return voList;
 	}
 	
-	public int order(String carKindKind, MemberVo loginMember, CarVo vo, Connection conn) {
+	//car_reservation table insert
+	public int order(Connection conn, String carKindKind, MemberVo loginMember, CarVo vo) throws Exception {
 		
 		String sql = "INSERT INTO CAR_RESERVATION (NO , RENTCAR_NO , MEMBER_NO , RESERVATION_YN , START_DATE , END_DATE , PRICE) VALUES (SEQ_CAR_RESERVATION_NO.NEXTVAL , ? , ? , 'Y' , ? , ? , ?);";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -179,8 +180,12 @@ public class CarDao {
 		pstmt.setString(2, loginMember.getNo());
 		pstmt.setString(3, vo.getStartDate());
 		pstmt.setString(4, vo.getEndDate());
-		String totalDay = (vo.getEndDate() - vo.getStartDate());
-		pstmt.setString(5, vo.getPrice() * totalDay);
+		int endDate = Integer.valueOf(vo.getEndDate()); 
+		int startDate = Integer.valueOf(vo.getStartDate()); 
+		int totalDay = endDate - startDate;
+		int price = Integer.valueOf(vo.getPrice());
+		int totalPrice = price * totalDay;
+		pstmt.setInt(5, totalPrice);
 		
 		int result = pstmt.executeUpdate();
 		
@@ -197,8 +202,9 @@ public class CarDao {
 	}
 
 
-
+	//car_payment table insert
 	public int pay(CarVo cvo, Connection conn) throws Exception {
+			
 		
 		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , ? );";
 		PreparedStatement pstmt = conn.prepareStatement(sql);

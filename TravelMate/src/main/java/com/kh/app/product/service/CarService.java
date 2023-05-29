@@ -2,6 +2,7 @@ package com.kh.app.product.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
@@ -55,41 +56,16 @@ public class CarService {
 	}
 
 
-	public CarVo edit(CarVo vo) {
-		//conn
-		Connection conn = JDBCTemplate.getConnection();
-		
-		CarVo updatedCar = null;
-		try {
-			//SQL
-			int result = dao.edit(conn , vo);
-			
-			//tx || rs
-			if(result == 1) {
-				updatedCar = dao.selectOneByNo(conn , vo.getNo());
-				if(updatedCar == null) {
-					throw new Exception();
-				}
-				JDBCTemplate.commit(conn);
-			}else {
-				JDBCTemplate.rollback(conn);
-			}
-			
-		}finally {
-			//close
-			JDBCTemplate.close(conn);
-		}
-		
-		return updatedCar;
 	
-	}
 
 
-	public static int order(String carKindKind, MemberVo loginMember, CarVo vo) {
+	public static int order(String carKindKind, MemberVo loginMember, CarVo vo) throws Exception {
+		
+		CarDao dao = new CarDao();
 		
 		Connection conn = JDBCTemplate.getConnection();
 	
-		int result = dao.order(carKindKind, MemberVo loginMember, CarVo vo, Connection conn)
+		int result = dao.order(conn, carKindKind, loginMember , vo);
 		
 		JDBCTemplate.close(conn);
 		
@@ -99,9 +75,22 @@ public class CarService {
 
 
 	public int pay(CarVo cvo) throws Exception {
-		
-		
+		//가격 가져오기
 		Connection conn = JDBCTemplate.getConnection();
+		cvo = null;
+		String sql = "SELECT PRICE FROM CAR_RESERVATION";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			int price = rs.getInt("PRICE");
+			//가격 가져와서 cvo에 넣기
+			cvo = new CarVo();
+			cvo.setPrice(price);
+		}
+			JDBCTemplate.close(rs);
+			JDBCTemplate.close(conn);
+		
+		conn = JDBCTemplate.getConnection();
 		
 		int result = dao.pay(cvo, conn);
 				
