@@ -16,11 +16,11 @@
 
 </head>
 <body bottommargin="0">
-    
+    ,
     <div id="wrap">
         <!-- 헤더영역 -->
        	<div id="realLogo">
-            <a href="${root}/admin/home">
+            <a href="${root}/home">
                 <img id="mainLogo" src="${root}/static/img/logo.png" alt="홈로고">
             </a>
         </div>
@@ -77,13 +77,12 @@
                         <div class="sub_menu">
                             <h2 id="admin-private" data-hover="고객센터" class="SMN_effect-23-2">고객센터</h2>
                             <ul class="big_menu">
-                                <li><a href="${root}/cs/faq">FAQ</li>
-                            </ul>
-                             <ul class="big_menu">
-                                <li><a href="${root}/cs/inquery">1:1 문의하기</li>
-                            </ul>
-                             <ul class="big_menu">
-                                <li><a href="${root}/cs/inqueryList">1:1 문의내역</li>
+                                <li>고객센터<i class="arrow fas fa-angle-right"></i></li>
+                                <ul class="small_menu">
+                                    <li><a href="${root}/admin/reportlist?page=1">· 자주 묻는 질문</a></li>
+                                    <li><a href="${root}/admin/reportSearch?page=1">· 1:1 문의하기</a></li>
+                                    <li><a href="${root}/admin/memberSearch?page=1">· 1:1 문의내역</a></li>
+                                </ul>
                             </ul>
                         </div>
                          </div>
