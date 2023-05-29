@@ -42,7 +42,6 @@ public class PayRoomController extends HttpServlet{
 			String address = req.getParameter("address");
 			String price = req.getParameter("price");
 			
-			System.out.println(ph);
 			RoomVo vo = new RoomVo();
 			vo.setNo(no);
 			vo.setMname(mname);
