@@ -13,7 +13,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 1300px;
+    bottom: 900px;
     left: 400px;
   
 }
@@ -106,27 +106,56 @@
           <h2>이미지</h2>
         </div>
         <div>
-          <h2>예약 정보</h2>
+          <h4>예약자 이름: ${vo.mname}</h4>
+          <h4>예약자 연락처: ${vo.ph}</h4>
+          <h4>배송 주소: ${vo.address }</h4>
         </div>
       </div>
 
-      <b>총 결제 금액:</b><br><br><br><br><br>
+      <b>총 결제 금액: ${vo.price} 원</b><br><br><br><br><br>
 
       <h2>결제수단</h2>
 
       <hr>
+      
       <div>
-        <button id="btn01">신용카드</button>
-        <button id="btn02">무통장입금</button>
+        <button id="btn01" class="btn1" >신용카드</button>
+        <button id="btn02" class="btn2" >무통장입금</button>
+        <button id="btn03" class="btn3" >카카오톡결제</button>
+        <button id="btn04" class="btn4" >상품권결제</button>
       </div>
 
       <hr>
 
       <div>
         <button id="btn03">뒤로가기</button>
-        <button id="btn04">결제하기</button>
       </div>
   
     </div>
 </body>
 </html>
+
+<script>
+
+	const btn01 = document.querySelector(".btn1");
+  btn01.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/creditCard';
+  });
+	
+  const btn02 = document.querySelector(".btn2");
+  btn02.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/bankAccount';
+  });
+	
+  const btn03 = document.querySelector(".btn3");
+  btn03.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/kakaoTalk';
+  });
+	
+  const btn04 = document.querySelector(".btn4");
+  btn04.addEventListener('click' , (event) => {
+    location.href = '${root}/payment/giftCard';
+  });
+
+
+</script>

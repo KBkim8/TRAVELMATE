@@ -10,7 +10,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 900px;
+    bottom: 500px;
     left: 400px;
 }
 
@@ -88,17 +88,16 @@ table td{
 <div id="shape">
   
   
-	<form action="${root}/product/list" method="get">
+	<form action="${root}/room/list" method="get">
 		<div id="search-area">
 		      <input type="hidden" name="page" value="1">
 		      <select name="searchType">
-		        <option value="asd">선택</option>					
+		        <option value="asd">지역선택</option>					
 		        <option value="name">제목</option>					
 		        <option value="price">가격</option>					
 		        <option value="souvenir">기념품</option>					
 		      </select>
-		      
-		      <input type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
+			      <input type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
 		      <input type="submit" value="검색">
 		</div>
 	    <div id="local">
@@ -138,7 +137,7 @@ table td{
     <tbody>
       <c:forEach items="${voList}" var="vo"> 
          <tr>
-             <td><img src="${root}/static/img/souvenir_img/${vo.title}" alt="${vo.title}" width="100px" height="100px"  ></td>
+             <td><img src="${root}/static/img/accomodation_img/${vo.title}" alt="${vo.title}" width="100px" height="100px"  ></td>
              <td>${vo.name}</td>
              <td>${vo.price}</td>
              <td>${vo.local}</td>
@@ -149,18 +148,18 @@ table td{
   
    <div id="page-area">
     	<c:if test="${pv.currentPage > 1}">
-     	<a class="btn btn-primary btn-sm" href="${root}/product/list?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">이전</a>
+     	<a class="btn btn-primary btn-sm" href="${root}/room/list?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">이전</a>
     	</c:if>
      	<c:forEach begin="${pv.startPage}" end="${pv.endPage}" step="1" var="i">
      		<c:if test="${pv.currentPage != i}">
-       	<a class="btn btn-primary btn-sm" href="${root}/product/list?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">${i}</a>
+       	<a class="btn btn-primary btn-sm" href="${root}/room/list?page=${i}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">${i}</a>
      		</c:if>
      		<c:if test="${pv.currentPage == i}">
        	<a class="btn btn-primary btn-sm">${i}</a>
      		</c:if>
      	</c:forEach>
      <c:if test="${pv.currentPage < pv.maxPage}">
-     	<a class="btn btn-primary btn-sm" href="${root}/product/list?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">다음</a>
+     	<a class="btn btn-primary btn-sm" href="${root}/room/list?page=${pv.currentPage + 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">다음</a>
      </c:if>
     </div>
 
