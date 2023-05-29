@@ -437,6 +437,33 @@ private final BoardDao dao;
 			return vo;
 		}
 
+		//검색으로 자유게시판 목록 조회
+		public List<BoardVo> freeList(PageVo pv, String searchValue, String searchType) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo>bvoList = dao.freeList(conn ,pv ,searchValue ,searchType);
+			
+			JDBCTemplate.close(conn);
+		
+			return bvoList;
+			
+		}
+
+		//
+		public int getFreeBoardListCnt(String searchType, String searchValue) throws Exception {
+			
+			//conn
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int cnt = dao.getFreeBoardListCnt(conn , searchType , searchValue);
+			
+			//close
+			JDBCTemplate.close(conn);
+			
+			return cnt;
+		}
+
 		
 
 		

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/sellRequest.css">
+<link rel="stylesheet" href="${root}/static/css/sellequestDetail.css">
 <script defer src="${root}/static/js/sellRequest.js"></script>
 </head>
 <body>

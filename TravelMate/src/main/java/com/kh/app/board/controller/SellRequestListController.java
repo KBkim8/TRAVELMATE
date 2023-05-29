@@ -39,16 +39,19 @@ public class SellRequestListController extends HttpServlet{
 			int boardLimit = 10;
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
-			List<BoardVo> voList = new ArrayList<>();;
-			if(loginMember.getMemberCategoryNo() =="1") {
-				voList = bs.sellRequestList(pv);
-				
+			List<BoardVo> voList = new ArrayList<>();
+			voList = bs.sellRequestList(pv , memberNo);
+//			if(loginMember.getMemberCategoryNo() =="1") {
+//				voList = bs.sellRequestList(pv);
+//				
+//				req.setAttribute("voList", voList);
+//				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
+//				
+//			}
+			if(voList !=null){
+				req.setAttribute("loginMember", loginMember);
 				req.setAttribute("voList", voList);
-				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
-				
-			}else{
-				voList = bs.sellRequestList(pv , memberNo);
-				req.setAttribute("voList", voList);
+				req.setAttribute("pv", pv);
 				req.getRequestDispatcher("/WEB-INF/views/board/sell-request-list.jsp").forward(req, resp);
 			}
 			
