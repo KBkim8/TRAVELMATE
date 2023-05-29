@@ -222,16 +222,18 @@ public class RoomDao {
 	}
 
 	public int order(RoomVo vo, Connection conn, MemberVo loginMember) throws Exception {
-		String sql = "INSERT INTO ACCOMODATION_RESERVATION ( NO, ACCOMODATION_NO, PRICE, START_DATE, END_DATE, PHONE, ADDRESS, MEMBER_NO, NAME ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO ACCOMODATION_RESERVATION ( NO, ACCOMODATION_NO, START_DATE, END_DATE,  PHONE, ADDRESS, MEMBER_NO, NAME, PRICE ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, (SELECT ABS(TO_DATE(TO_DATE(?,'MM/DD/YYYY')) - TO_DATE(?,'MM/DD/YYYY'))  * ? FROM DUAL))";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getNo());
-		pstmt.setString(2, vo.getPrice());
-		pstmt.setString(3, vo.getDateStart());
-		pstmt.setString(4, vo.getDateEnd());
-		pstmt.setString(5, vo.getPh());
-		pstmt.setString(6, vo.getAddress());
-		pstmt.setString(7, loginMember.getNo());
-		pstmt.setString(8, vo.getMname());
+		pstmt.setString(2, vo.getDateStart());
+		pstmt.setString(3, vo.getDateEnd());
+		pstmt.setString(4, vo.getPh());
+		pstmt.setString(5, vo.getAddress());
+		pstmt.setString(6, loginMember.getNo());
+		pstmt.setString(7, vo.getMname());
+		pstmt.setString(8, vo.getDateStart());
+		pstmt.setString(9, vo.getDateEnd());
+		pstmt.setString(10, vo.getPrice());
 		
 		
 		int result = pstmt.executeUpdate();
@@ -252,7 +254,6 @@ public class RoomDao {
 		if(rs.next()) {
 			vo = new RoomVo();
 			
-			
 			String name = rs.getString("NAME");
 			String mname = rs.getString("MNAME");
 			String title = rs.getString("TITLE");
@@ -261,6 +262,8 @@ public class RoomDao {
 			String address = rs.getString("ADDRESS");
 			String dateStart = rs.getString("START_DATE");
 			String dateEnd = rs.getString("END_DATE");
+			
+			
 			
 			vo.setNo(no);
 	        vo.setName(name);
