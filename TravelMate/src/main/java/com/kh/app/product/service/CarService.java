@@ -1,10 +1,12 @@
 package com.kh.app.product.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.vo.CarVo;
 import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.dao.CarDao;
@@ -80,6 +82,32 @@ public class CarService {
 		
 		return updatedCar;
 	
+	}
+
+
+	public static int order(String carKindKind, MemberVo loginMember, CarVo vo) {
+		
+		Connection conn = JDBCTemplate.getConnection();
+	
+		int result = dao.order(carKindKind, MemberVo loginMember, CarVo vo, Connection conn)
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	
+	}
+
+
+	public int pay(CarVo cvo) throws Exception {
+		
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.pay(cvo, conn);
+				
+		JDBCTemplate.close(conn);
+		
+		return result;
 	}
 	
 	

@@ -10,6 +10,8 @@ import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
+import com.kh.app.product.service.conn;
 import com.kh.app.product.vo.CarVo;
 import com.kh.app.product.vo.RoomVo;
 
@@ -167,6 +169,55 @@ public class CarDao {
 		JDBCTemplate.close(pstmt);
 		
 		return voList;
+	}
+	
+	public int order(String carKindKind, MemberVo loginMember, CarVo vo, Connection conn) {
+		
+		String sql = "INSERT INTO CAR_RESERVATION (NO , RENTCAR_NO , MEMBER_NO , RESERVATION_YN , START_DATE , END_DATE , PRICE) VALUES (SEQ_CAR_RESERVATION_NO.NEXTVAL , ? , ? , 'Y' , ? , ? , ?);";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNo());
+		pstmt.setString(2, loginMember.getNo());
+		pstmt.setString(3, vo.getStartDate());
+		pstmt.setString(4, vo.getEndDate());
+		String totalDay = (vo.getEndDate() - vo.getStartDate());
+		pstmt.setString(5, vo.getPrice() * totalDay);
+		
+		int result = pstmt.executeUpdate();
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else { 
+			JDBCTemplate.rollback(conn);
+		}
+	
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+		
+	}
+
+
+
+	public int pay(CarVo cvo, Connection conn) throws Exception {
+		
+		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , ? );";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, cvo.getCarReservationCode());
+		pstmt.setString(2, cvo.getType());
+		
+		
+		int result = pstmt.executeUpdate();
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	
 	}
 	
 
