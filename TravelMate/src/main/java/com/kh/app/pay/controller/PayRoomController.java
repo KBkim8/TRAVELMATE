@@ -50,7 +50,6 @@ public class PayRoomController extends HttpServlet{
 			vo.setPrice(price);
 			vo.setDateStart(dateStart);
 			vo.setDateEnd(dateEnd);
-
 			
 			RoomService rms = new RoomService();
 			int result = rms.roomOrder(vo, loginMember);
