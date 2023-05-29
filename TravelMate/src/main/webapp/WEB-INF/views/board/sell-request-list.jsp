@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${root}/static/css/admin/sellrequestDetail.css">
-<script defer src="${root}/static/js/sellRequest.js"></script>
+<link rel="stylesheet" href="${root}/static/css/admin/sellRequest.css">
+<script defer src="${root}/static/js/admin/sellRequest.js"></script>
 </head>
 <body>
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 
       <!-- 내용영역 -->
       <div id="content">
@@ -21,7 +21,7 @@
             <hr>
             <a>판매등록요청조회</a>
             <div id="report-search">
-                <form action="${root}/admin/sellrequest" method="get">
+                <!-- <form action="${root}/admin/sellrequest" method="get">
                     <input type="hidden" name="page" value="1"> 
                     <select name="searchType">
                         <option value="title">제목</option>
@@ -30,7 +30,7 @@
                     <input value="${searchVo.searchValue}" name="searchValue" type="text" placeholder="판매등록조회관련 검색">
 
                     <input type="submit" value="검색">
-                </form>
+                </form> -->
             </div>
         </div>
      
@@ -55,7 +55,9 @@
                 <div>${voList.memberNick}</div>
                 <div>${voList.title}</div>
                 <div>${voList.enrollDate}</div>
+                <c:if test="${loginMember.categoryNo == 1 }">
 	                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
+                </c:if>
                 <div id="hr"><hr></div>
             </c:forEach>
             

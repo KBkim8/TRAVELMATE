@@ -21,14 +21,14 @@ public class BoardNoticeListController extends HttpServlet{
 	private final BoardService bs = new BoardService();
 
 	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 
 			String searchValue = req.getParameter("searchValue");
 			String searchType = req.getParameter("searchType");
 			
-			int cnt = bs.getBoardListCnt(searchType , searchValue);
+			int cnt = bs.getFreeBoardListCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";

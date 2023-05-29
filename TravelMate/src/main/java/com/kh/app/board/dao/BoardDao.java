@@ -375,7 +375,7 @@ public class BoardDao {
 	//자유게시판 리스트
 	public List<BoardVo> freeList(Connection conn, PageVo pv) throws Exception {
 		
-		String sql = "SELECT NO ,TITLE , MEMBER_NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE BOARD_CATEGORY_NO=5 AND DELETE_YN = 'N' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO, TITLE, TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, HIT, NICK FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, B.ENROLL_DATE, B.HIT, M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO = 5 ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -385,15 +385,15 @@ public class BoardDao {
 		while(rs.next()) {
 			String no = rs.getString("NO");
 			String title = rs.getString("TITLE");
-			String memberNo = rs.getString("MEMBER_NO");
 			String enrollDate = rs.getString("ENROLL_DATE");
+			String memberNick = rs.getString("NICK");
 			String hit = rs.getString("HIT");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
 			vo.setTitle(title);
-			vo.setMemberNo(memberNo);
 			vo.setEnrollDate(enrollDate);
+			vo.setMemberNick(memberNick);
 			vo.setHit(hit);
 			
 			fvoList.add(vo);
@@ -516,7 +516,7 @@ public class BoardDao {
 		String sql = "";
 		if(searchType.equals("title")) {
 			// sql (제목으로 검색)
-			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.CATEGORY_NO= 1 AND B.DELETE_YN='N' AND B.TITLE LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.BOARD_CATEGORY_NO= 1 AND B.DELETE_YN='N' AND B.TITLE LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(searchType.equals("writer")) {
 			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,M.NICK AS MEMBER_NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.CATEGORY_NO= 1 AND B.DELETE_YN='N' AND M.NICK LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else {
@@ -524,24 +524,29 @@ public class BoardDao {
 		}
 		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, searchValue);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
-		pstmt.setInt(1, pv.getBeginRow());
-		pstmt.setInt(2, pv.getLastRow());
 		
 		List<BoardVo> bvoList = new ArrayList<>();
 		while(rs.next()) {
+			String no = rs.getString("NO");
 			String title = rs.getString("TITLE");
 			String content = rs.getString("CONTENT");
 			String memberNo = rs.getString("MEMBER_NO");
 			String enrolldate = rs.getString("ENROLL_DATE");
 			String deleteYn = rs.getString("DELETE_YN");
+			String hit = rs.getString("hit");
 			
 			BoardVo vo = new BoardVo();
 			vo.setTitle(title);
+			vo.setTitle(no);
 			vo.setContent(content);
 			vo.setMemberNo(memberNo);
 			vo.setEnrollDate(enrolldate);
 			vo.setDeleteYn(deleteYn);
+			vo.setHit(hit);
 			
 			bvoList.add(vo);
 		}
@@ -815,6 +820,79 @@ public class BoardDao {
 		JDBCTemplate.close(rs);
 		
 		return voList;
+	}
+
+	public int getFreeBoardListCnt(Connection conn, String searchType, String searchValue) throws Exception {
+	
+		//SQL
+		String sql = "SELECT COUNT(*) FROM ( SELECT B.NO ,B.TITLE ,B.CONTENT ,B.BOARD_CATEGORY_NO ,B.ENROLL_DATE ,B.DELETE_YN ,B.MODIFY_DATE ,B.HIT ,M.NICK FROM BOARD B JOIN MEMBER M ON (B.MEMBER_NO = M.NO) ) WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO =5";
+		if("title".equals(searchType)) {
+			sql += "AND TITLE LIKE '%" + searchValue + "%'";
+		}else if("writer".equals(searchType)) {
+			sql += "AND NICK LIKE '%" + searchValue + "%'";
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+	}
+
+	//검색으로 자유게시판 목록 조회
+	public List<BoardVo> freeList(Connection conn, PageVo pv, String searchValue, String searchType) throws Exception {
+
+		String sql = "";
+		if(searchType.equals("title")) {
+			// sql (제목으로 검색)
+			sql ="SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,B.HIT,M.NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 5 AND B.DELETE_YN='N' AND B.TITLE LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(searchType.equals("writer")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,B.HIT ,M.NICK  FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 5 AND B.DELETE_YN='N' AND M.NICK LIKE '%'|| ? ||'%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			return noticeList(conn, pv);
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, searchValue);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<BoardVo> fvoList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String memberNick = rs.getString("NICK");
+			String enrolldate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String hit = rs.getString("hit");
+			
+			BoardVo vo = new BoardVo();
+			vo.setTitle(title);
+			vo.setNo(no);
+			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setMemberNick(memberNick);
+			vo.setEnrollDate(enrolldate);
+			vo.setDeleteYn(deleteYn);
+			vo.setHit(hit);
+			
+			fvoList.add(vo);
+	}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return fvoList;
 	}
 
 }//class

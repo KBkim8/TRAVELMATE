@@ -1,7 +1,9 @@
 package com.kh.app.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,19 +24,32 @@ public class BoardFreeListController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-
-			int listCount = bs.selectCnt();
-			String page = req.getParameter("page");
-			if(page == null) page = "1";
-			int currentPage = Integer.parseInt(page);
-			int pageLimit = 5;
-			int boardLimit = 10;
-			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
+			
+			String searchValue = req.getParameter("searchValue");
+			String searchType = req.getParameter("searchType");
+			
+			int cnt = bs.getBoardListCnt(searchType , searchValue);
+			String page_ = req.getParameter("page");
+			if(page_ == null) {
+				page_ = "1";
+			}
+			int page = Integer.parseInt(page_);
+			PageVo pv = new PageVo(cnt, page, 5, 10);
+			
 			
 			//tqt
-			List<BoardVo> fvoList = bs.freeList(pv);
+			List<BoardVo> fvoList =null;
+			if(searchValue == null || searchValue.equals("")) {
+				fvoList = bs.freeList(pv);
+			}else {
+				fvoList = bs.freeList(pv, searchValue, searchType);
+			}
 			
-			//gd
+			Map<String, String> map = new HashMap<>();
+			map.put("searchVo", searchValue);
+			map.put("searchVo", searchType);
+			
+			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("fvoList", fvoList);
 			req.getRequestDispatcher("/WEB-INF/views/board/board-free-list.jsp").forward(req, resp);

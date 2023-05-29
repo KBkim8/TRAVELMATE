@@ -128,7 +128,7 @@
             <a>자유게시판 목록</a>  
         </div>
         <div id="write-area">
-            <form action="${root}/free/search">
+            <form action="${root}/free/list">
                 <select id="btn01" name="searchType">
                     <option value="title">제목</option>
                     <option value="writer">작성자</option>
@@ -147,6 +147,7 @@
                         <th>번호 </th>
                         <th>제목 </th>
                         <th>작성일시</th>
+                        <th>작성자</th>
                         <th>조회수</th>
                     </tr>
                 </thead>
@@ -157,6 +158,7 @@
 	                        <td>${fvoList.no}</td>
 	                        <td>${fvoList.title}</td>
 	                        <td>${fvoList.enrollDate}</td>
+	                        <td>${fvoList.memberNick}</td>
 	                        <td>${fvoList.hit}</td>
 	                    </tr>
                 	</c:forEach>

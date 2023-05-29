@@ -121,7 +121,7 @@
         </div>
        
         <div id="write-area">
-            <form action="${root}/notice/list">
+            <form action="${root}/notice/list" method="get">
                 <select id="btn01" name="searchType">
                     <option value="title">제목</option>
                     <option value="writer">작성자</option>
@@ -189,5 +189,68 @@
         console.log(no);
 		location.href = "${root}/notice/detail?no=" + no;
 	});
+	
+    // 검색 영역
+    const searchType = '${searchVo.searchType}';
+	const searchValue = '${searchVo.searchValue}';
+	
+	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+	const searchValueInputTag = document.querySelector("input[name='searchValue']");
+
+	if(searchType.length > 1){
+		initSearchType();
+	}
+	
+	// 검색 타입 초기 세팅
+	function initSearchType(){
+		const x = document.querySelector('select > option[value="' + searchType + '"]');
+		x.selected = true;
+	}
+	
+	// 서치타입 변경 시 함수 실행
+	const searchTypeTag = document.querySelector('select[name=searchType]');
+	searchTypeTag.addEventListener("change", setSearchValueTag);
+
+	function setSearchValueTag(){
+
+		// 현재 타입이 카테고리인지 구분
+		const searchType = searchTypeTag.value;
+		if(searchType == 'category'){
+			setSearchValueTagSelect();
+		}else{
+			setSearchValueTagInput();
+		}
+	}
+
+	// 검색 값 영역 select 보이게 (타입이 카테고리 일 때)
+	function setSearchValueTagSelect(){
+		searchValueSelectTag.classList.add("active");
+		searchValueSelectTag.disabled = false;
+		searchValueInputTag.classList.remove("active");
+		searchValueInputTag.disabled = true;
+
+		searchValueInputTag.value = '';
+	}
+
+	// 검색 값 영역을 input 보이게 (타입이 카테고리 외)
+	function setSearchValueTagInput(){
+		searchValueInputTag.classList.add("active");
+		searchValueInputTag.disabled = false;
+		searchValueSelectTag.classList.remove("active");
+		searchValueSelectTag.disabled = true;
+	}
+
+	// 카테고리로 검색한 이후에 검색 값이 유지되게 
+	function initSearchValueSelect(){
+		if(searchType != 'category'){
+			return;
+		}
+		const optionTag = document.querySelector("option[value='" + searchValue + "']");
+		optionTag.selected = true;	
+	}
+	
+	setSearchValueTag();
+	initSearchValueSelect();
+
 
 </script>
