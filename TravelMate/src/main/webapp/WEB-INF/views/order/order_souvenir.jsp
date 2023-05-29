@@ -13,7 +13,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 900px;
+    bottom: 500px;
     left: 400px;
   
 }
@@ -84,7 +84,7 @@ table{
 </style>
 </head>
 <body>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
         
         
 	<div id="shape">

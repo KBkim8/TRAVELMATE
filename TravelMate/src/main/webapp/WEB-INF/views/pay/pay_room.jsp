@@ -13,7 +13,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 900px;
+    bottom: 500px;
     left: 400px;
   
 }
@@ -83,7 +83,7 @@ textarea{
 </style>
 </head>
 <body>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
     
 
     <div id="shape">
@@ -138,7 +138,13 @@ textarea{
 
       <b>총 결제 금액: ${vo.price} 원</b><br><br><br><br><br>
 
-      <h2>결제수단</h2>
+      <div id="second">
+        <div></div>
+        
+        <div>
+          <h2>결제수단</h2>
+        </div>
+      </div>
 
       <hr>
       
