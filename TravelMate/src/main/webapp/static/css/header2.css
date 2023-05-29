@@ -235,6 +235,15 @@ nav>div:nth-child(11)>a{
     height: 180px;
 }
 
+#small-logo>a{
+    margin-top: 260px;
+    position: absolute;
+    width: 279px;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+}
 
 .topbar{
     width: 100%;
@@ -274,7 +283,7 @@ nav>div:nth-child(11)>a{
 
 /* 왼쪽사이드바 내용영역 */
 #admin-private{
-    margin-top: 480px;
+    margin-top: 550px;
     color: black;
 }
 
@@ -352,7 +361,7 @@ ul {
 }
 
 a {
-    font-weight: bold;
+    font-weight: lighter;
     color: #3b3b3b;
     text-decoration: none;
     background-color: transparent;

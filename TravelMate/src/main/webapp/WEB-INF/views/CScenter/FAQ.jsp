@@ -28,7 +28,7 @@
     }
 
     #content>#first-content>hr:nth-child(2){
-        height: 1px;
+      height: 1px;
         width: 1300px;
         background-color: rgb(116, 116, 116);
         border: 0px solid rgb(65, 65, 65);
@@ -38,7 +38,7 @@
     }
 
     #content>#first-content>a:nth-child(3){
-        position: absolute;
+      position: absolute;
         left: 160px;
         top: 135px;
         color: black;
