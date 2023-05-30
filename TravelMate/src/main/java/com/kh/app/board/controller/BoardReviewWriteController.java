@@ -23,8 +23,8 @@ import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
 
-@WebServlet(urlPatterns = "/car/review/write")
-public class BoardRoomReviewWriteController extends HttpServlet{
+@WebServlet( "/review/write")
+public class BoardReviewWriteController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,18 +62,19 @@ public class BoardRoomReviewWriteController extends HttpServlet{
 			vo.setTitle(title);
 			vo.setContent(content);
 			
-			int result = bs.roomReviewWrite(vo);
+			int result = bs.carReviewWrite(vo);
 			
 			// 화면
 			if(result ==1) {
 				//성공
-				resp.sendRedirect(req.getContextPath() + "/room/review/list");
+				resp.sendRedirect(req.getContextPath() + "/review/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
 			}
 			
 		} catch (Exception e) {
+			
 			//실패
 			e.printStackTrace();
 			req.setAttribute("errorMsg", "게시글 작성 실패 ...");

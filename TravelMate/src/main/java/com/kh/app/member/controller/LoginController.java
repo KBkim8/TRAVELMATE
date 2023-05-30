@@ -41,7 +41,7 @@ public class LoginController extends HttpServlet{
 			//wha
 			if(loginMember != null) {
 				req.getSession().setAttribute("loginMember", loginMember);
-				resp.sendRedirect(req.getContextPath()+"/notice/write");
+				resp.sendRedirect(req.getContextPath()+"/home");
 			}else {
 				throw new Exception();
 			}

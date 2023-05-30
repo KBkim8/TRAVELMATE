@@ -203,12 +203,15 @@
 				<textarea name="content" readonly>${nvo.content }</textarea>
 			</div>
 				
-			<!-- 글 수정 삭제는 not empty loginMember처리  -->
+			<c:if test="${not empty loginMember }">
 			<div id="btn-area">
 				<button type="button" id="btn01" onclick="edit();">수정</button>
 				<button type="button" id="btn01" onclick="del();">삭제</button>
 				<input type="submit" value="수정하기">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" id="btn01" onclick="rep();">신고하기</button>
 			</div>
+			</c:if>
 
 		</form>
 
@@ -236,7 +239,7 @@
 				</tbody>
 			</table>
 		</div>
-		h
+		
 
     </div>
 
@@ -244,6 +247,7 @@
 </html>
 <script>
 	
+	//삭제하기
 	function del(){
 		const result = confirm("해당 게시글을 삭제 하시겠습니까?");
 		if(!result){
@@ -254,10 +258,16 @@
 
 
 
+	//수정하기
 	function edit(){
 			document.querySelector('input[name=title]').readOnly = false;
 			document.querySelector('textarea').readOnly = false;
 		} 
+
+	//신고하기
+	function rep() {
+			
+	}
 
 
 
