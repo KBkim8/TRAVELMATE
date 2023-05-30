@@ -43,6 +43,7 @@ public class CarService {
 		return voList;
 	}
 
+	
 
 	public List<CarVo> getCarList(PageVo pv, String searchType, String searchValue, String local) throws Exception {
 		//conn
@@ -79,7 +80,7 @@ public class CarService {
 		//가격 cvo에 넣기
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int price = dao.getPrice(cvo, conn);
+		String price = dao.getPrice(cvo, conn);
 		cvo.setPrice(price);
 		
 		JDBCTemplate.close(conn);
@@ -104,6 +105,15 @@ public class CarService {
 		
 		return result2;
 		
+	}
+
+
+	public CarVo selectCarOneByName(String name) throws Exception {
+		
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		CarVo vo = dao.selectCarOneByName(conn , name);
+		return vo;
 	}
 	
 	

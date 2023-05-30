@@ -12,7 +12,7 @@
     height: 100%;
     bottom: 500px;
     left: 400px;
-}
+}az
 
 
 #search-area{

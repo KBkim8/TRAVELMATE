@@ -213,7 +213,7 @@
       <div id="first">
         <div></div>
         <div>
-          <h3>숙소정보<hr></h3>
+          <h3>차량정보<hr></h3>
         </div>
       </div>
 
@@ -225,8 +225,6 @@
       	  <h2>차종명 : ${vo.carKindKind}</h2><br>
 	      <h2 >탑승가능인원 : ${vo.max}  //  자동 변속   //  Gasoline</h2> 
 	      <br>                    
-	      <h2 >이용일      //    ${vo.dateStart} ~ ${vo.endDate}  </h2> 
-          <br>                    
 	      <h2>인수지역 : ${vo.lcname}</h2>
 	      <br>
 	      <h2>번호판 : ${vo.licensePlate}</h2>
@@ -235,7 +233,7 @@
 	                    
 	                    
           <br>
-          <br>                    
+          <br>                   
           <h3 id="h3">재고 : ${vo.count}</h3>
           <br>
           <br>                    
