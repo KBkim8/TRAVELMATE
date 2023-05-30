@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.app.member.vo.MemberVo;
+import com.kh.app.product.service.CarService;
 import com.kh.app.product.service.RoomService;
 import com.kh.app.product.service.SouvenirService;
+import com.kh.app.product.vo.CarVo;
 import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.vo.SouvenirVo;
 
@@ -31,29 +33,30 @@ public class PayCarController extends HttpServlet{
 			
 			//캘린더
 			String daterange = req.getParameter("daterange");
-			String[] dateArr= daterange.split(" - ");
-			String dateStart = dateArr[0];
-			String dateEnd = dateArr[1];
+			String[] dateArr= daterange.split(" to ");
+			String startDate = dateArr[0];
+			String endDate = dateArr[1];
 			
 			//데꺼
 			String no = req.getParameter("no");
 			String mname = req.getParameter("mname");
-			String ph = req.getParameter("phone");
+			String phone = req.getParameter("phone");
 			String address = req.getParameter("address");
 			String price = req.getParameter("price");
 			
-			RoomVo vo = new RoomVo();
+			CarVo vo = new CarVo();
 			vo.setNo(no);
 			vo.setMname(mname);
-			vo.setPh(ph);
+			vo.setPhone(phone);
 			vo.setAddress(address);
 			vo.setPrice(price);
-			vo.setDateStart(dateStart);
-			vo.setDateEnd(dateEnd);
+			vo.setStartDate(startDate);
+			vo.setEndDate(endDate);
+
 			
-			RoomService rms = new RoomService();
-			int result = rms.roomOrder(vo, loginMember);
-			vo = rms.roomSelectOrder(no, loginMember); 
+			CarService cs = new CarService();
+			int result = cs.carOrder(vo, loginMember);
+			vo = cs.carSelectOrder(no, loginMember); 
 			if(vo != null) {
 				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/pay/pay_room.jsp").forward(req, resp);
@@ -63,10 +66,10 @@ public class PayCarController extends HttpServlet{
 			
 			
 		}catch (Exception e) {
-			System.out.println("[ERROR] notice detail errr....");
+			System.out.println("[ERROR] pay car errr....");
 			e.printStackTrace();
 			
-			req.setAttribute("errorMsg", "상세조회 실패");
+			req.setAttribute("errorMsg", "pay car controller error");
 			req.getRequestDispatcher("~").forward(req, resp);
 		}
 	}

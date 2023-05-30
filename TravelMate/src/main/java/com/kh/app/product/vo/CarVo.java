@@ -24,15 +24,9 @@ public class CarVo {
 	private String name;
 	private String content;
 	private String kind;
-	@Override
-	public String toString() {
-		return "CarVo [price=" + price + ", max=" + max + ", licensePlate=" + licensePlate + ", lcname=" + lcname
-				+ ", title=" + title + ", carKindKind=" + carKindKind + ", no=" + no + ", carKindNo=" + carKindNo
-				+ ", localNo=" + localNo + ", count=" + count + ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn
-				+ ", licenseDate=" + licenseDate + ", startDate=" + startDate + ", endDate=" + endDate
-				+ ", carReservationCode=" + carReservationCode + ", type=" + type + ", cancelYn=" + cancelYn
-				+ ", payDate=" + payDate + ", name=" + name + ", content=" + content + ", kind=" + kind + "]";
-	}
+	private String mname;
+	private String phone;
+	private String address;
 	public String getPrice() {
 		return price;
 	}
@@ -165,14 +159,39 @@ public class CarVo {
 	public void setKind(String kind) {
 		this.kind = kind;
 	}
-	public CarVo() {
-		super();
-		// TODO Auto-generated constructor stub
+	public String getMname() {
+		return mname;
+	}
+	public void setMname(String mname) {
+		this.mname = mname;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	@Override
+	public String toString() {
+		return "CarVo [price=" + price + ", max=" + max + ", licensePlate=" + licensePlate + ", lcname=" + lcname
+				+ ", title=" + title + ", carKindKind=" + carKindKind + ", no=" + no + ", carKindNo=" + carKindNo
+				+ ", localNo=" + localNo + ", count=" + count + ", enrollDate=" + enrollDate + ", deleteYn=" + deleteYn
+				+ ", licenseDate=" + licenseDate + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", carReservationCode=" + carReservationCode + ", type=" + type + ", cancelYn=" + cancelYn
+				+ ", payDate=" + payDate + ", name=" + name + ", content=" + content + ", kind=" + kind + ", mname="
+				+ mname + ", phone=" + phone + ", address=" + address + "]";
 	}
 	public CarVo(String price, String max, String licensePlate, String lcname, String title, String carKindKind,
 			String no, String carKindNo, String localNo, String count, String enrollDate, String deleteYn,
 			String licenseDate, String startDate, String endDate, String carReservationCode, String type,
-			String cancelYn, String payDate, String name, String content, String kind) {
+			String cancelYn, String payDate, String name, String content, String kind, String mname, String phone,
+			String address) {
 		super();
 		this.price = price;
 		this.max = max;
@@ -196,7 +215,15 @@ public class CarVo {
 		this.name = name;
 		this.content = content;
 		this.kind = kind;
+		this.mname = mname;
+		this.phone = phone;
+		this.address = address;
 	}
+	public CarVo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	
 	

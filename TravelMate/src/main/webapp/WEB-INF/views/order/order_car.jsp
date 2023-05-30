@@ -256,7 +256,7 @@
         </div>
       </div>
     <br>
-   <form action="${root}/order/car" method="post">
+   <form action="${root}/pay/car" method="post">
 	    <div>
 			<input type="text" id="calender" name="daterange" value="06/01/2023 - 06/05/2023" />
 	    </div>
@@ -324,7 +324,7 @@
 	
 	
 	 function backPage() {
-	     location.href="${root}/souvenir/list";
+	     location.href="${root}/car/list";
 	 }
 	  
  	 function favorite(){
@@ -334,7 +334,7 @@
 			  }else{
 				  alert("상품이 등록되었습니다.");
 			  }
-		  location.href="${root}/room/favorite?no=${vo.no}&name=${vo.name}";
+		  location.href="${root}/car/favorite?no=${vo.no}&name=${vo.name}";
 	 
   	 }
 </script>

@@ -324,6 +324,95 @@ public class CarDao {
 				
 		return vo;
 	}
+
+
+
+	public int order(CarVo vo, Connection conn, MemberVo loginMember) throws Exception {
+
+		String sql = "INSERT INTO CAR_RESERVATION ( NO, RENTCAR_NO, START_DATE, END_DATE,  PHONE, ADDRESS, MEMBER_NO, NAME, PRICE ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, (SELECT ABS(TO_DATE(TO_DATE(?,'MM/DD/YYYY')) - TO_DATE(?,'MM/DD/YYYY'))  * ? FROM DUAL))";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNo());
+		pstmt.setString(2, vo.getStartDate());
+		pstmt.setString(3, vo.getEndDate());
+		pstmt.setString(4, vo.getPhone());
+		pstmt.setString(5, vo.getAddress());
+		pstmt.setString(6, loginMember.getNo());
+		pstmt.setString(7, vo.getMname());
+		pstmt.setString(8, vo.getStartDate());
+		pstmt.setString(9, vo.getEndDate());
+		pstmt.setString(10, vo.getPrice());
+		
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	
+	}
+
+
+
+	public CarVo carSelectOrder(Connection conn, String no, MemberVo loginMember) throws Exception {
+
+		//SQL
+		String sql = "SELECT AR.NO ,AR.RENTCAR_NO ,AR.MEMBER_NO, AR.NAME AS MNAME ,AR.RESERVATION_YN ,AR.START_DATE ,AR.END_DATE ,AR.PRICE ,AR.PHONE ,AR.ADDRESS ,AI.TITLE FROM CAR_RESERVATION AR JOIN RENTCAR A ON A.NO = AR.RENTCAR_NO JOIN CAR_IMG AI ON AI.RENTCAR_NO = A.NO WHERE A.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getNo());
+		ResultSet rs = pstmt.executeQuery();
+		//tx || rs
+		CarVo vo = null;
+		if(rs.next()) {
+			vo = new CarVo();
+			
+			String name = rs.getString("NAME");
+			String mname = rs.getString("MNAME");
+			String title = rs.getString("TITLE");
+			String price = rs.getString("PRICE");
+			String phone = rs.getString("PHONE");
+			String address = rs.getString("ADDRESS");
+			String startDate = rs.getString("START_DATE");
+			String endDate = rs.getString("END_DATE");
+			
+			
+			
+			vo.setNo(no);
+	        vo.setName(name);
+	        vo.setMname(mname);
+	        vo.setTitle(title);
+			vo.setPrice(price);
+			vo.setPhone(phone);
+			vo.setAddress(address);
+			vo.setStartDate(startDate);
+			vo.setEndDate(endDate);
+			
+		}
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		
+		return vo;
+	
+	}
+
+
+
+	public int carFavorite(Connection conn, String no, String name, MemberVo loginMember) throws Exception {
+
+		String sql = "INSERT INTO FAVORITES ( NO ,MEMBER_NO ,RENTCAR_NO ) VALUES ( SEQ_FAVORITES_NO.NEXTVAL , ? , ? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getNo());
+		pstmt.setString(2, no);
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	
+	}
 	
 
 }
