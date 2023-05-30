@@ -187,7 +187,7 @@
     	confirm("결제를 취소하시겠습니까?");
     	if(true){
     		
-    		location.href = '${root}/mypage/orderList';
+    		location.href = '${root}/car/refund';
     		alert("결제가 취소되었습니다.");
     	}
   	}

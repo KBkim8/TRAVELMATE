@@ -75,7 +75,7 @@
                             </div>
                         </div>        
                         <div class="sub_menu">
-                            <h2 id="admin-private" data-hover="마이페이지" class="SMN_effect-23-2">상품과 결제</h2>
+                            <h2 id="admin-private" data-hover="상품과 결제" class="SMN_effect-23-2">상품과 결제</h2>
                             <ul class="big_menu">
                                      <li>상품목록<i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">

@@ -144,7 +144,8 @@ table td{
       </c:forEach>
     </tbody>
   </table>  
-  
+  <br>
+  <br>
    <div id="page-area">
     	<c:if test="${pv.currentPage > 1}">
      	<a class="btn btn-primary btn-sm" href="${root}/car/list?page=${pv.currentPage - 1}&searchType=${searchVo.searchType}&searchValue=${searchVo.searchValue}&local=${searchVo.local}">이전</a>
