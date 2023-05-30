@@ -118,14 +118,7 @@ public class MemberService {
 		return vo;
 	}
 
-	// 강분-비밀번호 확인
-	public MemberVo checkPwd(MemberVo vo) {
 
-		
-		
-		return null;
-	}
-	
 	// 강분-회원정보 수정
 	public MemberVo edit(MemberVo vo) throws Exception {
 		
@@ -178,5 +171,50 @@ public class MemberService {
 		return result;
 		
 	}
+
+
+	// 회원 누적 출석 수 
+	public MemberVo cntAttendByNo(String mno) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		String sql = "SELECT COUNT(*) AS TOTAL_ATTEND FROM ATTEND A JOIN MEMBER M ON (A.NO = M.NO) WHERE M.NO = ? AND M.STATUS='O' ";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mno);
+		ResultSet rs = pstmt.executeQuery();
+		
+		MemberVo vo = null;
+		if(rs.next()) {
+			String total_attend = rs.getString("TOTAL_ATTEND");
+			
+			vo = new MemberVo();
+			vo.setTotalAttend(total_attend);
+		}
+		
+		JDBCTemplate.close(conn);
+		return vo;
+	}
+
+
+
+//	//로그인시 아이디 체크
+//	public int loginIdCheck(String idInputValue) throws Exception {
+//
+//		Connection conn = JDBCTemplate.getConnection();
+//		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
+//		
+//		PreparedStatement pstmt = conn.prepareStatement(sql);
+//		pstmt.setString(1, idInputValue);
+//		ResultSet rs = pstmt.executeQuery();
+//
+//		int count = 0;
+//		if(rs.next()) {
+//			count = rs.getInt(0);
+//		}
+//		JDBCTemplate.close(conn);
+//		
+//		return count;
+//		
+//		
+//	}
 	
 }

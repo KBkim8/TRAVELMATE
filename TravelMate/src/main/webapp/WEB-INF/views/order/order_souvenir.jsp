@@ -13,7 +13,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 900px;
+    bottom: 500px;
     left: 400px;
   
 }
@@ -84,7 +84,7 @@ table{
 </style>
 </head>
 <body>
-   <%@ include file="/WEB-INF/views/common/header.jsp" %>
+   <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
         
         
 	<div id="shape">
@@ -98,12 +98,13 @@ table{
 
       <div id="first2">
         <div>
-          <h2>${vo.title}</h2>
+          <h2><img src="${root}/static/img/souvenir/${vo.title}" alt="ASD" width="220px" height="200px"  ></h2>
         </div>
         <div>
-          <h2>상품 이름: ${vo.name}</h2>
-          <h2>상품 상세: ${vo.content}</h2>
-          <h2>상품 가격: ${vo.price}원</h2>
+        <br>
+          <h2>상품 이름: ${vo.name}</h2><br>
+          <h2>상품 상세: ${vo.content}</h2><br>
+          <h2>상품 가격: ${vo.price}원</h2><br>
           <h2>상품 지역: ${vo.local}</h2>
         </div>
       </div>
@@ -117,6 +118,7 @@ table{
 
 	  <form action="${root}/pay/souvenir" method="post">
 	      <div id="second2">
+	      <br>
 	        <table>
 	            <tr>
 	                <td>예약자 명:</td>
@@ -124,7 +126,7 @@ table{
 	            </tr>
 	            <tr>
 	                <td>휴대폰 번호:</td>
-	                <td><input type="text" name="ph" placeholder=" ‘ - ’ 제외하고 입력">
+	                <td><input type="text" name="phone" placeholder=" ‘ - ’ 제외하고 입력">
 	            </tr>
 	            <tr>
 	                <td>배송 받을 주소:</td>
@@ -150,21 +152,23 @@ table{
 	    
 	      </div>
 	      <b>총 결제 금액:  <input type="number" id="num2" name="totalPrice" value="${vo.price}"> 원</b>
-	      <button id="btn03" type="submit">결제하기</button>
+	      <c:if test="${loginMember != null }">
+			<button id="btn03" type="submit">결제하기</button>
+	      </c:if>
 	      <br><br><br>
 		
 		<input type="hidden" value="${vo.no}" name="no">
 	
 	      <hr>
 		</form>
-	        <button id="btn02">관심상품 담기</button>
+	        <button id="btn02" onclick="favorite();">관심상품 담기</button>
 	        <button id="btn01" onclick="backPage()">뒤로가기</button>
 
-      
+        
     </div>
         
         
-    
+  
 
    
 
@@ -185,6 +189,16 @@ table{
     location.href="${root}/souvenir/list";
   }
   
+  function favorite(){
+	  if(${loginMember == null}){
+			alert("로그인 하고 오세요")	  
+			return;
+		  }else{
+			  alert("상품이 등록되었습니다.");
+		  }
+	  location.href="${root}/favorite?no=${vo.no}&name=${vo.name}";
+	 
+  }
 
   
   

@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.AbstractDocument.Content;
+
 import com.kh.app.board.dao.BoardDao;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
 import com.kh.app.board.vo.CommentVo;
+import com.kh.app.board.vo.ReviewBoardVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
@@ -103,11 +106,24 @@ private final BoardDao dao;
 	}
 
 	//도연 - 공지사항 게시글 목록 조회
-	public List<BoardVo> list(PageVo pv) throws Exception {
+	//전체조회
+	public List<BoardVo> noticeList(PageVo pv ) throws Exception {
 		
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<BoardVo>bvoList = dao.list(conn ,pv);
+		List<BoardVo>bvoList = dao.noticeList(conn ,pv);
+		
+		JDBCTemplate.close(conn);
+	
+		return bvoList;
+	}
+	
+	// 검색해서 글목록조회
+	public List<BoardVo> noticeList(PageVo pv, String searchValue, String searchType) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		List<BoardVo>bvoList = dao.noticeList(conn ,pv ,searchValue ,searchType);
 		
 		JDBCTemplate.close(conn);
 	
@@ -193,6 +209,294 @@ private final BoardDao dao;
 		}
 		
 	}
+	
+	// 자유게시판 목록 조회
+		public List<BoardVo> freeList(PageVo pv) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo>fvoList= dao.freeList(conn ,pv);
+			
+			JDBCTemplate.close(conn);
+			
+			return fvoList;
+		}
+
+		//공지사항 댓글보여주기
+		public List<CommentVo> noticeReplyList(String boardNo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<CommentVo> replyList = dao.noticeReplyList(conn ,boardNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return replyList;
+			
+		}
+
+		//자유게시판 상세조회 + 조회수
+		public BoardVo freeDetail(String no) throws Exception {
+
+			try(Connection conn = JDBCTemplate.getConnection();){
+				
+				int result = dao.freeUpdateHit(conn , no);
+				BoardVo fvo = null;
+				if (result ==1) {
+					fvo = dao.freeDetail(conn ,no);
+				}else {
+					throw new Exception();
+				}
+				return fvo;
+			}
+		}
+
+		//자유게시판 삭제
+		public int freeDelete(String no) throws Exception {
+			
+			Connection conn =JDBCTemplate.getConnection();
+			
+			int result = dao.freeDelete(conn ,no);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+			return result;
+			
+		}
+
+		//자유게시판 수정
+		public int freeEdit(BoardVo vo) throws Exception {
+			
+			Connection conn =JDBCTemplate.getConnection();
+			
+			int result = dao.freeEdit(conn,vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		//자유게시판 작성하기
+		public int freeWrite(BoardVo bvo) throws Exception {
+
+			Connection conn =JDBCTemplate.getConnection();
+			
+			int result = dao.freeWrite(conn,bvo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		//자유게시판 댓글달기
+		public int freeBoardRplyWrite(CommentVo cvo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.freeBoardRplyWrite(conn ,cvo);
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			return result;
+		}
+
+		//자유게시판 댓글 보여주기이이
+		public List<CommentVo> freeReplyList(String boardNo) throws Exception {
+		
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<CommentVo> relpyList = dao.freeReplyList(conn ,boardNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return relpyList;
+		}
+
+		//관리자 신분(멤버 카테고리 번호 1번) 으로 모든 판매요청 리스트 조회
+		public List<BoardVo> sellRequestList(PageVo pv) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> voList = dao.sellRequestList(conn ,pv);
+			
+			JDBCTemplate.close(conn);
+			
+			return voList;
+		
+		}
+		
+		//판매자 자신이 쓴 판매요청 리스트 조회
+		public List<BoardVo> sellRequestList(PageVo pv, String memberNo) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> voList = dao.sellRequestList(conn ,pv ,memberNo);
+			
+			JDBCTemplate.close(conn);
+			
+			return voList;
+			
+		}
+		
+		
+		//판매 요청글 쓰기 멤버카테고리 3번(판매자)       
+		public int sellRequestWrite(BoardVo vo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.sellRequestWrite(conn, vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			return result;
+		}
+
+		public int getBoardListCnt(String searchType, String searchValue) throws Exception {
+
+			//conn
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int cnt = dao.getBoardListCnt(conn , searchType , searchValue);
+			
+			//close
+			JDBCTemplate.close(conn);
+			
+			return cnt;
+		}
+
+		//차량 리뷰 글쓰기
+		public int carReviewWrite(BoardVo vo) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.carReviewWrite(conn ,vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+			
+			return result;
+			
+		}
+
+		//차량 리뷰 리스트 보여주기
+		public List<BoardVo> carReviewList(PageVo pv) throws Exception {
+		
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> rvoList = dao.carReviewList(conn,pv);
+			
+			JDBCTemplate.close(conn);
+		
+			return rvoList;
+			
+		}
+
+		//차량 리뷰 상세조회
+		public BoardVo carReviewDetail(String no) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.carReviewupdateHit(conn , no);
+			
+			BoardVo vo = null; 
+			if(result ==1) {
+				vo = dao.carReviewDetail(conn ,no);
+			}else {
+				throw new Exception();
+			}
+			JDBCTemplate.close(conn);
+			
+			return vo;
+		}
+
+		//검색으로 자유게시판 목록 조회
+		public List<BoardVo> freeList(PageVo pv, String searchValue, String searchType) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo>bvoList = dao.freeList(conn ,pv ,searchValue ,searchType);
+			
+			JDBCTemplate.close(conn);
+		
+			return bvoList;
+			
+		}
+
+		//
+		public int getFreeBoardListCnt(String searchType, String searchValue) throws Exception {
+			
+			//conn
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int cnt = dao.getFreeBoardListCnt(conn , searchType , searchValue);
+			
+			//close
+			JDBCTemplate.close(conn);
+			
+			return cnt;
+		}
+
+		// 숙소 리뷰 이벤트
+		public int roomReviewWrite(BoardVo vo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.roomReviewWrite(conn ,vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		//숙소리뷰 게시글 조회
+		public List<BoardVo> roomReviewList(PageVo pv) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> rvoList = dao.roomReviewList(conn,pv);
+			
+			JDBCTemplate.close(conn);
+		
+			return rvoList;
+			
+		}
+
+		
+
+		
 	
 	
 	

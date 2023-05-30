@@ -6,22 +6,18 @@ public class FavoriteVo {
 	private String memberNo;
 	private String carNo;
 	private String accomodationNo;
-	private String souvenirReservationNo;
+	private String souvenirNo;
 	private String delYn;
 	
 	private String carKind;
-	private String carPrice;
-	private String carStarDate;
-	private String carEndDate;
+	private String carImg;
 	
 	private String accomodationName;
-	private String accomodationPrice;
-	private String accomodationStartDate;
-	private String accomodationEndDate;
+	private String accomodationImg;
 	
 	private String souvenirName;
 	private String souvenirPrice;
-	private String souvenirCnt;
+	private String souvenirImg;
 	public String getNo() {
 		return no;
 	}
@@ -46,11 +42,11 @@ public class FavoriteVo {
 	public void setAccomodationNo(String accomodationNo) {
 		this.accomodationNo = accomodationNo;
 	}
-	public String getSouvenirReservationNo() {
-		return souvenirReservationNo;
+	public String getSouvenirNo() {
+		return souvenirNo;
 	}
-	public void setSouvenirReservationNo(String souvenirReservationNo) {
-		this.souvenirReservationNo = souvenirReservationNo;
+	public void setSouvenirNo(String souvenirNo) {
+		this.souvenirNo = souvenirNo;
 	}
 	public String getDelYn() {
 		return delYn;
@@ -64,23 +60,11 @@ public class FavoriteVo {
 	public void setCarKind(String carKind) {
 		this.carKind = carKind;
 	}
-	public String getCarPrice() {
-		return carPrice;
+	public String getCarImg() {
+		return carImg;
 	}
-	public void setCarPrice(String carPrice) {
-		this.carPrice = carPrice;
-	}
-	public String getCarStarDate() {
-		return carStarDate;
-	}
-	public void setCarStarDate(String carStarDate) {
-		this.carStarDate = carStarDate;
-	}
-	public String getCarEndDate() {
-		return carEndDate;
-	}
-	public void setCarEndDate(String carEndDate) {
-		this.carEndDate = carEndDate;
+	public void setCarImg(String carImg) {
+		this.carImg = carImg;
 	}
 	public String getAccomodationName() {
 		return accomodationName;
@@ -88,23 +72,11 @@ public class FavoriteVo {
 	public void setAccomodationName(String accomodationName) {
 		this.accomodationName = accomodationName;
 	}
-	public String getAccomodationPrice() {
-		return accomodationPrice;
+	public String getAccomodationImg() {
+		return accomodationImg;
 	}
-	public void setAccomodationPrice(String accomodationPrice) {
-		this.accomodationPrice = accomodationPrice;
-	}
-	public String getAccomodationStartDate() {
-		return accomodationStartDate;
-	}
-	public void setAccomodationStartDate(String accomodationStartDate) {
-		this.accomodationStartDate = accomodationStartDate;
-	}
-	public String getAccomodationEndDate() {
-		return accomodationEndDate;
-	}
-	public void setAccomodationEndDate(String accomodationEndDate) {
-		this.accomodationEndDate = accomodationEndDate;
+	public void setAccomodationImg(String accomodationImg) {
+		this.accomodationImg = accomodationImg;
 	}
 	public String getSouvenirName() {
 		return souvenirName;
@@ -118,49 +90,44 @@ public class FavoriteVo {
 	public void setSouvenirPrice(String souvenirPrice) {
 		this.souvenirPrice = souvenirPrice;
 	}
-	public String getSouvenirCnt() {
-		return souvenirCnt;
+	public String getSouvenirImg() {
+		return souvenirImg;
 	}
-	public void setSouvenirCnt(String souvenirCnt) {
-		this.souvenirCnt = souvenirCnt;
+	public void setSouvenirImg(String souvenirImg) {
+		this.souvenirImg = souvenirImg;
 	}
 	@Override
 	public String toString() {
 		return "FavoriteVo [no=" + no + ", memberNo=" + memberNo + ", carNo=" + carNo + ", accomodationNo="
-				+ accomodationNo + ", souvenirReservationNo=" + souvenirReservationNo + ", delYn=" + delYn
-				+ ", carKind=" + carKind + ", carPrice=" + carPrice + ", carStarDate=" + carStarDate + ", carEndDate="
-				+ carEndDate + ", accomodationName=" + accomodationName + ", accomodationPrice=" + accomodationPrice
-				+ ", accomodationStartDate=" + accomodationStartDate + ", accomodationEndDate=" + accomodationEndDate
-				+ ", souvenirName=" + souvenirName + ", souvenirPrice=" + souvenirPrice + ", souvenirCnt=" + souvenirCnt
-				+ "]";
+				+ accomodationNo + ", souvenirNo=" + souvenirNo + ", delYn=" + delYn + ", carKind=" + carKind
+				+ ", carImg=" + carImg + ", accomodationName=" + accomodationName + ", accomodationImg="
+				+ accomodationImg + ", souvenirName=" + souvenirName + ", souvenirPrice=" + souvenirPrice
+				+ ", souvenirImg=" + souvenirImg + "]";
 	}
-	public FavoriteVo(String no, String memberNo, String carNo, String accomodationNo, String souvenirReservationNo,
-			String delYn, String carKind, String carPrice, String carStarDate, String carEndDate,
-			String accomodationName, String accomodationPrice, String accomodationStartDate, String accomodationEndDate,
-			String souvenirName, String souvenirPrice, String souvenirCnt) {
+	public FavoriteVo(String no, String memberNo, String carNo, String accomodationNo, String souvenirNo, String delYn,
+			String carKind, String carImg, String accomodationName, String accomodationImg, String souvenirName,
+			String souvenirPrice, String souvenirImg) {
 		super();
 		this.no = no;
 		this.memberNo = memberNo;
 		this.carNo = carNo;
 		this.accomodationNo = accomodationNo;
-		this.souvenirReservationNo = souvenirReservationNo;
+		this.souvenirNo = souvenirNo;
 		this.delYn = delYn;
 		this.carKind = carKind;
-		this.carPrice = carPrice;
-		this.carStarDate = carStarDate;
-		this.carEndDate = carEndDate;
+		this.carImg = carImg;
 		this.accomodationName = accomodationName;
-		this.accomodationPrice = accomodationPrice;
-		this.accomodationStartDate = accomodationStartDate;
-		this.accomodationEndDate = accomodationEndDate;
+		this.accomodationImg = accomodationImg;
 		this.souvenirName = souvenirName;
 		this.souvenirPrice = souvenirPrice;
-		this.souvenirCnt = souvenirCnt;
+		this.souvenirImg = souvenirImg;
 	}
 	public FavoriteVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
 	
 	

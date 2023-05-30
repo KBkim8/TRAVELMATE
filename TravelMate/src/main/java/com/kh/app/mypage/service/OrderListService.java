@@ -11,37 +11,37 @@ import com.kh.app.mypage.vo.OrderListVo;
 
 public class OrderListService {
 
-	OrderListDao dao = null;
+	OrderListDao dao = new OrderListDao();
 	// 주문 내역 개수(회원번호로)
 	public int getOrderListCntByNo(String mno) throws Exception {
 
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		dao = new OrderListDao();
 		int cnt = dao.getOrderListCntByNo(conn, mno);
-		
-		// tx || rs
 		
 		// close
 		JDBCTemplate.close(conn);
 		
 		return cnt;
 	}
+	
 
-	// 주문 내역 조회(회원번호로)
-	public List<OrderListVo> getMyBoardListByNo(PageVo pv, String mno) throws Exception {
-
+	// 주문 내역 조회
+	public List<OrderListVo> getOrderListByNo(PageVo pv, String mno, String searchType, String searchValue) throws Exception {
+		
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		List<OrderListVo> voList = dao.getMyBoardListByNo(conn,pv,mno);
-		
-		// close
+		List<OrderListVo> voList = dao.getOrderListByNo(conn,pv,mno, searchType, searchValue);
+
 		JDBCTemplate.close(conn);
 		
-		return voList;
 		
+		return voList;
 	}
+
+
+	
 
 }

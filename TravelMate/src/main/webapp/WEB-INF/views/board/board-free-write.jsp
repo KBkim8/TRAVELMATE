@@ -3,6 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
@@ -13,6 +15,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 750px;
     }
     
 
@@ -73,7 +76,7 @@
         margin-left: 20%;
     }
 
-    textarea{
+   .summernote{
         height: 900px;
         width: 1000px;
         margin-top: 30px;
@@ -114,78 +117,82 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>  <!--이안에 포함된 jquery때메 안됬음-->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 	<!-- 내용영역 -->
     <div id="content">
         <div id="first-content">
             <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
             <hr>
-            <a>게시글 작성</a>
+            <a>자유 글 작성</a>
         </div>
         <div id="write-area" >
-            <form action="${root}/write" method="POST" enctype="multipart/form-data">
+            <form action="${root}/free/write" method="POST">
                 <input type="text" name="title" placeholder="제목을 입력하세요">
-                <select name="categoryNo" style="width:150px;height:60px; font-size: 2em;">
-                        <option value=1>공지</option>
-                        <option value=2>판매등록요청</option>	
-                        <option value=3>랜선여행</option>	
-                        <option value=5>리뷰</option>	
-                        <option value=6>자유</option>	
-                </select>
-                <textarea name="content" placeholder="내용을 입력하세요"></textarea>
+                <br>
+                <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
             </div>
     
             <div id="submit">
                 <input type="submit" value="작성하기" id="btn01">
-                <input type="file" name="f" id="">
             </div>
-            <div id="preview-area"></div>
             </form>
     </div>
 
 
+    <script>
+        $('#summernote').summernote({
+        placeholder: 'Hello stand alone ui',
+        tabsize: 2,
+        height: 1300,
+        maxHeight:1300,
+        minHeight:1000,
+        width: 1400,
+		callbacks : {
+			onImageUpload : f01
+		},
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']]
+        ]
+      });
+
+
+      function f01(FileList) {
+
+        const fd = new FormData();
+        for(let file of FileList){
+            fd.append("f" , file);
+        }
+
+      $.ajax({
+			url :'${root}/upload' ,
+			type : 'post',
+			data : fd,
+			processData : false,
+			contentType : false,
+			dataType:'json',
+			success : (changeNameList)=>{
+				console.log(changeNameList);
+				for(let changeName of changeNameList){
+					$('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
+				}
+			},
+			error : (e)=>{
+				alert(e);
+			}
+		});
+    }
+
+    </script>
+    
+
 </body>
 </html>
 
-<script>
-
-    //미리보기
-		const fileTag = document.querySelector("input[type=file]");
-		const previewArea = document.querySelector("#preview-area");
-		
-
-		fileTag.onchange = function(e){
-			
-			if(fileTag.files.length == 0){		//취소누른상태
-				previewArea.innerHTML = '';
-				return;
-			}
-
-			for(let i = 0 ; i < fileTag.files.length; i++){
-				const fr = new FileReader();
-				fr.readAsDataURL(fileTag.files[i]);
-	
-				fr.onload = function(e){
-					const imgTag = document.createElement('img');
-					imgTag.src = e.target.result;
-					imgTag.alt = "미리보기이미지사진";
-					imgTag.width = 100;
-					imgTag.height = 100;
-					previewArea.appendChild(imgTag);
-				};
-			}
-
-		};
-
-
-
-
-
-
-
-
-
-
-
-</script>

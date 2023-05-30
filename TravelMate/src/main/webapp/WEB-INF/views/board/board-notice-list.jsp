@@ -13,6 +13,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 600px;
     }
     
 
@@ -44,16 +45,6 @@
         font-weight: bold;
     }
 
-    #edit-area{
-        position: absolute;
-        width: 1300px;
-        height: 1000px;
-        left: 130px;
-        top: 230px;
-        display: grid;
-        grid-template-rows: 3fr 1fr;
-    }
-
     #btn01 {
         background-color: #73D38E;
         font-size: 2.5em;
@@ -73,7 +64,6 @@
     }   
 
     #write-area{
-        margin-top: 170px; /* 이녀석이 노트북이랑 데스크탑이랑 화면다르게 보이게함*/
         margin-left: 20%;
     }
 
@@ -96,7 +86,7 @@
 		cursor: pointer;
 	}
 
-    input[name=title]{
+    input[name=searchValue]{
         font-size: 2em;
         width: 500px;
         height: 70px;
@@ -111,13 +101,16 @@
         margin-top: 30px;
     }
 
-    
+ 
+    /* -------------------------------------------------- */
+
+   
 </style>
 </head>
 <body>
 
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -126,10 +119,19 @@
             <hr>
             <a>공지사항  목록</a>  
         </div>
+       
         <div id="write-area">
-            <input type="text" name="title" placeholder="제목을 입력하세요"> <input id="btn01" type="button" value="검색"> 
+            <form action="${root}/notice/list" method="get">
+                <select id="btn01" name="searchType">
+                    <option value="title">제목</option>
+                    <option value="writer">작성자</option>
+                </select>
+                    <input type="text" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
+                    <input  id="btn01" type="submit" value="검색">
+            </form>
+            <br>
             <c:if test="${not empty loginMember }">
-	            <a href="${root }/notice/write" id="btn01">글 작성하러 가기</a>
+	            <a  href="${root}/notice/write" id="btn01">글 작성하러 가기</a>
             </c:if>
             <br>
             <br>
@@ -187,5 +189,68 @@
         console.log(no);
 		location.href = "${root}/notice/detail?no=" + no;
 	});
+	
+    // 검색 영역
+    const searchType = '${searchVo.searchType}';
+	const searchValue = '${searchVo.searchValue}';
+	
+	const searchValueSelectTag = document.querySelector("select[name='searchValue']");
+	const searchValueInputTag = document.querySelector("input[name='searchValue']");
+
+	if(searchType.length > 1){
+		initSearchType();
+	}
+	
+	// 검색 타입 초기 세팅
+	function initSearchType(){
+		const x = document.querySelector('select > option[value="' + searchType + '"]');
+		x.selected = true;
+	}
+	
+	// 서치타입 변경 시 함수 실행
+	const searchTypeTag = document.querySelector('select[name=searchType]');
+	searchTypeTag.addEventListener("change", setSearchValueTag);
+
+	function setSearchValueTag(){
+
+		// 현재 타입이 카테고리인지 구분
+		const searchType = searchTypeTag.value;
+		if(searchType == 'category'){
+			setSearchValueTagSelect();
+		}else{
+			setSearchValueTagInput();
+		}
+	}
+
+	// 검색 값 영역 select 보이게 (타입이 카테고리 일 때)
+	function setSearchValueTagSelect(){
+		searchValueSelectTag.classList.add("active");
+		searchValueSelectTag.disabled = false;
+		searchValueInputTag.classList.remove("active");
+		searchValueInputTag.disabled = true;
+
+		searchValueInputTag.value = '';
+	}
+
+	// 검색 값 영역을 input 보이게 (타입이 카테고리 외)
+	function setSearchValueTagInput(){
+		searchValueInputTag.classList.add("active");
+		searchValueInputTag.disabled = false;
+		searchValueSelectTag.classList.remove("active");
+		searchValueSelectTag.disabled = true;
+	}
+
+	// 카테고리로 검색한 이후에 검색 값이 유지되게 
+	function initSearchValueSelect(){
+		if(searchType != 'category'){
+			return;
+		}
+		const optionTag = document.querySelector("option[value='" + searchValue + "']");
+		optionTag.selected = true;	
+	}
+	
+	setSearchValueTag();
+	initSearchValueSelect();
+
 
 </script>

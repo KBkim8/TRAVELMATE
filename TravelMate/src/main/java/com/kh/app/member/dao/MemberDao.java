@@ -229,7 +229,7 @@ public class MemberDao {
 	// 강분-회원 수정 select 문
 	public MemberVo selectOneByNoForEdit(Connection conn, String no) throws Exception {
 
-		String sql = "SELECT * FROM MEMBER WHERE NO = ? AND STATUS = 'O' ";
+		String sql = "SELECT * FROM MEMBER M JOIN MEMBER_GRADE MG ON (M.MEMBER_GRADE_NO = MG.NO) WHERE M.NO = ? AND M.STATUS = 'O'";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -240,6 +240,8 @@ public class MemberDao {
 			String nick = rs.getString("NICK");
 			String address = rs.getString("ADDRESS");
 			String email = rs.getString("EMAIL");
+			String memberGradeName = rs.getString("NAME");
+			String memberGradeImg = rs.getString("IMG");
 			
 			vo = new MemberVo();
 			vo.setNo(no);
@@ -247,6 +249,8 @@ public class MemberDao {
 			vo.setNick(nick);
 			vo.setAddress(address);
 			vo.setEmail(email);
+			vo.setMemberGradeName(memberGradeName);
+			vo.setMemberGradeImg(memberGradeImg);
 		}
 		
 		JDBCTemplate.close(pstmt);

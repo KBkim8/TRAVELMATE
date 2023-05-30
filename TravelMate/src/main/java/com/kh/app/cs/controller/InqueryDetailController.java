@@ -25,12 +25,13 @@ public class InqueryDetailController extends HttpServlet{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
 			// 데꺼
-			String no = req.getParameter("no");
+			String no = req.getParameter("ino");
 			
 			// 데뭉 X
 			
 			// 서비스
 			InqueryVo vo = is.selectInqueryOneByNo(no);
+			
 			
 			// 화면
 			if(vo != null) {
