@@ -206,10 +206,9 @@ public class CarDao {
 	public int pay(CarVo cvo, Connection conn) throws Exception {
 			
 		
-		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , ? );";
+		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , '카드' );";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, cvo.getCarReservationCode());
-		pstmt.setString(2, cvo.getType());
 		
 		
 		int result = pstmt.executeUpdate();
