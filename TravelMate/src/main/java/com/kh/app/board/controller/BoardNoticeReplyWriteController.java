@@ -14,7 +14,7 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.CommentVo;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet(urlPatterns = "/notice/reply/write")
+@WebServlet("/notice/reply/write")
 public class BoardNoticeReplyWriteController extends HttpServlet{
 
 	@Override

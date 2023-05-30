@@ -98,7 +98,7 @@
                             <span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
                             <hr>
                             <br>
-                            <input type="submit" value="로그인" id="btn01">
+                            <input type="submit" value="로그인" id="btn01" >
                             <br>
                             <br>
                             <br>
@@ -112,3 +112,30 @@
 
 </body>
 </html>
+
+<script>
+
+    
+    // function idCheck() {
+    //     const idInputValue =document.querySelector('input[name=memberId]').value;
+        
+    //     $.ajax({
+    //         url :'${root}/login/id/check',
+    //         type : 'POST',
+    //         data : {
+    //             'idInputValue' : idInputValue,
+    //         },
+    //         success : (data)=>{
+    //             if(data == 'ok'){
+    //                 alert('아이디틀렸습니다');
+    //             }
+               
+    //         },
+    //         error : (e)=>{
+    //             console.log(e);
+    //         },
+    //     });
+
+    // }
+
+</script>

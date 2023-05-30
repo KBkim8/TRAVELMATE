@@ -668,13 +668,13 @@ public class BoardDao {
 
 	
 	//차량 리뷰
-	public int carReviewWrite(Connection conn, ReviewBoardVo rbVo) throws Exception {
+	public int carReviewWrite(Connection conn, BoardVo vo) throws Exception {
 		
 		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL , 4, ? , ? , ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, rbVo.getMemberNo());
-		pstmt.setString(2, rbVo.getTitle());
-		pstmt.setString(3, rbVo.getContent());
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getTitle());
+		pstmt.setString(3, vo.getContent());
 		int result = pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);
@@ -684,7 +684,7 @@ public class BoardDao {
 	//차량 리뷰 게시글 리스트
 	public List<BoardVo> carReviewList(Connection conn, PageVo pv) throws Exception {
 
-		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT * FROM BOARD B JOIN BOARD_CATEGORY BC  ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE BC.NO=4  AND B.DELETE_YN='N' ORDER BY B.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.* , M.NICK FROM BOARD B JOIN BOARD_CATEGORY BC  ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO =M.NO WHERE BC.NO=4  AND B.DELETE_YN='N' ORDER BY B.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -702,6 +702,7 @@ public class BoardDao {
 			String uploadYn = rs.getString("UPLOAD_YN");
 			String modifyDate = rs.getString("MODIFY_DATE");
 			String title = rs.getString("TITLE");
+			String memberNick = rs.getString("NICK");
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String hit = rs.getString("HIT");
 
@@ -714,6 +715,7 @@ public class BoardDao {
 			vo.setBoardImgNo(boardImgNo);
 			vo.setMemberNo(memberNo);
 			vo.setContent(content);
+			vo.setMemberNick(memberNick);
 			vo.setDeleteYn(deletYn);
 			vo.setUploadYn(uploadYn);
 			vo.setModifyDate(modifyDate);
@@ -893,6 +895,66 @@ public class BoardDao {
 		JDBCTemplate.close(rs);
 		
 		return fvoList;
+	}
+
+	public int roomReviewWrite(Connection conn, BoardVo vo) throws Exception {
+
+		String sql = "INSERT INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL , 4, ? , ? , ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getTitle());
+		pstmt.setString(3, vo.getContent());
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	//숙소 리뷰 리스트 조회
+	public List<BoardVo> roomReviewList(Connection conn, PageVo pv) throws Exception {
+		
+		String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.* , M.NICK FROM BOARD B JOIN BOARD_CATEGORY BC  ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO =M.NO WHERE BC.NO=4  AND B.DELETE_YN='N' ORDER BY B.NO DESC) T ) WHERE RNUM BETWEEN ? AND ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setInt(1, pv.getBeginRow());
+		pstmt.setInt(2, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<BoardVo> rvoList = new ArrayList<>();
+		while(rs.next()) {
+			
+			String no = rs.getString("NO");
+			String boardCategoryNo = rs.getString("BOARD_CATEGORY_NO");
+			String memberNo = rs.getString("MEMBER_NO");
+			String boardImgNo = rs.getString("BOARD_IMG_NO");
+			String content = rs.getString("CONTENT");
+			String deletYn = rs.getString("DELETE_YN");
+			String uploadYn = rs.getString("UPLOAD_YN");
+			String modifyDate = rs.getString("MODIFY_DATE");
+			String title = rs.getString("TITLE");
+			String memberNick = rs.getString("NICK");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String hit = rs.getString("HIT");
+
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setEnrollDate(enrollDate);
+			vo.setHit(hit);
+			vo.setBoardCategoryNo(boardCategoryNo);
+			vo.setBoardImgNo(boardImgNo);
+			vo.setMemberNo(memberNo);
+			vo.setContent(content);
+			vo.setMemberNick(memberNick);
+			vo.setDeleteYn(deletYn);
+			vo.setUploadYn(uploadYn);
+			vo.setModifyDate(modifyDate);
+			
+			rvoList.add(vo);
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		return rvoList;
 	}
 
 }//class

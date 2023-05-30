@@ -17,11 +17,13 @@ import javax.servlet.http.Part;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.board.vo.CategoryVo;
+import com.kh.app.board.vo.ReviewBoardVo;
 import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
-@WebServlet(urlPatterns = "/room/reivew/write")
+
+@WebServlet(urlPatterns = "/car/review/write")
 public class BoardRoomReviewWriteController extends HttpServlet{
 	
 	@Override
@@ -36,11 +38,10 @@ public class BoardRoomReviewWriteController extends HttpServlet{
 //			return;
 //		}
 		
-		
-		
-		req.getRequestDispatcher("/WEB-INF/views/board/board-room-review-write.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/board/board-car-review-write.jsp").forward(req, resp);
 	}
 	
+	//차량리뷰 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -49,29 +50,24 @@ public class BoardRoomReviewWriteController extends HttpServlet{
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
-			//파일 업로드
-			
-			// 데꺼
 			String memberNo = loginMember.getNo();
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
-			String categoryNo = req.getParameter("categoryNo");
-			
-			// 데뭉
-			BoardVo bvo = new BoardVo();
-			bvo.setTitle(title);
-			bvo.setContent(content);
-			bvo.setBoardCategoryNo(categoryNo);
-			bvo.setMemberNo(memberNo);
 			
 			// 서비스
 			BoardService bs = new BoardService();
+			BoardVo vo = new BoardVo();
+			
+			vo.setMemberNo(memberNo);
+			vo.setTitle(title);
+			vo.setContent(content);
+			
+			int result = bs.roomReviewWrite(vo);
 			
 			// 화면
-			if(result == 1) {
+			if(result ==1) {
 				//성공
-				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
-				resp.sendRedirect(req.getContextPath() + "/list");
+				resp.sendRedirect(req.getContextPath() + "/room/review/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 

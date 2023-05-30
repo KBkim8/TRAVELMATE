@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.app.board.service.BoardService;
 
-@WebServlet(urlPatterns = "/free/del")
+@WebServlet( "/free/del")
 public class BoardFreeDeleteController extends HttpServlet{
 
 	@Override

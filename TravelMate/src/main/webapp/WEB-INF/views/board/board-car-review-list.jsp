@@ -86,7 +86,7 @@
     }
 
     table > thead > tr th , table > tbody > tr td {
-        font-size: 2.5em;
+        font-size: 2em;
         text-align: center;
         border: 2px solid black;
         height: 20px;
@@ -147,6 +147,7 @@
                         <th>번호 </th>
                         <th>제목 </th>
                         <th>작성일시</th>
+                        <th>작성자</th>
                         <th>조회수</th>
                     </tr>
                 </thead>
@@ -157,6 +158,7 @@
 	                        <td>${rvoList.no}</td>
 	                        <td>${rvoList.title}</td>
 	                        <td>${rvoList.enrollDate}</td>
+	                        <td>${rvoList.memberNick}</td>
 	                        <td>${rvoList.hit}</td>
 	                    </tr>
                 	</c:forEach>
@@ -165,18 +167,18 @@
             </table>
             <div id="page-area">
                 <c:if test="${pv.currentPage > 1}">
-                   <a id="btn01" href="${root}/free/list?page=${pv.currentPage-1}">이전</a>
+                   <a id="btn01" href="${root}/review/list?page=${pv.currentPage-1}">이전</a>
                </c:if>
                <c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
                    <c:if test="${pv.currentPage ne i}">
-                       <a id="btn01" href="${root}/free/list?page=${i}">${i}</a>
+                       <a id="btn01" href="${root}/review/list?page=${i}">${i}</a>
                    </c:if>
                    <c:if test="${pv.currentPage == i}">
                        <a id="btn01" style="font-size: 0.5em;">${i}</a>
                    </c:if>
                </c:forEach>
                <c:if test="${pv.currentPage < pv.maxPage}">
-                   <a id="btn01" href="${root}/free/list?page=${pv.currentPage+1}">다음</a>
+                   <a id="btn01" href="${root}/review/list?page=${pv.currentPage+1}">다음</a>
                </c:if> 
            </div>   
         </div>
@@ -192,7 +194,7 @@
 	const tbody = document.querySelector("tbody");
 	tbody.addEventListener("click" , function(e){
 		const no = e.target.parentNode.children[0].innerText;
-		location.href = "${root}/car/review/detail?no=" + no;
+		location.href = "${root}/review/detail?no=" + no;
 	});
 
 </script>

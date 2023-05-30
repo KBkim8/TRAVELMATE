@@ -4,11 +4,11 @@
 <html>
 <head>
 
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- jquery
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script> -->
     
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>   
+    
     <!-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script> -->
     
 <meta charset="UTF-8">
@@ -21,6 +21,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 400px;
     }
     
 
@@ -124,6 +125,7 @@
 <body>
 
     <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>   
 	
 	<!-- 내용영역 -->
     <div id="content">
@@ -138,7 +140,6 @@
                 <br>
                 <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
             </div>
-    
             <div id="submit">
                 <input type="submit" value="작성하기" id="btn01">
             </div>
@@ -154,10 +155,10 @@
 $('#summernote').summernote({
         placeholder: 'Hello stand alone ui',
         tabsize: 2,
-        height: 320,
+        height: 920,
         maxHeight:900,
         minHeight:500,
-        width: 800,
+        width: 1500,
 		callbacks : {
 			onImageUpload : f01
 		},
@@ -184,7 +185,7 @@ $('#summernote').summernote({
 		
 
 		$.ajax({
-			url :'/upload' ,
+			url :'${root}/upload' ,
 			type : 'post',
 			data : fd,
 			processData : false,
@@ -193,11 +194,11 @@ $('#summernote').summernote({
 			success : (changeNameList)=>{
 				console.log(changeNameList);
 				for(let changeName of changeNameList){
-					$('#summernote').summernote('insertImage' , '${root}/static/car-review-img/' + changeName);
+					$('#summernote').summernote('insertImage' , '${root}/static/img/car-review-img/' + changeName);
 				}
 			},
 			error : (e)=>{
-				alert(e);
+				console.log(e);
 			}
 		});
 	  }

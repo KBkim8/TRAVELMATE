@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 
-@WebServlet(urlPatterns = "/notice/edit")
+@WebServlet("/notice/edit")
 public class BoardNoticeEditController extends HttpServlet{
 	
 	@Override

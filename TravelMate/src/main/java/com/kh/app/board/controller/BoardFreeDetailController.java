@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 
-@WebServlet(urlPatterns = "/free/detail")
+@WebServlet("/free/detail")
 public class BoardFreeDetailController extends HttpServlet{
 
 	@Override

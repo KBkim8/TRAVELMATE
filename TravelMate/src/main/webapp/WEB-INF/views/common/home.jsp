@@ -281,6 +281,8 @@ height: 450px;
 				str += '</h1>';
 				str += '<div>';
 				str += vo.content;
+				str += vo.enroll_date;
+				str += vo.hit;
 				str += '</div>';
 
 				div.innerHTML = str;

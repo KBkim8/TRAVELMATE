@@ -22,7 +22,8 @@ import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
-@WebServlet(urlPatterns = "/car/reivew/write")
+
+@WebServlet( "/review/write")
 public class BoardCarReviewWriteController extends HttpServlet{
 	
 	@Override
@@ -50,31 +51,30 @@ public class BoardCarReviewWriteController extends HttpServlet{
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			
 			String memberNo = loginMember.getNo();
-			String payNo = req.getParameter("payNo");
 			String title = req.getParameter("title");
 			String content = req.getParameter("content");
 			
 			// 서비스
 			BoardService bs = new BoardService();
-			ReviewBoardVo rbVo = new ReviewBoardVo();
-			rbVo.setNo(memberNo);
-			rbVo.setNo(payNo);
-			rbVo.setTitle(title);
-			rbVo.setContent(content);
+			BoardVo vo = new BoardVo();
 			
-			int result = bs.carReviewWrite(rbVo);
+			vo.setMemberNo(memberNo);
+			vo.setTitle(title);
+			vo.setContent(content);
+			
+			int result = bs.carReviewWrite(vo);
 			
 			// 화면
 			if(result ==1) {
 				//성공
-				req.getSession().setAttribute("alertMsg", "작성완료~~~!!");
-				resp.sendRedirect(req.getContextPath() + "/list");
+				resp.sendRedirect(req.getContextPath() + "/review/list");
 			}else {
 				//실패
 				throw new IllegalStateException("게시글 작성 결과 1 아님 ..."); 
 			}
 			
 		} catch (Exception e) {
+			
 			//실패
 			e.printStackTrace();
 			req.setAttribute("errorMsg", "게시글 작성 실패 ...");

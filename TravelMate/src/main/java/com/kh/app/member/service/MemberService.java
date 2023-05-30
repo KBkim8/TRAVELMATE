@@ -190,7 +190,31 @@ public class MemberService {
 			vo.setTotalAttend(total_attend);
 		}
 		
+		JDBCTemplate.close(conn);
 		return vo;
 	}
+
+
+
+//	//로그인시 아이디 체크
+//	public int loginIdCheck(String idInputValue) throws Exception {
+//
+//		Connection conn = JDBCTemplate.getConnection();
+//		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
+//		
+//		PreparedStatement pstmt = conn.prepareStatement(sql);
+//		pstmt.setString(1, idInputValue);
+//		ResultSet rs = pstmt.executeQuery();
+//
+//		int count = 0;
+//		if(rs.next()) {
+//			count = rs.getInt(0);
+//		}
+//		JDBCTemplate.close(conn);
+//		
+//		return count;
+//		
+//		
+//	}
 	
 }

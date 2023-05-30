@@ -21,7 +21,7 @@ import com.kh.app.member.vo.MemberVo;
 import com.kh.app.util.BoardImgVo;
 import com.kh.app.util.FileUploader;
 
-@WebServlet(urlPatterns = "/notice/write")
+@WebServlet("/notice/write")
 public class BoardNoticeWriteController extends HttpServlet{
 	
 	@Override
