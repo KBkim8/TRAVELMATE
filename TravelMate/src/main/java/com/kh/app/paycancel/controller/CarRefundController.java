@@ -21,17 +21,11 @@ import com.kh.app.product.vo.CarVo;
 @WebServlet("/car/refund")
 public class CarRefundController extends HttpServlet{
 
-	//결제취소화면
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		req.getRequestDispatcher("/WEB-INF/views/paycancel/car_refund.jsp").forward(req, resp);
 	
-	}
 
 	//결제취소
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		
 		//마이페이지>주문내역 > 환불하기 > 환불컨트롤러 > 환불화면 > 환불진행(결제 테이블 yn 업데이트 / 취소사유 테이블 인서트)
@@ -67,6 +61,9 @@ public class CarRefundController extends HttpServlet{
 			
 			int result2 = pcdao.carPayCancelReason(conn2, pcvo);
 		
+			if(result == 1 && result2 == 1) {
+				resp.sendRedirect("${root}/mypage/orderList");
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
