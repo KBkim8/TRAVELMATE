@@ -115,6 +115,59 @@ public class CarService {
 		CarVo vo = dao.selectCarOneByName(conn , name);
 		return vo;
 	}
+
+
+	public int carOrder(CarVo vo, MemberVo loginMember) throws Exception {
+	
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.order(vo, conn, loginMember);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	
+	}
+
+
+	public CarVo carSelectOrder(String no, MemberVo loginMember) throws Exception {
+
+		CarVo vo = null;
+		//conn
+		try (Connection conn = JDBCTemplate.getConnection();){
+			vo = dao.carSelectOrder(conn , no, loginMember);
+		}
+		return vo;
+	
+	}
+
+
+	public int carFavorite(String no, String name, MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.carFavorite(conn, no, name, loginMember);
+		
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+	
+	
 	
 	
 
