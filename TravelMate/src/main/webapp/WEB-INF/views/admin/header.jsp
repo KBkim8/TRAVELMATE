@@ -33,26 +33,26 @@
         <div id="logoCategory">
             <a href="${root}/logout">로그아웃</a>
             <a>|</a>
-            <a href="">장바구니</a>
+            <a href="${root}/cs/faq">FAQ</a>
             <a>|</a>
-            <a href="">고객센터</a>
+            <a href="${root}/cs/inquery">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
             <div></div>
             <div><a data-hover="예약">예약</a></div>
-            <div><a href="">숙소</a></div>
-            <div><a href="">차량</a></div>
+            <div><a href="${root}/room/list">숙소</a></div>
+            <div><a href="${root}/car/list">차량</a></div>
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
             <div><a href="">정보</a></div>
-            <div><a href="">토론</a></div>
-            <div><a href="">리뷰</a></div>
-            <div><a href="">공지</a></div>
-            <div><a href="">여행일지</a></div>
+            <div><a href="${root}/free/list">자유</a></div>
+            <div><a href="${root}/room/review/list">리뷰</a></div>
+            <div><a href="${root}/notice/list">공지</a></div>
+            <div><a href="${root}/sell/request/list">판매등록</a></div>
             <div><a>|</a></div>
-            <div><a href="" data-hover="랜선여행">랜선여행</a></div>
+            <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
             <div><a>|</a></div>
-            <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
+            <div><a data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 
         </nav>
          <!-- 왼쪽사이드바 -->
@@ -137,7 +137,7 @@
               </li>
             </ul>
         </div>
-        <div id="sidebar-category">
+        <div class="sidebar-category">
             <div id="side01">
                 <button id="side-close" class="active2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -149,20 +149,57 @@
             <div id="side03"><button id="blog" class="active2"></button></div>
             <div id="side04"><button id="facebook" class="active2"></button></div>
             <div id="side05"><button id="youtube" class="active2"></button></div>
-            <div id="side06"><button id="notice" class="active2">NOTICE</button></div>
-            <div id="side07"><button id="faq" class="active2">FAQ</button></div>
-            <div id="side08"><button id="qna" class="active2">Q&A</button></div>
-            <div id="side09"><button id="info" class="active2">INFO</button></div>
-            <div id="side10"><button id="accom" class="active2">ACCOM</button></div>
-            <div id="side11"><button id="rentcar" class="active2">RENTCAR</button></div>
+            <div id="side06"><button id="notice" class="active2" onclick="goNotice();">NOTICE</button></div>
+            <div id="side07"><button id="faq" class="active2" onclick="goFaq();">FAQ</button></div>
+            <div id="side08"><button id="qna" class="active2" onclick="goQnA();">Q&A</button></div>
+            <div id="side09"><button id="info" class="active2" onclick="goOnline();">ONLINE</button></div>
+            <div id="side10"><button id="accom" class="active2" onclick="goAccom();">ACCOM</button></div>
+            <div id="side11"><button id="rentcar" class="active2" onclick="goCar();">RENTCAR</button></div>
             <div id="side12">
                 <img id="img01" src="${root}/static/img/a.png" alt="사이드바" class="active2">
             </div>
-            <div><hr></div>
+            <div id="side13"><hr id="hr01" class="active2"></div>
+            <div id="side14"><a class="active2">고객지원센터</a></div>
+            <div id="side15"><a class="active2">123-4567</a></div>
+            <div id="side16"><hr class="active2" id="hr02"></div>
+            <div id="side17"><a class="active2">주말 및 공휴일은 cs센터 및</a></div>
+            <div id="side18"><a class="active2">물류가 운영되지 않습니다.</a></div>
+            <div id="side19"><a class="active2">AM 10:00 ~ PM 17:00</a></div>
+            <div id="side20"><a class="active2">(점심시간 12:00 ~ 13:10)</a></div>
+            <div id="side21"><hr class="active2" id="hr03"></div>
         </div>
 
     </div>
-
-
 </body>
 </html>
+<script>
+    //공지사항이동
+    function goNotice(){
+        location.href = '${root}/notice/list'
+    }
+
+    //faq
+    function goFaq(){
+        location.href = '${root}/cs/faq'
+    }
+
+    //qna
+    function goQnA(){
+        location.href = '${root}/cs/inquery'
+    }
+    
+    //랜선여행
+    function goOnline(){
+        location.href = '${root}/online/travel'
+    }
+
+    //숙소예약
+    function goAccom(){
+        location.href = '${root}/room/list'
+    }
+
+    //차량예약
+    function goCar(){
+        location.href = '${root}/car/list'
+    }
+</script>

@@ -661,10 +661,10 @@ public class AdminService {
 	}
 
 	//배너 게시글수정
-	public int adBannerContentEdit(AdBannerVo vo) throws Exception {
+	public int adBannerContentEdit(AdBannerVo vo, String memberNo) throws Exception {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = dao.adBannerContentEdit(conn, vo);
+		int result = dao.adBannerContentEdit(conn, vo, memberNo);
 		
 		if(result == 1) {
 			JDBCTemplate.commit(conn);
@@ -674,6 +674,17 @@ public class AdminService {
 		JDBCTemplate.close(conn);
 		
 		return result;
+	}
+
+	//배너 게시글 수정 회원번호받아오기
+	public String bannerGetNo(String memberNick) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String memberNo = dao.bannerGetNo(conn, memberNick);
+		
+		JDBCTemplate.close(conn);
+		
+		return memberNo;
 	}
 	
 }

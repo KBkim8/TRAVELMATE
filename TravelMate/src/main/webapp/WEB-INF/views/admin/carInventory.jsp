@@ -75,7 +75,7 @@
                         </c:if>
                     </div>
                     <div><button id="edit" onclick="carEdit(${voList.no});">재고수정</button></div>
-                    <div id="hr01"></div>
+                    <div id="hr011"></div>
                 </c:forEach>
                 
                 <div id="page-area">

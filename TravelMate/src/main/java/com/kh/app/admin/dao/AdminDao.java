@@ -1385,17 +1385,47 @@ public class AdminDao {
 	}
 
 	//광고배너 게시글수정
-	public int adBannerContentEdit(Connection conn, AdBannerVo vo) throws Exception {
-		String s = "UPDATE SOUVENIR_BANNER SET NAME = ? WHERE NO = ? AND DELETE_YN = 'N'";
+	public int adBannerContentEdit(Connection conn, AdBannerVo vo, String memberNo) throws Exception {
+		String s = "UPDATE SOUVENIR_BANNER SET NAME = ?, IMAGE = ?";
 
+		if(vo.getNick() != null && vo.getNick().length() > 0) {
+			s += ", MEMBER_NO = ?";
+		}
+		s += " WHERE NO = ? AND DELETE_YN = 'N'";
+		
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, vo.getName());
-		pstmt.setString(2, vo.getNo());
+		pstmt.setString(2, vo.getImage());
+		
+		if(vo.getNick() != null && vo.getNick().length() > 0) {
+			pstmt.setString(3, memberNo);
+			pstmt.setString(4, vo.getNo());
+		}
+		pstmt.setString(3, vo.getNo());
+		
 		int result = pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);
 		
 		return result;
 	}
+
+	//배너수정 회원번호 받아오기
+	public String bannerGetNo(Connection conn, String memberNick) throws Exception {
+		String s = "SELECT NO FROM MEMBER WHERE NICK = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, memberNick);
+		ResultSet rs = pstmt.executeQuery();
+		
+		String memberNo = "";
+		if(rs.next()) {
+			memberNo = rs.getString("NO");
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return memberNo;
+	}
+	
 
 }

@@ -20,7 +20,7 @@ downpage.addEventListener("click", () => {
 });
 
 //사이드바열기
-const aside = document.querySelector("#sidebar-category");
+const aside = document.querySelector(".sidebar-category");
 const rightSide = document.querySelector("#right-sidebar-category");
 const sideClose = document.querySelector("#side-close");
 const insta = document.querySelector("#insta");
@@ -34,6 +34,15 @@ const info = document.querySelector("#info");
 const accom = document.querySelector("#accom");
 const rentcar = document.querySelector("#rentcar");
 const img01 = document.querySelector("#img01");
+const hr01 = document.querySelector("#hr01");
+const side14 = document.querySelector("#side14>a");
+const side15 = document.querySelector("#side15>a");
+const hr02 = document.querySelector("#hr02");
+const side17 = document.querySelector("#side17>a");
+const side18 = document.querySelector("#side18>a");
+const side19 = document.querySelector("#side19>a");
+const side20 = document.querySelector("#side20>a");
+const hr03 = document.querySelector("#hr03");
 
 rightSide.addEventListener("click" , function(){
     aside.classList.add("active1");
@@ -49,6 +58,15 @@ rightSide.addEventListener("click" , function(){
     accom.classList.remove("active2");
     rentcar.classList.remove("active2");
     img01.classList.remove("active2");
+    hr01.classList.remove("active2");
+    side14.classList.remove("active2");
+    side15.classList.remove("active2");
+    hr02.classList.remove("active2");
+    side17.classList.remove("active2");
+    side18.classList.remove("active2");
+    side19.classList.remove("active2");
+    side20.classList.remove("active2");
+    hr03.classList.remove("active2");
 });
 
 
@@ -67,5 +85,14 @@ sideClose.addEventListener("click", function(){
     accom.classList.add("active2");
     rentcar.classList.add("active2");
     img01.classList.add("active2");
+    hr01.classList.add("active2");
+    side14.classList.add("active2");
+    side15.classList.add("active2");
+    hr02.classList.add("active2");
+    side17.classList.add("active2");
+    side18.classList.add("active2");
+    side19.classList.add("active2");
+    side20.classList.add("active2");
+    hr03.classList.add("active2");
 });
 
