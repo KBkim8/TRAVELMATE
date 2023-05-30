@@ -159,28 +159,55 @@
 <script>
 
     
-    function idCheck() {
-        const idInputValue =document.querySelector('input[name=memberId]').value;
-        const pwdInputValue =document.querySelector('input[name=memberPwd]').value;
-        
-        $.ajax({
-            url :'${root}/login/id/check',
-            type : 'POST',
-            data : {
-                'idInputValue' : idInputValue,
-                'PwdInputValue' : PwdInputValue,
-            },
-            success : (data)=>{
-                if(data == 'no'){
-                    alert('아이디틀렸습니다');
-                }
-               
-            },
-            error : (e)=>{
-                console.log(e);
-            },
-        });
 
-    }
+
+
+
+// $(document).ready(function() {
+//   $('#btn01').click(function() {
+//     var memberId = $('input[name="memberId"]').val();
+
+//     $.ajax({
+//       url: '${root}/login/id/check',  
+//       method: 'POST',
+//       data: { 'memberId' : memberId },
+//       success: function(response) {
+    
+//         if (response === 'duplicate') {
+//           // 아이디나 비번 틀릴경우
+//             alert('아이디 또는 비밀번호가 잘못되었습니다 다시 확인해주세요')
+//         }
+//       },
+//       error: function(error) {
+//         console.error(error);
+//       }
+//     });
+//   });
+// });
+
+    // function idCheck() {
+    //     const idInputValue =document.querySelector('input[name=memberId]').value;
+    //     const pwdInputValue =document.querySelector('input[name=memberPwd]').value;
+        
+    //     $.ajax({
+    //         url :'${root}/login/id/check',
+    //         type : 'POST',
+    //         data : {
+    //             'idInputValue' : idInputValue,
+    //             // 'PwdInputValue' : PwdInputValue,
+    //         },
+    //         success : (data)=>{
+    //             if(data == 'no'){
+                   
+    //                 alert('아이디틀렸습니다');
+    //             }
+               
+    //         },
+    //         error : (e)=>{
+    //             console.log(e);
+    //         },
+    //     });
+
+    // }
 
 </script>

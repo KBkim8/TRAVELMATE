@@ -48,6 +48,8 @@ public class LoginController extends HttpServlet{
 				req.getSession().setAttribute("loginMember", loginMember);
 				resp.sendRedirect(req.getContextPath()+"/home");
 			}else {
+				req.setAttribute("alertMsg", "아이디나 비밀번호를 확인해주세요");
+				req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 				throw new Exception();
 			}
 			
