@@ -116,26 +116,28 @@
 <script>
 
     
-    // function idCheck() {
-    //     const idInputValue =document.querySelector('input[name=memberId]').value;
+    function idCheck() {
+        const idInputValue =document.querySelector('input[name=memberId]').value;
+        const pwdInputValue =document.querySelector('input[name=memberPwd]').value;
         
-    //     $.ajax({
-    //         url :'${root}/login/id/check',
-    //         type : 'POST',
-    //         data : {
-    //             'idInputValue' : idInputValue,
-    //         },
-    //         success : (data)=>{
-    //             if(data == 'ok'){
-    //                 alert('아이디틀렸습니다');
-    //             }
+        $.ajax({
+            url :'${root}/login/id/check',
+            type : 'POST',
+            data : {
+                'idInputValue' : idInputValue,
+                'PwdInputValue' : PwdInputValue,
+            },
+            success : (data)=>{
+                if(data == 'no'){
+                    alert('아이디틀렸습니다');
+                }
                
-    //         },
-    //         error : (e)=>{
-    //             console.log(e);
-    //         },
-    //     });
+            },
+            error : (e)=>{
+                console.log(e);
+            },
+        });
 
-    // }
+    }
 
 </script>

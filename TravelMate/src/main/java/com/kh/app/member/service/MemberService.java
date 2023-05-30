@@ -113,7 +113,8 @@ public class MemberService {
 
 		// select
 		vo = dao.selectMemberOneByNo(conn,mno);
-			
+		
+		JDBCTemplate.close(conn);
 				
 		return vo;
 	}
@@ -196,25 +197,25 @@ public class MemberService {
 
 
 
-//	//로그인시 아이디 체크
-//	public int loginIdCheck(String idInputValue) throws Exception {
-//
-//		Connection conn = JDBCTemplate.getConnection();
-//		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
-//		
-//		PreparedStatement pstmt = conn.prepareStatement(sql);
-//		pstmt.setString(1, idInputValue);
-//		ResultSet rs = pstmt.executeQuery();
-//
-//		int count = 0;
-//		if(rs.next()) {
-//			count = rs.getInt(0);
-//		}
-//		JDBCTemplate.close(conn);
-//		
-//		return count;
-//		
-//		
-//	}
+	//로그인시 아이디 체크
+	public boolean loginIdCheck(String idInputValue) throws Exception {
+
+		Connection conn = JDBCTemplate.getConnection();
+		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, idInputValue);
+		ResultSet rs = pstmt.executeQuery();
+
+		if(rs.next()) {
+			int count = rs.getInt(1);
+			return count > 0;
+		}
+		JDBCTemplate.close(conn);
+		
+		return false;
+		
+		
+	}
 	
 }

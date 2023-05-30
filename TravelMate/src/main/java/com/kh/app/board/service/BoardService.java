@@ -513,7 +513,7 @@ private final BoardDao dao;
 		}
 
 		//자유게시판 신고하기
-		public int freeBoardReport(ReportVo vo) {
+		public int freeBoardReport(ReportVo vo) throws Exception {
 
 			Connection conn = JDBCTemplate.getConnection();
 			
