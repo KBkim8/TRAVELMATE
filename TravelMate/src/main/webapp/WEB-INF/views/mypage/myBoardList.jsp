@@ -77,8 +77,9 @@
 
 	#content > table > thead > tr > th:nth-child(1){width: 20%;}
 	#content > table > thead > tr > th:nth-child(2){width: 15%;}
-	#content > table > thead > tr > th:nth-child(3){width: 40%;}
-	#content > table > thead > tr > th:nth-child(4){width: 25%;}
+	#content > table > thead > tr > th:nth-child(3){width: 35%;}
+	#content > table > thead > tr > th:nth-child(4){width: 20%;}
+	#content > table > thead > tr > th:nth-child(5){width: 10%;}
 
 	#page-area{
         position: absolute;
@@ -140,7 +141,7 @@
         outline: 0;
         color: rgb(4, 4, 4);
         position: absolute;
-        left: 385px;
+        left: 400px;
         top: 5px;
     }
 
@@ -209,6 +210,7 @@
 						<th>게시글 번호</th>
 						<th>제목</th>
 						<th>작성일시</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 
@@ -220,6 +222,7 @@
 						<td>${ myBoard.no }</td>
 						<td>${ myBoard.title }</td>
 						<td>${ myBoard.enrollDate}</td>
+						<td>${ myBoard.hit}</td>
 					</tr>
 					</c:forEach>
 					

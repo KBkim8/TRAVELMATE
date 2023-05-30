@@ -8,6 +8,7 @@ import com.kh.app.paycancel.vo.PayCancelVo;
 
 public class AccomodationPayCancelDao {
 
+	//완료
 	public int accomodationPaymentUpdate(Connection conn, String payNo) throws Exception {
 
 		String sql = "UPDATE ACCOMODATION_PAYMENT SET CANCEL_YN = 'Y' WHERE NO = ?";
@@ -27,9 +28,9 @@ public class AccomodationPayCancelDao {
 
 	public int accomodationPayCancelReason(Connection conn2, PayCancelVo pcvo) throws Exception {
 
-		String sql = "INSERT INTO PAY_CANCEL_REASON (NO, ACCOMODATION_PAYMENT_NO , TITLE, CONTENT) VALUES (SEQ_PAY_CANCEL_REASON_NO.NEXTVAL, ?, ? , ?)";
+		String sql = "INSERT INTO PAY_CANCEL_REASON (NO, ACCOMODATION_PAYMENT_CODE , TITLE, CONTENT) VALUES (SEQ_PAY_CANCEL_REASON_NO.NEXTVAL, ?, ? , ?)";
 		PreparedStatement pstmt = conn2.prepareStatement(sql);
-		pstmt.setString(1, pcvo.getCarPaymentNo());
+		pstmt.setString(1, pcvo.getAccomodationPaymentNo());
 		pstmt.setString(2, pcvo.getTitle());
 		pstmt.setString(3, pcvo.getContent());
 		
