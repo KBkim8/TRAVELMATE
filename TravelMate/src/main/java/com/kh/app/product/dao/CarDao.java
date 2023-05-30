@@ -206,10 +206,9 @@ public class CarDao {
 	public int pay(CarVo cvo, Connection conn) throws Exception {
 			
 		
-		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , ? );";
+		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , '카드' );";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, cvo.getCarReservationCode());
-		pstmt.setString(2, cvo.getType());
 		
 		
 		int result = pstmt.executeUpdate();
@@ -344,7 +343,6 @@ public class CarDao {
 		
 		
 		int result = pstmt.executeUpdate();
-		
 		JDBCTemplate.close(pstmt);
 		
 		return result;
@@ -353,7 +351,7 @@ public class CarDao {
 
 
 
-	public CarVo carSelectOrder(Connection conn, String no, MemberVo loginMember) throws Exception {
+	public CarVo carSelectOrder(Connection conn, MemberVo loginMember) throws Exception {
 
 		//SQL
 		String sql = "SELECT AR.NO ,AR.RENTCAR_NO ,AR.MEMBER_NO, AR.NAME AS MNAME ,AR.RESERVATION_YN ,AR.START_DATE ,AR.END_DATE ,AR.PRICE ,AR.PHONE ,AR.ADDRESS ,AI.TITLE FROM CAR_RESERVATION AR JOIN RENTCAR A ON A.NO = AR.RENTCAR_NO JOIN CAR_IMG AI ON AI.RENTCAR_NO = A.NO WHERE A.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
@@ -365,7 +363,7 @@ public class CarDao {
 		if(rs.next()) {
 			vo = new CarVo();
 			
-			String name = rs.getString("NAME");
+			String no = rs.getString("NO");
 			String mname = rs.getString("MNAME");
 			String title = rs.getString("TITLE");
 			String price = rs.getString("PRICE");
@@ -377,7 +375,6 @@ public class CarDao {
 			
 			
 			vo.setNo(no);
-	        vo.setName(name);
 	        vo.setMname(mname);
 	        vo.setTitle(title);
 			vo.setPrice(price);
@@ -387,7 +384,6 @@ public class CarDao {
 			vo.setEndDate(endDate);
 			
 		}
-		
 		//close
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
@@ -412,6 +408,21 @@ public class CarDao {
 		
 		return result;
 	
+	}
+
+
+
+	public int roomPayment(String reservationno, Connection conn) throws Exception {
+		String sql = "INSERT INTO CAR_PAYMENT ( NO , CAR_RESERVATION_CODE ,TYPE ) VALUES(SEQ_CARPAYMENT_NO.NEXTVAL, ?, '카드')";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, reservationno);
+		
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 	
 

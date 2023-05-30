@@ -137,12 +137,12 @@ public class CarService {
 	}
 
 
-	public CarVo carSelectOrder(String no, MemberVo loginMember) throws Exception {
+	public CarVo carSelectOrder(MemberVo loginMember) throws Exception {
 
 		CarVo vo = null;
 		//conn
 		try (Connection conn = JDBCTemplate.getConnection();){
-			vo = dao.carSelectOrder(conn , no, loginMember);
+			vo = dao.carSelectOrder(conn , loginMember);
 		}
 		return vo;
 	
@@ -161,6 +161,23 @@ public class CarService {
 			JDBCTemplate.rollback(conn);
 		}
 			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
+	public int carPayment(String reservationno) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.roomPayment(reservationno, conn);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
 		JDBCTemplate.close(conn);
 		
 		

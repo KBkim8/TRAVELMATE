@@ -8,43 +8,13 @@
 <title>Insert title here</title>
 <style>
     
-    #content{
-        position: relative;
-        margin-top: 1500px;
-        width: 1390px;
-        height: 100%;
-        bottom: 1300px;
-        left: 400px;
-    }
-
-    #h1{
-    	font: bolder;
-    	font-size: xx-large;
-    }
-    #h2{
-    	font: bolder;
-    	font-size: x-large;
-    }
-    #h3{
-    	font: bold;
-    	font-size: larger;
-    }
-    #h4{
-    	font: bold;
-    	font-size: large;
-    }
-
 #shape{
-  width: 1300px;
-  height: 100%;
-  margin: auto;
-  border: 0px solid black;
-}
-
-#top{
-    position: fixed;
-    right: 5%;
-    
+	position: relative;
+    width: 1390px;
+    height: 100%;
+    bottom: 500px;
+    left: 400px;
+  
 }
 
 #first, #second{
@@ -60,11 +30,11 @@
 
 #first > :nth-child(2), #second > :nth-child(2){
     width: 100%;
-    line-height: 20px;   
+    line-height: 50px;   
 }
 
 #first2{
-  width: 80%;
+  width: 100%;
   height: 150px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -72,7 +42,7 @@
 }
 
 #second2{
-  width: 80%;
+  width: 100%;
   height: 200px;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -81,36 +51,38 @@
   background-color: lightgray;
 }
 
-#btn01{
+#btn01, #btn03{
   margin-top: 50px;
   margin-right: 400px;
   margin-left: 400px;
   margin-bottom: 50px;
 }
-
-#pricetotal{
-        width: 500px;
-        height: 100px;
-    }
-
-#btns > button{
-    width: 200px;
-    height: 40px;
-    
+#btn01, #btn02, #btn03, #btn04{
+  background-color: #73D38E;
+  border: 0;
+  padding: 15px 25px; //버튼 크기 조절
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border-radius: 6px;
 }
 
-#btns{
-  margin: auto;
+#btn01:hover, #btn02:hover, #btn03:hover, #btn04:hover  {background-color: #80C49D;}
+#btn01:active, #btn02:active, #btn03:active, #btn04:active {
+  box-shadow: 0 0 0 1px #82c8a0 inset,
+        0 0 0 2px rgba(255,255,255,0.15) inset,
+        0 0 0 1px rgba(0,0,0,0.4);
 }
 
-#readonly{
-	width: 1100px;
-	height: 300px;
+textarea{
+	background: lightgray;
+	width: 100%;
+	height: 100%;
 }
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/common/header2.jsp" %>
+	<%@ include file="/WEB-INF/views/common/product-header.jsp" %>
     
  <div id="content">
 
@@ -144,6 +116,7 @@
 ⑥ 이 약관에서 정하지 아니한 사항과 이 약관의 해석에 관하여는 전자상거래 등에서의 소비자보호에 관한 법률, 약관의 규제 등에 관한 법률, 공정거래위원회가 정하는 전자상거래 등에서의 소비자 보호지침 및 관계법령 또는 상관례에 따릅니다.
 여러분의 정보는 제껍니다. 제가 마음대로 할 수 있는겁니다.</h2>
       </textarea>
+      <div><input type="checkbox">약관에 동의합니다.</div>
 	<br>
 	<br>
 	<br>
@@ -157,13 +130,12 @@
 
       <div id="second2">
         <div>
-            <h2 id="h2">
-            	${vo.no}
-            	${vo.rentcarNo}
-            	${vo.memberNo}
-            	${vo.startDate}
-            	${vo.endDate}            	
-			</h2>
+            <img alt="" src="${root}/static/img/carImg/${vo.title}" width="400px" height="200px">
+        </div>
+        <div>
+       		<h4>예약자 이름: ${vo.mname}</h4><br>
+        	<h4>예약자 연락처: ${vo.phone}</h4><br>
+         	<h4>이메일: ${vo.address}</h4>   
         </div>
       </div>
 
@@ -183,7 +155,6 @@
         <button id="btn02" class="btn2" >무통장입금</button>
         <button id="btn03" class="btn3" >카카오톡결제</button>
         <button id="btn04" class="btn4" >상품권결제</button>
-        <button id="btn05" class="btn5" >차량리스트로</button>
       </div>
 
       
