@@ -10,10 +10,10 @@
 
     #content{
         position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 430px;
     }
 
     #first-content>img{
@@ -50,16 +50,16 @@
         left: 100px;
         top: 230px;
         display: grid;
-        grid-template-rows: 3fr 1fr;
+        grid-template-rows: 2fr 1fr;
     }
     
     #edit-input-box{
-        width: 1300px;
+        width: 800px;
         border-radius: 30px;
         border: 1px solid black;
-        height: 90%;
+        height: 80%;
         margin: auto;
-        font-size: 30px;
+        font-size: 20px;
         display: flex;
         justify-content:center;
         align-items: center;
@@ -80,7 +80,6 @@
     }
 
     .edit-input-area button {
-        margin-top: 10px;
         font-size: 25px;
         width: 200px;
         height: 50px;
@@ -93,11 +92,7 @@
 
     #btn-area{
         width: 1300px;
-        margin: auto;
-        margin-top: 5%;
         place-items: center center;
-        display:grid;
-        grid-template-columns: 9fr 1fr;
     }
     
     #btn-area > input{
@@ -114,12 +109,16 @@
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
-        color: white;
+        color: black;
         border-radius: 6px;
-        width: 250px;
-        height: 50px;
-        font-size: 28px;
+        width: 140px;
+        height: 40px;
+        font-size: 18px;
         margin-left: 80px;
+        position: absolute;
+        left: 500px;
+        top: 650px;
+        vertical-align: middle;
     }
 
     #btn01:hover {background-color: #80C49D;}
@@ -131,12 +130,15 @@
     
     .quitBtn{
         border: none;
+        border-radius: 20px;
         outline: none;
-    	width : 100px;
-    	height : 40px;
+    	width : 80px;
+    	height : 30px;
         font-size: 15px;
-        background-color: gainsboro;
         color: black;
+        position: absolute;
+        top: 650px;
+        left: 960px;
     }
 
     
@@ -178,7 +180,32 @@
                           </tr>
                           <tr>
                             <td><span>회원등급</span></td>
-                            <td>${loginMember.memberGradeName} <img src="${root}/static/img/goldrank.png" alt="" id="rankImg"></td>
+                            <td>
+                           		<c:choose> 
+                                        <c:when test="${vo.totalAttend <= 50 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeA.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 50 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeB.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 200 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeC.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 500 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeD.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:when test="${vo.totalAttend > 1000 }">
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeE.png" id="rankImg" alt="등급이미지">
+                                        </c:when> 
+                                        <c:otherwise>
+                                            <img src="${root}/static/img/mypage/member_grade/member_gradeF.png" id="rankImg" alt="기념품이미지">
+                                        </c:otherwise> 
+                                 </c:choose> 
+                          </td>
+                          </tr>
+                          <tr>
+                            <td><span>누적 출석일수</span></td>
+                            <td>${vo.totalAttend}</td>
                           </tr>
                     </table>
             </div>

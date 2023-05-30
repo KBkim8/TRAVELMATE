@@ -13,6 +13,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
+        margin-top: 500px;
     }
     
 
@@ -114,7 +115,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 -->
     <div id="content">

@@ -3,112 +3,127 @@ package com.kh.app.mypage.vo;
 public class OrderListVo {
 	
 	private String no;
-	private String orderProductNo;
-	private String accomodationNo;
-	private String carNo;
-	private String souvenirNo;
+	private String payNo;
+	private String payType;
+	private String payDate;
+	private String img;
+	private String name;
+	private String startDate;
+	private String endDate;
+	private String price;
+	private String cancelYn;
 	
-	private String souvenirName;
-	private String carKind;
-	private String accomodationName;
-	
-	private String souvenirCnt;
-	private String orderTotal;
-	private String orderProductDate;
+	private String address;
+	private String oderName;
+	private String cnt;
 	public String getNo() {
 		return no;
 	}
 	public void setNo(String no) {
 		this.no = no;
 	}
-	public String getOrderProductNo() {
-		return orderProductNo;
+	public String getPayNo() {
+		return payNo;
 	}
-	public void setOrderProductNo(String orderProductNo) {
-		this.orderProductNo = orderProductNo;
+	public void setPayNo(String payNo) {
+		this.payNo = payNo;
 	}
-	public String getAccomodationNo() {
-		return accomodationNo;
+	public String getPayType() {
+		return payType;
 	}
-	public void setAccomodationNo(String accomodationNo) {
-		this.accomodationNo = accomodationNo;
+	public void setPayType(String payType) {
+		this.payType = payType;
 	}
-	public String getCarNo() {
-		return carNo;
+	public String getPayDate() {
+		return payDate;
 	}
-	public void setCarNo(String carNo) {
-		this.carNo = carNo;
+	public void setPayDate(String payDate) {
+		this.payDate = payDate;
 	}
-	public String getSouvenirNo() {
-		return souvenirNo;
+	public String getImg() {
+		return img;
 	}
-	public void setSouvenirNo(String souvenirNo) {
-		this.souvenirNo = souvenirNo;
+	public void setImg(String img) {
+		this.img = img;
 	}
-	public String getSouvenirName() {
-		return souvenirName;
+	public String getName() {
+		return name;
 	}
-	public void setSouvenirName(String souvenirName) {
-		this.souvenirName = souvenirName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getCarKind() {
-		return carKind;
+	public String getStartDate() {
+		return startDate;
 	}
-	public void setCarKind(String carKind) {
-		this.carKind = carKind;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
 	}
-	public String getAccomodationName() {
-		return accomodationName;
+	public String getEndDate() {
+		return endDate;
 	}
-	public void setAccomodationName(String accomodationName) {
-		this.accomodationName = accomodationName;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
-	public String getSouvenirCnt() {
-		return souvenirCnt;
+	public String getPrice() {
+		return price;
 	}
-	public void setSouvenirCnt(String souvenirCnt) {
-		this.souvenirCnt = souvenirCnt;
+	public void setPrice(String price) {
+		this.price = price;
 	}
-	public String getOrderTotal() {
-		return orderTotal;
+	public String getCancelYn() {
+		return cancelYn;
 	}
-	public void setOrderTotal(String orderTotal) {
-		this.orderTotal = orderTotal;
+	public void setCancelYn(String cancelYn) {
+		this.cancelYn = cancelYn;
 	}
-	public String getOrderProductDate() {
-		return orderProductDate;
+	public String getAddress() {
+		return address;
 	}
-	public void setOrderProductDate(String orderProductDate) {
-		this.orderProductDate = orderProductDate;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getOderName() {
+		return oderName;
+	}
+	public void setOderName(String oderName) {
+		this.oderName = oderName;
+	}
+	public String getCnt() {
+		return cnt;
+	}
+	public void setCnt(String cnt) {
+		this.cnt = cnt;
 	}
 	@Override
 	public String toString() {
-		return "OrderListVo [no=" + no + ", orderProductNo=" + orderProductNo + ", accomodationNo=" + accomodationNo
-				+ ", carNo=" + carNo + ", souvenirNo=" + souvenirNo + ", souvenirName=" + souvenirName + ", carKind="
-				+ carKind + ", accomodationName=" + accomodationName + ", souvenirCnt=" + souvenirCnt + ", orderTotal="
-				+ orderTotal + ", orderProductDate=" + orderProductDate + "]";
+		return "OrderListVo [no=" + no + ", payNo=" + payNo + ", payType=" + payType + ", payDate=" + payDate + ", img="
+				+ img + ", name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + ", price=" + price
+				+ ", cancelYn=" + cancelYn + ", address=" + address + ", oderName=" + oderName + ", cnt=" + cnt + "]";
 	}
-	public OrderListVo(String no, String orderProductNo, String accomodationNo, String carNo, String souvenirNo,
-			String souvenirName, String carKind, String accomodationName, String souvenirCnt, String orderTotal,
-			String orderProductDate) {
+	public OrderListVo(String no, String payNo, String payType, String payDate, String img, String name,
+			String startDate, String endDate, String price, String cancelYn, String address, String oderName,
+			String cnt) {
 		super();
 		this.no = no;
-		this.orderProductNo = orderProductNo;
-		this.accomodationNo = accomodationNo;
-		this.carNo = carNo;
-		this.souvenirNo = souvenirNo;
-		this.souvenirName = souvenirName;
-		this.carKind = carKind;
-		this.accomodationName = accomodationName;
-		this.souvenirCnt = souvenirCnt;
-		this.orderTotal = orderTotal;
-		this.orderProductDate = orderProductDate;
+		this.payNo = payNo;
+		this.payType = payType;
+		this.payDate = payDate;
+		this.img = img;
+		this.name = name;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.price = price;
+		this.cancelYn = cancelYn;
+		this.address = address;
+		this.oderName = oderName;
+		this.cnt = cnt;
 	}
 	public OrderListVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
+
 	
 
 }

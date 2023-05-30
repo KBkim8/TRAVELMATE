@@ -15,9 +15,9 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.product.service.CarService;
-import com.kh.app.product.service.ProductService;
+import com.kh.app.product.service.RoomService;
 import com.kh.app.product.vo.CarVo;
-import com.kh.app.product.vo.ProductVo;
+import com.kh.app.product.vo.RoomVo;
 @WebServlet("/car/list")
 public class CarListController extends HttpServlet{
 

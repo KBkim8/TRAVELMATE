@@ -10,11 +10,11 @@
 
     /* 내용영역 */
     #content{
-        position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+         position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 350px;
+	    bottom: 450px;
     }
 
     #first-content>img{
@@ -77,8 +77,9 @@
 
 	#content > table > thead > tr > th:nth-child(1){width: 20%;}
 	#content > table > thead > tr > th:nth-child(2){width: 15%;}
-	#content > table > thead > tr > th:nth-child(3){width: 40%;}
-	#content > table > thead > tr > th:nth-child(4){width: 25%;}
+	#content > table > thead > tr > th:nth-child(3){width: 35%;}
+	#content > table > thead > tr > th:nth-child(4){width: 20%;}
+	#content > table > thead > tr > th:nth-child(5){width: 10%;}
 
 	#page-area{
         position: absolute;
@@ -140,7 +141,7 @@
         outline: 0;
         color: rgb(4, 4, 4);
         position: absolute;
-        left: 385px;
+        left: 400px;
         top: 5px;
     }
 
@@ -209,6 +210,7 @@
 						<th>게시글 번호</th>
 						<th>제목</th>
 						<th>작성일시</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 
@@ -220,6 +222,7 @@
 						<td>${ myBoard.no }</td>
 						<td>${ myBoard.title }</td>
 						<td>${ myBoard.enrollDate}</td>
+						<td>${ myBoard.hit}</td>
 					</tr>
 					</c:forEach>
 					
@@ -311,11 +314,23 @@
 	const tbody = document.querySelector('tbody');
 	tbody.addEventListener('click', (event)=>{
 		
-		// 글 번호 가져와서 
+        // 카테고리 이름 가져오기
+        const categoryName = event.target.parentNode.children[0].innerText;
+		console.log(categoryName);
+        // 글 번호 가져와서 
 		const no = event.target.parentNode.children[1].innerText;
+        console.log(no);
 
 		// 요청 보내기
-		location.href = '${root}/board/detail?no=' + no;
+        if(categoryName == '자유'){
+            location.href = '${root}/free/detail?no=' + no;
+        }else if (categoryName == '리뷰'){
+            location.href = '${root}/review/detail?no=' + no;
+        }else if(categoryName == '판매등록요청'){
+            location.href = '${root}/?/detail?no=' + no;
+        }else if (categoryName == '랜선여행'){
+            location.href = '${root}/online/travel/detail?no=' + no;
+        }
 
 	});
 

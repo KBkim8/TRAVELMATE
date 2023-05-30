@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.dao.SouvenirDao;
 import com.kh.app.product.vo.SouvenirVo;
 
@@ -64,10 +65,10 @@ public class SouvenirService {
 	}
 
 
-	public int order(SouvenirVo vo) throws Exception {
+	public int order(SouvenirVo vo, MemberVo loginMember) throws Exception {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = dao.order(vo, conn);
+		int result = dao.order(vo, conn, loginMember);
 		if(result == 1) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -82,13 +83,33 @@ public class SouvenirService {
 	}
 
 
-	public SouvenirVo selectOrder(String no) throws Exception {
+	public SouvenirVo selectOrder(String no, MemberVo loginMember) throws Exception {
 		SouvenirVo vo = null;
 		//conn
 		try (Connection conn = JDBCTemplate.getConnection();){
-			vo = dao.selectOrder(conn , no);
+			vo = dao.selectOrder(conn , no, loginMember);
 		}
 		return vo;
+	}
+
+
+	public int souvenirFavorite(String no, String name, MemberVo loginMember) throws Exception {
+		
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.souvenirFavorite(conn, no, name, loginMember);
+		
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
 	}
 
 

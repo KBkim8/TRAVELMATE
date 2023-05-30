@@ -10,10 +10,10 @@
 
 #content01{
         position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 900px;
-	    left: 400px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
     }
 
     #first-content>img{
@@ -74,20 +74,21 @@
         font-size: 30px;
     }
 
-    input[name=title] {
+    #title-wrap > input[name=title] {
         width: 1200px;
         height: 50px;
         font-size: 20px;
-        border-bottom: 1px solid black;
         border: none;
+        border-bottom: 1px solid black;
     }
 
-    textarea {
+    #content-wrap > textarea {
         width: 1200px;
         height: 700px;
         font-size: 20px;
-        border-bottom: 1px solid black;
         border: none;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
         resize: none;
     }
 
@@ -155,7 +156,7 @@
 	                </div>
 	                <div id="content-wrap">
 	                    <span id="word">내용</span>
-	                    <textarea name="content"></textarea>
+	                    <textarea name="content" placeholder="문의하실 내용을 작성해주세요."></textarea>
 	                </div>
 	                <div id="btn-area">
 	                    <!-- 작성 버튼 누르면 문의 내역 페이지로 보내주기 -->

@@ -9,11 +9,11 @@
 
     /* 내용영역 */
     #content{
-        position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+         position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 350px;
+	    bottom: 450px;
     }
 
     #first-content>img{
@@ -45,9 +45,9 @@
 
     #fav-content-area{
         width: 1300px;
-        height: 80%;
+        height: 100%;
         left: 100px;
-        top: 230px;
+        top: 200px;
         position: absolute;
         display: grid;
         grid-template-rows: 2fr 1fr;
@@ -55,48 +55,83 @@
     
     #fav-list-box{
         width: 1300px;
+        height: 70%;
         border-radius: 30px;
-        border: 1px dashed black;
-        font-size: 25px;
+        font-size: 23px;
         justify-content: center;
         align-content: center;
     }
 
-    #content-wrap{
+    #car-area, #accomo-area, #souvenir-area{
         width: 100%;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        justify-content: center;
-        align-items: center;
+        justify-items: center;
+    }
+
+    #delBtn, #delBtn > img{
+        border: none;
+        width: 30px;
+        height: 30px;
+        margin-bottom: 170px;
+        background-color: transparent;
+    }
+
+    #car-area > div, #accomo-area > div, #souvenir-area > div {
         text-align: center;
-        margin: auto;
     }
 
-    #content-wrap img {
-        width: 150px;
-        height: 150px;
-        margin-right: 0;
+    #car-wrap > a >img {
+        width: 200px;
+        height: 200px;
     }
 
-    .paging-area{
+    #accomo-wrap > a > img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #souvenir-wrap > a >img {
+        width: 200px;
+        height: 200px;
+    }
+
+    #small-title{
+        font-size: 23px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+    }
+
+    #page-area{
         width: 100%;
-        height: 10%;
-        border: 1px solid lightgray;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 20px;
+        margin-top: 60px;
     }
 
-    #btn01 {
+    #btn01, #btn02 {
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: black;
+        border-radius: 10px;
+        width: 100px;
+        height: 30px;
+        font-size: 25px;
+        margin-left: 15px;
+    }
+
+    #btn02 {
         background-color: #73D38E;
-        border: 0;
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
         color: white;
-        border-radius: 6px;
-        width: 100px;
+        border-radius: 10px;
+        width: 40px;
         height: 30px;
         font-size: 25px;
         margin-left: 15px;
@@ -108,26 +143,7 @@
                 0 0 0 2px rgba(255,255,255,0.15) inset,
                 0 0 0 1px rgba(0,0,0,0.4);
     }  
-    .black-bg {
-        display: none;
-        width: 400px;
-        height: 200px;
-        position: absolute;
-        background: rgba(0, 0, 0, 0.5);
-        left: 700px;
-        bottom: 600px;
-        z-index: 5;
-        padding: 50px;
-    }
-    .white_bg {
-        background: white;
-        border-radius: 5px;
-        padding: 50px;
-    }
-
-    .show-modal {
-        display: inline-block;
-    }
+   
     
     
 </style>
@@ -145,92 +161,61 @@
         <div id="fav-content-area">
             <div id="fav-list-box">
                 <!-- 반복문 처리 -->
-                <div id="content-wrap">
-                    <div id="fav_img"><img src="${root}/static/img/마음샌드.jpg" alt=""></div>
-                    <div id="fav_info"> 
-                        상품명 : [파리바게트]마음샌드
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div id="fav_del">
-                        <button class="delBtn" id="btn01">삭제</button>
-                        <div class="black-bg">
-                        <div class="white-bg">
-                        <h4>삭제되었습니다.</h4>
-                        <button class="btn btn-danger" id="btn01">닫기</button>
+                <!-- 차량 -->
+                <span id="small-title">차량</span>
+                <hr>
+                <div id="car-area">
+                    <c:forEach var="cvo" items="${cvoList}">
+                        <div id="car-wrap">
+                            <input type="hidden" value="${cvo.no}" name="no">
+                            <a href="${root}/order/car?name=${cvo.carKind}"><img src="${root}/static/img/carImg/${cvo.carImg}" alt="차량이미지"></a>
+                            <button id="delBtn" onclick="cdel('${cvo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <br>
+                            <div>${cvo.carKind}</div>
                         </div>
+                    </c:forEach>
+                </div>                
+                <hr>
+                <!-- 숙소 -->
+                <span id="small-title">숙소</span>
+                <hr>
+                <div id="accomo-area">
+                    <c:forEach var="avo" items="${avoList}">
+                        <div id="accomo-wrap">
+                            <input type="hidden" value="${avo.no}" name="no">
+                            <a href="${root}/order/room?name=${avo.accomodationName}"><img src="${root}/static/img/accomodation_img/${avo.accomodationImg}" alt="숙소이미지"></a>
+                            <button id="delBtn" onclick="adel('${avo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <br>
+                            <div>${avo.accomodationName}</div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
                 <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
-                </div>
+                <!-- 기념품 -->
+                <span id="small-title">기념품</span>
                 <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
+                <div id="souvenir-area">
+                    <c:forEach var="svo" items="${svoList}">
+                        <div id="souvenir-wrap">
+                            <input type="hidden" value="${svo.no}" name="no">
+                            <a href="${root}/order/souvenir?name=${svo.souvenirName}"><img src="${root}/static/img/souvenir/${svo.souvenirImg}" alt="기념품이미지"></a>
+                            <button id="delBtn" onclick="sdel('${svo.no}');"><img src="${root}/static/img/mypage/favorites/삭제버튼아이콘.png" alt="삭제버튼"></button>
+                            <br>
+                            <div>상품명 : ${svo.souvenirName}</div>
+                            <div>상품가격 : ${svo.souvenirPrice}원</div>
+                        </div>
+                    </c:forEach>
                 </div>
-                <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
-                </div>
-                <hr>
-                <div id="content-wrap">
-                    <div><img src="${root}/static/img/d오메기떡.jpg" alt=""></div>
-                    <div> 
-                        상품명 : [탐난다]제주오메기떡
-                        <br>
-                        상품수량 : 1박스(20개)
-                        <br>
-                        상품가격 : 9,500원   
-                    </div>
-                    <div>
-                        <button class="delBtn" id="btn01">삭제</button>
-                    </div>
-                </div>
-                
             </div>
             <div id="page-area">
 				<c:if test="${pv.currentPage > 1 }">
-				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage-1}">이전</a>
+				<a id="btn01" href="${root}/mypage/favorites?page=${pv.currentPage-1}">이전</a>
 				</c:if>
 				<c:forEach begin="${pv.startPage}" end="${pv.endPage}" var="i">
-					<a id="btn02" href="${root}/CScenter/Inquerylist?page=${i}">${i}</a>
+					<a id="btn02" href="${root}/mypage/favorites?page=${i}">${i}</a>
 				</c:forEach>
 				<c:if test="${pv.currentPage < pv.maxPage}">
-				<a id="btn01" href="${root}/CScenter/Inquerylist?page=${pv.currentPage+1}">다음</a>
+				<a id="btn01" href="${root}/mypage/favorites?page=${pv.currentPage+1}">다음</a>
 				</c:if>
 			</div>
         </div>
@@ -238,16 +223,29 @@
 </body>
 
 <script>
-// 삭제 누르면 모달로 삭제되었습니다.
-$(".delBtn").on("click", function () {
-        $(".black-bg").addClass("show-modal");
-      }); //css에서 작성한 show-modal이라는 클래스명 추가
 
-      $(".btn-danger").on("click", function () {
-        $(".black-bg").removeClass("show-modal");
-      }); // 
+function cdel(no) {
+        const result = confirm("삭제하시겠습니까?");
+        if (!result) {
+            return;
+        }
+        location.href = '${root}/mypage/favorites/del?no=' + no;
+    }
 
-
+    function adel(no) {
+        const result1 = confirm("삭제하시겠습니까?");
+        if (!result1) {
+            return;
+        }
+        location.href = '${root}/mypage/favorites/del?no=' + no;
+    }
+    function sdel(no){
+        const result2 = confirm("삭제하시겠습니까?");
+        if(!result2){
+            return;
+        }
+        location.href='${root}/mypage/favorites/del?no=' + no;
+    }
 
 </script>
 

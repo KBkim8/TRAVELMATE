@@ -13,10 +13,10 @@
 
     #content{
         position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
     }
 
     #first-content>img{
@@ -28,7 +28,7 @@
     }
 
     #content>#first-content>hr:nth-child(2){
-        height: 1px;
+      height: 1px;
         width: 1300px;
         background-color: rgb(116, 116, 116);
         border: 0px solid rgb(65, 65, 65);
@@ -38,7 +38,7 @@
     }
 
     #content>#first-content>a:nth-child(3){
-        position: absolute;
+      position: absolute;
         left: 160px;
         top: 135px;
         color: black;
@@ -122,7 +122,7 @@
                   <div class="accordion-body">
                     로그인 페이지에서 아이디/비밀번호 찾기를 진행해주세요.
                     <br>
-                    <a href="">아이디, 비밀번호 찾기</a>
+                    <a href="${root}/find-id">아이디, 비밀번호 찾기</a>
                   </div>
                 </div>
               </div>

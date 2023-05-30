@@ -8,13 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.app.product.service.RoomService;
 import com.kh.app.product.service.SouvenirService;
+import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.vo.SouvenirVo;
 
 @WebServlet("/order/souvenir")
 public class OrderSouvenirController extends HttpServlet{
 
-	private final SouvenirService ss = new SouvenirService();
+	private final  SouvenirService ss = new SouvenirService();
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

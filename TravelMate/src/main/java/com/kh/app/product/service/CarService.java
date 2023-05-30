@@ -1,14 +1,18 @@
 package com.kh.app.product.service;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.vo.CarVo;
-import com.kh.app.product.vo.ProductVo;
+import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.dao.CarDao;
-import com.kh.app.product.dao.ProductDao;
+import com.kh.app.product.dao.RoomDao;
 
 public class CarService {
 	
@@ -53,33 +57,53 @@ public class CarService {
 	}
 
 
-	public CarVo edit(CarVo vo) {
-		//conn
+	
+
+
+	public int order(String carKindKind, MemberVo loginMember, CarVo cvo) throws Exception {
+		
+		CarDao dao = new CarDao();
+		
+		Connection conn = JDBCTemplate.getConnection();
+	
+		int result = dao.order(conn, carKindKind, loginMember , cvo);
+		
+		JDBCTemplate.close(conn);
+		
+		return result;
+	
+	}
+
+
+	public int pay(CarVo cvo) throws Exception {
+		//가격 cvo에 넣기
 		Connection conn = JDBCTemplate.getConnection();
 		
-		CarVo updatedCar = null;
-		try {
-			//SQL
-			int result = dao.edit(conn , vo);
-			
-			//tx || rs
-			if(result == 1) {
-				updatedCar = dao.selectOneByNo(conn , vo.getNo());
-				if(updatedCar == null) {
-					throw new Exception();
-				}
-				JDBCTemplate.commit(conn);
-			}else {
-				JDBCTemplate.rollback(conn);
-			}
-			
-		}finally {
-			//close
-			JDBCTemplate.close(conn);
-		}
+		int price = dao.getPrice(cvo, conn);
+		cvo.setPrice(price);
 		
-		return updatedCar;
-	
+		JDBCTemplate.close(conn);
+		
+		//결제 진행하기
+		conn = JDBCTemplate.getConnection();
+		
+		int result = dao.pay(cvo, conn);
+				
+		JDBCTemplate.close(conn);
+		
+		return result;
+	}
+
+
+	public int updateReservation(CarVo cvo, MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result2 = dao.updateReservation(cvo, loginMember, conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return result2;
+		
 	}
 	
 	

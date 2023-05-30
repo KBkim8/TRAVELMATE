@@ -12,11 +12,11 @@
 <style>
 
     #content{
-        position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+         position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
     }
 
     #first-content>img{
@@ -95,6 +95,10 @@
         table-layout: auto;
         width: 100%;
     }
+
+    .fc .fc-daygrid-day-frame{
+        width: 140px;
+    }
     
     .fc .fc-toolbar {
     display: flex;
@@ -102,6 +106,16 @@
     margin-left: 20%;
 }
    
+.completedButton {
+    background-color: #999999;
+    color: #ffffff;
+    cursor: not-allowed;
+}
+
+.fc-scrollgrid-sync-inner{
+    width: 140px;
+}
+
 
 
     
@@ -127,67 +141,98 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            // FullCalendar 설정
-            headerToolbar: {
-                left: 'prev,next',
-                center: 'title',
-                right: 'myCustomButton'
-            },
-            customButtons: {
-                myCustomButton: {
-                    text: '출석하기',
-                    click: function() {
-                        var today = new Date();
-                        var formattedDate = formatDate(today);
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        // FullCalendar 설정
+        headerToolbar: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'myCustomButton'
+        },
+        customButtons: {
+        myCustomButton: {
+            text: '출석하기',
+            
+            click: function() {
+                var today = new Date();
+                var formattedDate = formatDate(today);
+                
+                //출석 정보를 가져와서 출석완료 보여주기
+                $.ajax({
+                    url: '${root}/mypage/attend', // 서버에서 출석 정보를 가져올 경로
+                    type: 'GET',
+                    success: function(list) {
+                        // 서버에서 받아온 JSON 데이터 처리
+                        // FullCalendar에 이벤트 데이터로 추가하는 로직 등을 작성
+    
+                        // 예시: 받아온 데이터를 FullCalendar에 추가하여 표시
+                        var events = [];
+                        for (var i = 0; i < list.length; i++) {
+                            var event = {
+                                title: '출석완료',
+                                start: list[i].date // 출석한 날짜 정보
+                            };
+                            events.push(event);
+                        }
+                        calendar.addEvent(events);
+                    },
+                    error: function() {
+                        console.log('출석 정보 가져오기 실패');
+                    }
+                });
 
-                        // AJAX를 사용하여 출석 정보를 서블릿에 전달
-                        $.ajax({
-                            url: '${root}/mypage/attend',
-                            type: 'POST',
-                            data: { date: formattedDate },
-                            success: function(data) {
-                                // 출석 정보 저장 성공 시
-                                console.log('출석 정보 저장 성공');
 
-                                // 출석한 날짜에 표시할 스타일 추가
-                                var today = new Date(); // FullCalendar에서 오늘 날짜 가져오기
-                                today.setHours(0, 0, 0, 0); // 시간을 00:00:00으로 설정
-                                var dateStr = formatDate(today);
-                                var event = {
-                                    title: '출석완료',
-                                    start: dateStr
-                                };
-                                calendar.addEvent(event);
+                // AJAX를 사용하여 출석 정보를 서블릿에 전달
+                $.ajax({
+                    url: '${root}/mypage/attend',
+                    type: 'POST',
+                    data: { date: formattedDate },
+                    success: function(data) {
+                        // 출석 정보 저장 성공 시 처리할 로직 작성
+                        console.log('출석 정보 저장 성공');
 
-                                // 출석하기 버튼 비활성화
-                                calendar.setOption('customButtons', {
-                                    myCustomButton: {
-                                        disabled: true
-                                    }
-                                });
-                            },
-                            error: function() {
-                                // 출석 정보 저장 실패 시 
-                                console.log('출석 정보 저장 실패');
+                        // 출석한 날짜에 표시할 스타일 추가
+                        var today = new Date(); // FullCalendar에서 오늘 날짜 가져오기
+                        today.setHours(0, 0, 0, 0); // 시간을 00:00:00으로 설정
+                        var dateStr = formatDate(today);
+                        var event = {
+                            title: '출석완료',
+                            start: dateStr
+                        };
+                        calendar.addEvent(event);
+
+                        // 출석하기 버튼 비활성화
+                        calendar.setOption('customButtons', {
+                            myCustomButton: {
+                                text: '출석하기',
+                                click: function() {
+                                    return false; // 클릭 이벤트를 무시하여 중복 클릭 방지
+                                },
+                                disabled: true
                             }
                         });
+                    },
+                    error: function() {
+                        // 출석 정보 저장 실패 시 처리할 로직 작성
+                        console.log('출석 정보 저장 실패');
                     }
-                }
-            },
-        });
-
-        // 오늘 날짜 설정
-        function formatDate(date) {
-            var year = date.getFullYear();
-            var month = String(date.getMonth() + 1).padStart(2, '0');
-            var day = String(date.getDate()).padStart(2, '0');
-            return year + '-' + month + '-' + day;
+                });
+            }
         }
+    },
+});
 
-        calendar.render();
-    });
+    // 오늘 날짜 설정
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = String(date.getMonth() + 1).padStart(2, '0');
+        var day = String(date.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+    }
+
+    calendar.render();
+});
+
 </script>
 
 </html>
