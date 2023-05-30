@@ -9,9 +9,9 @@
 <style>
   #search-area {
   display:flex;
-  justify-content: space-around;
-  margin-left: 20px;
+  justify-content: space-evenly;
 
+  margin-left: 20px;
 }
 
 #bn{
@@ -162,10 +162,9 @@ height: 450px;
 
   
    <!-- 내용영역 -->
-<div id="content">
+  <div id="content">
 	<div id="write-area" >
 	  <div id="banner">
-
 		<!--왼쪽화살표 -->
 		<button id="btn01">
 		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
@@ -174,8 +173,8 @@ height: 450px;
 		</button>
 	  
 		  <a href="${root}/"><img id="img" src="${root}/static/img/banner.png" alt="이미지"></a>
-		  <img id="img2" src="${root}/static/img/d오메기떡.jpg" alt="이미지">
-		  <img id="img3" src="${root}/static/img/마음샌드.jpg" alt="이미지">
+		  <!-- <img id="img2" src="${root}/static/img/d오메기떡.jpg" alt="이미지">
+		  <img id="img3" src="${root}/static/img/마음샌드.jpg" alt="이미지"> -->
 	  
 		<!-- 오른쪽화살표 -->
 		<button id="btn02">
@@ -189,10 +188,12 @@ height: 450px;
 		<hr>
 	  
 		<div id="search-area" >
-		  <a href="">
-		  <img id="bn" src="${root}/static/img/a.png" alt="이미지">
-		  <img id="bn" src="${root}/static/img/b.png" alt="이미지"> 
-		  <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
+      <a href="">
+      <div>
+        <img id="bn" src="${root}/static/img/a.png" alt="이미지">
+        <img id="bn" src="${root}/static/img/b.png" alt="이미지"> 
+        <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
+      </div>
 		  </a>
 		</div>
 	  
@@ -234,26 +235,81 @@ height: 450px;
 		</div>
 		 
 		<div id="br">
-		  <a href=""><h2 align="center">여행 정보를 서로 공유해보세요!</h2></a>
-		  <a href="/app/test"  style="font-size: 2em;">제주도 차박 여행 후기</a>
-		  <br>  
-		  <br>  
-		  <a href="/app/test" style="font-size: 2em;">강원도 차박 여행 후기</a>  
-		  <br>
-		  <br>
-		  <a href="/app/test" style="font-size: 2em;"> 강릉 차박 여행 후기</a>  
-		  <br>
-		  <br>
-		  <a href="/app/test" style="font-size: 2em;"> 포천 차박 여행 후기</a>  
-		</div>
-		
-		</div>
+
+      로딩중
+
+      
+      <!-- <a href=""><h2 align="center">여행 정보를 서로 공유해보세요!</h2></a>
+      <a href="/app/test"  style="font-size: 2em;">제주도 차박 여행 후기</a>
+      <br>  
+      <br>  
+      <a href="/app/test" style="font-size: 2em;">강원도 차박 여행 후기</a>  
+      <br>
+      <br>
+      <a href="/app/test" style="font-size: 2em;"> 강릉 차박 여행 후기</a>  
+      <br>
+      <br>
+      <a href="/app/test" style="font-size: 2em;"> 포천 차박 여행 후기</a>  
+    </div> -->
+    </div>
 </div>
 </div>
 </body>
 </html>
 
   <script>
+
+  f01();
+		// setInterval(f01 , 1000 * 3);
+
+		function f01(){
+
+			$.ajax({
+			url : "${root}/home/board-top-hit" ,
+			type : 'post' ,
+			dataType : 'json' ,
+			success : function(vo){
+				console.log(vo);
+				const div = document.querySelector('#br');
+				// 여기서 반복문으로 리스트들 읽어와야함생각좀해야겠음
+				let str = '';
+				str += '<div>'
+				str += '갱신 시각 : ' + new Date().toLocaleTimeString();
+				str += '</div>';
+				str += '<h1>';
+				str += vo.title;
+				str += '</h1>';
+				str += '<div>';
+				str += vo.content;
+				str += '</div>';
+
+				div.innerHTML = str;
+			} ,
+			error : function(er){
+				console.log(er);
+			} ,
+		});
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const btn01 = document.querySelector('#btn01');
     const btn02 = document.querySelector('#btn02');
     const btn03 = document.querySelector('#btn03');
