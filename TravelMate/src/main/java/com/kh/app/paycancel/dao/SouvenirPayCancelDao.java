@@ -27,7 +27,7 @@ public class SouvenirPayCancelDao {
 
 	public int souvenirPayCancelReason(Connection conn2, PayCancelVo pcvo) throws Exception {
 
-		String sql = "INSERT INTO PAY_CANCEL_REASON (NO, SOUVENIR_PAYMENT_NO , TITLE, CONTENT) VALUES (SEQ_PAY_CANCEL_REASON_NO.NEXTVAL, ?, ? , ?)";
+		String sql = "INSERT INTO PAY_CANCEL_REASON (NO, SOUVENIR_PAYMENT_CODE , TITLE, CONTENT) VALUES (SEQ_PAY_CANCEL_REASON_NO.NEXTVAL, ?, ? , ?)";
 		PreparedStatement pstmt = conn2.prepareStatement(sql);
 		pstmt.setString(1, pcvo.getSouvenirPaymentNo());
 		pstmt.setString(2, pcvo.getTitle());

@@ -93,6 +93,11 @@
 	height: 150px;
 }
 
+#h1{
+	font-size: xx-large;
+	font: bold;
+}
+
 </style>
 </head>
 <body>
@@ -107,7 +112,7 @@
           <h3>약관 동의 및 결제취소<hr></h3>
         </div>
       </div>
-
+	<form action="${root}/souvenir/refund" method="post">
       <div id="first2">
         <h2>청약철회 약관 동의칸</h2>
         <br>
@@ -123,6 +128,7 @@
 			5. 용역 또는 「문화산업진흥 기본법」 제2조제5호의 디지털콘텐츠의 제공이 개시된 경우. 다만, 가분적 용역 또는 가분적 디지털콘텐츠로 구성된 계약의 경우에는 제공이 개시되지 않은 부분은 제외
 			6. 소비자의 주문에 따라 개별적으로 생산되는 상품 또는 이와 유사한 상품 등의 청약철회 및 계약해제를 인정하는 경우 인터넷쇼핑몰 사업자에게 회복할 수 없는 중대한 피해가 예상되는 경우로서 사전에 주문 취소 및 반품이 되지 않는다는 사실을 별도로 알리고 소비자의 서면(전자문서 포함)에 의한 동의를 받은 경우
         </textarea>
+        <div><input type="checkbox">약관에 동의합니다.</div> 
         <br>
         <br>
         <br>
@@ -136,9 +142,11 @@
 			<br>
       <div id="second">
         <div></div>
+    
         
         <div>
-        	상품결제번호 : ${vo.no}
+        	상품결제번호 :
+        	<input type="text" value=${spcvo.payNo} name="payNo" readonly="readonly">
         	<br>
         	<br>
         	<br>
@@ -148,13 +156,14 @@
        <div>
        <br>
        <br>
-        	<h1>※결제취소사유※</h1>
+        	<h1 id="h1">※결제취소사유※</h1>
         	<br>
         	<br>
         	<input id="title-area" type="text" name="title" placeholder="제목을 입력하세요.">
         	<br>
         	<br>
-        	<textarea id="text-area" placeholder="내용을 입력하세요."></textarea>
+        	
+        	<textarea id="text-area" name="content" placeholder="내용을 입력하세요."></textarea>
         	<br>
         	<br>
        </div>
@@ -163,16 +172,16 @@
         	
         
 
-      <b>총 결제 금액: ${vo.price}</b><br><br><br><br><br>
+      <b>총 결제 금액: ${spcvo.price}</b><br><br><br><br><br>
 
       <h2>결제를 취소 하시겠습니까?</h2>
-
       <hr>
-      <div>
-        <button id="btn01" onclick="payCancel();">결제취소</button>
+        
+        <button type="submit" value="submit" id="btn01">결제취소</button>
         <button id="btn02" onclick="backPage();">뒤로가기</button>
+        </form>
       </div>
-      </div>
+        
 
       
 </body>
@@ -183,14 +192,6 @@
     	location.href="${root}/mypage/orderList";
   	}
 
-	function payCancel() {
-    	confirm("결제를 취소하시겠습니까?");
-    	if(true){
-    		
-    		location.href = '${root}/mypage/orderList';
-    		alert("결제가 취소되었습니다.");
-    	}
-  	}
 	
 </script>
 </html>
