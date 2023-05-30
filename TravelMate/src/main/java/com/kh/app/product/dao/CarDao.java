@@ -74,7 +74,7 @@ public class CarDao {
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
 	    	String lcname = rs.getString("LOCAL");
-	    	int price = rs.getInt("PRICE");
+	    	String price = rs.getString("PRICE");
 	    	
 	    	
 	    	 
@@ -144,7 +144,7 @@ public class CarDao {
 	    	String max = rs.getString("MAX");
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
-	    	int price = rs.getInt("PRICE");
+	    	String price = rs.getString("PRICE");
 	    	
 			
 		
@@ -252,20 +252,77 @@ public class CarDao {
 
 
 
-	public int getPrice(CarVo cvo, Connection conn) throws Exception {
+	public String getPrice(CarVo cvo, Connection conn) throws Exception {
 
-		int price = 0;
+		String price = null;
 		String sql = "SELECT PRICE FROM CAR_RESERVATION";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
-			price = rs.getInt("PRICE");
+			price = rs.getString("PRICE");
 			
 		}
 
 			JDBCTemplate.close(rs);
 			return price;
 	
+	}
+
+
+	public CarVo selectCarOneByName(Connection conn, String name) throws Exception {
+		System.out.println("dao > name  : " + name);
+		//SQL
+		String sql = "SELECT CK.KIND, R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO WHERE CK.KIND like '%' || ? || '%'";
+//		String sql = "SELECT CK.KIND, R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO WHERE CK.KIND = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, name);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		CarVo vo = new CarVo();
+		if( rs.next() ) {
+			System.out.println("if 통과");
+//			CK.KIND, R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT
+//			, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE
+//			, R.LICENSE_DATE, R.PRICE,
+//			CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R 
+			
+			String carKindKind = rs.getString("KIND");
+			String no = rs.getString("NO");
+			String carKindNo = rs.getString("CAR_KIND_NO");
+			String localNo = rs.getString("LOCAL_NO");
+			String count = rs.getString("COUNT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String max = rs.getString("MAX");
+			String licensePlate = rs.getString("LICENSE_PLATE");
+			String licenseDate = rs.getString("LICENSE_DATE");
+			String price = rs.getString("PRICE");
+			String title = rs.getString("TITLE");
+			String lcname = rs.getString("LOCAL");
+			
+			vo.setCarKindKind(carKindKind);
+			vo.setNo(no);
+			vo.setCarKindNo(carKindNo);
+			vo.setLocalNo(localNo);
+			vo.setCount(count);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMax(max);
+			vo.setLicensePlate(licensePlate);
+			vo.setLicenseDate(licenseDate);
+			vo.setPrice(price);
+			vo.setTitle(title);
+			vo.setLcname(lcname);
+		}
+		
+		System.out.println("if 이후 : " + vo);
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+				
+		return vo;
 	}
 	
 

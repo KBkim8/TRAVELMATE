@@ -87,6 +87,8 @@ table td{
   
 	<div id="content">
     
+    <!-- 차종 , 차량번호 , 차종번호, 지역번호, 차량재고숫자, 차량등록일, 삭제여부, 최대인원, 번호판, 입고일, 가격 -->
+    
     <form action="${root}/car/list" method="get">
 		<div id="search-area">
 		      <input type="hidden" name="page" value="1">
