@@ -14,6 +14,12 @@
 <link rel="stylesheet" href="${root}/static/css/header2 home.css">
 <script defer src="${root}/static/js/header.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+<c:if test="${not empty alertMsg }">
+	alert('${alertMsg}');
+</c:if>
+<c:remove var="alertMsg" scope="session"/>
+</script>
 </head>
 <body bottommargin="0">
     

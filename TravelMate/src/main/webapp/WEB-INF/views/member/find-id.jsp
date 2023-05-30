@@ -9,11 +9,10 @@
 
     #content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 300px;  /*이녀석도*/
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 430px;
     }
 
     #first-content>img{
@@ -46,23 +45,45 @@
     #edit-area{
         position: absolute;
         width: 100px;
-        height: 1000px;
+        height: 800px;
         left: 430px;
         top: 230px;
         display: grid;
-        /* grid-template-rows: 3fr 1fr; */
+        grid-template-rows:1fr 1fr 1fr 1fr 1fr;
+        justify-items: center;
+    }
+
+
+    #edit-area > div > input {
+        width: 500px;
+        height: 50px;
+        border: none;
+        border-bottom: 1px solid black;
+        margin-left: 50px;
+        font-size: 20px;
+    }
+    
+    input[name="memberNick"]{
+        margin-top: 40px;
+    }
+
+
+    #btn-area > div{
+        font-size: 18px;
     }
 
     #btn01 {
-        background-color: #73D38E;
+        background-color: #73d38eb4;
         border: 0;
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
         color: white;
         border-radius: 6px;
-        font-size: 2em;
+        font-size: 20px;
         margin-top: 20px;
+        width: 200px;
+        height: 40px;
     }
 
     #btn01:hover {background-color: #80C49D;}
@@ -93,30 +114,18 @@
 
                 <div id="edit-area">
                     <img src="${root}/static/img/loginImg.png" alt="이미지" >
-			
-                        
-                            <span>이름</span><input type="text" name="memberNick" placeholder="이름 을 입력하세요" size="40">
-                            <br>
-                            <span>비밀번호</span><input type="text" name="memberPwd" placeholder="20000930" size="40">
-                            <br>
-                            <span>이메일</span><input type="email" name="memberEmail" placeholder="e-mail" size="40">
-                            <br>
+                            <div>닉네임<input type="text" name="memberNick" placeholder="닉네임을 입력하세요"></div>
+                            <div>비밀번호<input type="text" name="memberPwd" placeholder="비밀번호를 입력하세요"></div>
+                            <div>이메일<input type="email" name="memberEmail" placeholder="이메일을 입력하세요"></div>
                             <button type="submit" value="아이디 찾기" id="btn01">아이디 찾기</button>
-                            <br>
-                            <br>
-                            <br>
-                            <a href="${root}/find-pwd"> <button type="button" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button></a>
-                            <a href="${root}/login"><button type="button" value="비밀번호 찾기" id="btn01">로그인하러가기 </button></a></a>
-                           
-                            
-                            
-                        </div>
-                    </form>
-
-			</form>
-
+                            <div id="btn-area">
+                                <div id="find-pwd"><a href="${root}/find-pwd">비밀번호 찾기</a></div>
+                                <br>
+                                <div id="login"><a href="${root}/login">로그인</a></div>
+                            </div>
+                </div>
+                </form>
 		</div>
-
 
 </body>
 </html>

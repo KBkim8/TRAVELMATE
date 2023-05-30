@@ -16,6 +16,11 @@ public class LoginController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		MemberVo loginMember = (MemberVo) req.getSession().getAttribute("loginMember");
+		if(loginMember != null){
+			req.getSession().setAttribute("alertMsg", "이미 로그인 하셨습니다.");
+			resp.sendRedirect(req.getContextPath() + "/home");
+		}
 		req.getRequestDispatcher("/WEB-INF/views/member/login.jsp").forward(req, resp);
 		
 	}
