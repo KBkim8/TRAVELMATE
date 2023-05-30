@@ -31,9 +31,7 @@
         </div>
             
         <div id="logoCategory">
-            <a href="${root}/static/img/logo.png">회원가입</a>
-            <a>|</a>
-            <a href="">로그인</a>
+            <a href="${root}/logout">로그아웃</a>
             <a>|</a>
             <a href="">장바구니</a>
             <a>|</a>
@@ -140,11 +138,27 @@
             </ul>
         </div>
         <div id="sidebar-category">
-            <button id="side-close" class="active2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                </svg>
-            </button>
+            <div id="side01">
+                <button id="side-close" class="active2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="side02"><button id="insta" class="active2"></button></div>
+            <div id="side03"><button id="blog" class="active2"></button></div>
+            <div id="side04"><button id="facebook" class="active2"></button></div>
+            <div id="side05"><button id="youtube" class="active2"></button></div>
+            <div id="side06"><button id="notice" class="active2">NOTICE</button></div>
+            <div id="side07"><button id="faq" class="active2">FAQ</button></div>
+            <div id="side08"><button id="qna" class="active2">Q&A</button></div>
+            <div id="side09"><button id="info" class="active2">INFO</button></div>
+            <div id="side10"><button id="accom" class="active2">ACCOM</button></div>
+            <div id="side11"><button id="rentcar" class="active2">RENTCAR</button></div>
+            <div id="side12">
+                <img id="img01" src="${root}/static/img/a.png" alt="사이드바" class="active2">
+            </div>
+            <div><hr></div>
         </div>
 
     </div>
