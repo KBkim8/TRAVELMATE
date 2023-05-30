@@ -234,7 +234,7 @@ public class SouvenirDao {
 		return result;
 	}
 
-	public SouvenirVo selectOrder(Connection conn, String no, MemberVo loginMember) throws Exception {
+	public SouvenirVo selectOrder(Connection conn, MemberVo loginMember) throws Exception {
 		//SQL
 		String sql = "SELECT SR.NO, S.NAME, SR.PRICE, SR.CNT, SR.NAME AS MNAME, SR.PHONE, SR.ADDRESS,SR.MEMBER_NO, SI.TITLE FROM SOUVENIR_RESERVATION SR JOIN SOUVENIR S ON S.NO = SR.SOUVENIR_NO JOIN SOUVENIR_IMG SI  ON SI.SOUVENIR_NO = S.NO WHERE S.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -246,6 +246,7 @@ public class SouvenirDao {
 			vo = new SouvenirVo();
 			
 			
+			String no = rs.getString("NO");
 			String name = rs.getString("NAME");
 			String title = rs.getString("TITLE");
 			String price = rs.getString("PRICE");
@@ -280,6 +281,19 @@ public class SouvenirDao {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, loginMember.getNo());
 		pstmt.setString(2, no);
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
+	public int souvenirPayment(String reservationno, Connection conn) throws Exception {
+		String sql = "INSERT INTO SOUVENIR_PAYMENT ( NO , SOUVENIR_RESERVATION_CODE ,TYPE ) VALUES(SEQ_SOUVENIR_PAYMENT_NO.NEXTVAL, ?, '카드')";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, reservationno);
+		
 		
 		int result = pstmt.executeUpdate();
 		

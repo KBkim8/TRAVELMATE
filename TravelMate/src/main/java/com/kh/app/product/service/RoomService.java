@@ -81,11 +81,11 @@ public class RoomService {
 	}
 
 
-	public RoomVo roomSelectOrder(String no, MemberVo loginMember) throws Exception {
+	public RoomVo roomSelectOrder(MemberVo loginMember) throws Exception {
 		RoomVo vo = null;
 		//conn
 		try (Connection conn = JDBCTemplate.getConnection();){
-			vo = dao.roomSelectOrder(conn , no, loginMember);
+			vo = dao.roomSelectOrder(conn, loginMember);
 		}
 		return vo;
 	}
@@ -103,6 +103,23 @@ public class RoomService {
 			JDBCTemplate.rollback(conn);
 		}
 			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
+	public int roomPayment(String reservationno) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.roomPayment(reservationno, conn);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
 		JDBCTemplate.close(conn);
 		
 		

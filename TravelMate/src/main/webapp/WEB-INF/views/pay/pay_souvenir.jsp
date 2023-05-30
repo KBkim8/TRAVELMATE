@@ -162,7 +162,7 @@ textarea{
 
 	const btn01 = document.querySelector(".btn1");
   btn01.addEventListener('click' , (event) => {
-    location.href = '${root}/payment/creditCard';
+    location.href = '${root}/souvenir/payment/creditCard';
   });
 	
   const btn02 = document.querySelector(".btn2");

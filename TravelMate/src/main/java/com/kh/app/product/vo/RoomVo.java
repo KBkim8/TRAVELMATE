@@ -19,7 +19,7 @@ public class RoomVo {
 	private String address;
 	private String dateStart;
 	private String dateEnd;
-	
+	private String reservationNo;
 	public String getNo() {
 		return no;
 	}
@@ -122,17 +122,23 @@ public class RoomVo {
 	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
 	}
+	public String getReservationNo() {
+		return reservationNo;
+	}
+	public void setReservationNo(String reservationNo) {
+		this.reservationNo = reservationNo;
+	}
 	@Override
 	public String toString() {
 		return "RoomVo [no=" + no + ", localNo=" + localNo + ", accomodationNo=" + accomodationNo + ", name=" + name
 				+ ", enrollDate=" + enrollDate + ", maxPeople=" + maxPeople + ", content=" + content + ", deleteYn="
 				+ deleteYn + ", price=" + price + ", title=" + title + ", local=" + local + ", kind=" + kind
 				+ ", mname=" + mname + ", ph=" + ph + ", address=" + address + ", dateStart=" + dateStart + ", dateEnd="
-				+ dateEnd + "]";
+				+ dateEnd + ", reservationNo=" + reservationNo + "]";
 	}
 	public RoomVo(String no, String localNo, String accomodationNo, String name, String enrollDate, String maxPeople,
 			String content, String deleteYn, String price, String title, String local, String kind, String mname,
-			String ph, String address, String dateStart, String dateEnd) {
+			String ph, String address, String dateStart, String dateEnd, String reservationNo) {
 		super();
 		this.no = no;
 		this.localNo = localNo;
@@ -151,11 +157,13 @@ public class RoomVo {
 		this.address = address;
 		this.dateStart = dateStart;
 		this.dateEnd = dateEnd;
+		this.reservationNo = reservationNo;
 	}
 	public RoomVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 	

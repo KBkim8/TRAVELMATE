@@ -47,7 +47,7 @@ public class PaySouvenirController extends HttpServlet{
 			
 			SouvenirService ss = new SouvenirService();
 			int result = ss.order(vo, loginMember);
-			vo = ss.selectOrder(no, loginMember); 
+			vo = ss.selectOrder(loginMember); 
 			if(vo != null) {
 				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/pay/pay_souvenir.jsp").forward(req, resp);

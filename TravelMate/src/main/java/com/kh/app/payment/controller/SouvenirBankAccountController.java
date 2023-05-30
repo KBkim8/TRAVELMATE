@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.service.RoomService;
 import com.kh.app.product.vo.RoomVo;
-@WebServlet("/payment/bankAccount")
-public class BankAccountController extends HttpServlet{
+@WebServlet("/souvenir/payment/bankAccount")
+public class SouvenirBankAccountController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
