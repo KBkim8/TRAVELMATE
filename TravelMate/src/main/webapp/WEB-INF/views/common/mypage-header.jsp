@@ -43,7 +43,8 @@
             <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
-           <div><a data-hover="예약">예약</a></div>
+           <div></div>
+            <div><a data-hover="예약">예약</a></div>
             <div><a href="${root}/room/list">숙소</a></div>
             <div><a href="${root}/car/list">차량</a></div>
             
@@ -52,6 +53,7 @@
             <div><a href="${root}/free/list">자유</a></div>
             <div><a href="${root}/reivew/list">리뷰</a></div>
             <div><a href="${root}/notice/list">공지</a></div>
+            <div></div>
             <c:if test="${loginMember.memberCategoryNo != '2'}">
             <div><a href="${root}/sell/request/list">판매요청</a></div>
             <div><a>|</a></div>
