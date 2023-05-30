@@ -14,6 +14,7 @@ import com.kh.app.board.vo.ReviewBoardVo;
 import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
+import com.kh.app.report.vo.ReportVo;
 
 public class BoardDao {
 
@@ -439,7 +440,6 @@ public class BoardDao {
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
 		
-		System.out.println(replyList);
 		return replyList;
 		
 	}
@@ -955,6 +955,20 @@ public class BoardDao {
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		return rvoList;
+	}
+
+	public int noticeBoardReport(Connection conn, ReportVo vo) throws Exception {
+
+		String sql = "INSERT INTO REPORT_LIST (NO, MEMBER_NO, BOARD_NO, SANCTION_REASON_NO, CONTENT) VALUES (SEQ_REPORT_LIST_NO.NEXTVAL, ?, ?, ?, ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getBoardNo());
+		pstmt.setString(3, vo.getSanctionReasonNo());
+		pstmt.setString(4, vo.getContent());
+		
+		int result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
 	}
 
 }//class

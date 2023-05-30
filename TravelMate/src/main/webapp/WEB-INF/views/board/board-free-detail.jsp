@@ -210,6 +210,20 @@
 				<button type="button" id="btn01" onclick="edit();">수정</button>
 				<button type="button" id="btn01" onclick="del();">삭제</button>
 				<input type="submit" value="수정하기">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="button" id="btn01" onclick="f01();">신고하기</button>
+				<select name="rep" id="btn01">
+					<option value="1">욕설</option>
+					<option value="2">허위사실</option>
+					<option value="3">패드립 </option>
+					<option value="4">스팸/도배글</option>
+					<option value="5">명예훼손</option>
+					<option value="6">성희롱</option>
+					<option value="7">불쾌한닉네임</option>
+					<option value="8">혐오발언</option>
+					<option value="9">자수</option>
+					<option value="10">맘에안들어서</option>
+				</select>
 			</div>
 
 		</form>
@@ -247,6 +261,47 @@
 <script>
 
 
+//신고하기
+function f01(){
+		const value = document.querySelector('select[name=rep]').value;
+
+
+		const optionList = document.querySelectorAll('select[name=rep] > option');
+		for(temp of optionList){
+			if(temp.value == value){
+				console.log(temp.innerText);
+			}
+		}
+
+
+		// 	$.ajax({
+		// 	url : '${root}/free/board/report',
+		// 	type : 'POST',
+		// 	data : {
+		// 		'memberNo' :'${fvo.memberNo}', 
+		// 		'value' : value ,
+		// 		'no' : '${fvo.no}',
+		// 		'content' : temp.innerHTML
+		// 	},
+		// 	success : (data)=>{
+		// 		if(data === 'success'){
+		// 			alert("신고 완료");
+		// 		}
+		// 		reportDel();
+		// 	},
+		// 	error : (e)=>{
+		// 		console.log(e);
+		// 	},
+
+		// });
+	}
+	
+	
+	
+	//신고후에 삭제처리하기
+	function reportDel() {
+		location.href = '${root}/free/del?no=' + '${fvo.no}';
+	}
 
 
 // summernote
