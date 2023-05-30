@@ -13,7 +13,12 @@
 <link rel="stylesheet" href="${root}/static/css/header2.css">
 <script defer src="${root}/static/js/admin/header.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+<script>
+<c:if test="${not empty alertMsg }">
+	alert('${alertMsg}');
+</c:if>
+<c:remove var="alertMsg" scope="session"/>
+</script>
 </head>
 <body bottommargin="0">
     
@@ -36,10 +41,10 @@
         	<c:if test="${not empty loginMember}">
         	<a href="${root}/logout">로그아웃</a>
             <a>|</a>
-        	</c:if>
-        	
             <a href="${root}/mypage/member/detail">마이페이지</a>
             <a>|</a>
+        	</c:if>
+        	
             <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
@@ -59,6 +64,8 @@
             <div><a>|</a></div>
             </c:if>
             <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
+            <div><a>|</a></div>
+            <div><a href="${root}/souvenir/list" data-hover="기념품">기념품</a></div>
             <div><a>|</a></div>
             <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 

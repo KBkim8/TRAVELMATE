@@ -11,11 +11,11 @@
 
     /* 내용영역 */
     #content{
-         position: relative;
+        position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 300px;
-	    bottom: 350px;
+	    left: 420px;
+	    bottom: 430px;
     }
 
     #first-content>img{
@@ -231,7 +231,7 @@
                                 <div id="goods_img">
                                     <c:choose> 
                                         <c:when test="${searchVo.searchValue eq '2' }">
-                                            <img src="${root}/static/img/accommodationImg/${vo.img}" alt="숙소이미지">
+                                            <img src="${root}/static/img/accomodation_img/${vo.img}" alt="숙소이미지">
                                         </c:when> 
                                         <c:when test="${searchVo.searchValue eq '1' }">
                                             <img src="${root}/static/img/carImg/${vo.img}" alt="차량이미지">
