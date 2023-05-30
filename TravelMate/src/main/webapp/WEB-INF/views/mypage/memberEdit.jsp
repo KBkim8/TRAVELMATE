@@ -54,7 +54,7 @@
     }
     
     #edit-input-box{
-        width: 900px;
+        width: 1100px;
         border-radius: 30px;
         border: 1px solid black;
         height: 80%;
@@ -66,6 +66,7 @@
     }
 
     .edit-input-area {
+	    width: 1100px;
         border-collapse: separate;
         border-spacing: 50px;
         padding-left: 20px;
@@ -82,15 +83,26 @@
 
     .edit-input-area button {
         margin-top: 10px;
-        font-size: 25px;
+        font-size: 22px;
         width: 200px;
         height: 50px;
     }
+    
 
-    #rankImg {
-        width: 90px;
-        height: 90px;
-    }
+	#btn02 {
+		background-color: #73D38E;
+        border: 0;
+        padding: 0px 25px; 
+        display: inline-block;
+        text-align: center;
+        color: black;
+        border-radius: 6px;
+        width: 150px;
+        height: 40px;
+        font-size: 18px;
+        margin-left: 80px;
+        vertical-align: middle;
+	} 
 
     #btn-area{
         width: 1300px;
@@ -167,14 +179,18 @@
                                 <input type="text" name="memberNick" value="${loginMember.nick}"> 
                             </td>
                             </tr>
-                            
                                                         <tr>
                               <td><span>주소</span></td>
                               <td><input type="text" name="address" value="${loginMember.address}"></td>
                             </tr>
                             <tr>
                               <td><span>이메일</span></td>
-                              <td><input type="text" name="email" value="${loginMember.email}"></td>
+                              <td>
+                              <input type="text" name="email" value="${loginMember.email}">
+                              <button id="btn02" type="button">이메일 확인</button>
+                              <br>
+                              	<span id="message"></span>
+                              	</td>
                             </tr>
                         </table>
                 </div>
@@ -189,16 +205,34 @@
 
 <script>
 	
-	
-    // 비번 입력해야 수정하기 진행가능
-    function checkValidation(){
-        const pwd = document.querySelector('input[name=memberPwd]').value;
-        if(pwd.length >= 1){
-            return true;
-        }else{
-            return false;
-        }
+    
+  //이메일체크
+    const emailInput = document.querySelector('input[name="email"]');
+    const messageElement = document.getElementById('message');
+    const checkEmailBtn = document.getElementById('btn02');
+    const submitBtn = document.getElementById('btn01');
+
+    // 이메일 체크 
+    function validateEmail(email) {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
     }
+
+    // 버튼 클릭 이벤트 처리
+    checkEmailBtn.addEventListener('click', function checkEmail() {
+    const email = emailInput.value;
+
+    if (validateEmail(email)) {
+        messageElement.textContent = '유효한 이메일 주소입니다.';
+        messageElement.style.color = 'green';
+        submitBtn.disabled=false;
+        } 
+        else {
+        messageElement.textContent = '유효하지 않은 이메일 주소입니다.';
+        messageElement.style.color = 'red';
+        submitBtn.disabled=true;
+    }
+    });
 
 
 </script>
