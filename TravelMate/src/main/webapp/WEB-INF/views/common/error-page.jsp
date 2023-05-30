@@ -11,5 +11,11 @@
 	<%@include file="/WEB-INF/views/common/header2.jsp" %>
 	
 	
+	
 </body>
+<script>
+
+	alert(${errorMsg});
+
+</script>
 </html>

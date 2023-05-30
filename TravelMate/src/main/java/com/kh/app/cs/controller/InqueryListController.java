@@ -33,7 +33,7 @@ public class InqueryListController extends HttpServlet{
 			
 			if(loginMember == null) {
 				req.getSession().setAttribute("alertMsg", "로그인을 먼저 해주세요");
-//				resp.sendRedirect("/TravelMate/login");
+				resp.sendRedirect("/TravelMate/login");
 			}
 					
 			String searchType = req.getParameter("searchType");
@@ -91,7 +91,7 @@ public class InqueryListController extends HttpServlet{
 				System.out.println("[ERROR] inquery list controller err");
 				e.printStackTrace();
 				
-				req.setAttribute("errorMsg", "공지사항 목록 조회 실패..");
+				req.setAttribute("errorMsg", "문의내역 목록 조회 실패..");
 				req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 			}
 		}
