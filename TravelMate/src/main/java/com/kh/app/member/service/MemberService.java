@@ -199,20 +199,16 @@ public class MemberService {
 
 	//로그인시 아이디 체크
 	public boolean loginIdCheck(String idInputValue) throws Exception {
-
 		Connection conn = JDBCTemplate.getConnection();
 		String sql = "SELECT COUNT(*) FROM MEMBER WHERE ID = ? ";
-		
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, idInputValue);
 		ResultSet rs = pstmt.executeQuery();
-
+		
 		if(rs.next()) {
 			int count = rs.getInt(1);
 			return count > 0;
 		}
-		JDBCTemplate.close(conn);
-		
 		return false;
 		
 		

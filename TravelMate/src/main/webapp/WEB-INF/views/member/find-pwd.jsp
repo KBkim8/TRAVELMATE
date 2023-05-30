@@ -128,7 +128,7 @@
                             
                             <h2 class="card-title" style="color:#75ef6dae;"><img src="${root}/static/img/loginImg.png"/></h2>
                         </div>
-                      <form action="${root}/login" class="login" method="POST">
+                      <form action="${root}/find-pwd" class="login" method="POST">
                         
                         <div class="card-body">
                   
@@ -157,29 +157,8 @@
 </body>
 </html>
 
-<script>
-
-    
-    // function idCheck() {
-    //     const idInputValue =document.querySelector('input[name=memberId]').value;
-        
-    //     $.ajax({
-    //         url :'${root}/login/id/check',
-    //         type : 'POST',
-    //         data : {
-    //             'idInputValue' : idInputValue,
-    //         },
-    //         success : (data)=>{
-    //             if(data == 'ok'){
-    //                 alert('아이디틀렸습니다');
-    //             }
-               
-    //         },
-    //         error : (e)=>{
-    //             console.log(e);
-    //         },
-    //     });
-
-    // }
-
-</script>
+ <c:if test="${not empty loginMember }">
+	<script>
+	  alert('${loginMember.pwd}');
+	</script>
+ </c:if>

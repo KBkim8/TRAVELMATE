@@ -27,12 +27,10 @@ private MemberService ms;
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
-			String idInputValue = req.getParameter("idInputValue");
+			String idInputValue = req.getParameter("memberId");
 			
-			 
-			
-			if(ms.loginIdCheck(idInputValue) == true) {
-				resp.getWriter().write("no");
+			if(ms.loginIdCheck(idInputValue)) {
+				resp.getWriter().write("duplicate");
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
