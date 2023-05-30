@@ -13,8 +13,8 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 
-@WebServlet( "/review/list")
-public class BoardCarReviewListController extends HttpServlet{
+@WebServlet( "/room/review/list")
+public class BoardRoomReviewListController extends HttpServlet{
 
 	private final BoardService bs = new BoardService();
 	
@@ -32,13 +32,13 @@ public class BoardCarReviewListController extends HttpServlet{
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
 			//tqt
-			List<BoardVo> rvoList = bs.carReviewList(pv);
+			List<BoardVo> rvoList = bs.roomReviewList(pv);
 			
 			//gd
 			if(rvoList != null) {
 				req.setAttribute("pv", pv);
 				req.setAttribute("rvoList", rvoList);
-				req.getRequestDispatcher("/WEB-INF/views/board/board-car-review-list.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/views/board/board-room-review-list.jsp").forward(req, resp);
 			}else {
 				throw new Exception();
 			}
@@ -49,4 +49,5 @@ public class BoardCarReviewListController extends HttpServlet{
 		}
 	}
 	}
+
 

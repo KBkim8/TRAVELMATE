@@ -13,7 +13,7 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.CommentVo;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet(urlPatterns = "/free/reply/write")
+@WebServlet("/free/reply/write")
 public class BoardFreeReplyWriteController extends HttpServlet{
 
 	@Override

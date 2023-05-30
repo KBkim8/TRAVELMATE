@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 
-@WebServlet(urlPatterns = "/car/review/detail")
+@WebServlet( "/review/detail")
 public class BoardCarReviewDetailController extends HttpServlet{
 	
 	@Override

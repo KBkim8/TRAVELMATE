@@ -15,7 +15,7 @@ import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 
-@WebServlet(urlPatterns = "/free/list")
+@WebServlet( "/free/list")
 public class BoardFreeListController extends HttpServlet{
 	
 	private final BoardService bs = new BoardService();

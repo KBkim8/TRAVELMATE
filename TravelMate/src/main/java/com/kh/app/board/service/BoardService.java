@@ -389,11 +389,11 @@ private final BoardDao dao;
 		}
 
 		//차량 리뷰 글쓰기
-		public int carReviewWrite(ReviewBoardVo rbVo) throws Exception {
+		public int carReviewWrite(BoardVo vo) throws Exception {
 
 			Connection conn = JDBCTemplate.getConnection();
 			
-			int result = dao.carReviewWrite(conn ,rbVo);
+			int result = dao.carReviewWrite(conn ,vo);
 			
 			if(result ==1) {
 				JDBCTemplate.commit(conn);
@@ -462,6 +462,36 @@ private final BoardDao dao;
 			JDBCTemplate.close(conn);
 			
 			return cnt;
+		}
+
+		// 숙소 리뷰 이벤트
+		public int roomReviewWrite(BoardVo vo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.roomReviewWrite(conn ,vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			JDBCTemplate.close(conn);
+			
+			return result;
+		}
+
+		//숙소리뷰 게시글 조회
+		public List<BoardVo> roomReviewList(PageVo pv) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo> rvoList = dao.roomReviewList(conn,pv);
+			
+			JDBCTemplate.close(conn);
+		
+			return rvoList;
+			
 		}
 
 		

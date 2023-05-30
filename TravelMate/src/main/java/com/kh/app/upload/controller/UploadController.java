@@ -20,6 +20,7 @@ import javax.servlet.http.Part;
 import com.google.gson.Gson;
 
 @MultipartConfig(
+		fileSizeThreshold = 1024 *1024*50,
 		maxFileSize = 1024 * 1024 * 50,
 		maxRequestSize = 1024 * 1024 * 50 *10
 		)
@@ -33,7 +34,7 @@ public class UploadController extends HttpServlet{
 		List<String>changeNameList = new ArrayList<>();
 		
 		Collection<Part> fileList = req.getParts();
-		String path = req.getServletContext().getRealPath("/static/img/board-img/");
+		String path = req.getServletContext().getRealPath("/static/img/car-review-img/");
 		
 		for(Part f : fileList) {
 			if(!f.getName().equals("f")) {

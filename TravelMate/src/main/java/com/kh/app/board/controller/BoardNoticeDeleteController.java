@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.app.board.service.BoardService;
-@WebServlet(urlPatterns = "/notice/del")
+@WebServlet( "/notice/del")
 public class BoardNoticeDeleteController extends HttpServlet{
 	
 	@Override
