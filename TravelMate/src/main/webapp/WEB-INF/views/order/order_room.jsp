@@ -260,8 +260,8 @@
 	                <td><input type="text" name="phone" placeholder=" ‘ - ’ 제외하고 입력"><br><br>
 	            </tr>
 	            <tr>
-	                <td>배송 받을 주소:</td>
-	                <td><input type="text" name="address" placeholder="ex)경기도 용인시 수지구 동천로 27번길 5" style="width: 400px;"></td><br><br>
+	                <td>이메일:</td>
+	                <td><input type="text" name="address" placeholder="example@mail.com" style="width: 400px;"></td><br><br>
 	            </tr>
 	        </table>
 	      </div>

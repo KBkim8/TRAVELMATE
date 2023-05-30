@@ -33,7 +33,7 @@ public class PayCarController extends HttpServlet{
 			
 			//캘린더
 			String daterange = req.getParameter("daterange");
-			String[] dateArr= daterange.split(" to ");
+			String[] dateArr= daterange.split(" - ");
 			String startDate = dateArr[0];
 			String endDate = dateArr[1];
 			
@@ -41,25 +41,24 @@ public class PayCarController extends HttpServlet{
 			String no = req.getParameter("no");
 			String mname = req.getParameter("mname");
 			String phone = req.getParameter("phone");
-			String address = req.getParameter("address");
 			String price = req.getParameter("price");
-			
+			String email = req.getParameter("email");
 			CarVo vo = new CarVo();
 			vo.setNo(no);
+			System.out.println(no);
 			vo.setMname(mname);
 			vo.setPhone(phone);
-			vo.setAddress(address);
+			vo.setAddress(email);
 			vo.setPrice(price);
 			vo.setStartDate(startDate);
 			vo.setEndDate(endDate);
 
-			
 			CarService cs = new CarService();
 			int result = cs.carOrder(vo, loginMember);
-			vo = cs.carSelectOrder(no, loginMember); 
+			vo = cs.carSelectOrder(loginMember); 
 			if(vo != null) {
 				req.setAttribute("vo", vo);
-				req.getRequestDispatcher("/WEB-INF/views/pay/pay_room.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/views/pay/pay_car.jsp").forward(req, resp);
 			}else {
 				throw new Exception();
 			}

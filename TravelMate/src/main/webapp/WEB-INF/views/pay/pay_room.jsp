@@ -35,7 +35,7 @@
 }
 
 #first2{
-  width: 80%;
+  width: 100%;
   height: 150px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -43,7 +43,7 @@
 }
 
 #second2{
-  width: 80%;
+  width: 100%;
   height: 200px;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -127,13 +127,13 @@ textarea{
 
       <div id="second2">
         <div>
-          <img src="${root}/static/img/accomodation_img/${vo.title}" alt="ASD" width="200px" height="200px"  >
+          <img src="${root}/static/img/accomodation_img/${vo.title}" alt="ASD" width="400px" height="200px"  >
         </div>
         <div>
         <br>
           <h4>예약자 이름: ${vo.mname}</h4><br>
           <h4>예약자 연락처: ${vo.ph}</h4><br>
-          <h4>배송 주소: ${vo.address }</h4>
+          <h4>이메일: ${vo.address }</h4>
         </div>
       </div>
 
@@ -159,9 +159,6 @@ textarea{
 
       <hr>
 
-      <div>
-        <button id="btn03">뒤로가기</button>
-      </div>
   
     </div>
 </body>
