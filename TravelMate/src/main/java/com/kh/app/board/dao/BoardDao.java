@@ -253,7 +253,7 @@ public class BoardDao {
 	public BoardVo noticeDetail(Connection conn, String no) throws Exception {
 
 		//이거 쿼리문 MEMBER_CATEGORY 조인후 nick이 보이게 수정해야함  --완료
-		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO  ,B.MEMBER_NO ,B. BOARD_IMG_NO ,B.TITLE ,B.CONTENT ,TO_CHAR(B.ENROLL_DATE ,'YYYY-MM-DD') AS ENROLL_DATE ,B.DELETE_YN ,B.HIT ,B.UPLOAD_YN ,B.MODIFY_DATE ,M.NICK AS MEMBER_NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.MEMBER_NO =2 AND B.NO =?";
+		String sql = "SELECT B.NO ,B.BOARD_CATEGORY_NO ,B.MEMBER_NO ,B. BOARD_IMG_NO ,B.TITLE ,B.CONTENT ,TO_CHAR(B.ENROLL_DATE ,'YYYY-MM-DD') AS ENROLL_DATE ,B.DELETE_YN ,B.HIT ,B.UPLOAD_YN ,B.MODIFY_DATE ,M.NICK AS MEMBER_NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.NO =?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -516,9 +516,9 @@ public class BoardDao {
 		String sql = "";
 		if(searchType.equals("title")) {
 			// sql (제목으로 검색)
-			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.BOARD_CATEGORY_NO= 1 AND B.DELETE_YN='N' AND B.TITLE LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , TO_CHAR(B.ENROLL_DATE ,'YYYY-MM-DD')AS ENROLL_DATE , B.DELETE_YN , B.HIT FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) WHERE B.BOARD_CATEGORY_NO= 1 AND B.DELETE_YN='N' AND B.TITLE LIKE '%'||?||'%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(searchType.equals("writer")) {
-			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,M.NICK AS MEMBER_NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.CATEGORY_NO= 1 AND B.DELETE_YN='N' AND M.NICK LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE,B.HIT , B.DELETE_YN ,M.NICK AS MEMBER_NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.CATEGORY_NO= 1 AND B.DELETE_YN='N' AND M.NICK LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else {
 			return noticeList(conn, pv);
 		}
@@ -537,11 +537,11 @@ public class BoardDao {
 			String memberNo = rs.getString("MEMBER_NO");
 			String enrolldate = rs.getString("ENROLL_DATE");
 			String deleteYn = rs.getString("DELETE_YN");
-			String hit = rs.getString("hit");
+			String hit = rs.getString("HIT");
 			
 			BoardVo vo = new BoardVo();
+			vo.setNo(no);
 			vo.setTitle(title);
-			vo.setTitle(no);
 			vo.setContent(content);
 			vo.setMemberNo(memberNo);
 			vo.setEnrollDate(enrolldate);
@@ -855,7 +855,7 @@ public class BoardDao {
 		String sql = "";
 		if(searchType.equals("title")) {
 			// sql (제목으로 검색)
-			sql ="SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,B.HIT,M.NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 5 AND B.DELETE_YN='N' AND B.TITLE LIKE '%' || ? || '%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			sql ="SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,B.HIT ,M.NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 5 AND B.DELETE_YN='N' AND B.TITLE LIKE '%'||?||'%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(searchType.equals("writer")) {
 			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE , B.DELETE_YN ,B.HIT ,M.NICK  FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 5 AND B.DELETE_YN='N' AND M.NICK LIKE '%'|| ? ||'%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else {
@@ -959,6 +959,20 @@ public class BoardDao {
 
 	public int noticeBoardReport(Connection conn, ReportVo vo) throws Exception {
 
+		String sql = "INSERT INTO REPORT_LIST (NO, MEMBER_NO, BOARD_NO, SANCTION_REASON_NO, CONTENT) VALUES (SEQ_REPORT_LIST_NO.NEXTVAL, ?, ?, ?, ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getBoardNo());
+		pstmt.setString(3, vo.getSanctionReasonNo());
+		pstmt.setString(4, vo.getContent());
+		
+		int result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	//자유게시판 신고
+	public int freeBoardReport(Connection conn, ReportVo vo) throws Exception {
 		String sql = "INSERT INTO REPORT_LIST (NO, MEMBER_NO, BOARD_NO, SANCTION_REASON_NO, CONTENT) VALUES (SEQ_REPORT_LIST_NO.NEXTVAL, ?, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getMemberNo());

@@ -83,6 +83,15 @@
         border-spacing: 20px;
     }
 
+	#btn07{
+		font-size: 0.9em;
+		background-color: #73D38E;
+        border: 0;
+        display: inline-block;
+        text-align: center;
+        color: white;
+        border-radius: 6px;
+	}
 
     #btn01 {
         background-color: #73D38E;
@@ -211,7 +220,7 @@
 				<button type="button" id="btn01" onclick="del();">삭제</button>
 				<input type="submit" value="수정하기">
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="button" id="btn01" onclick="f01();">신고하기</button>
+				<button type="button" id="btn01" onclick="f02();">신고하기</button>
 				<select name="rep" id="btn01">
 					<option value="1">욕설</option>
 					<option value="2">허위사실</option>
@@ -221,8 +230,7 @@
 					<option value="6">성희롱</option>
 					<option value="7">불쾌한닉네임</option>
 					<option value="8">혐오발언</option>
-					<option value="9">자수</option>
-					<option value="10">맘에안들어서</option>
+					<option value="9">맘에안들어서</option>
 				</select>
 			</div>
 
@@ -248,7 +256,7 @@
 					</tr>
 					</thead>
 				<tbody>
-						
+					
 				</tbody>
 			</table>
 		</div>
@@ -262,10 +270,8 @@
 
 
 //신고하기
-function f01(){
+function f02(){
 		const value = document.querySelector('select[name=rep]').value;
-
-
 		const optionList = document.querySelectorAll('select[name=rep] > option');
 		for(temp of optionList){
 			if(temp.value == value){
@@ -274,26 +280,25 @@ function f01(){
 		}
 
 
-		// 	$.ajax({
-		// 	url : '${root}/free/board/report',
-		// 	type : 'POST',
-		// 	data : {
-		// 		'memberNo' :'${fvo.memberNo}', 
-		// 		'value' : value ,
-		// 		'no' : '${fvo.no}',
-		// 		'content' : temp.innerHTML
-		// 	},
-		// 	success : (data)=>{
-		// 		if(data === 'success'){
-		// 			alert("신고 완료");
-		// 		}
-		// 		reportDel();
-		// 	},
-		// 	error : (e)=>{
-		// 		console.log(e);
-		// 	},
+			$.ajax({
+			url : '${root}/free/board/report',
+			type : 'POST',
+			data : {
+				'value' : value ,
+				'no' : '${fvo.no}',
+				'content' : temp.innerHTML
+			},
+			success : (data)=>{
+				if(data === 'success'){
+					alert("신고 완료");
+				}
+				reportDel();
+			},
+			error : (e)=>{
+				console.log(e);
+			},
 
-		// });
+		});
 	}
 	
 	
@@ -428,6 +433,7 @@ $('#summernote').summernote({
 					str += '<td>' + x[i].content + '</td>';
 					str += '<td>' + x[i].enrollDate + '</td>';
 					str += '<td>' + x[i].memberNick + '</td>';
+					// str += '<td><button id="btn07" onclick="f03();"> 신고하기</button></td>';
 					str += '</tr>';
 				}
 				tbody.innerHTML += str;
@@ -439,4 +445,38 @@ $('#summernote').summernote({
 	}
 
 	loadComment();
+
+
+	//댓글 신고하기
+	// function f03() {
+	// 	const value = document.querySelector('select[name=rep]').value;
+	// 	const optionList = document.querySelectorAll('select[name=rep] > option');
+	// 	for(temp of optionList){
+	// 		if(temp.value == value){
+	// 			console.log(temp.innerText);
+	// 		}
+	// 	}
+
+
+		// 	$.ajax({
+		// 	url : '${root}/free/board/report',
+		// 	type : 'POST',
+		// 	data : {
+		// 		'memberNo' :'${fvo.memberNo}', 
+		// 		'value' : value ,
+		// 		'no' : '${fvo.no}',
+		// 		'content' : temp.innerHTML
+		// 	},
+		// 	success : (data)=>{
+		// 		if(data === 'success'){
+		// 			alert("신고 완료");
+		// 		}
+		// 		reportDel();
+		// 	},
+		// 	error : (e)=>{
+		// 		console.log(e);
+		// 	},
+
+		// });
+	// }
 </script>

@@ -10,10 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
+import com.kh.app.member.vo.MemberVo;
 
 @WebServlet( "/free/list")
 public class BoardFreeListController extends HttpServlet{
@@ -48,6 +51,7 @@ public class BoardFreeListController extends HttpServlet{
 			Map<String, String> map = new HashMap<>();
 			map.put("searchVo", searchValue);
 			map.put("searchVo", searchType);
+			
 			
 			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);

@@ -7,21 +7,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.app.board.service.BoardService;
+import com.kh.app.member.vo.MemberVo;
 import com.kh.app.report.vo.ReportVo;
 
 @WebServlet("/free/board/report")
 public class BoardFreeReportController extends HttpServlet{
-	
-	//REPORT_LIST 에 인서트
 	//
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
+			HttpSession session = req.getSession();
+			MemberVo loginMember = (MemberVo)session.getAttribute("loginMember");
 			
-			String memberNo= req.getParameter("memberNo");
+			String memberNo= loginMember.getNo();
 			String value = req.getParameter("value");
 			String no = req.getParameter("no");
 			String content= req.getParameter("content");
@@ -37,7 +39,6 @@ public class BoardFreeReportController extends HttpServlet{
 			
 			if(result == 1) {
 				resp.getWriter().write("success");
-				resp.sendRedirect("");
 			}
 			
 		}catch (Exception e) {

@@ -28,7 +28,7 @@ public class BoardNoticeListController extends HttpServlet{
 			String searchValue = req.getParameter("searchValue");
 			String searchType = req.getParameter("searchType");
 			
-			int cnt = bs.getFreeBoardListCnt(searchType , searchValue);
+			int cnt = bs.getBoardListCnt(searchType , searchValue);
 			String page_ = req.getParameter("page");
 			if(page_ == null) {
 				page_ = "1";
@@ -44,18 +44,15 @@ public class BoardNoticeListController extends HttpServlet{
 				bvoList = bs.noticeList(pv, searchValue, searchType);
 			}
 			
-			
 			Map<String, String> map = new HashMap<>();
 			map.put("searchValue", searchValue);
 			map.put("searchType", searchType);
-			
 			
 			//gd
 			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("bvoList", bvoList);
 			req.getRequestDispatcher("/WEB-INF/views/board/board-notice-list.jsp").forward(req, resp);
-			
 			
 		}catch (Exception e) {
 			System.out.println("error");

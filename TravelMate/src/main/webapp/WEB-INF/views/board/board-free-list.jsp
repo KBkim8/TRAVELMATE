@@ -153,7 +153,7 @@
                 </thead>
                 <hr>
                 <tbody>
-                	<c:forEach items="${fvoList}" var="fvoList" begin="1">
+                	<c:forEach items="${fvoList}" var="fvoList" >
 	                    <tr>
 	                        <td>${fvoList.no}</td>
 	                        <td>${fvoList.title}</td>
