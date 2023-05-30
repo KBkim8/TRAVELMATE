@@ -53,7 +53,7 @@ public class PayRoomController extends HttpServlet{
 			
 			RoomService rms = new RoomService();
 			int result = rms.roomOrder(vo, loginMember);
-			vo = rms.roomSelectOrder(no, loginMember); 
+			vo = rms.roomSelectOrder(loginMember); 
 			if(vo != null) {
 				req.setAttribute("vo", vo);
 				req.getRequestDispatcher("/WEB-INF/views/pay/pay_room.jsp").forward(req, resp);

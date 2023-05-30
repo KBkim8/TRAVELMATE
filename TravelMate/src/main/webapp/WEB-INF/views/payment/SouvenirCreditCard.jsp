@@ -138,7 +138,7 @@
 		  
 		  <div id="btns">
 			<button type="button" id="btn01" class="btn btn-success">홈으로</button>
-			<form action="${root}/payment/complete" method="post">
+			<form action="${root}/souvenir/payment/complete" method="post">
 			<input type="hidden" name="reservationno" value="${vo.no}">
 			<button type="submit" id="btn02" class="btn btn-success" onclick="success();">결제완료</button>
 			</form>

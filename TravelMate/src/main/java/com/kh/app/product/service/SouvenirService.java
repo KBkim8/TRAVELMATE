@@ -83,11 +83,11 @@ public class SouvenirService {
 	}
 
 
-	public SouvenirVo selectOrder(String no, MemberVo loginMember) throws Exception {
+	public SouvenirVo selectOrder(MemberVo loginMember) throws Exception {
 		SouvenirVo vo = null;
 		//conn
 		try (Connection conn = JDBCTemplate.getConnection();){
-			vo = dao.selectOrder(conn , no, loginMember);
+			vo = dao.selectOrder(conn , loginMember);
 		}
 		return vo;
 	}
@@ -106,6 +106,23 @@ public class SouvenirService {
 			JDBCTemplate.rollback(conn);
 		}
 			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
+	public int souvenirPayment(String reservationno) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.souvenirPayment(reservationno, conn);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
 		JDBCTemplate.close(conn);
 		
 		

@@ -243,7 +243,7 @@ public class RoomDao {
 		return result;
 	}
 
-	public RoomVo roomSelectOrder(Connection conn, String no, MemberVo loginMember) throws Exception {
+	public RoomVo roomSelectOrder(Connection conn, MemberVo loginMember) throws Exception {
 		//SQL
 		String sql = "SELECT AR.NO, A.NAME ,AR.ACCOMODATION_NO ,AR.MEMBER_NO, AR.NAME AS MNAME ,AR.RESERVATION_YN ,AR.START_DATE ,AR.END_DATE ,AR.PRICE ,AR.PHONE ,AR.ADDRESS ,AI.TITLE FROM ACCOMODATION_RESERVATION AR JOIN ACCOMODATION A ON A.NO = AR.ACCOMODATION_NO JOIN ACCOMODATION_IMG AI ON AI.ACCOMODATION_NO = A.NO WHERE A.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -254,6 +254,7 @@ public class RoomDao {
 		if(rs.next()) {
 			vo = new RoomVo();
 			
+			String no = rs.getString("NO");
 			String name = rs.getString("NAME");
 			String mname = rs.getString("MNAME");
 			String title = rs.getString("TITLE");
@@ -292,6 +293,19 @@ public class RoomDao {
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, loginMember.getNo());
 		pstmt.setString(2, no);
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	}
+
+	public int roomPayment(String reservationno, Connection conn) throws Exception {
+		String sql = "INSERT INTO ACCOMODATION_PAYMENT ( NO ,ACCOMODATION_RESERVATION_CODE ,TYPE ) VALUES(SEQ_ACCOMODATION_PAYMENT_NO.NEXTVAL, ?, '카드')";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, reservationno);
+		
 		
 		int result = pstmt.executeUpdate();
 		

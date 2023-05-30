@@ -11,10 +11,11 @@ import javax.servlet.http.HttpSession;
 
 import com.kh.app.member.vo.MemberVo;
 import com.kh.app.product.service.RoomService;
+import com.kh.app.product.service.SouvenirService;
 import com.kh.app.product.vo.RoomVo;
-@WebServlet("/payment/bankAccount")
-public class BankAccountController extends HttpServlet{
-
+import com.kh.app.product.vo.SouvenirVo;
+@WebServlet("/souvenir/payment/creditCard")
+public class SouvenirCreditCardController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
@@ -22,15 +23,16 @@ public class BankAccountController extends HttpServlet{
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			String no = req.getParameter("no");
 			
-			RoomVo vo = new RoomVo();
-			RoomService rms = new RoomService();
-			vo = rms.roomSelectOrder(loginMember); 
+			SouvenirVo vo = new SouvenirVo();
+			SouvenirService ss = new SouvenirService();
+			vo = ss.selectOrder(loginMember); 
 			req.setAttribute("vo", vo);
-			req.getRequestDispatcher("/WEB-INF/views/payment/bankAccount.jsp").forward(req, resp);
+			req.getRequestDispatcher("/WEB-INF/views/payment/SouvenirCreditCard.jsp").forward(req, resp);
 		}catch (Exception e) {
 			
 			// TODO: handle exception
 		}
 	
 	}
+	
 }
