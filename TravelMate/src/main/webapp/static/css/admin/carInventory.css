@@ -63,11 +63,11 @@
     margin-bottom: 40px;
 }
 
-#hr01{
+#hr011{
     grid-column: span 5;
     width: 1070px;
     height: 1px;
-    border: 1px solid rgba(100, 100, 100, 0.547);
+    border: 1px solid rgba(160, 160, 160, 0.547);
     margin-bottom: 20px;
 }
 

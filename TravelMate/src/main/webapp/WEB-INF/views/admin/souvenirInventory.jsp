@@ -75,7 +75,7 @@
                  <div>|</div>
                  <div id="dCount"><input type="number" value="${voList.count}" name="count" readonly></div>
                  <div><button id="edit" onclick="souvenirEdit(${voList.no});">재고수정</button></div>
-                 <div id="hr01"></div>
+                 <div id="hr011"></div>
 			 </c:forEach>
 
               <div id="page-area">

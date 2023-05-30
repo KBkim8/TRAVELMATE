@@ -498,15 +498,16 @@ section {
 #right-sidebar ul li div { position: relative; }
 
 /* 오른쪽 사이드바 카테고리영역 */
-#sidebar-category{
+.sidebar-category{
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(26, 1fr);
+    position: absolute;
 }
 
 #side01{grid-column: span 10; grid-row: span 2;}
 #side02{grid-column: span 3;}
-#side03, #side04{grid-column: span 2; margin-left: 10px;}
+#side03, #side04{grid-column: span 2;}
 #side05{grid-column: span 2;}
 #side06, #side07, #side08, #side09, #side10, #side11{
     grid-column: span 5;
@@ -516,6 +517,8 @@ section {
     grid-column: span 10;
     grid-row: span 6;
 }
+#side13{grid-column: span 10; grid-row: span 2;}
+#side14, #side15, #side16, #side17, #side18, #side19, #side20, #side21{grid-column: span 10;}
 
 .active1{
     position: fixed;
@@ -560,7 +563,7 @@ section {
     background-image: url('/TravelMate/static/img/sidebar/blog.png');
     background-repeat: no-repeat;
     border: none;
-    margin-left: 5px;
+    margin-left: 12px;
 }
 
 #facebook{
@@ -570,7 +573,7 @@ section {
     background-image: url('/TravelMate/static/img/sidebar/facebook.png');
     background-repeat: no-repeat;
     border: none;
-    margin-left: 5px;
+    margin-left: 12px;
 }
 
 #youtube{
@@ -580,7 +583,7 @@ section {
     background-image: url('/TravelMate/static/img/sidebar/youtube.png');
     background-repeat: no-repeat;
     border: none;
-    margin-left: 15px;
+    margin-left: 12px;
 }
 
 #insta:hover, #blog:hover, #facebook:hover, #youtube:hover{
@@ -657,4 +660,65 @@ section {
 
 #img01:hover{
     opacity: 0.5;
+}
+
+#hr01{
+    height: 1px;
+    border: 1px solid rgba(209, 209, 209, 0.67);
+    margin-top: 50px;
+    width: 210px;
+}
+
+#hr02{
+    height: 3px;
+    border: 2px solid black;
+    margin-left: 30px;
+    width: 30px;
+}
+
+#hr03{
+    height: 1px;
+    border: 1px solid rgba(209, 209, 209, 0.67);
+    width: 210px;
+}
+
+#side14>a{
+    margin-left: 30px;
+    font-weight: 400;
+}
+
+#side15>a{
+    margin-left: 30px;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+#side17>a{
+    margin-left: 30px;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+#side18>a{
+    margin-left: 30px;
+    font-weight: 700;
+    font-size: 15px;
+    position: absolute;
+    bottom: 180px;
+}
+
+#side19>a{
+    margin-left: 30px;
+    font-size: 15px;
+    color: rgb(157, 157, 157);
+    font-weight: 700;
+    position: absolute;
+    bottom: 150px;
+}
+
+#side20>a{
+    margin-left: 30px;
+    font-size: 15px;
+    color: rgb(157, 157, 157);
+    font-weight: 700;
 }

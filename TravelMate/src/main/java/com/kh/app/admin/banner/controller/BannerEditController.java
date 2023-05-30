@@ -50,6 +50,7 @@ public class BannerEditController extends HttpServlet{
 			String memberNick = req.getParameter("memberNick");
 			String souvenirNo = req.getParameter("souvenirNo");
 			String no = req.getParameter("no");
+			String memberNo = as.bannerGetNo(memberNick);
 			
 			String path = req.getServletContext().getRealPath("/static/img/adBanner/");	
 			Part f = req.getPart("f");
@@ -62,7 +63,7 @@ public class BannerEditController extends HttpServlet{
 			vo.setSouvenirNo(souvenirNo);
 			vo.setNo(no);
 			
-			int result = as.adBannerContentEdit(vo);
+			int result = as.adBannerContentEdit(vo, memberNo);
 			
 			if(result != 1) {
 				throw new Exception();
@@ -76,5 +77,6 @@ public class BannerEditController extends HttpServlet{
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 	}
+
 
 }

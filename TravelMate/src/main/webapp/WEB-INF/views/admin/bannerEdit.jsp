@@ -21,16 +21,16 @@
             <div id="declaration">
             
                 <div>배너이름</div>
-                <input type="text" name="bannerName" placeholder="${vo.name}">
+                <input type="text" name="bannerName" value="${vo.name}">
                 <div>이미지</div>
                 <input type="file" name="f">
                 <div id="img-area">
-                    <img src="${root}/static/img/adBanner/${vo.image}" alt="광고이미지">
+                    
                 </div>
                 <div>회원닉네임</div>
-                <input type="text" name="memberNick" placeholder="${vo.nick}" readonly>
+                <input type="text" name="memberNick" value="${vo.nick}">
                 <div>기념품번호</div>
-                <input type="number" name="souvenirNo" placeholder="${vo.souvenirNo}" min="0">
+                <input type="number" name="souvenirNo" value="${vo.souvenirNo}" min="0">
 
                 <input type="hidden" name="no" value="${vo.no}">
                 <input type="submit" value="수정하기">

@@ -50,7 +50,7 @@ public class SouvenirInventoryController extends HttpServlet{
 			req.setAttribute("searchVo", map);
 			req.setAttribute("pv", pv);
 			req.setAttribute("voList", voList);
-
+			
 			req.getRequestDispatcher("/WEB-INF/views/admin/souvenirInventory.jsp").forward(req, resp);
 		}catch(Exception e) {
 			req.setAttribute("errMsg", "신고내역 조회 에러");
