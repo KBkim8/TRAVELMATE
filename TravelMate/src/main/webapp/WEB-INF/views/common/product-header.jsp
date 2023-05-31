@@ -92,10 +92,10 @@
                                  <ul class="big_menu">
                                      <li>게시판 <i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/orderList">공지게시판</a></li>
-                                         <li><a href="${root}/mypage/orderList">자유게시판</a></li>
-                                         <li><a href="${root}/mypage/orderList">랜선여행</a></li>
-                                         <li><a href="${root}/mypage/orderList">리뷰게시판</a></li>
+                                         <li><a href="${root}/notice/list">공지게시판</a></li>
+                                         <li><a href="${root}/free/list">자유게시판</a></li>
+                                         <li><a href="${root}/online/travel">랜선여행</a></li>
+                                         <li><a href="${root}/review/list">리뷰게시판</a></li>
                                      </ul>
                                  
                         </div>
