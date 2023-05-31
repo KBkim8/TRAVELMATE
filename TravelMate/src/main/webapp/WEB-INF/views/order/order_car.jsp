@@ -289,7 +289,7 @@
 			<input type="hidden" name="price" value="${vo.price}">
 		
 		<c:if test="${loginMember != null }">
-			<button id="btn03" type="submit" onclick="alert()">결제하기</button>
+			<button id="btn03" type="submit">결제하기</button>
 		</c:if>
 	</form>
     
