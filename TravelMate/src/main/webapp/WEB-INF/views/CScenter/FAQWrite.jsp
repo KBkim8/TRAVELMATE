@@ -146,7 +146,7 @@
     <div id="first-content">
         <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
         <hr>
-        <a>1:1문의하기</a>
+        <a>자주 묻는 질문 추가</a>
     </div>
         <form action="${root}/cs/faq/write" method="POST">
 	        <div id="inquery-input">
