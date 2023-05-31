@@ -80,35 +80,40 @@
   background-color: lightgray;
 }
 
-#btn01{
-  margin-top: 50px;
-  margin-right: 400px;
-  margin-left: 400px;
-  margin-bottom: 50px;
-}
+
 
 #pricetotal{
         width: 500px;
         height: 100px;
     }
 
-#btns > button{
-    width: 200px;
-    height: 40px;
-    
-}
 
-#btns{
-  margin: auto;
-}
 
 #selectbx{
 	display: flex;
 	margin: auto;
 	height: 50px;
-	width: 300px;
+	width: 320px;
 }
 
+#btn02, #btn01{
+	  margin-top: 50px;
+	  margin-right: 250px;
+	  margin-left: 250px;
+	  margin-bottom: 50px;
+	}
+	
+	
+	#btn01, #btn02{
+  background-color: #73D38E;
+  border: 0;
+  padding: 15px 25px; 
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border-radius: 6px;
+  margin-left: 500px;
+}
 </style>
 </head>
 <body>

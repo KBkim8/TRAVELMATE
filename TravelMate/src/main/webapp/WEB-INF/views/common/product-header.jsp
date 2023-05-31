@@ -48,7 +48,6 @@
             <div><a href="${root}/room/list">숙소</a></div>
             <div><a href="${root}/car/list">차량</a></div>
             
-            
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
             <div><a href="${root}/free/list">자유</a></div>
@@ -61,7 +60,7 @@
             </c:if>
             <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
             <div><a>|</a></div>
-            
+            <div><a href="${root}/souvenir/list" data-hover="기념품">기념품</a></div>
             <div><a>|</a></div>
             <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 
