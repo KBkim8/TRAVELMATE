@@ -170,7 +170,7 @@ public class CarService {
 
 	public int carPayment(String reservationno) throws Exception {
 		Connection conn = JDBCTemplate.getConnection();
-		int result = dao.roomPayment(reservationno, conn);
+		int result = dao.carPayment(reservationno, conn);
 		if(result == 1) {
 			JDBCTemplate.commit(conn);
 		}else {

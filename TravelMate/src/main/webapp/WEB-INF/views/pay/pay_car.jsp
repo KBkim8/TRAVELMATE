@@ -166,12 +166,12 @@ textarea{
 
 const btn01 = document.querySelector(".btn1");
 btn01.addEventListener('click' , (event) => {
-  location.href = '${root}/payment/creditCard';
+  location.href = '${root}/car/payment/creditCard';
 });
 	
 const btn02 = document.querySelector(".btn2");
 btn02.addEventListener('click' , (event) => {
-  location.href = '${root}/payment/bankAccount';
+  location.href = '${root}/car/payment/bankAccount';
 });
 	
 const btn03 = document.querySelector(".btn3");
