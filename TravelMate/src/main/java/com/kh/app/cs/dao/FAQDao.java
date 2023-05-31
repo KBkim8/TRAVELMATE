@@ -71,4 +71,21 @@ public class FAQDao {
 	
 	}
 
+	// 자주 묻는 질문 작성
+	public int write(Connection conn, FAQVo vo) throws Exception {
+
+		// sql
+		String sql = "INSERT INTO FAQ(NO, MEMBER_NO, TITLE, ANSWER) VALUES(SEQ_FAQ_NO.NEXTVAL, ? , ?,  ?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1,"1");
+		pstmt.setString(2, vo.getTitle());
+		pstmt.setString(3, vo.getAnswer());
+		int result =  pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	
+	}
+
 }

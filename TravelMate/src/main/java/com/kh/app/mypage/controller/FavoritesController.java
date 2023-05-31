@@ -35,7 +35,7 @@ public class FavoritesController extends HttpServlet{
 				page_ = "1";
 			}
 			int page = Integer.parseInt(page_);
-			PageVo pv = new PageVo(cnt, page, 5, 3);
+			PageVo pv = new PageVo(cnt, page, 3, 3);
 			
 			// 서비스
 			List<FavoriteVo> cvoList = null;
