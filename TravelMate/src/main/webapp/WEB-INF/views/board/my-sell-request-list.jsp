@@ -10,6 +10,9 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${root}/static/css/admin/sellRequest.css">
 <script defer src="${root}/static/js/admin/sellRequest.js"></script>
+<style>
+    
+</style>
 </head>
 <body>
     <%@ include file="/WEB-INF/views/admin/header.jsp" %>
@@ -35,27 +38,18 @@
         </div>
      
         <div id="declaration">
-            <div></div>
             <div>게시글번호</div>
-            <div>작성자</div>
             <div>제목</div>
             <div>작성일</div>
-            <div></div>
             <div id="hr"><hr></div>
 
             <c:forEach var="voList" items="${voList}">
-            <div id="report-content">
-                <label class="chk_box">
-                <input type="checkbox" value="${voList.no}" name="stop" onchange="handleCheckboxChange(this)">
-                <span class="on"></span>
+           
         
                 </label>
-            </div>
                 <div id="no">${voList.no}</div>
-                <div>${voList.writer}</div>
-                <div>${voList.title}</div>
+                <div><img src="${root}/static/img/sell-request-img/${voList.boardImgTitle}" width="100" height="70" alt=""></div>
                 <div>${voList.enrollDate}</div>
-                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
                 <div id="hr"><hr></div>
             </c:forEach>
             
@@ -77,35 +71,7 @@
             </div>
         </div>
 
-        <div id="enrollMore" class="stop-active1">
-            
-            <form action="" method="post">
-                <div id="modal-content">
-                  <div>게시글번호</div>                                               
-                  <div>▶</div>                                               
-                  <div><input type="text" value="1" name="boardNo" readonly></div>   
-                  <div>작성자</div> 
-                  <div>▶</div>                                            
-                  <div><input type="text" value="성심당" name="writer" readonly></div>                                            
-                  <div>제목</div> 
-                  <div>▶</div>                                            
-                  <div><input type="text" value="슈크림빵 판매등록 요청합니다." name="title" readonly></div>                                            
-                  <div>내용</div>   
-                  <div>▶</div> 
-                  <div><input type="text" value="슈크림빵 판매등록 요청드립니다. 등록해주세요." name="content" readonly></div>
-                  <div>작성일</div>                              
-                  <div>▶</div>                              
-                  <div><input type="date" value="2023-01-01" name="enrollDate" readonly></div>                              
-                  <div>이미지</div>                              
-                  <div id="img-area">
-                    <img src="${root}/static/img/adBanner/adBanner02.jpg" alt="배너이미지">
-                    </div>                     
-                  <div id="submitDiv"><input type="submit" value="등록"></input></div>
-                  <div id="buttonDiv"><button type="button" id="close">취소</button></div>
-                </div>
-            </form>
 
-        </div>
     </div>
 
 ${voList}

@@ -374,13 +374,17 @@ private final BoardDao dao;
 		
 		
 		//판매 요청글 쓰기 멤버카테고리 3번(판매자)       
-		public int sellRequestWrite(BoardVo vo) throws Exception {
+		public int sellRequestWrite(BoardVo vo, BoardImgVo biVo) throws Exception {
 			
 			Connection conn = JDBCTemplate.getConnection();
 			
-			int result = dao.sellRequestWrite(conn, vo);
 			
-			if(result ==1) {
+			int result = dao.sellRequestImg(conn ,biVo);
+			
+			String title = dao.selectImgTitle(conn ,vo);
+			
+			int result2 = dao.sellRequestWrite(conn, vo ,title);
+			if(result ==1 && result2 ==1) {
 				JDBCTemplate.commit(conn);
 			}else {
 				JDBCTemplate.rollback(conn);
@@ -552,6 +556,19 @@ private final BoardDao dao;
 			JDBCTemplate.close(conn);
 		
 			return bvoList;
+		}
+
+		public int sellSelectCnt() throws Exception {
+
+			//conn
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int cnt = dao.sellSelectCnt(conn);
+			
+			JDBCTemplate.close(conn);
+			
+			return cnt;
+		
 		}
 
 		

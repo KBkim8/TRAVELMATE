@@ -61,16 +61,18 @@ public class MemberDao {
 		return loginMember;
 	}
 
+	
 	public int join(Connection conn, MemberVo vo) throws Exception {
 		
 		//sql 
-		String sql = "INSERT INTO MEMBER (NO, MEMBER_CATEGORY_NO, MEMBER_GRADE_NO, ID, PWD,NICK, EMAIL, ADDRESS) VALUES ( SEQ_MEMBER_NO.NEXTVAL , 2, 1, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO MEMBER (NO, MEMBER_CATEGORY_NO, MEMBER_GRADE_NO, ID, PWD,NICK, EMAIL, ADDRESS) VALUES ( SEQ_MEMBER_NO.NEXTVAL , ?, 1, ?, ?, ?, ?, ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getId());
-		pstmt.setString(2, vo.getPwd());
-		pstmt.setString(3, vo.getNick());
-		pstmt.setString(4, vo.getEmail());
-		pstmt.setString(5, vo.getAddress());
+		pstmt.setString(1, vo.getMemberCategoryNo());
+		pstmt.setString(2, vo.getId());
+		pstmt.setString(3, vo.getPwd());
+		pstmt.setString(4, vo.getNick());
+		pstmt.setString(5, vo.getEmail());
+		pstmt.setString(6, vo.getAddress());
 		int result = pstmt.executeUpdate();
 		
 		JDBCTemplate.close(pstmt);

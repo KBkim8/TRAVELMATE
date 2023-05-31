@@ -39,7 +39,8 @@ public class JoinController extends HttpServlet {
             String memberEmail = req.getParameter("memberEmail");
             String memberNick = req.getParameter("memberNick");
             String memberAddress = req.getParameter("memberAddress");
-			
+            String memberCategory = req.getParameter("memberCategory");
+
             //           아이디 중복 체크               닉네임 중복체크
             if (ms.isDuplicateId(memberId) || ms.isDuplicateNick(memberNick)) { //false 를 받음    
             	//중복된아이디인경우
@@ -54,6 +55,7 @@ public class JoinController extends HttpServlet {
             vo.setEmail(memberEmail);
             vo.setNick(memberNick);
             vo.setAddress(memberAddress);
+            vo.setMemberCategoryNo(memberCategory);
 			
             int result = ms.join(vo);
 			
