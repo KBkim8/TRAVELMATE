@@ -10,7 +10,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 500px;
+    bottom: 800px;
     left: 400px;
 }
 
@@ -78,7 +78,22 @@ img{
 	align-items: center;
 }
 
+table td{
+	justify-content: center;
+	align-items: center;
+	vertical-align: middle;
+	border-bottom: 1px solid black;
+}
 
+table th{
+
+	border-bottom: 1px solid black;
+}
+
+#no:hover{
+    background-color: rgba(122, 196, 122, 0.451);
+    cursor: pointer;
+}
 
 </style>
 </head>
@@ -92,27 +107,27 @@ img{
 	<form action="${root}/souvenir/list" method="get">
 		<div id="search-area">
 		      <input type="hidden" name="page" value="1">
-		      <select name="searchType">
+		      <select style="font-size: x-large;" name="searchType">
 		        <option value="asd">지역선택</option>					
 		        <option value="name">제목</option>					
 		        <option value="price">가격</option>					
 		      </select>
 		      
-		      <input type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
-		      <input type="submit" value="검색">
+		      <input style="font-size: x-large;" type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
+		      <input style="font-size: x-large;" type="submit" value="검색">
 		</div>
-	    <div id="local">
-	    <div>
+	    <div style="font-size: x-large;" id="local">
+	    <div style="font-size: x-large;">
 	      지역
 	    </div>
 	    <div id="local-checkbox">
-	      <div>
+	      <div style="font-size: x-large;">
 		    강원도 <input type="checkbox" name="local" value="gang">
 	        충천남/북도<input type="checkbox" name="local" value="chung">
 	        경상남/북도<input type="checkbox" name="local" value="kung">
 	        전라남/북도<input type="checkbox" name="local" value="jun">
 	      </div>
-	      <div>
+	      <div style="font-size: x-large;">
 	        대전<input type="checkbox" name="local" value="dae">
 	        울산<input type="checkbox" name="local" value="ull">
 	        대구<input type="checkbox" name="local" value="daegu">
@@ -129,19 +144,19 @@ img{
   <table>
     <thead>
       <tr>
-        <th>상품이미지</th>
-        <th>상품이름</th>
-        <th>상품가격</th>
-        <th>지역</th>
+        <th style="font-size: x-large;">상품이미지</th>
+        <th style="font-size: x-large;">상품이름</th>
+        <th style="font-size: x-large;">상품가격</th>
+        <th style="font-size: x-large;">지역</th>
       </tr>
     </thead>
     <tbody>
       <c:forEach items="${voList}" var="vo"> 
          <tr>
-             <td><img src="${root}/static/img/souvenir/${vo.title}" alt="ASD" width="100px" height="100px"  ></td>
-             <td>${vo.name}</td>
-             <td>${vo.price}</td>
-             <td>${vo.local}</td>
+             <td style="font-size: x-large;"><img src="${root}/static/img/souvenir/${vo.title}" alt="ASD" width="200px" height="200px"  ></td>
+             <td style="font-size: x-large;" id="no">${vo.name}</td>
+             <td style="font-size: x-large;">${vo.price}</td>
+             <td style="font-size: x-large;">${vo.local}</td>
          </tr>
       </c:forEach>
     </tbody>
