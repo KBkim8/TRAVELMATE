@@ -190,8 +190,8 @@ height: 450px;
 		<div id="search-area" >
       <a href="">
       <div>
-        <img id="bn" src="${root}/static/img/a.png" alt="이미지">
-        <img id="bn" src="${root}/static/img/b.png" alt="이미지"> 
+        <img id="bn" src="${root}/static/img/광고배너1.png" alt="이미지">
+        <img id="bn" src="${root}/static/img/광고배너2.png" alt="이미지"> 
         <button class="btn btn-primary" > 여름인기 여행지검색 click! </button>
       </div>
 		  </a>
