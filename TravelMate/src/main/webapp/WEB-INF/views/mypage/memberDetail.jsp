@@ -47,7 +47,7 @@
         position: absolute;
         width: 1300px;
         height: 1000px;
-        left: 100px;
+        left: 80px;
         top: 230px;
         display: grid;
         grid-template-rows: 2fr 1fr;

@@ -24,8 +24,8 @@
         position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 420px;
-	    bottom: 450px;
+	    left: 220px;
+	    bottom: 250px;
     }
 	
     .card {

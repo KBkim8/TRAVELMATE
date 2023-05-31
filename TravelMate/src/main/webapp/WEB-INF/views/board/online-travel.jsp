@@ -9,17 +9,17 @@
 
  /* 내용영역 */
  #content{
-        position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+    position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 350px;
+	    bottom: 750px;
     }
 
     #first-content>img{
         position: absolute;
         left: 100px;
-        top: 125px;
+        bottom: 900px;
         width: 40px;
         height: 60px;
     }
@@ -31,13 +31,13 @@
         border: 0px solid rgb(65, 65, 65);
         position: absolute;
         left: 100px;
-        top: 180px;
+        top: 100px;
     }
 
     #content>#first-content>a:nth-child(3){
         position: absolute;
         left: 160px;
-        top: 135px;
+        top: 100px;
         color: black;
         font-size: 28px;
         font-weight: bold;
@@ -45,7 +45,9 @@
 
 	/* //////////////////// */
 	#online-area{
+        position: relative;
 		margin-top: 500px;
+        margin-left: 150px;
 		display: grid;
 		grid-template-columns: repeat(3 ,1fr);
 		place-items: center center;
@@ -53,9 +55,14 @@
 	}
 
 	#online-area a img{
-		width: 600px;
-		height: 300px;
+		width: 350px;
+		height: 250px;
 	}
+
+    #page-area {
+        position: relative;
+        margin-left: 750px;
+    }
 </style>
 </head>
 <body>
@@ -64,12 +71,7 @@
 
 	 <!-- 내용영역 -->
 	 <div id="content">
-        <div id="first-content">
-            <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
-            <hr>
-            <a>랜선 여행</a>
-			
-		</div>
+        
 			<div id="online-area">
 				
 				<a href="https://www.youtube.com/watch?v=dEnBXRkDBUE"><img  src="${root}/static/img/ranson.png" alt="이미지" id="ransonImg1"></a>

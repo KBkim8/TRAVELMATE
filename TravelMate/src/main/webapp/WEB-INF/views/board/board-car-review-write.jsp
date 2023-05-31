@@ -17,18 +17,17 @@
 
     #content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1300px;
-        left: 300px;
-        margin-top: 700px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 350px;
+	    bottom: 450px;
     }
     
 
     #first-content>img{
-        position: absolute;
+       position: absolute;
         left: 100px;
-        top: 70px;
+        top: 125px;
         width: 40px;
         height: 60px;
         
@@ -124,7 +123,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>   
 	
 	<!-- 내용영역 -->
@@ -153,12 +152,12 @@
 <script>
 
 $('#summernote').summernote({
-        placeholder: 'Hello stand alone ui',
-        tabsize: 2,
-        height: 920,
-        maxHeight:900,
-        minHeight:500,
-        width: 1500,
+	placeholder: '내용입력',
+	tabsize: 2,
+	height: 600,
+	maxHeight:800,
+	minHeight:500,
+	width: 1000,
 		callbacks : {
 			onImageUpload : f01
 		},
