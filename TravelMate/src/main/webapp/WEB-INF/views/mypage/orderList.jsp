@@ -14,8 +14,8 @@
         position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 420px;
-	    bottom: 430px;
+	    left: 350px;
+	    bottom: 500px;
     }
 
     #first-content>img{

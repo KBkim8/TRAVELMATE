@@ -15,8 +15,8 @@
          position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 420px;
-	    bottom: 450px;
+	    left: 350px;
+	    bottom: 550px;
     }
 
     #first-content>img{
