@@ -10,7 +10,7 @@
 	position: relative;
     width: 1390px;
     height: 100%;
-    bottom: 800px;
+    bottom: 500px;
     left: 400px;
 }az
 

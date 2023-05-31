@@ -11,7 +11,7 @@
 	    width: 1170px;
 	    height: 1000px;
 	    left: 420px;
-	    bottom: 800px;
+	    bottom: 500px;
 }
 
 
