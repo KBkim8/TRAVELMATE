@@ -21,7 +21,7 @@ public class BoardNoticeListController extends HttpServlet{
 	private final BoardService bs = new BoardService();
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 

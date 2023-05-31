@@ -21,7 +21,7 @@
         height: 100%;
         bottom: 1300px;
         left: 300px;
-        margin-top: 400px;
+        margin-top: 700px;
     }
     
 
@@ -135,7 +135,7 @@
             <a>리뷰글 작성</a>
         </div>
         <div id="write-area" >
-            <form action="${root}/car/review/write" method="POST">
+            <form action="${root}/review/write" method="POST">
                 <input type="text" name="title" placeholder="제목을 입력하세요">
                 <br>
                 <textarea name="content" id="summernote" placeholder="내용을 입력하세요"></textarea>
@@ -194,7 +194,7 @@ $('#summernote').summernote({
 			success : (changeNameList)=>{
 				console.log(changeNameList);
 				for(let changeName of changeNameList){
-					$('#summernote').summernote('insertImage' , '${root}/static/img/car-review-img/' + changeName);
+					$('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
 				}
 			},
 			error : (e)=>{

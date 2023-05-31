@@ -1,7 +1,9 @@
 package com.kh.app.board.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +24,11 @@ public class BoardReviewListController extends HttpServlet{
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
+			
+			String searchValue = req.getParameter("searchValue");
+			String searchType = req.getParameter("searchType");
 
-			int listCount = bs.selectCnt();
+			int listCount = bs.reviewSelectCnt();
 			String page = req.getParameter("page");
 			if(page == null) page = "1";
 			int currentPage = Integer.parseInt(page);
@@ -31,11 +36,25 @@ public class BoardReviewListController extends HttpServlet{
 			int boardLimit = 10;
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
+			
+			List<BoardVo> rvoList = null;
+			
+			if(searchValue ==null || searchType.equals("")) {
+				rvoList = bs.carReviewList(pv);
+			}else {
+				rvoList = bs.carReviewList(pv, searchValue, searchType);
+			}
+			
 			//tqt
-			List<BoardVo> rvoList = bs.carReviewList(pv);
+			
+			
+			Map<String , String> map = new HashMap<>();
+			map.put("searchVo", searchValue);
+			map.put("searchVo", searchType);
 			
 			//gd
 			if(rvoList != null) {
+				req.setAttribute("searchVo", map);
 				req.setAttribute("pv", pv);
 				req.setAttribute("rvoList", rvoList);
 				req.getRequestDispatcher("/WEB-INF/views/board/board-car-review-list.jsp").forward(req, resp);

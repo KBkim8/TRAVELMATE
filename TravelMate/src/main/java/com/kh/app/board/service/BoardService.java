@@ -143,6 +143,19 @@ private final BoardDao dao;
 		
 		return cnt;
 	}
+	
+	//review select Cnt
+	public int reviewSelectCnt() throws Exception {
+
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.reviewSelectCnt(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+	}
 
 	//공지사항 상세조회 + 조회수 처리까지
 	public BoardVo noticeDetail(String no) throws Exception {
@@ -527,6 +540,18 @@ private final BoardDao dao;
 			
 			JDBCTemplate.close(conn);
 			return result;
+		}
+
+		//검색으로 리뷰게시판 조회
+		public List<BoardVo> carReviewList(PageVo pv, String searchValue, String searchType) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo>bvoList = dao.carReviewList(conn ,pv ,searchValue ,searchType);
+			
+			JDBCTemplate.close(conn);
+		
+			return bvoList;
 		}
 
 		

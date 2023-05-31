@@ -269,6 +269,60 @@
 <script>
 
 
+// summernote
+$('#summernote').summernote({
+	
+	placeholder: '내용입력',
+	tabsize: 2,
+	height: 1300,
+	maxHeight:1300,
+	minHeight:1000,
+	width: 1400,
+	callbacks : {
+		onImageUpload : f01
+	},
+	toolbar: [
+	  ['style', ['style']],
+	  ['font', ['bold', 'underline', 'clear']],
+	  ['color', ['color']],
+	  ['para', ['ul', 'ol', 'paragraph']],
+	  ['table', ['table']],
+	  ['insert', ['link', 'picture', 'video']],
+	  ['view', ['fullscreen', 'codeview', 'help']]
+	]
+  });
+
+  function f01(FileList) {
+
+	const fd = new FormData();
+	for(let file of FileList){
+		fd.append("f" , file);
+	}
+
+  $.ajax({
+		url :'${root}/upload' ,
+		type : 'post',
+		data : fd,
+		processData : false,
+		contentType : false,
+		dataType:'json',
+		success : (changeNameList)=>{
+			console.log(changeNameList);
+			for(let changeName of changeNameList){
+				$('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
+			}
+		},
+		error : (e)=>{
+			alert(e);
+		}
+	});
+}
+
+
+
+
+
+
 //신고하기
 function f02(){
 		const value = document.querySelector('select[name=rep]').value;
@@ -292,7 +346,7 @@ function f02(){
 				if(data === 'success'){
 					alert("신고 완료");
 				}
-				reportDel();
+				// reportDel();
 			},
 			error : (e)=>{
 				console.log(e);
@@ -304,60 +358,12 @@ function f02(){
 	
 	
 	//신고후에 삭제처리하기
-	function reportDel() {
-		location.href = '${root}/free/del?no=' + '${fvo.no}';
-	}
+	// function reportDel() {
+	// 	location.href = '${root}/free/del?no=' + '${fvo.no}';
+	// }
 
 
-// summernote
-$('#summernote').summernote({
-	
-        placeholder: '내용입력',
-        tabsize: 2,
-        height: 1300,
-        maxHeight:1300,
-        minHeight:1000,
-        width: 1400,
-		
-		callbacks : {
-			onImageUpload : f01
-		},
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
 
-      function f01(FileList) {
-
-        const fd = new FormData();
-        for(let file of FileList){
-            fd.append("f" , file);
-        }
-
-      $.ajax({
-			url :'${root}/upload' ,
-			type : 'post',
-			data : fd,
-			processData : false,
-			contentType : false,
-			dataType:'json',
-			success : (changeNameList)=>{
-				console.log(changeNameList);
-				for(let changeName of changeNameList){
-					$('#summernote').summernote('insertImage' , '${root}/static/img/board-img/' + changeName);
-				}
-			},
-			error : (e)=>{
-				alert(e);
-			}
-		});
-    }
 ///////////////////////////////////////////////////////////////////////////////////
 
 

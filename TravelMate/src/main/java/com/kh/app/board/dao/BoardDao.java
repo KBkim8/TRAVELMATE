@@ -249,6 +249,26 @@ public class BoardDao {
 		
 		return cnt;
 	}
+		
+		// board Cnt
+		public int reviewSelectCnt(Connection conn) throws Exception {
+		//SQL
+		String sql = "SELECT COUNT(*) FROM BOARD WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO=4";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+			}
 
 	public BoardVo noticeDetail(Connection conn, String no) throws Exception {
 
@@ -763,7 +783,7 @@ public class BoardDao {
 	//관리자 신분으로 모든 판매요청 리스트 조회
 	public List<BoardVo> sellRequestList(Connection conn, PageVo pv) throws Exception {
 
-		String sql = "SELECT NO, TITLE, TO_CHAR(ENROLL_DATE, 'YYYY-MM-DD') AS ENROLL_DATE, HIT, NICK FROM ( SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO, B.TITLE, B.ENROLL_DATE, B.HIT, M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO = 2 ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE ,NICK FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.* ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO=2  ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
@@ -774,15 +794,14 @@ public class BoardDao {
 			String no = rs.getString("NO");
 			String title = rs.getString("TITLE");
 			String enrollDate = rs.getString("ENROLL_DATE");
-			String hit = rs.getString("HIT");
 			String memberNick = rs.getString("NICK");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
 			vo.setTitle(title);
 			vo.setEnrollDate(enrollDate);
-			vo.setHit(hit);
 			vo.setMemberNick(memberNick);
+			
 			voList.add(vo);
 		}
 		
@@ -796,7 +815,7 @@ public class BoardDao {
 	//판매자 자신이 쓴 판매요청 리스트 조회
 	public List<BoardVo> sellRequestList(Connection conn, PageVo pv, String memberNo) throws Exception {
 
-		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE , HIT FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT * FROM BOARD WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO=2 AND MEMBER_NO = ? ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE ,NICK FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.* ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO=2 AND B.MEMBER_NO=? ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setString(1, memberNo);
 		pstmt.setInt(2, pv.getBeginRow());
@@ -983,6 +1002,54 @@ public class BoardDao {
 		int result = pstmt.executeUpdate();
 		JDBCTemplate.close(pstmt);
 		return result;
+	}
+
+	//검색으로 리뷰 조회
+	public List<BoardVo> carReviewList(Connection conn, PageVo pv, String searchValue, String searchType) throws Exception {
+
+		String sql = "";
+		if(searchType.equals("title")) {
+			// sql (제목으로 검색)
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , TO_CHAR(B.ENROLL_DATE ,'YYYY-MM-DD')AS ENROLL_DATE , B.DELETE_YN , B.HIT , M.NICK FROM BOARD B JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 4 AND B.DELETE_YN='N' AND B.TITLE LIKE '%'||?||'%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(searchType.equals("writer")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT B.NO , B.TITLE , B.CONTENT , B.MEMBER_NO , B.ENROLL_DATE,B.HIT , B.DELETE_YN ,M.NICK FROM BOARD B  JOIN BOARD_CATEGORY BC ON(B.BOARD_CATEGORY_NO = BC.NO) JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.BOARD_CATEGORY_NO= 4 AND B.DELETE_YN='N' AND M.NICK LIKE '%'||?||'%' ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else {
+			return noticeList(conn, pv);
+		}
+		
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, searchValue);
+		pstmt.setInt(2, pv.getBeginRow());
+		pstmt.setInt(3, pv.getLastRow());
+		ResultSet rs = pstmt.executeQuery();
+		
+		List<BoardVo> bvoList = new ArrayList<>();
+		while(rs.next()) {
+			String no = rs.getString("NO");
+			String title = rs.getString("TITLE");
+			String content = rs.getString("CONTENT");
+			String memberNo = rs.getString("MEMBER_NO");
+			String memberNick = rs.getString("NICK");
+			String enrolldate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String hit = rs.getString("HIT");
+			
+			BoardVo vo = new BoardVo();
+			vo.setNo(no);
+			vo.setTitle(title);
+			vo.setContent(content);
+			vo.setMemberNo(memberNo);
+			vo.setMemberNick(memberNick);
+			vo.setEnrollDate(enrolldate);
+			vo.setDeleteYn(deleteYn);
+			vo.setHit(hit);
+			
+			bvoList.add(vo);
+		}
+
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		return bvoList;
 	}
 
 }//class
