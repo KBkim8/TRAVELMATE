@@ -82,6 +82,14 @@
 				<a href="https://www.youtube.com/watch?v=lN7WZco3Avg"><img id="ransonImg6" src="${root}/static/img/충주.png" alt="이미지"></a>   
 				
 			</div>
+
+            <div id="page-area">
+
+
+              <button id="btn01"><a href="${root}/online/travel">1</a></button>
+              <button id="btn01"><a href="${root}/online/travel?page=2">2</a></button>
+
+            </div>
 			
 			
 </body>

@@ -130,21 +130,12 @@
                 <textarea name="content" placeholder="내용을 입력하세요"></textarea>
             </div>
     
-            <div id="submit">
-                <input type="submit" value="작성하기" id="btn01">
-               
-            </div>
+                <div id="submit">
+                    <input type="submit" value="작성하기" id="btn01">
+                </div>
             </form>
     </div>
 
 
 </body>
 </html>
-
-<script>
-
- 
-
-
-
-</script>

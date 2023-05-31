@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 
-
-public class BoardCarReviewDetailController extends HttpServlet{
+@WebServlet("/review/detail")
+public class BoardReviewDetailController extends HttpServlet{
 	
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

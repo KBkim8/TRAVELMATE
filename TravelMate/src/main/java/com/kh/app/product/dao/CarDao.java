@@ -74,7 +74,7 @@ public class CarDao {
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
 	    	String lcname = rs.getString("LOCAL");
-	    	int price = rs.getInt("PRICE");
+	    	String price = rs.getString("PRICE");
 	    	
 	    	
 	    	 
@@ -113,13 +113,33 @@ public class CarDao {
 		
 		if(searchType.equals("name")) {
 			//SQL (차량이름으로 검색) -수정완료
-			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.WEEKDAY_PRICE, R.WEEKEND_PRICE , CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(searchType.equals("carTypeType")) {
 			//SQL (차량크기로 검색) -수정완료
 			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE , CI.TITLE, LC.NAME AS LOCAL , 'CK.SIZE' FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND 'CK.SIZE' LIKE '%'||'?'||'%'  AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else if(searchType.equals("price")) {
 			//SQL (가격으로 검색) - 수정완료
 			sql = "SELECT * FROM RENTCAR WHERE DELETE_YN = 'N' AND PRICE BETWEEN 0 AND ?";
+		}else if(local.equals("gang")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%강원도%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("junnam")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%전남%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("junbuk")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%전븍%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("gyungnam")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%경남%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("gyungbuk")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%경북%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("dae")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%대전%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("gyung")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%경기도%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("daegu")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%대구%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("bu")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%부산%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		}else if(local.equals("je")) {
+			sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO ,R.CAR_KIND_NO ,R.LOCAL_NO ,R.COUNT ,R.ENROLL_DATE ,R.DELETE_YN ,R.MAX ,R.PRICE ,CI.TITLE ,LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND CK.KIND LIKE '%'||?||'%' AND LC.NAME LIKE '%제주도%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		}else {
 			//값이 이상함 => 기본 목록 조회
 			return getCarList(conn, pv);
@@ -144,7 +164,9 @@ public class CarDao {
 	    	String max = rs.getString("MAX");
 	    	String licensePlate = rs.getString("LICENSE_PLATE");
 	    	String licenseDate = rs.getString("LICENSE_DATE");
-	    	int price = rs.getInt("PRICE");
+	    	String price = rs.getString("PRICE");
+	    	String title = rs.getString("TITLE");
+			String lcName = rs.getString("LOCAL");
 	    	
 			
 		
@@ -160,6 +182,8 @@ public class CarDao {
 	        vo.setLicensePlate(licensePlate);
 	        vo.setLicenseDate(licenseDate);
 	        vo.setPrice(price);
+	        vo.setTitle(title);;
+	        vo.setLcname(lcName);;
 	        
 			
 			
@@ -206,10 +230,9 @@ public class CarDao {
 	public int pay(CarVo cvo, Connection conn) throws Exception {
 			
 		
-		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , ? );";
+		String sql = "INSERT INTO CAR_PAYMENT (NO , CAR_RESERVATION_CODE , TYPE) VALUES (SEQ_CAR_PAYMENT_NO.NEXTVAL , ? , '카드' );";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, cvo.getCarReservationCode());
-		pstmt.setString(2, cvo.getType());
 		
 		
 		int result = pstmt.executeUpdate();
@@ -252,20 +275,178 @@ public class CarDao {
 
 
 
-	public int getPrice(CarVo cvo, Connection conn) throws Exception {
+	public String getPrice(CarVo cvo, Connection conn) throws Exception {
 
-		int price = 0;
+		String price = null;
 		String sql = "SELECT PRICE FROM CAR_RESERVATION";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
-			price = rs.getInt("PRICE");
+			price = rs.getString("PRICE");
 			
 		}
 
 			JDBCTemplate.close(rs);
 			return price;
 	
+	}
+
+
+	public CarVo selectCarOneByName(Connection conn, String name) throws Exception {
+		System.out.println("dao > name  : " + name);
+		//SQL
+		String sql = "SELECT CK.KIND, R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO WHERE CK.KIND like '%' || ? || '%'";
+//		String sql = "SELECT CK.KIND, R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO WHERE CK.KIND = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, name);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		CarVo vo = new CarVo();
+		if( rs.next() ) {
+			System.out.println("if 통과");
+//			CK.KIND, R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT
+//			, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE
+//			, R.LICENSE_DATE, R.PRICE,
+//			CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R 
+			
+			String carKindKind = rs.getString("KIND");
+			String no = rs.getString("NO");
+			String carKindNo = rs.getString("CAR_KIND_NO");
+			String localNo = rs.getString("LOCAL_NO");
+			String count = rs.getString("COUNT");
+			String enrollDate = rs.getString("ENROLL_DATE");
+			String deleteYn = rs.getString("DELETE_YN");
+			String max = rs.getString("MAX");
+			String licensePlate = rs.getString("LICENSE_PLATE");
+			String licenseDate = rs.getString("LICENSE_DATE");
+			String price = rs.getString("PRICE");
+			String title = rs.getString("TITLE");
+			String lcname = rs.getString("LOCAL");
+			
+			vo.setCarKindKind(carKindKind);
+			vo.setNo(no);
+			vo.setCarKindNo(carKindNo);
+			vo.setLocalNo(localNo);
+			vo.setCount(count);
+			vo.setEnrollDate(enrollDate);
+			vo.setDeleteYn(deleteYn);
+			vo.setMax(max);
+			vo.setLicensePlate(licensePlate);
+			vo.setLicenseDate(licenseDate);
+			vo.setPrice(price);
+			vo.setTitle(title);
+			vo.setLcname(lcname);
+		}
+		
+		System.out.println("if 이후 : " + vo);
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+				
+		return vo;
+	}
+
+
+
+	public int order(CarVo vo, Connection conn, MemberVo loginMember) throws Exception {
+
+		String sql = "INSERT INTO CAR_RESERVATION ( NO, RENTCAR_NO, START_DATE, END_DATE,  PHONE, ADDRESS, MEMBER_NO, NAME, PRICE ) VALUES (SEQ_SOUVENIR_RESERVATION_NO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, (SELECT ABS(TO_DATE(TO_DATE(?,'MM/DD/YYYY')) - TO_DATE(?,'MM/DD/YYYY'))  * ? FROM DUAL))";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getNo());
+		pstmt.setString(2, vo.getStartDate());
+		pstmt.setString(3, vo.getEndDate());
+		pstmt.setString(4, vo.getPhone());
+		pstmt.setString(5, vo.getAddress());
+		pstmt.setString(6, loginMember.getNo());
+		pstmt.setString(7, vo.getMname());
+		pstmt.setString(8, vo.getStartDate());
+		pstmt.setString(9, vo.getEndDate());
+		pstmt.setString(10, vo.getPrice());
+		
+		
+		int result = pstmt.executeUpdate();
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	
+	}
+
+
+
+	public CarVo carSelectOrder(Connection conn, MemberVo loginMember) throws Exception {
+
+		//SQL
+		String sql = "SELECT AR.NO ,AR.RENTCAR_NO ,AR.MEMBER_NO, AR.NAME AS MNAME ,AR.RESERVATION_YN ,AR.START_DATE ,AR.END_DATE ,AR.PRICE ,AR.PHONE ,AR.ADDRESS ,AI.TITLE FROM CAR_RESERVATION AR JOIN RENTCAR A ON A.NO = AR.RENTCAR_NO JOIN CAR_IMG AI ON AI.RENTCAR_NO = A.NO WHERE A.DELETE_YN = 'N' AND MEMBER_NO = ? ORDER BY NO DESC";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getNo());
+		ResultSet rs = pstmt.executeQuery();
+		//tx || rs
+		CarVo vo = null;
+		if(rs.next()) {
+			vo = new CarVo();
+			
+			String no = rs.getString("NO");
+			String mname = rs.getString("MNAME");
+			String title = rs.getString("TITLE");
+			String price = rs.getString("PRICE");
+			String phone = rs.getString("PHONE");
+			String address = rs.getString("ADDRESS");
+			String startDate = rs.getString("START_DATE");
+			String endDate = rs.getString("END_DATE");
+			
+			
+			
+			vo.setNo(no);
+	        vo.setMname(mname);
+	        vo.setTitle(title);
+			vo.setPrice(price);
+			vo.setPhone(phone);
+			vo.setAddress(address);
+			vo.setStartDate(startDate);
+			vo.setEndDate(endDate);
+			
+		}
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		
+		return vo;
+	
+	}
+
+
+
+	public int carFavorite(Connection conn, String no, String name, MemberVo loginMember) throws Exception {
+
+		String sql = "INSERT INTO FAVORITES ( NO ,MEMBER_NO ,RENTCAR_NO ) VALUES ( SEQ_FAVORITES_NO.NEXTVAL , ? , ? )";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, loginMember.getNo());
+		pstmt.setString(2, no);
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
+	
+	}
+
+
+
+	public int carPayment(String reservationno, Connection conn) throws Exception {
+		String sql = "INSERT INTO CAR_PAYMENT ( NO , CAR_RESERVATION_CODE ,TYPE ) VALUES(SEQ_CAR_PAYMENT_NO.NEXTVAL, ?, '카드')";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, reservationno);
+		
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		
+		return result;
 	}
 	
 

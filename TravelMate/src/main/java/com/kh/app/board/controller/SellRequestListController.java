@@ -16,7 +16,7 @@ import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet(urlPatterns = "/sell/request/list")
+@WebServlet(urlPatterns = "/admin/sellRequest")
 public class SellRequestListController extends HttpServlet{
 	
 	//	멤버 카테고리 "1" 번인 관리자의 신분으로 모든 판매등록글 리스트 조회
@@ -40,20 +40,22 @@ public class SellRequestListController extends HttpServlet{
 			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
 			
 			List<BoardVo> voList = new ArrayList<>();
-			voList = bs.sellRequestList(pv , memberNo);
-//			if(loginMember.getMemberCategoryNo() =="1") {
-//				voList = bs.sellRequestList(pv);
-//				
-//				req.setAttribute("voList", voList);
-//				req.getRequestDispatcher("/WEB-INF/views/board/admin-private-sell-request-list.jsp").forward(req, resp);
-//				
-//			}
-			if(voList !=null){
+			
+			//관리자
+			if(voList !=null && memberNo == "1"){
+				voList = bs.sellRequestList(pv);
 				req.setAttribute("loginMember", loginMember);
 				req.setAttribute("voList", voList);
 				req.setAttribute("pv", pv);
+				req.getRequestDispatcher("/WEB-INF/views/admin/sellRequest.jsp").forward(req, resp);
+			}
+			else {
+				//판매자
+				voList = bs.sellRequestList(pv , memberNo);
+				req.setAttribute("voList", voList);
 				req.getRequestDispatcher("/WEB-INF/views/board/sell-request-list.jsp").forward(req, resp);
 			}
+			
 			
 			//화면 
 //			if( voList !=null ){

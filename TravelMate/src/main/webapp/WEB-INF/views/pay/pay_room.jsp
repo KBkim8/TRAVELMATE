@@ -35,7 +35,7 @@
 }
 
 #first2{
-  width: 80%;
+  width: 100%;
   height: 150px;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -43,7 +43,7 @@
 }
 
 #second2{
-  width: 80%;
+  width: 100%;
   height: 200px;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -114,7 +114,7 @@ textarea{
 ⑤ “몰”이 약관을 개정할 경우에는 그 개정약관은 그 적용일자 이후에 체결되는 계약에만 적용되고 그 이전에 이미 체결된 계약에 대해서는 개정 전의 약관조항이 그대로 적용됩니다. 다만 이미 계약을 체결한 이용자가 개정약관 조항의 적용을 받기를 원하는 뜻을 제3항에 의한 개정약관의 공지기간 내에 “몰”에 송신하여 “몰”의 동의를 받은 경우에는 개정약관 조항이 적용됩니다.
 ⑥ 이 약관에서 정하지 아니한 사항과 이 약관의 해석에 관하여는 전자상거래 등에서의 소비자보호에 관한 법률, 약관의 규제 등에 관한 법률, 공정거래위원회가 정하는 전자상거래 등에서의 소비자 보호지침 및 관계법령 또는 상관례에 따릅니다.
 여러분의 정보는 제껍니다. 제가 마음대로 할 수 있는겁니다.</textarea>
-
+<div><input type="checkbox">약관에 동의합니다.</div>
       </div>
 
       <div id="second">
@@ -127,13 +127,13 @@ textarea{
 
       <div id="second2">
         <div>
-          <img src="${root}/static/img/accomodation_img/${vo.title}" alt="ASD" width="200px" height="200px"  >
+          <img src="${root}/static/img/accomodation_img/${vo.title}" alt="ASD" width="400px" height="200px"  >
         </div>
         <div>
         <br>
           <h4>예약자 이름: ${vo.mname}</h4><br>
           <h4>예약자 연락처: ${vo.ph}</h4><br>
-          <h4>배송 주소: ${vo.address }</h4>
+          <h4>이메일: ${vo.address }</h4>
         </div>
       </div>
 
@@ -150,6 +150,7 @@ textarea{
       <hr>
       
       <div>
+      	
         <button id="btn01" class="btn1" >신용카드</button>
         <button id="btn02" class="btn2" >무통장입금</button>
         <button id="btn03" class="btn3" >카카오톡결제</button>
@@ -158,9 +159,6 @@ textarea{
 
       <hr>
 
-      <div>
-        <button id="btn03">뒤로가기</button>
-      </div>
   
     </div>
 </body>

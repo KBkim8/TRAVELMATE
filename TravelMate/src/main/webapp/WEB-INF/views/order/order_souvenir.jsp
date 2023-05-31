@@ -153,7 +153,7 @@ table{
 	      </div>
 	      <b>총 결제 금액:  <input type="number" id="num2" name="totalPrice" value="${vo.price}"> 원</b>
 	      <c:if test="${loginMember != null }">
-			<button id="btn03" type="submit">결제하기</button>
+			<button id="btn03" type="submit"onclick="alert()">결제하기</button>
 	      </c:if>
 	      <br><br><br>
 		
@@ -200,6 +200,9 @@ table{
 	 
   }
 
+  function alert() {
+	     alert("결제 처리가 진행됩니다.");
+	 }
   
   
 </script>

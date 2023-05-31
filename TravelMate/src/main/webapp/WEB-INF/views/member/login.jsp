@@ -6,107 +6,150 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+        @import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
+	
+	
+	
+	body {
+	    width:100%;
+	    height:100%;
+	    margin: 0;
+  		padding-top: 200px;
+  		padding-bottom: 40px;
+  		font-family: "Nanum Gothic", arial, helvetica, sans-serif;
+  		background-repeat: no-repeat;
+	}
 
     #content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1500px;
-        left: 300px;
-        margin-top: 800px;  /*이녀석도*/
+	    width: 1170px;
+	    height: 1000px;
+	    left: 420px;
+	    bottom: 450px;
+    }
+	
+    .card {
+        margin: 0 auto;
+        float: none; 
+        margin-bottom: 10px; 
+	}
+
+    .input-box{
+        position:relative;
+        margin:10px 0;
+        margin-left: 100px;
     }
 
-    #first-content>img{
+    .input-box > input{
+        background:transparent;
+        border:none;
+        border-bottom: solid 1px #ccc;
+        padding:20px 0px 5px 0px;
+        font-size:14pt;
+        width:100%;
+    }
+
+    input:placeholder-shown + label{
+        color:#aaa;
+        font-size:14pt;
+        top:15px;
+    }
+
+    input:focus + label, label{
+        color:#8aa1a1;
+        font-size:10pt;
+        pointer-events: none;
         position: absolute;
-        left: 100px;
-        top: 125px;
-        width: 40px;
-        height: 60px;
+        left:0px;
+        top:0px;
+        transition: all 0.2s ease ;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
     }
 
-    #content>#first-content>hr:nth-child(2){
-        height: 1px;
-        width: 1300px;
-        background-color: rgb(116, 116, 116);
-        border: 0px solid rgb(65, 65, 65);
-        position: absolute;
-        left: 100px;
-        top: 180px;
+    input:focus, input:not(:placeholder-shown){
+        border-bottom: solid 1px #8aa1a1;
+        outline:none;
+    }
+    #btn-Yes{
+        background-color: #6ba94494;
+        border: none;
+        width: 637px;
+        height: 50px;
+        font-size: 20px;
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+	
+	.login{
+  		position: relative;
+  		height: auto;
+  		-webkit-box-sizing: border-box;
+     	-moz-box-sizing: border-box;
+        	 box-sizing: border-box;
+  		padding: 10px;
+  		font-size: 16px;
+        width: 757px;
+	}
+   
+    .card-title{
+        margin-left: 30px;
     }
 
-    #content>#first-content>a:nth-child(3){
-        position: absolute;
-        left: 160px;
-        top: 135px;
-        color: black;
-        font-size: 28px;
-        font-weight: bold;
-    }
-
-    #edit-area{
-        position: absolute;
-        width: 100px;
-        height: 1000px;
-        left: 430px;
-        top: 230px;
-        display: grid;
-        /* grid-template-rows: 3fr 1fr; */
-    }
-    
-
-
-    #btn01 {
-        background-color: #73D38E;
-        border: 0;
-        padding: 0px 25px; 
-        display: inline-block;
+    .links{
+        width: 757px;
+        height: 40px;
         text-align: center;
-        color: white;
-        border-radius: 6px;
-        font-size: 2em;
         margin-top: 20px;
+        margin-bottom: 10px;
+        margin-left: 230px;
     }
-
-    #btn01:hover {background-color: #80C49D;}
-    #btn01:active {
-        box-shadow: 0 0 0 1px #82c8a0 inset,
-                0 0 0 2px rgba(255,255,255,0.15) inset,
-                0 0 0 1px rgba(0,0,0,0.4);
-    }   
+    a{ 
+    	color: #f58b34; text-decoration: none; 
+    }
+    .check{
+    	color : red;
+    }
 
  
 </style>
 </head>
-<body>
+<body >
 
     <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
 	
 	<!-- 내용영역 --> 
             <div id="content">
+                
 				
-                <div id="first-content">
-                    <img src="${root}/static/img/사각형.png" alt="사각형" id="square">
-                    <hr>
-                    <a>로그인</a>
-                </div>
-				
-                <form action="${root}/login" method="POST">
-                 <div id="edit-area">
-                    <img src="${root}/static/img/loginImg.png" alt="이미지" >
-                            <span>아이디</span><input type="text" name="memberId" placeholder="아이디 입력하세요" size="40">
-                            <br>
-                            <span>비밀번호</span><input type="password" name="memberPwd" placeholder="비밀번호 입력하세요" size="40">
-                            <hr>
-                            <br>
-                            <input type="submit" value="로그인" id="btn01" >
-                            <br>
-                            <br>
-                            <br>
-                            <a href="${root}/find-id"> <button type="button" value="아이디 찾기" id="btn01">아이디 찾기</button></a>
-                            <a href="${root}/find-pwd"> <button type="button" value="비밀번호 찾기" id="btn01">비밀번호 찾기 </button></a>
-                 </div>
-                </form>
-
+                    <div class="card align-middle" style="width:25rem;">
+                        <div class="card-title" style="margin-top:30px;">
+                            
+                            <h2 class="card-title" style="color:#75ef6dae;"><img src="${root}/static/img/loginImg.png"/></h2>
+                        </div>
+                      <form action="${root}/login" class="login" method="POST">
+                        
+                        <div class="card-body">
+                  
+                            <div class="input-box">
+                                <input id="username" type="text" name="memberId" placeholder="아이디">
+                                <label for="username">아이디</label>
+                            </div>
+                
+                            <div class="input-box">
+                                <input id="password" type="password" name="memberPwd" placeholder="비밀번호">
+                                <label for="password">비밀번호</label>
+                            </div>
+                        <input id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" value="로 그 인">
+                      </form>
+                    
+                        </div>
+                        <div class="links">
+                            <a href="${root}/find-id">아이디 찾기</a> | <a href="${root}/find-pwd">비밀번호 찾기</a> | <a href="${root}/join">회원가입</a>
+                
+                        </div>
+                    </div>
 		</div>
 
 
@@ -116,17 +159,46 @@
 <script>
 
     
+
+
+
+
+// $(document).ready(function() {
+//   $('#btn01').click(function() {
+//     var memberId = $('input[name="memberId"]').val();
+
+//     $.ajax({
+//       url: '${root}/login/id/check',  
+//       method: 'POST',
+//       data: { 'memberId' : memberId },
+//       success: function(response) {
+    
+//         if (response === 'duplicate') {
+//           // 아이디나 비번 틀릴경우
+//             alert('아이디 또는 비밀번호가 잘못되었습니다 다시 확인해주세요')
+//         }
+//       },
+//       error: function(error) {
+//         console.error(error);
+//       }
+//     });
+//   });
+// });
+
     // function idCheck() {
     //     const idInputValue =document.querySelector('input[name=memberId]').value;
+    //     const pwdInputValue =document.querySelector('input[name=memberPwd]').value;
         
     //     $.ajax({
     //         url :'${root}/login/id/check',
     //         type : 'POST',
     //         data : {
     //             'idInputValue' : idInputValue,
+    //             // 'PwdInputValue' : PwdInputValue,
     //         },
     //         success : (data)=>{
-    //             if(data == 'ok'){
+    //             if(data == 'no'){
+                   
     //                 alert('아이디틀렸습니다');
     //             }
                

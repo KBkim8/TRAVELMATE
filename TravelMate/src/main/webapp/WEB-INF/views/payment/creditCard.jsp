@@ -134,12 +134,14 @@
 			  <option value="국민은행">국민은행</option>
 			  <option value="우리은행">우리은행</option>
 		  </select>
-		  
 		  <input type="text" id="selectbx" placeholder="'-'을 제외한 카드번호를 입력해주세요">
 		  
 		  <div id="btns">
 			<button type="button" id="btn01" class="btn btn-success">홈으로</button>
-			<button type="button" id="btn02" class="btn btn-success">결제완료</button>
+			<form action="${root}/payment/complete" method="post">
+			<input type="hidden" name="reservationno" value="${vo.no}">
+			<button type="submit" id="btn02" class="btn btn-success" onclick="success();">결제완료</button>
+			</form>
 		  </div>
 	
 		  
@@ -158,9 +160,13 @@
   	});
 
 	//결제완료 버튼 클릭시 결제완료창으로
-	const btn02 = document.querySelector('#btn02');
-	btn02.addEventListener('click' , (event) => {
-		location.href = '${root}/payment/complete';
-	});
+	//const btn02 = document.querySelector('#btn02');
+	//btn02.addEventListener('click' , (event) => {
+	//	location.href = '${root}/payment/complete';
+	//});
+	
+	function success() {
+		alert("결제 완료되었습니다.");
+	}
 
 </script>

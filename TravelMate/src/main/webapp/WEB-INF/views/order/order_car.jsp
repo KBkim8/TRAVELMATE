@@ -154,7 +154,7 @@
 	
 	#second2, #first2, #third2{
 	  width: 100%;
-	  height: 400px;
+	  height: 335px;
 	  margin-top: 50px;
 	  margin-bottom: 50px;
 	  background-color: lightgray;
@@ -200,6 +200,8 @@
         0 0 0 2px rgba(255,255,255,0.15) inset,
         0 0 0 1px rgba(0,0,0,0.4);
 }
+ 
+
     
 </style>
 </head>
@@ -213,39 +215,35 @@
       <div id="first">
         <div></div>
         <div>
-          <h3>숙소정보<hr></h3>
+          <h3>차량정보<hr></h3>
         </div>
       </div>
 
       <div id="first2">
         <div>
-	            <img width="380px" src="${root}/static/img/carImg/${vo.title}" alt="carImg">
+	            <img width="380px" height="335px" src="${root}/static/img/carImg/${vo.title}" alt="carImg">
         </div>
         <div>
+        <br>
       	  <h2>차종명 : ${vo.carKindKind}</h2><br>
 	      <h2 >탑승가능인원 : ${vo.max}  //  자동 변속   //  Gasoline</h2> 
 	      <br>                    
-	      <h2 >이용일      //    ${vo.dateStart} ~ ${vo.endDate}  </h2> 
-          <br>                    
 	      <h2>인수지역 : ${vo.lcname}</h2>
 	      <br>
 	      <h2>번호판 : ${vo.licensePlate}</h2>
 	      <br>
-		  <h3 id="h3">가격 : ${vo.price}</h3>
+		  <h2>가격 : ${vo.price}</h2>
 	                    
 	                    
+          <br>                   
+          <h2>재고 : ${vo.count}</h2>
           <br>
-          <br>                    
-          <h3 id="h3">재고 : ${vo.count}</h3>
-          <br>
-          <br>                    
-          <h3 id="h3">출고일 : ${vo.licenseDate}</h3>
+          <h2>출고일 : ${vo.licenseDate}</h2>
           </div>
           <div id="rebtn">
               	<br>
               	<br>
               	
-                  <button type="button" class="btn btn-success" onclick="review();">후기 보러가기</button>
        	</div>
         </div>
 		
@@ -258,7 +256,7 @@
         </div>
       </div>
     <br>
-   <form action="${root}/order/car" method="post">
+   <form action="${root}/pay/car" method="post">
 	    <div>
 			<input type="text" id="calender" name="daterange" value="06/01/2023 - 06/05/2023" />
 	    </div>
@@ -275,29 +273,30 @@
 	        <table>
 	            <tr>
 	                <td>예약자 명:</td>
-	                <td><input type="text" id="name" placeholder="이름 입력"><br><br>
+	                <td><input type="text" name="mname" placeholder="이름 입력"><br><br>
 	            </tr>
 	            <tr>
 	                <td>휴대폰 번호:</td>
-	                <td><input type="text" id="phoneno" placeholder="'-' 제외하고 입력"><br><br>
+	                <td><input type="text" name="phone" placeholder="'-' 제외하고 입력"><br><br>
 	            </tr>
 	            <tr>
 	                <td>이메일 주소:</td>
-	                <td><input type="email" id="email" placeholder="example@mail.com"></td><br><br>
+	                <td><input type="email" name="email" placeholder="example@mail.com"></td><br><br>
 	            </tr>
 	        </table>
 	      </div>
-			
+			<input type="hidden" name="no" value="${vo.no}">
+			<input type="hidden" name="price" value="${vo.price}">
 		
 		<c:if test="${loginMember != null }">
-			<button id="btn03" type="submit">결제하기</button>
+			<button id="btn03" type="submit" onclick="alert()">결제하기</button>
 		</c:if>
 	</form>
     
     <hr>
     
     <button id="btn02" onclick="favorite();">관심상품 담기</button>
-    <button id="btn01" onclick="backPage()">뒤로가기</button>
+    <button id="btn01" onclick="backPage();">뒤로가기</button>
     
     </div>
     
@@ -311,6 +310,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	
 	<script>
+	 
 	let x;
 	
 	$(function() {
@@ -326,18 +326,20 @@
 	
 	
 	 function backPage() {
-	     location.href="${root}/souvenir/list";
+	     location.href="${root}/car/list";
 	 }
+
 	  
- 	 function favorite(){
+	 function favorite(){
 		  if(${loginMember == null}){
 				alert("로그인 하고 오세요")	  
 				return;
 			  }else{
 				  alert("상품이 등록되었습니다.");
 			  }
-		  location.href="${root}/room/favorite?no=${vo.no}&name=${vo.name}";
+		  location.href="${root}/car/favorite?no=${vo.no}&name=${vo.name}";
 	 
-  	 }
+ 	 }
+	
 </script>
 </html>

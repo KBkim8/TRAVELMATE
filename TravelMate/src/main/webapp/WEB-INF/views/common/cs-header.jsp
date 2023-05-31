@@ -58,11 +58,13 @@
             <div><a href="${root}/reivew/list">리뷰</a></div>
             <div><a href="${root}/notice/list">공지</a></div>
             <div></div>
-            <c:if test="${loginMember.memberCategoryNo != '2'}">
+            <c:if test="${loginMember.memberCategoryNo == '2' || loginMember.id eq 'ADMIN' }">
             <div><a href="${root}/sell/request/list">판매요청</a></div>
             <div><a>|</a></div>
             </c:if>
             <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
+            <div><a>|</a></div>
+            <div><a href="${root}/souvenir/list" data-hover="기념품">기념품</a></div>
             <div><a>|</a></div>
             <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 

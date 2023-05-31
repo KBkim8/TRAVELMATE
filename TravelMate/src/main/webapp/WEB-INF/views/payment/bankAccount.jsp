@@ -80,33 +80,39 @@
   background-color: lightgray;
 }
 
-#btn01{
-  margin-top: 50px;
-  margin-right: 400px;
-  margin-left: 400px;
-  margin-bottom: 50px;
-}
+
 
 #pricetotal{
         width: 500px;
         height: 100px;
     }
 
-#btns > button{
-    width: 200px;
-    height: 40px;
-    
-}
 
-#btns{
-  margin: auto;
-}
 
 #selectbx{
 	display: flex;
 	margin: auto;
 	height: 50px;
 	width: 320px;
+}
+
+#btn02, #btn01{
+	  margin-top: 50px;
+	  margin-right: 250px;
+	  margin-left: 250px;
+	  margin-bottom: 50px;
+	}
+	
+	
+	#btn01, #btn02{
+  background-color: #73D38E;
+  border: 0;
+  padding: 15px 25px; 
+  display: inline-block;
+  text-align: center;
+  color: white;
+  border-radius: 6px;
+  margin-left: 500px;
 }
 </style>
 </head>
@@ -135,8 +141,13 @@
 		  </select>
 		  
 		  <div id="btns">
+		  	<div>
 			<button type="button" id="btn01" class="btn btn-success">홈으로</button>
-			<button type="button" id="btn02" class="btn btn-success">결제완료</button>
+			</div>
+			<form action="${root}/payment/complete" method="post">
+			<input type="hidden" name="reservationno" value="${vo.no}">
+			<button type="submit" id="btn02" class="btn btn-success" onclick="success();">결제하기</button>
+			</form>
 		  </div>
 	
 		  
@@ -153,10 +164,8 @@
       location.href = '${root}/home';
   	});
 
-	//결제완료 버튼 클릭시 결제완료창으로
-	const btn02 = document.querySelector('#btn02');
-	btn02.addEventListener('click' , (event) => {
-		location.href = '${root}/payment/complete';
-	});
 
+	function success() {
+		alert("결제 완료되었습니다.");
+	}
 </script>

@@ -42,7 +42,7 @@ public class OrderListController extends HttpServlet{
 				page_ = "1";
 			}
 			int page = Integer.parseInt(page_);
-			PageVo pv = new PageVo(cnt, page, 1, 4);
+			PageVo pv = new PageVo(cnt, page, 5, 10);
 			
 			// 서비스
 			List<OrderListVo> voList = null;

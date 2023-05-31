@@ -11,7 +11,7 @@
 	    width: 1170px;
 	    height: 1000px;
 	    left: 420px;
-	    bottom: 450px;
+	    bottom: 500px;
 }
 
 
@@ -49,11 +49,12 @@
 #local-checkbox > div > input{margin: 10px;}
 
 table {
+
   width: 100%;
   border-collapse: collapse;
 }
 th, td {
-  border-bottom: 1px solid #444444;
+
   height: 100px;
   text-align: center;
 }
@@ -75,11 +76,27 @@ th, td {
 
 
 table td{
+
 	justify-content: center;
 	align-items: center;
+	vertical-align: middle;
+	border-bottom: 1px solid black;
 }
 
+table th{
+
+	border-bottom: 1px solid black;
+}
+
+#no:hover{
+    background-color: rgba(122, 196, 122, 0.451);
+    cursor: pointer;
+}
+
+
+
 </style>
+
 </head>
 <body>
   
@@ -87,30 +104,32 @@ table td{
   
 	<div id="content">
     
+    <!-- 차종 , 차량번호 , 차종번호, 지역번호, 차량재고숫자, 차량등록일, 삭제여부, 최대인원, 번호판, 입고일, 가격 -->
+    
     <form action="${root}/car/list" method="get">
 		<div id="search-area">
 		      <input type="hidden" name="page" value="1">
-		      <select name="searchType">					
+		      <select style="font-size: x-large;" name="searchType">					
 		        <option value="carKind">차량이름</option>
 		        <option value="carKind">차량크기</option>
 		        <option value="price">가격</option>					
 		      </select>
 		      
-		      <input type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
-		      <input type="submit" value="검색">
+		      <input style="font-size: x-large;" type="text" name="searchValue" placeholder="검색할 내용을 입력하세요">
+		      <input style="font-size: x-large;" type="submit" value="검색">
 		</div>
-	    <div id="local">
+	    <div style="font-size: x-large;"  id="local">
 	    <div>
 	      지역
 	    </div>
 	    <div id="local-checkbox">
-	      <div>
+	      <div  style="font-size: x-large;">
 		    강원도 <input type="checkbox" name="local" value="gang">
 	        충천남/북도<input type="checkbox" name="local" value="">
 	        경상남/북도<input type="checkbox" name="local" value="">
 	        전라남/북도<input type="checkbox" name="local" value="">
 	      </div>
-	      <div>
+	      <div style="font-size: x-large;">
 	        대전<input type="checkbox">
 	        울산<input type="checkbox">
 	        대구<input type="checkbox">
@@ -124,26 +143,27 @@ table td{
   	
   <br><br>
   
-  <table>
-    <thead>
-      <tr>
-        <th>차량이미지</th>
-        <th>차량이름</th>
-        <th>차량가격</th>
-        <th>대여지역</th>
-      </tr>
-    </thead>
-    <tbody>
-      <c:forEach items="${voList}" var="vo"> 
-         <tr>
-             <td><img src="${root}/static/img/carImg/${vo.title}" alt="ASD" width="100px" height="100px"  ></td>
-             <td>${vo.carKindKind}</td>
-             <td>${vo.price}</td>
-             <td>${vo.lcname}</td>
-         </tr>
-      </c:forEach>
-    </tbody>
-  </table>  
+  
+	  <table>
+	    <thead>
+	      <tr>
+	        <th style="font-size: x-large;">차량이미지</th>
+	        <th style="font-size: x-large;">차량이름</th>
+	        <th style="font-size: x-large;">차량가격</th>
+	        <th style="font-size: x-large;"	>대여지역</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <c:forEach items="${voList}" var="vo"> 
+	         <tr>
+	             <td><img src="${root}/static/img/carImg/${vo.title}" alt="ASD" width="200px" height="200px" ></td>
+	             <td id="no" style="font-size: x-large;">${vo.carKindKind}</td>
+	             <td style="font-size: x-large;">${vo.price}</td>
+	             <td style="font-size: x-large;">${vo.lcname}</td>
+	         </tr>
+	      </c:forEach>
+	    </tbody>
+	  </table>
   <br>
   <br>
    <div id="page-area">

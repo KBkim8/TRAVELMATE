@@ -86,7 +86,7 @@
     }
 
     table > thead > tr th , table > tbody > tr td {
-        font-size: 2.5em;
+        font-size: 1.6em;
         text-align: center;
         border: 2px solid black;
         height: 20px;
@@ -153,7 +153,7 @@
                 </thead>
                 <hr>
                 <tbody>
-                	<c:forEach items="${fvoList}" var="fvoList" begin="1">
+                	<c:forEach items="${fvoList}" var="fvoList" >
 	                    <tr>
 	                        <td>${fvoList.no}</td>
 	                        <td>${fvoList.title}</td>

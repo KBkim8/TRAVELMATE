@@ -121,10 +121,10 @@
         </div>
        
         <div id="write-area">
-            <form action="${root}/notice/list" method="get">
-                <select id="btn01" name="searchType">
+            <form action="${root}/notice/list" method="post">
+                <select id="btn01" name="searchType" >
                     <option value="title">제목</option>
-                    <option value="writer">작성자</option>
+                    <!-- <option value="writer">작성자</option> -->
                 </select>
                     <input type="text" name="searchValue" value="${searchVo.searchValue}" placeholder="검색 할 내용을 입력하세요">
                     <input  id="btn01" type="submit" value="검색">
@@ -146,7 +146,7 @@
                 </thead>
                 <hr>
                 <tbody>
-                	<c:forEach items="${bvoList}" var="bvoList" begin="1">
+                	<c:forEach items="${bvoList}" var="bvoList">
 	                    <tr>
 	                        <td>${bvoList.no}</td>
 	                        <td>${bvoList.title}</td>
@@ -211,46 +211,46 @@
 	const searchTypeTag = document.querySelector('select[name=searchType]');
 	searchTypeTag.addEventListener("change", setSearchValueTag);
 
-	function setSearchValueTag(){
+	// function setSearchValueTag(){
 
-		// 현재 타입이 카테고리인지 구분
-		const searchType = searchTypeTag.value;
-		if(searchType == 'category'){
-			setSearchValueTagSelect();
-		}else{
-			setSearchValueTagInput();
-		}
-	}
+	// 	// 현재 타입이 카테고리인지 구분
+	// 	const searchType = searchTypeTag.value;
+	// 	if(searchType == 'category'){
+	// 		setSearchValueTagSelect();
+	// 	}else{
+	// 		setSearchValueTagInput();
+	// 	}
+	// }
 
 	// 검색 값 영역 select 보이게 (타입이 카테고리 일 때)
-	function setSearchValueTagSelect(){
-		searchValueSelectTag.classList.add("active");
-		searchValueSelectTag.disabled = false;
-		searchValueInputTag.classList.remove("active");
-		searchValueInputTag.disabled = true;
+	// function setSearchValueTagSelect(){
+	// 	searchValueSelectTag.classList.add("active");
+	// 	searchValueSelectTag.disabled = false;
+	// 	searchValueInputTag.classList.remove("active");
+	// 	searchValueInputTag.disabled = true;
 
-		searchValueInputTag.value = '';
-	}
+	// 	searchValueInputTag.value = '';
+	// }
 
-	// 검색 값 영역을 input 보이게 (타입이 카테고리 외)
-	function setSearchValueTagInput(){
-		searchValueInputTag.classList.add("active");
-		searchValueInputTag.disabled = false;
-		searchValueSelectTag.classList.remove("active");
-		searchValueSelectTag.disabled = true;
-	}
+	// // 검색 값 영역을 input 보이게 (타입이 카테고리 외)
+	// function setSearchValueTagInput(){
+	// 	searchValueInputTag.classList.add("active");
+	// 	searchValueInputTag.disabled = false;
+	// 	searchValueSelectTag.classList.remove("active");
+	// 	searchValueSelectTag.disabled = true;
+	// }
 
 	// 카테고리로 검색한 이후에 검색 값이 유지되게 
-	function initSearchValueSelect(){
-		if(searchType != 'category'){
-			return;
-		}
-		const optionTag = document.querySelector("option[value='" + searchValue + "']");
-		optionTag.selected = true;	
-	}
+	// function initSearchValueSelect(){
+	// 	if(searchType != 'category'){
+	// 		return;
+	// 	}
+	// 	const optionTag = document.querySelector("option[value='" + searchValue + "']");
+	// 	optionTag.selected = true;	
+	// }
 	
-	setSearchValueTag();
-	initSearchValueSelect();
+	// setSearchValueTag();
+	// initSearchValueSelect();
 
 
 </script>

@@ -18,6 +18,7 @@ import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
 import com.kh.app.member.dao.MemberDao;
+import com.kh.app.report.vo.ReportVo;
 import com.kh.app.util.BoardImgVo;
 
 public class BoardService {
@@ -137,6 +138,19 @@ private final BoardDao dao;
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int cnt = dao.selectCnt(conn);
+		
+		JDBCTemplate.close(conn);
+		
+		return cnt;
+	}
+	
+	//review select Cnt
+	public int reviewSelectCnt() throws Exception {
+
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int cnt = dao.reviewSelectCnt(conn);
 		
 		JDBCTemplate.close(conn);
 		
@@ -492,6 +506,52 @@ private final BoardDao dao;
 		
 			return rvoList;
 			
+		}
+
+		//공지사항 신고 하기
+		public int noticeBoardReport(ReportVo vo) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.noticeBoardReport(conn ,vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			return result;
+		}
+
+		//자유게시판 신고하기
+		public int freeBoardReport(ReportVo vo) throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			int result = dao.freeBoardReport(conn ,vo);
+			
+			if(result ==1) {
+				JDBCTemplate.commit(conn);
+			}else {
+				JDBCTemplate.rollback(conn);
+			}
+			
+			JDBCTemplate.close(conn);
+			return result;
+		}
+
+		//검색으로 리뷰게시판 조회
+		public List<BoardVo> carReviewList(PageVo pv, String searchValue, String searchType) throws Exception {
+			
+			Connection conn = JDBCTemplate.getConnection();
+			
+			List<BoardVo>bvoList = dao.carReviewList(conn ,pv ,searchValue ,searchType);
+			
+			JDBCTemplate.close(conn);
+		
+			return bvoList;
 		}
 
 		

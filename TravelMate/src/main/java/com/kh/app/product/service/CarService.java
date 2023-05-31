@@ -43,6 +43,7 @@ public class CarService {
 		return voList;
 	}
 
+	
 
 	public List<CarVo> getCarList(PageVo pv, String searchType, String searchValue, String local) throws Exception {
 		//conn
@@ -79,7 +80,7 @@ public class CarService {
 		//가격 cvo에 넣기
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int price = dao.getPrice(cvo, conn);
+		String price = dao.getPrice(cvo, conn);
 		cvo.setPrice(price);
 		
 		JDBCTemplate.close(conn);
@@ -105,6 +106,85 @@ public class CarService {
 		return result2;
 		
 	}
+
+
+	public CarVo selectCarOneByName(String name) throws Exception {
+		
+		//conn
+		Connection conn = JDBCTemplate.getConnection();
+		CarVo vo = dao.selectCarOneByName(conn , name);
+		return vo;
+	}
+
+
+	public int carOrder(CarVo vo, MemberVo loginMember) throws Exception {
+	
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.order(vo, conn, loginMember);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	
+	}
+
+
+	public CarVo carSelectOrder(MemberVo loginMember) throws Exception {
+
+		CarVo vo = null;
+		//conn
+		try (Connection conn = JDBCTemplate.getConnection();){
+			vo = dao.carSelectOrder(conn , loginMember);
+		}
+		return vo;
+	
+	}
+
+
+	public int carFavorite(String no, String name, MemberVo loginMember) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = dao.carFavorite(conn, no, name, loginMember);
+		
+		
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+			
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+
+
+	public int carPayment(String reservationno) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		int result = dao.carPayment(reservationno, conn);
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		
+		
+		JDBCTemplate.close(conn);
+		
+		
+		return result;
+	}
+	
+	
 	
 	
 
