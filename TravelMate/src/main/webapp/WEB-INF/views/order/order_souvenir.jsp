@@ -200,10 +200,6 @@ table{
 	 
   }
 
-  function alert() {
-	     alert("결제 처리가 진행됩니다.");
-	 }
-  
   
 </script>
 

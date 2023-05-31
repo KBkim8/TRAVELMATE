@@ -123,15 +123,15 @@ table th{
 	    <div id="local-checkbox">
 	      <div style="font-size: x-large;">
 		    강원도 <input type="checkbox" name="local" value="gang">
-	        충천남/북도<input type="checkbox" name="local" value="chung">
-	        경상남/북도<input type="checkbox" name="local" value="kung">
-	        전라남/북도<input type="checkbox" name="local" value="jun">
+	        전남<input type="checkbox" name="local" value="junnam">
+	        전북<input type="checkbox" name="local" value="junbuk">
+	        경남<input type="checkbox" name="local" value="gyungnam">
+	        경북<input type="checkbox" name="local" value="gyungbuk">
 	      </div>
 	      <div style="font-size: x-large;">
 	        대전<input type="checkbox" name="local" value="dae">
-	        울산<input type="checkbox" name="local" value="ull">
+	        수도권<input type="checkbox" name="local" value="gyung">
 	        대구<input type="checkbox" name="local" value="daegu">
-	        광주<input type="checkbox" name="local" value="gwang">
 	        부산<input type="checkbox" name="local" value="bu">
 	        제주도<input type="checkbox" name="local" value="je">
 	      </div>
