@@ -179,7 +179,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
 	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	
 	<!-- 내용영역 -->
