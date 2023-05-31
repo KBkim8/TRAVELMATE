@@ -50,7 +50,7 @@ public class CarDao {
 	public List<CarVo> getCarList(Connection conn, PageVo pv) throws Exception {
 		
 		// SQL -수정완료
-	    String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT CK.KIND , R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+	    String sql = "SELECT * FROM ( SELECT ROWNUM RNUM , T.* FROM ( SELECT R.NO, R.CAR_KIND_NO, R.LOCAL_NO, R.COUNT, R.ENROLL_DATE, R.DELETE_YN, R.MAX, R.LICENSE_PLATE, R.LICENSE_DATE, R.PRICE, CI.TITLE, LC.NAME AS LOCAL, CK.KIND FROM RENTCAR R JOIN CAR_IMG CI ON CI.RENTCAR_NO = R.NO JOIN LOCAL_CATEGORY LC ON LC.NO = R.LOCAL_NO JOIN CAR_KIND CK ON CK.NO = R.CAR_KIND_NO WHERE R.DELETE_YN = 'N' AND LC.NAME LIKE '%%' ORDER BY NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 	    PreparedStatement pstmt = conn.prepareStatement(sql);
 	    pstmt.setInt(1, pv.getBeginRow());
 	    pstmt.setInt(2, pv.getLastRow());
@@ -89,7 +89,7 @@ public class CarDao {
 	        vo.setLicensePlate(licensePlate);
 	        vo.setLicenseDate(licenseDate);
 	        vo.setTitle(title);
-	        vo.setCarKindKind(carKindKind);
+	        vo.setName(carKindKind);
 	        vo.setPrice(price);
 	        voList.add(vo);
 	        
