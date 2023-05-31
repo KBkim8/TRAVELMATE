@@ -200,6 +200,8 @@
         0 0 0 2px rgba(255,255,255,0.15) inset,
         0 0 0 1px rgba(0,0,0,0.4);
 }
+ 
+
     
 </style>
 </head>
@@ -287,7 +289,7 @@
 			<input type="hidden" name="price" value="${vo.price}">
 		
 		<c:if test="${loginMember != null }">
-			<button id="btn03" type="submit">결제하기</button>
+			<button id="btn03" type="submit" onclick="alert()">결제하기</button>
 		</c:if>
 	</form>
     
@@ -325,6 +327,7 @@
 	 function backPage() {
 	     location.href="${root}/car/list";
 	 }
+
 	  
  	 function favorite(){
 		  if(${loginMember == null}){
@@ -336,5 +339,8 @@
 		  location.href="${root}/car/favorite?no=${vo.no}&name=${vo.name}";
 	 
   	 }
+	 function alert() {
+	     alert("결제 처리가 진행됩니다.");
+	 }
 </script>
 </html>

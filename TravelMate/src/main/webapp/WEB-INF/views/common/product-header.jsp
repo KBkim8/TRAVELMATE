@@ -43,19 +43,25 @@
             <a href="${root}/cs/faq">고객센터</a>
         </div>
         <nav class="menu align-center expanded text-center SMN_effect-45 menu align-center expanded text-center SMN_effect-23">
-            <div></div>
+           <div></div>
             <div><a data-hover="예약">예약</a></div>
-            <div><a href="">숙소</a></div>
-            <div><a href="">차량</a></div>
+            <div><a href="${root}/room/list">숙소</a></div>
+            <div><a href="${root}/car/list">차량</a></div>
+            
+            
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
-            <div><a href="">정보</a></div>
-            <div><a href="">토론</a></div>
-            <div><a href="">리뷰</a></div>
-            <div><a href="">공지</a></div>
-            <div><a href="">여행일지</a></div>
+            <div><a href="${root}/free/list">자유</a></div>
+            <div><a href="${root}/reivew/list">리뷰</a></div>
+            <div><a href="${root}/notice/list">공지</a></div>
+            <div></div>
+            <c:if test="${loginMember.memberCategoryNo == '2' || loginMember.id eq 'ADMIN' }">
+            <div><a href="${root}/sell/request/list">판매요청</a></div>
             <div><a>|</a></div>
-            <div><a href="" data-hover="랜선여행">랜선여행</a></div>
+            </c:if>
+            <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
+            <div><a>|</a></div>
+            
             <div><a>|</a></div>
             <div><a href="" data-hover="전체메뉴">전체메뉴</a></div>
             <div></div> 
@@ -75,7 +81,7 @@
                             </div>
                         </div>        
                         <div class="sub_menu">
-                            <h2 id="admin-private" data-hover="상품과 결제" class="SMN_effect-23-2">상품과 결제</h2>
+                            <h2 id="admin-private" data-hover="회원" class="SMN_effect-23-2">회원</h2>
                             <ul class="big_menu">
                                      <li>상품목록<i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
@@ -85,23 +91,14 @@
                                      </ul>
                                  </ul>
                                  <ul class="big_menu">
-                                     <li>주문 <i class="arrow fas fa-angle-right"></i></li>
+                                     <li>게시판 <i class="arrow fas fa-angle-right"></i></li>
                                      <ul class="small_menu">
-                                         <li><a href="${root}/mypage/orderList">주문내역조회</a></li>
+                                         <li><a href="${root}/mypage/orderList">공지게시판</a></li>
+                                         <li><a href="${root}/mypage/orderList">자유게시판</a></li>
+                                         <li><a href="${root}/mypage/orderList">랜선여행</a></li>
+                                         <li><a href="${root}/mypage/orderList">리뷰게시판</a></li>
                                      </ul>
-                                 </ul>
-                                 <ul class="big_menu">
-                                     <li>결제 <i class="arrow fas fa-angle-right"></i></li>
-                                     <ul class="small_menu">
-                                         <li><a href="${root}/mypage/orderList">환불하기</a></li>
-                                     </ul>
-                                 </ul>
-                                 <ul class="big_menu">
-                                     <li>리뷰게시판<i class="arrow fas fa-angle-right"></i></li>
-                                     <ul class="small_menu">
-                                         <li><a href="${root}/car/review/list">차량리뷰게시판</a></li>
-                                     </ul>
-                                 </ul>
+                                 
                         </div>
                          </div>
                          <div class="overlay"></div>
