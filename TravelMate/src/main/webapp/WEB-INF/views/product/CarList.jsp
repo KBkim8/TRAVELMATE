@@ -109,9 +109,9 @@ table th{
     <form action="${root}/car/list" method="get">
 		<div id="search-area">
 		      <input type="hidden" name="page" value="1">
-		      <select style="font-size: x-large;" name="searchType">					
+		      <select style="font-size: x-large;" name="searchType">	
+		        <option value="asd">지역선택</option>
 		        <option value="carKind">차량이름</option>
-		        <option value="carKind">차량크기</option>
 		        <option value="price">가격</option>					
 		      </select>
 		      
@@ -123,19 +123,19 @@ table th{
 	      지역
 	    </div>
 	    <div id="local-checkbox">
-	      <div  style="font-size: x-large;">
+	      <div style="font-size: x-large;">
 		    강원도 <input type="checkbox" name="local" value="gang">
-	        충천남/북도<input type="checkbox" name="local" value="">
-	        경상남/북도<input type="checkbox" name="local" value="">
-	        전라남/북도<input type="checkbox" name="local" value="">
+	        전남<input type="checkbox" name="local" value="junnam">
+	        전북<input type="checkbox" name="local" value="junbuk">
+	        경남<input type="checkbox" name="local" value="gyungnam">
+	        경북<input type="checkbox" name="local" value="gyungbuk">
 	      </div>
 	      <div style="font-size: x-large;">
-	        대전<input type="checkbox">
-	        울산<input type="checkbox">
-	        대구<input type="checkbox">
-	        광주<input type="checkbox">
-	        부산<input type="checkbox">
-	        제주도<input type="checkbox">
+	        대전<input type="checkbox" name="local" value="dae">
+	        수도권<input type="checkbox" name="local" value="gyung">
+	        대구<input type="checkbox" name="local" value="daegu">
+	        부산<input type="checkbox" name="local" value="bu">
+	        제주도<input type="checkbox" name="local" value="je">
 	      </div>
 	    </div>
 	  	</div>
@@ -157,7 +157,7 @@ table th{
 	      <c:forEach items="${voList}" var="vo"> 
 	         <tr>
 	             <td><img src="${root}/static/img/carImg/${vo.title}" alt="ASD" width="200px" height="200px" ></td>
-	             <td id="no" style="font-size: x-large;">${vo.carKindKind}</td>
+	             <td id="no" style="font-size: x-large;">${vo.name}</td>
 	             <td style="font-size: x-large;">${vo.price}</td>
 	             <td style="font-size: x-large;">${vo.lcname}</td>
 	         </tr>

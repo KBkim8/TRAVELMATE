@@ -41,6 +41,7 @@ public class RoomDao {
 	        String deleteYn = rs.getString("DELETE_YN");
 	        String price = rs.getString("PRICE");
 	        String title = rs.getString("TITLE");
+	        String local = rs.getString("LOCAL");
 
 	        vo.setNo(no);
 	        vo.setLocalNo(localNo);
@@ -52,6 +53,7 @@ public class RoomDao {
 	        vo.setDeleteYn(deleteYn);
 	        vo.setPrice(price);
 	        vo.setTitle(title);;
+	        vo.setLocal(local);
 
 	        voList.add(vo);
 	        
