@@ -40,16 +40,25 @@ public class FAQService {
 	}
 	
 	// faq 작성
-	public int write(FAQVo vo) {
+	public int write(FAQVo vo) throws Exception {
 
 		// conn
 		Connection conn = JDBCTemplate.getConnection();
 		
-		// SQL
+		int result = dao.write(conn, vo);
 		
+		// tx || rs
+		if(result == 1) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
 		
 		// close
-	
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
 	
 	}
 
