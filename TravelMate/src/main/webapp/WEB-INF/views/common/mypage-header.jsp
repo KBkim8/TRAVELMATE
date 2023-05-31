@@ -125,7 +125,7 @@
             </div>
         </div>
 
-        <!-- 오른쪽사이드바 -->
+           <!-- 오른쪽사이드바 -->
         <div id="right-sidebar">
 
             <ul>
@@ -159,15 +159,70 @@
               </li>
             </ul>
         </div>
-        <div id="sidebar-category">
-            <button id="side-close" class="active2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
-                </svg>
-            </button>
+        <div class="sidebar-category">
+            <div id="side01">
+                <button id="side-close" class="active2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                    </svg>
+                </button>
+            </div>
+            <div id="side02"><button id="insta" class="active2"></button></div>
+            <div id="side03"><button id="blog" class="active2"></button></div>
+            <div id="side04"><button id="facebook" class="active2"></button></div>
+            <div id="side05"><button id="youtube" class="active2"></button></div>
+            <div id="side06"><button id="notice" class="active2" onclick="goNotice();">NOTICE</button></div>
+            <div id="side07"><button id="faq" class="active2" onclick="goFaq();">FAQ</button></div>
+            <div id="side08"><button id="qna" class="active2" onclick="goQnA();">Q&A</button></div>
+            <div id="side09"><button id="info" class="active2" onclick="goOnline();">ONLINE</button></div>
+            <div id="side10"><button id="accom" class="active2" onclick="goAccom();">ACCOM</button></div>
+            <div id="side11"><button id="rentcar" class="active2" onclick="goCar();">RENTCAR</button></div>
+            <div id="side12">
+                <img id="img01" src="${root}/static/img/a.png" alt="사이드바" class="active2">
+            </div>
+            <div id="side13"><hr id="hr01" class="active2"></div>
+            <div id="side14"><a class="active2">고객지원센터</a></div>
+            <div id="side15"><a class="active2">123-4567</a></div>
+            <div id="side16"><hr class="active2" id="hr02"></div>
+            <div id="side17"><a class="active2">주말 및 공휴일은 cs센터 및</a></div>
+            <div id="side18"><a class="active2">물류가 운영되지 않습니다.</a></div>
+            <div id="side19"><a class="active2">AM 10:00 ~ PM 17:00</a></div>
+            <div id="side20"><a class="active2">(점심시간 12:00 ~ 13:10)</a></div>
+            <div id="side21"><hr class="active2" id="hr03"></div>
         </div>
 
     </div>
 
 </body>
+<script>
+    //공지사항이동
+    function goNotice(){
+        location.href = '${root}/notice/list'
+    }
+
+    //faq
+    function goFaq(){
+        location.href = '${root}/cs/faq'
+    }
+
+    //qna
+    function goQnA(){
+        location.href = '${root}/cs/inquery'
+    }
+    
+    //랜선여행
+    function goOnline(){
+        location.href = '${root}/online/travel'
+    }
+
+    //숙소예약
+    function goAccom(){
+        location.href = '${root}/room/list'
+    }
+
+    //차량예약
+    function goCar(){
+        location.href = '${root}/car/list'
+    }
+</script>
 </html>
