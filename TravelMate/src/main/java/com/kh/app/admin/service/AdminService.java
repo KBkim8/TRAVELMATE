@@ -686,5 +686,16 @@ public class AdminService {
 		
 		return memberNo;
 	}
+
+	//배너 기념품이름으로 번호받아오기
+	public String souvenirGetNo(String souvenirName) throws Exception {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		String souvenirNo = dao.souvenirGetNo(conn, souvenirName);
+		
+		JDBCTemplate.close(conn);
+		
+		return souvenirNo;
+	}
 	
 }

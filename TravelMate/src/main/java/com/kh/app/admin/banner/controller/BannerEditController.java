@@ -48,7 +48,7 @@ public class BannerEditController extends HttpServlet{
 		try {
 			String bannerName = req.getParameter("bannerName");
 			String memberNick = req.getParameter("memberNick");
-			String souvenirNo = req.getParameter("souvenirNo");
+			String souvenirName = req.getParameter("souvenirName");
 			String no = req.getParameter("no");
 			String memberNo = as.bannerGetNo(memberNick);
 			
@@ -60,7 +60,7 @@ public class BannerEditController extends HttpServlet{
 			vo.setName(bannerName);
 			vo.setNick(memberNick);
 			vo.setImage(attVo.getChangeName());
-			vo.setSouvenirNo(souvenirNo);
+			vo.setSouvenirName(souvenirName);
 			vo.setNo(no);
 			
 			int result = as.adBannerContentEdit(vo, memberNo);

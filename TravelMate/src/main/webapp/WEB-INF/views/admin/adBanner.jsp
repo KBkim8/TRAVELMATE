@@ -37,7 +37,7 @@
         <div id="declaration">
             <div></div>
             <div>배너번호</div>
-            <div>닉네임</div>
+            <div>신청인닉네임</div>
             <div>배너명</div>
             <div>이미지명</div>
             <div></div>
