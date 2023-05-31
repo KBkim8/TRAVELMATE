@@ -11,7 +11,7 @@
         position: relative;
         width: 1390px;
         height: 100%;
-        bottom: 1300px;
+        bottom: 1150px;
         left: 300px;
         margin-top: 600px;
     }
@@ -20,7 +20,7 @@
     #first-content>img{
         position: absolute;
         left: 100px;
-        top: 70px;
+        top: 130px;
         width: 40px;
         height: 60px;
         
@@ -74,7 +74,7 @@
     }   
 
     #write-area{
-       
+    	padding-top: 100px;
         margin-left: 20%;
     }
 
