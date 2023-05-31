@@ -11,7 +11,7 @@
         position: relative;
         width: 1390px;
         height: 100%;
-        bottom: 1300px;
+        bottom: 1150px;
         left: 300px;
         margin-top: 600px;
     }
@@ -63,7 +63,8 @@
                 0 0 0 1px rgba(0,0,0,0.4);
     }   
 
-    #write-area{
+    #write-area{ 
+        padding-top: 100px;
         margin-left: 20%;
     }
 
