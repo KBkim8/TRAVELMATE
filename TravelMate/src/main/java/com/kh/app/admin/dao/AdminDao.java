@@ -1359,7 +1359,7 @@ public class AdminDao {
 
 	//광고배너 수정화면
 	public AdBannerVo AdBannerEdit(Connection conn, String no) throws Exception {
-		String s = "SELECT B.NO, B.NAME, B.IMAGE, M.NICK, B.SOUVENIR_NO FROM SOUVENIR_BANNER B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.NO = ?";
+		String s = "SELECT B.NO, B.NAME, B.IMAGE, M.NICK, B.SOUVENIR_NO, S.NAME AS SOUVENIR_NAME FROM SOUVENIR_BANNER B JOIN MEMBER M ON B.MEMBER_NO = M.NO JOIN SOUVENIR S ON B.SOUVENIR_NO = S.NO WHERE B.NO = ?";
 		PreparedStatement pstmt = conn.prepareStatement(s);
 		pstmt.setString(1, no);
 		ResultSet rs = pstmt.executeQuery();
@@ -1370,6 +1370,7 @@ public class AdminDao {
 			String name = rs.getString("NAME");
 			String nick = rs.getString("NICK");
 			String souvenirNo = rs.getString("SOUVENIR_NO");
+			String souvenirName = rs.getString("SOUVENIR_NAME");
 			
 			vo = new AdBannerVo();
 			vo.setNo(no);
@@ -1377,6 +1378,7 @@ public class AdminDao {
 			vo.setName(name);
 			vo.setNick(nick);
 			vo.setSouvenirNo(souvenirNo);
+			vo.setSouvenirName(souvenirName);
 		}
 		JDBCTemplate.close(rs);
 		JDBCTemplate.close(pstmt);
@@ -1425,6 +1427,23 @@ public class AdminDao {
 		JDBCTemplate.close(rs);
 		
 		return memberNo;
+	}
+
+	//기념품이름으로 번호 가져오기
+	public String souvenirGetNo(Connection conn, String souvenirName) throws Exception {
+		String s = "SELECT NO FROM SOUVENIR WHERE NAME = ?";
+		PreparedStatement pstmt = conn.prepareStatement(s);
+		pstmt.setString(1, souvenirName);
+		ResultSet rs = pstmt.executeQuery();
+		
+		String souvenirNo = "";
+		if(rs.next()) {
+			souvenirNo = rs.getString("NO");
+		}
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		
+		return souvenirNo;
 	}
 	
 

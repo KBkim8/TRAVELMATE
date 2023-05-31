@@ -29,8 +29,8 @@
                 </div>
                 <div>회원닉네임</div>
                 <input type="text" name="memberNick" value="${vo.nick}">
-                <div>기념품번호</div>
-                <input type="number" name="souvenirNo" value="${vo.souvenirNo}" min="0">
+                <div>기념품명</div>
+                <input type="text" name="souvenirName" value="${vo.souvenirName}">
 
                 <input type="hidden" name="no" value="${vo.no}">
                 <input type="submit" value="수정하기">

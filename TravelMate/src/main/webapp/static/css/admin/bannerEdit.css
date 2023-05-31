@@ -70,7 +70,7 @@
     height: 350px;
 }
 
-#declaration input[name="memberNick"], input[name="souvenirNo"]{
+#declaration input[name="memberNick"], input[name="souvenirName"]{
     font-size: 22px;
     grid-column: span 2;
     display: flex;

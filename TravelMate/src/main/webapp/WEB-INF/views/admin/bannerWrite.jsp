@@ -29,8 +29,8 @@
                 </div>
                 <div>회원닉네임</div>
                 <input type="text" name="memberNick">
-                <div>기념품번호</div>
-                <input type="number" name="souvenirNo">
+                <div>기념품명</div>
+                <input type="text" name="souvenirName">
 
                 <input type="submit" value="등록하기">
             </div>

@@ -37,17 +37,21 @@ public class BannerWriteController extends HttpServlet{
 			//데꺼
 			String bannerName = req.getParameter("bannerName");
 			String memberNick = req.getParameter("memberNick");
-			String souvenirNo = req.getParameter("souvenirNo");
+			String souvenirName = req.getParameter("souvenirName");
 			
 			String path = req.getServletContext().getRealPath("/static/img/adBanner/");	
 			Part f = req.getPart("f");
 			AttachmentVo attVo = FileUploader.saveFile(path, f);
+			
+			String souvenirNo = as.souvenirGetNo(souvenirName);
+			System.out.println(souvenirNo);
 
 			AdBannerVo vo = new AdBannerVo();
 			vo.setName(bannerName);
 			vo.setNick(memberNick);
-			vo.setSouvenirNo(souvenirNo);
+			vo.setSouvenirName(souvenirName);
 			vo.setImage(attVo.getChangeName());
+			vo.setSouvenirNo(souvenirNo);;
 			
 			int result = as.AdbannerWrite(vo);
 			
@@ -59,7 +63,7 @@ public class BannerWriteController extends HttpServlet{
 			resp.sendRedirect(req.getContextPath() + "/admin/banner");
 		}catch(Exception e) {
 			e.printStackTrace();
-			req.setAttribute("errMsg", "숙소조회에러");
+			req.getSession().setAttribute("alertMsg", "광고배너 등록에 실패하였습니다. 기념품명을 확인하세요.");
 			req.getRequestDispatcher("/WEB-INF/views/common/error-page.jsp").forward(req, resp);
 		}
 	}
