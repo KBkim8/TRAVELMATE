@@ -39,9 +39,12 @@ public class LoginController extends HttpServlet{
 			MemberVo loginMember = ms.login(vo);
 			
 			//wha
-			if(loginMember != null) {
+			if(loginMember != null && !loginMember.getId().equals("ADMIN")) {
 				req.getSession().setAttribute("loginMember", loginMember);
 				resp.sendRedirect(req.getContextPath()+"/notice/write");
+			}else if(loginMember != null && loginMember.getId().equals("ADMIN")){
+				req.getSession().setAttribute("loginMember", loginMember);
+				resp.sendRedirect(req.getContextPath()+"/admin/home");
 			}else {
 				throw new Exception();
 			}
