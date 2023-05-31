@@ -131,7 +131,7 @@
                     <input  id="btn01" type="submit" value="검색">
             </form>
             <br>
-            <c:if test="${not empty loginMember }">
+            <c:if test="${loginMember.id eq 'ADMIN' }">
 	            <a  href="${root}/notice/write" id="btn01">글 작성하러 가기</a>
             </c:if>
             <br>

@@ -207,7 +207,7 @@
 				<textarea name="content" readonly>${nvo.content }</textarea>
 			</div>
 				
-			<c:if test="${not empty loginMember }">
+			<c:if test="${loginMember.id eq 'ADMIN' }">
 			<div id="btn-area">
 				<button type="button" id="btn01" onclick="edit();">수정</button>
 				<button type="button" id="btn01" onclick="del();">삭제</button>

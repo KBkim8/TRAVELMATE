@@ -378,13 +378,8 @@ private final BoardDao dao;
 			
 			Connection conn = JDBCTemplate.getConnection();
 			
-			
-			int result = dao.sellRequestImg(conn ,biVo);
-			
-			String title = dao.selectImgTitle(conn ,vo);
-			
-			int result2 = dao.sellRequestWrite(conn, vo ,title);
-			if(result ==1 && result2 ==1) {
+			int result = dao.sellRequestWrite(conn, vo,biVo);
+			if(result == 2) {
 				JDBCTemplate.commit(conn);
 			}else {
 				JDBCTemplate.rollback(conn);
@@ -569,6 +564,26 @@ private final BoardDao dao;
 			
 			return cnt;
 		
+		}
+
+		public  String getBoardImgNo() throws Exception {
+
+			Connection conn = JDBCTemplate.getConnection();
+			
+			String sql = "SELECT F01 FROM DUAL";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+//			System.out.println("ffffff");
+//			System.out.println(rs);
+			String imgNo = "";
+			if(rs.next()) {
+				 imgNo = rs.getString("F01");
+			}
+			
+			
+			JDBCTemplate.close(pstmt);
+			
+			return imgNo;
 		}
 
 		

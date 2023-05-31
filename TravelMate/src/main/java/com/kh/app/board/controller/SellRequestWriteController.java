@@ -46,6 +46,7 @@ public class SellRequestWriteController extends HttpServlet{
 			
 			String path = req.getServletContext().getRealPath("/static/img/sell-request-img/");
 			BoardImgVo biVo = FileUploader.saveFile(path, f);
+			BoardService bs = new BoardService();
 			
 			BoardVo vo = new BoardVo();
 			vo.setMemberNo(writer);
@@ -53,10 +54,10 @@ public class SellRequestWriteController extends HttpServlet{
 			vo.setContent(content);
 			biVo.setTitle(biVo.getChangeName());
 			
-			BoardService bs = new BoardService();
 			int result = bs.sellRequestWrite(vo,biVo);
-			if(result == 1) {
-				resp.sendRedirect(req.getContextPath()+"/sell/request/list");
+			if(result == 2) {
+				req.getSession().setAttribute("alertMsg", "완료");
+				resp.sendRedirect(req.getContextPath()+"/home");
 			}else {
 				throw new IllegalStateException();
 			}
