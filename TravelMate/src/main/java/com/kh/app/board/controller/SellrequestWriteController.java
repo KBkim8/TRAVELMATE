@@ -60,7 +60,7 @@ public class SellrequestWriteController extends HttpServlet{
 			int result = bs.sellRequestWrite(vo);
 			
 			if(result ==1) {
-				resp.sendRedirect(req.getContextPath()+"/sell/request/list");
+				resp.sendRedirect(req.getContextPath()+"/admin/sellrequest");
 			}else {
 				throw new IllegalStateException();
 			}

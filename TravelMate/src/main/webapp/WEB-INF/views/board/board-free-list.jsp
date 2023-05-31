@@ -86,7 +86,7 @@
     }
 
     table > thead > tr th , table > tbody > tr td {
-        font-size: 2.5em;
+        font-size: 1.6em;
         text-align: center;
         border: 2px solid black;
         height: 20px;
