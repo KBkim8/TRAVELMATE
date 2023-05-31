@@ -296,7 +296,7 @@
     <hr>
     
     <button id="btn02" onclick="favorite();">관심상품 담기</button>
-    <button id="btn01" onclick="backPage()">뒤로가기</button>
+    <button id="btn01" onclick="backPage();">뒤로가기</button>
     
     </div>
     
@@ -310,6 +310,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	
 	<script>
+	 
 	let x;
 	
 	$(function() {
@@ -329,7 +330,7 @@
 	 }
 
 	  
- 	 function favorite(){
+	 function favorite(){
 		  if(${loginMember == null}){
 				alert("로그인 하고 오세요")	  
 				return;
@@ -338,9 +339,7 @@
 			  }
 		  location.href="${root}/car/favorite?no=${vo.no}&name=${vo.name}";
 	 
-  	 }
-	 function alert() {
-	     alert("결제 처리가 진행됩니다.");
-	 }
+ 	 }
+	
 </script>
 </html>

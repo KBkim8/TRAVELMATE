@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.app.member.vo.MemberVo;
-import com.kh.app.product.service.CarService;
+import com.kh.app.product.service.RoomService;
 import com.kh.app.product.service.SouvenirService;
-import com.kh.app.product.vo.CarVo;
+import com.kh.app.product.vo.RoomVo;
 import com.kh.app.product.vo.SouvenirVo;
 
-@WebServlet("/car/favorite")
-public class CarFavoriteController extends HttpServlet{
+@WebServlet("/room/favorite")
+public class RoomFavoriteController extends HttpServlet{
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,18 +31,17 @@ public class CarFavoriteController extends HttpServlet{
 			
 			
 			String no = req.getParameter("no");
-			System.out.println(no);
 			String name = req.getParameter("name");
 			String mno = req.getParameter("mno");
 			
-			CarService cs = new CarService();
-			CarVo vo = cs.selectCarOneByName(name);
+			RoomService rs = new RoomService();
+			RoomVo vo = rs.selectRoomOneByNo(name);
 			
-			int result = cs.carFavorite(no, name, loginMember);
+			int result = rs.roomFavorite(no, name, loginMember);
 			
 			if(result == 1) {
 				req.setAttribute("vo", vo);
-				req.getRequestDispatcher("/WEB-INF/views/order/order_car.jsp").forward(req, resp);
+				req.getRequestDispatcher("/WEB-INF/views/order/order_room.jsp").forward(req, resp);
 				
 			}
 		}catch (Exception e) {
