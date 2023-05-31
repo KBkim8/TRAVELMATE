@@ -46,7 +46,7 @@
                 
                         </label>
                     </div>
-                    <div id="img-area01"><img id='img-area' src="${root}/static/img/accommodationImg/${voList.changeName}" alt="숙소이미지"></div>
+                    <div id="img-area01"><img id='img-area' src="${root}/static/img/accommodationImg/${voList.changeName}" alt="${voList.changeName}"></div>
                     <div id="name1">숙소코드</div>
                     <div>|</div>
                     <div id="code"><input type="text" value="${voList.no}" name="no" readonly></div>
