@@ -44,8 +44,12 @@ public class LoginController extends HttpServlet{
 			MemberVo loginMember = ms.login(vo);
 			
 			//wha
-			if(loginMember != null) {
+			if(loginMember != null && !loginMember.getId().equals("ADMIN")) {
 				req.getSession().setAttribute("loginMember", loginMember);
+				resp.sendRedirect(req.getContextPath()+"/notice/write");
+			}else if(loginMember != null && loginMember.getId().equals("ADMIN")){
+				req.getSession().setAttribute("loginMember", loginMember);
+				resp.sendRedirect(req.getContextPath()+"/admin/home");
 				resp.sendRedirect(req.getContextPath()+"/home");
 			}else {
 				req.setAttribute("alertMsg", "아이디나 비밀번호를 확인해주세요");
