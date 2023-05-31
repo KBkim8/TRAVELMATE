@@ -15,7 +15,7 @@ public class HomeDao {
 	public List<BoardVo> getBoardTopHit(Connection conn) throws Exception {
 
 		//SQL
-		String sql = "SELECT TITLE, CONTENT, HIT FROM ( SELECT TITLE,CONTENT,HIT ,TO_CHAR(ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE FROM BOARD WHERE BOARD_CATEGORY_NO=5  AND DELETE_YN='N'  ORDER BY HIT DESC ) WHERE ROWNUM <= 5";
+		String sql = "SELECT TITLE, CONTENT,ENROLL_DATE, HIT FROM ( SELECT TITLE,CONTENT,HIT ,TO_CHAR(ENROLL_DATE,'YYYY-MM-DD') AS ENROLL_DATE FROM BOARD WHERE BOARD_CATEGORY_NO=5  AND DELETE_YN='N'  ORDER BY HIT DESC ) WHERE ROWNUM <= 5";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		

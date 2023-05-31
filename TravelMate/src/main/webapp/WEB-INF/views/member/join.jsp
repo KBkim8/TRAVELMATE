@@ -181,6 +181,7 @@
                 </div>
 				
 			<form action="" method="POST" id="join-form">
+       
 
                 <div id="edit-area">  <span id="idSpan"></span>
                     아이디<input type="text" name="memberId" placeholder="아이디를 입력하세요" maxlength="100" size="35" > <input id="btn01" type="button" value="아이디 중복확인">
@@ -195,7 +196,10 @@
 					<br>
                     주소<input type="text" name="memberAddress" placeholder="주소를입력하세요" maxlength="100" size="35" >  
 					<br>
-	
+          <select name="memberCategory" id="btn01">
+            <option value="2">일반 회원</option>
+            <option value="3">판매자 </option>
+          </select>
 					<div id="agree">
 	
 						<div>

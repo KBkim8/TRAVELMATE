@@ -17,6 +17,14 @@ public class BoardVo {
 	
 	private String memberNick;
 	private String categoryName;
+	private String boardImgTitle;
+	
+	public String getBoardImgTitle() {
+		return boardImgTitle;
+	}
+	public void setBoardImgTitle(String boardImgTitle) {
+		this.boardImgTitle = boardImgTitle;
+	}
 	public String getNo() {
 		return no;
 	}

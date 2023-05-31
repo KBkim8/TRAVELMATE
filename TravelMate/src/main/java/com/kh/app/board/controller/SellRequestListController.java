@@ -11,50 +11,54 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.app.admin.service.AdminService;
+import com.kh.app.admin.vo.SellRequestVo;
 import com.kh.app.board.service.BoardService;
 import com.kh.app.board.vo.BoardVo;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.member.vo.MemberVo;
 
-@WebServlet(urlPatterns = "/admin/sellRequest")
+@WebServlet("/sell/request/list")
 public class SellRequestListController extends HttpServlet{
 	
 	//	멤버 카테고리 "1" 번인 관리자의 신분으로 모든 판매등록글 리스트 조회
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
 		try {
 			
 			HttpSession session = req.getSession();
 			MemberVo loginMember = (MemberVo) session.getAttribute("loginMember");
 			String memberNo = loginMember.getNo();
+			String searchType = req.getParameter("searchType");
+			String searchValue = req.getParameter("searchValue");
 			
 			BoardService bs = new BoardService();
 			
-			int listCount = bs.selectCnt();
-			String page = req.getParameter("page");
-			if(page == null) page = "1";
-			int currentPage = Integer.parseInt(page);
-			int pageLimit = 5;
-			int boardLimit = 10;
-			PageVo pv = new PageVo	(listCount, currentPage, pageLimit, boardLimit);
+			AdminService as = new AdminService();
+			int cnt = as.sellRequestCnt(searchType , searchValue);
+			String page_ = req.getParameter("page");
+			if(page_ == null) {
+				page_ = "1";
+			}
+			int page = Integer.parseInt(page_);
+			PageVo pv = new PageVo(cnt, page, 5, 7);
 			
-			List<BoardVo> voList = new ArrayList<>();
+//			List<BoardVo> voList = bs.sellRequestList(pv);
+			List<BoardVo>voList2 = bs.sellRequestList(pv , memberNo);
 			
 			//관리자
-			if(voList !=null && memberNo == "1"){
-				voList = bs.sellRequestList(pv);
-				req.setAttribute("loginMember", loginMember);
-				req.setAttribute("voList", voList);
-				req.setAttribute("pv", pv);
-				req.getRequestDispatcher("/WEB-INF/views/admin/sellRequest.jsp").forward(req, resp);
-			}
-			else {
+			if(voList2 !=null){
+//				req.setAttribute("voList", voList);
+//				req.setAttribute("pv", pv);
+//				req.getRequestDispatcher("/WEB-INF/views/board/sell-request-list.jsp").forward(req, resp);
+				
 				//판매자
-				voList = bs.sellRequestList(pv , memberNo);
-				req.setAttribute("voList", voList);
-				req.getRequestDispatcher("/WEB-INF/views/board/sell-request-list.jsp").forward(req, resp);
+				req.setAttribute("voList", voList2);
+				req.getRequestDispatcher("/WEB-INF/views/board/my-sell-request-list.jsp").forward(req, resp);
 			}
+			
+				
+			
 			
 			
 			//화면 

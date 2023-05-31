@@ -12,7 +12,7 @@
 <script defer src="${root}/static/js/admin/sellRequest.js"></script>
 </head>
 <body>
-    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <%@ include file="/WEB-INF/views/admin/header.jsp" %>
 
       <!-- 내용영역 -->
       <div id="content">
@@ -21,7 +21,7 @@
             <hr>
             <a>판매등록요청조회</a>
             <div id="report-search">
-                <!-- <form action="${root}/admin/sellrequest" method="get">
+                <form action="${root}/admin/sellrequest" method="get">
                     <input type="hidden" name="page" value="1"> 
                     <select name="searchType">
                         <option value="title">제목</option>
@@ -30,34 +30,20 @@
                     <input value="${searchVo.searchValue}" name="searchValue" type="text" placeholder="판매등록조회관련 검색">
 
                     <input type="submit" value="검색">
-                </form> -->
+                </form>
             </div>
         </div>
      
         <div id="declaration">
-            <div></div>
             <div>게시글번호</div>
-            <div>작성자</div>
             <div>제목</div>
             <div>작성일</div>
-            <div></div>
             <div id="hr"><hr></div>
 
             <c:forEach var="voList" items="${voList}">
-            <div id="report-content">
-                <label class="chk_box">
-                <input type="checkbox" value="${voList.no}" name="stop">
-                <span class="on"></span>
-        
-                </label>
-            </div>
                 <div id="no">${voList.no}</div>
-                <div>${voList.memberNick}</div>
-                <div>${voList.title}</div>
+                <div><img src="${root}/static/img/sell-request-img/${voList.boardImgTitle}" width="100" height="70" alt=""></div>
                 <div>${voList.enrollDate}</div>
-                <c:if test="${loginMember.categoryNo == 1 }">
-	                <div><button id="sell" onclick="sellEnroll(${voList.no});">판매등록</button></div>
-                </c:if>
                 <div id="hr"><hr></div>
             </c:forEach>
             
@@ -79,40 +65,22 @@
             </div>
         </div>
 
-        <div id="enrollMore" class="stop-active1">
-            
-            <form action="" method="post">
-                <div id="modal-content">
-                  <div>게시글번호</div>                                               
-                  <div>▶</div>                                               
-                  <div><input type="text" value="1" name="boardNo" readonly></div>   
-                  <div>작성자</div> 
-                  <div>▶</div>                                            
-                  <div><input type="text" value="성심당" name="writer" readonly></div>                                            
-                  <div>제목</div> 
-                  <div>▶</div>                                            
-                  <div><input type="text" value="슈크림빵 판매등록 요청합니다." name="title" readonly></div>                                            
-                  <div>내용</div>   
-                  <div>▶</div> 
-                  <div><input type="text" value="슈크림빵 판매등록 요청드립니다. 등록해주세요." name="content" readonly></div>
-                  <div>작성일</div>                              
-                  <div>▶</div>                              
-                  <div><input type="date" value="2023-01-01" name="enrollDate" readonly></div>                              
-                  <div>이미지</div>                              
-                  <div id="img-area">
-                    <img src="${root}/static/img/adBanner/adBanner02.jpg" alt="배너이미지">
-                    </div>                     
-                  <div id="submitDiv"><input type="submit" value="등록"></input></div>
-                  <div id="buttonDiv"><button type="button" id="close">취소</button></div>
-                </div>
-            </form>
 
-        </div>
     </div>
+
+${voList}
 
 </body>
 </html>
 <script>
+    //체크박스 하나만
+    function handleCheckboxChange(checkbox) {
+        var checkboxes = document.getElementsByName('stop');
+        for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].disabled = checkboxes[i] !== checkbox && checkbox.checked;
+        }
+    }
+
     //게시글 상세조회
 	function sellEnroll(no){
         location.href = "${root}/admin/sellrequestdetail?no=" + no;

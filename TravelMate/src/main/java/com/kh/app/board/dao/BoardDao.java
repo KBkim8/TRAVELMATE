@@ -15,6 +15,7 @@ import com.kh.app.common.db.JDBCTemplate;
 import com.kh.app.common.page.PageVo;
 import com.kh.app.cs.vo.InqueryVo;
 import com.kh.app.report.vo.ReportVo;
+import com.kh.app.util.BoardImgVo;
 
 public class BoardDao {
 
@@ -647,15 +648,17 @@ public class BoardDao {
 	}
 
 	//판매 요청글
-	public int sellRequestWrite(Connection conn, BoardVo vo) throws Exception {
+	public int sellRequestWrite(Connection conn, BoardVo vo, String title) throws Exception {
 
-		String sql = "INSERT INTO BOARD (NO , BOARD_CATEGORY_NO , MEMBER_NO , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL , 2, ? , ? , ?)";
+//		System.out.println("dao : " + vo);
+//		System.out.println(biVo);
+		String sql = "INSERT INTO BOARD(NO , BOARD_CATEGORY_NO ,BOARD_IMG_NO, MEMBER_NO , TITLE , CONTENT )  VALUES ( SEQ_BOARD_NO.NEXTVAL , 2, ?, ?, ? , ?)";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getMemberNo());
-		pstmt.setString(2, vo.getTitle());
-		pstmt.setString(3, vo.getContent());
+		pstmt.setString(1, vo.getBoardImgNo());
+		pstmt.setString(2, vo.getMemberNo());
+		pstmt.setString(3, title);
+		pstmt.setString(4, vo.getContent());
 		int result = pstmt.executeUpdate();
-		
 		return result;
 	}
 
@@ -783,27 +786,28 @@ public class BoardDao {
 	//관리자 신분으로 모든 판매요청 리스트 조회
 	public List<BoardVo> sellRequestList(Connection conn, PageVo pv) throws Exception {
 
-		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE ,NICK FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.* ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO=2  ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE ,NICK ,BITITLE FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO ,B.ENROLL_DATE ,BI.TITLE AS BITITLE ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO JOIN BOARD_IMG BI ON B.NO = BI.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO=2  ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setInt(1, pv.getBeginRow());
 		pstmt.setInt(2, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
-		 List<BoardVo> voList = new ArrayList<>();
+		List<BoardVo> voList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
-			String title = rs.getString("TITLE");
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String memberNick = rs.getString("NICK");
+			String title = rs.getString("BITITLE");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
-			vo.setTitle(title);
+			vo.setBoardImgTitle(title);
 			vo.setEnrollDate(enrollDate);
 			vo.setMemberNick(memberNick);
 			
 			voList.add(vo);
 		}
+		System.out.println(voList);
 		
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
@@ -814,33 +818,58 @@ public class BoardDao {
 
 	//판매자 자신이 쓴 판매요청 리스트 조회
 	public List<BoardVo> sellRequestList(Connection conn, PageVo pv, String memberNo) throws Exception {
+		
 
-		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE ,NICK FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.* ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO=2 AND B.MEMBER_NO=? ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+		String sql = "SELECT NO , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE ,BITITLE FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.NO ,B.ENROLL_DATE ,BI.TITLE AS BITITLE FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO JOIN BOARD_IMG BI ON B.BOARD_IMG_NO = BI.NO WHERE B.DELETE_YN = 'N' AND B.MEMBER_NO = ? ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
 		PreparedStatement pstmt= conn.prepareStatement(sql);
 		pstmt.setString(1, memberNo);
 		pstmt.setInt(2, pv.getBeginRow());
 		pstmt.setInt(3, pv.getLastRow());
 		ResultSet rs = pstmt.executeQuery();
 		
-		 List<BoardVo> voList = new ArrayList<>();
+		List<BoardVo> voList = new ArrayList<>();
 		while(rs.next()) {
 			String no = rs.getString("NO");
-			String title = rs.getString("TITLE");
 			String enrollDate = rs.getString("ENROLL_DATE");
-			String hit = rs.getString("HIT");
+			String title = rs.getString("BITITLE");
 			
 			BoardVo vo = new BoardVo();
 			vo.setNo(no);
-			vo.setTitle(title);
+			vo.setBoardImgTitle(title);
 			vo.setEnrollDate(enrollDate);
-			vo.setHit(hit);
+			
 			voList.add(vo);
 		}
+		System.out.println(voList);
 		
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		
 		return voList;
+
+//		String sql = "SELECT NO , TITLE , TO_CHAR(ENROLL_DATE , 'YYYY-MM-DD') AS ENROLL_DATE FROM (SELECT ROWNUM RNUM, T.* FROM ( SELECT B.* ,M.NICK FROM BOARD B JOIN MEMBER M ON B.MEMBER_NO = M.NO WHERE B.DELETE_YN = 'N' AND B.BOARD_CATEGORY_NO=2 AND B.MEMBER_NO=? ORDER BY B.NO DESC ) T ) WHERE RNUM BETWEEN ? AND ?";
+//		PreparedStatement pstmt= conn.prepareStatement(sql);
+//		pstmt.setString(1, memberNo);
+//		pstmt.setInt(2, pv.getBeginRow());
+//		pstmt.setInt(3, pv.getLastRow());
+//		ResultSet rs = pstmt.executeQuery();
+//		
+//		 List<BoardVo> voList = new ArrayList<>();
+//		while(rs.next()) {
+//			String no = rs.getString("NO");
+//			String title = rs.getString("TITLE");
+//			String enrollDate = rs.getString("ENROLL_DATE");
+//			
+//			BoardVo vo = new BoardVo();
+//			vo.setNo(no);
+//			vo.setTitle(title);
+//			vo.setEnrollDate(enrollDate);
+//			voList.add(vo);
+//		}
+//		
+//		JDBCTemplate.close(pstmt);
+//		JDBCTemplate.close(rs);
+//		return voList;
 	}
 
 	public int getFreeBoardListCnt(Connection conn, String searchType, String searchValue) throws Exception {
@@ -1050,6 +1079,54 @@ public class BoardDao {
 		JDBCTemplate.close(pstmt);
 		JDBCTemplate.close(rs);
 		return bvoList;
+	}
+
+	public int sellSelectCnt(Connection conn) throws Exception {
+		
+		String sql = "SELECT COUNT(*) FROM BOARD WHERE DELETE_YN = 'N' AND BOARD_CATEGORY_NO=2";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		
+		//tx || rs
+		int cnt = 0;
+		if(rs.next()) {
+			cnt = rs.getInt(1);
+		}
+		
+		//close
+		JDBCTemplate.close(rs);
+		JDBCTemplate.close(pstmt);
+		
+		return cnt;
+	
+	}
+
+	public int sellRequestImg(Connection conn, BoardImgVo biVo) throws Exception {
+		
+		String sql = "INSERT INTO BOARD_IMG(NO,TITLE) VALUES(SEQ_BOARD_IMG_NO.NEXTVAL ,?)";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, biVo.getTitle());
+		
+		int result = pstmt.executeUpdate();
+		
+		JDBCTemplate.close(pstmt);
+		return result;
+	}
+
+	public String selectImgTitle(Connection conn ,BoardVo vo) throws Exception {
+
+		String sql = "SELECT TITLE FROM BOARD_IMG WHERE NO = F01";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = pstmt.executeQuery();
+		String title = "";
+		if(rs.next()) {
+			 title = rs.getString("TITLE");
+		}
+		
+		JDBCTemplate.close(pstmt);
+		JDBCTemplate.close(rs);
+		return title;
 	}
 
 }//class

@@ -23,7 +23,7 @@ import com.kh.app.util.FileUploader;
 	)
 
 @WebServlet(urlPatterns = "/sell/request/write")
-public class SellrequestWriteController extends HttpServlet{
+public class SellRequestWriteController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,27 +40,23 @@ public class SellrequestWriteController extends HttpServlet{
 			
 			String writer = loginMember.getNo();
 			String title = req.getParameter("title");
-			String contnet = req.getParameter("content");
+			String content = req.getParameter("content");
 			
 			Part f = req.getPart("f");
 			
 			String path = req.getServletContext().getRealPath("/static/img/sell-request-img/");
 			BoardImgVo biVo = FileUploader.saveFile(path, f);
-
-			//boardImg title 에 changename insert
 			
 			BoardVo vo = new BoardVo();
 			vo.setMemberNo(writer);
 			vo.setTitle(title);
-			vo.setContent(biVo.getChangeName());
-			vo.setBoardImgNo(biVo.getBno());
+			vo.setContent(content);
+			biVo.setTitle(biVo.getChangeName());
 			
 			BoardService bs = new BoardService();
-			
-			int result = bs.sellRequestWrite(vo);
-			
-			if(result ==1) {
-				resp.sendRedirect(req.getContextPath()+"/admin/sellrequest");
+			int result = bs.sellRequestWrite(vo,biVo);
+			if(result == 1) {
+				resp.sendRedirect(req.getContextPath()+"/sell/request/list");
 			}else {
 				throw new IllegalStateException();
 			}
