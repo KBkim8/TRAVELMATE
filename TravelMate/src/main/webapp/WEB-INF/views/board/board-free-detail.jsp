@@ -10,18 +10,17 @@
 
     #content{
         position: relative;
-        width: 1390px;
-        height: 100%;
-        bottom: 1300px;
-        left: 300px;
-		margin-top: 650px;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 350px;
+	    bottom: 450px;
     }
     
 
     #first-content>img{
         position: absolute;
         left: 100px;
-        top: 70px;
+        top: 125px;
         width: 40px;
         height: 60px;
         
@@ -46,60 +45,13 @@
         font-weight: bold;
     }
 
-    #edit-area{
-        position: absolute;
-        width: 1300px;
-        height: 1000px;
-        left: 130px;
-        top: 230px;
-        display: grid;
-        grid-template-rows: 3fr 1fr;
-    }
-    
-    #edit-input-box{
-        width: 1300px;
-        border-radius: 30px;
-        border: 1px dashed black;
-        height: 90%;
-        margin: auto;
-        font-size: 30px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-
-   
-    #btn-area{
-        margin: auto;
-        margin-top: 10%;
-        place-items: center center;
-    }
-    
-    #btn-area > input{
-        width: 200px;
-        height: 60px;
-        font-size: 30px;
-        border-spacing: 20px;
-    }
-
-	#btn07{
-		font-size: 0.9em;
-		background-color: #73D38E;
-        border: 0;
-        display: inline-block;
-        text-align: center;
-        color: white;
-        border-radius: 6px;
-	}
-
     #btn01 {
-        background-color: #73D38E;
+        background-color: #73d38e97;
         border: 0;
         padding: 0px 25px; 
         display: inline-block;
         text-align: center;
-        color: white;
+        color: black;
         border-radius: 6px;
     }
 
@@ -111,12 +63,14 @@
     }   
 
     #write-area{
-        margin-left: 20%;
+        margin-left: 10%;
+		font-size: 17px;
     }
 
+
     textarea{
-        height: 900px;
-        width: 1000px;
+        height: 500px;
+        width: 800px;
         margin-top: 30px;
         resize: none;
         font-size: 2.5em;
@@ -127,47 +81,49 @@
 
 
     input[name=title]{
-        font-size: 2em;
+        font-size: 20px;
         width: 500px;
-        height: 70px;
-        background-color: #d8f1c7;
+        height: 40px;
         border: none;
-        border-radius: 20px;
-        margin-top: 210px;
+        margin-top: 250px;
+		margin-bottom: 20px;
     }
 
 	#hr{
 		border: 3px groove black;
-		margin-left: 200px;
+		margin-left: 120px;
+		width: 1000px;
 	}
 
 	#reply-write-area{
 		display: grid;
-		grid-template-columns: 5fr 1fr;
+		grid-template-columns: 3fr 1fr;
 	}
 
 	#reply-write-area > input{
-		margin-left: 280px;
-		width: 900px;
-		border-radius: 20px;
-		font-size: 1.5em;
-		background-color: #d8f1c7;
-		height: 60px;
+		margin-left: 120px;
+		margin-right: 15px;
+		width: 800px;
+		font-size: 18px;
+		height: 35px;
+	}
+
+	#reply-write-area > button {
+		margin-top: 3px;
 	}
 
 	#btn01{
-		font-size: 1.5em;
-		height: 60px;
+		font-size: 18px;
+		height: 30px;
+		width: 130px;
 	}	
 
 	#reply-list-area > table{
-		margin-left: 280px;
+		margin-left: 200px;
 		margin-top: 20px;
 		width: 900px;
-		border-radius: 20px;
-		font-size: 1.5em;
+		font-size: 18px;
 		border-spacing: 4px;
-		background-color: #d8f1c7;
 	}
 
 	#reply-list-area > table > tbody > tr > td{
@@ -182,7 +138,30 @@
 
 	#btn-area{
 		box-sizing: border-box;
-		margin-left: 300px;
+		margin-left: 500px;
+		margin-top: 20px;
+		display: grid;
+		grid-template-columns:1fr 2fr;
+	}
+
+	#btn-area > input[type="submit"]{
+		width: 100px;
+		height: 30px;
+		border: none;
+		color: black;
+		font-size: 18px;
+		margin-left: 30px;
+		text-align: center;
+	}
+
+	.btn {
+		width: 800px;
+		margin-left: 730px;
+		margin-bottom: 20px;
+	}
+
+	#select-area {
+		margin-left: 100px;
 	}
 </style>
 </head>
@@ -200,38 +179,41 @@
         </div>
 		<form action="${root}/free/edit" method="POST">
 			<div id="write-area">
-				<input type="hidden" name="no" value="${fvo.no}"> 
-				<input type="text" name="title" value="${fvo.title }" readonly="readonly">
-				&nbsp;
-				&nbsp;
-				&nbsp;
-				<span style="font-size: 1.5em;">작성자:${fvo.memberNick }</span>
-				&nbsp;
-				&nbsp;
-				<span style="font-size: 1.5em;">작성일시:${fvo.enrollDate }</span>
-				&nbsp;
-				<span style="font-size: 1.5em;">조회수 :${fvo.hit }</span>
+					<input type="hidden" name="no" value="${fvo.no}"> 
+					제목 : <input type="text" name="title" value="${fvo.title }" readonly="readonly">
+					&nbsp;
+					&nbsp;
+					&nbsp;
+					<span>작성자:${fvo.memberNick }</span>
+					&nbsp;
+					&nbsp;
+					<span>작성일시:${fvo.enrollDate }</span>
+					&nbsp;
+					<span>조회수 :${fvo.hit }</span>
+					<div class="btn">
+						<button type="button" id="btn01" onclick="edit();">수정</button>
+						<button type="button" id="btn01" onclick="del();">삭제</button>
+					</div>
 				<textarea name="content" id="summernote" >${fvo.content }</textarea>
 			</div>
 				
 			<!-- 글 수정 삭제는 not empty loginMember처리  -->
 			<div id="btn-area">
-				<button type="button" id="btn01" onclick="edit();">수정</button>
-				<button type="button" id="btn01" onclick="del();">삭제</button>
-				<input type="submit" value="수정하기">
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<button type="button" id="btn01" onclick="f02();">신고하기</button>
-				<select name="rep" id="btn01">
-					<option value="1">욕설</option>
-					<option value="2">허위사실</option>
-					<option value="3">패드립 </option>
-					<option value="4">스팸/도배글</option>
-					<option value="5">명예훼손</option>
-					<option value="6">성희롱</option>
-					<option value="7">불쾌한닉네임</option>
-					<option value="8">혐오발언</option>
-					<option value="9">맘에안들어서</option>
-				</select>
+				<input type="submit" value="수정하기" id="btn01">
+				<div id="select-area">
+					<button type="button" id="btn01" onclick="f02();">신고하기</button>
+					<select name="rep" id="btn01">
+						<option value="1">욕설</option>
+						<option value="2">허위사실</option>
+						<option value="3">패드립 </option>
+						<option value="4">스팸/도배글</option>
+						<option value="5">명예훼손</option>
+						<option value="6">성희롱</option>
+						<option value="7">불쾌한닉네임</option>
+						<option value="8">혐오발언</option>
+						<option value="9">맘에안들어서</option>
+					</select>
+				</div>
 			</div>
 
 		</form>
@@ -274,10 +256,10 @@ $('#summernote').summernote({
 	
 	placeholder: '내용입력',
 	tabsize: 2,
-	height: 1300,
-	maxHeight:1300,
-	minHeight:1000,
-	width: 1400,
+	height: 600,
+	maxHeight:800,
+	minHeight:500,
+	width: 1000,
 	callbacks : {
 		onImageUpload : f01
 	},

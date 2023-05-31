@@ -10,7 +10,7 @@
 
     /* 내용영역 */
     #content{
-         position: relative;
+        position: relative;
 	    width: 1170px;
 	    height: 1000px;
 	    left: 350px;
