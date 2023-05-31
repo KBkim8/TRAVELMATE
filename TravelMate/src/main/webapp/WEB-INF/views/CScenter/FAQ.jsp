@@ -15,7 +15,7 @@
         position: relative;
 	    width: 1170px;
 	    height: 1000px;
-	    left: 420px;
+	    left: 350px;
 	    bottom: 450px;
     }
 

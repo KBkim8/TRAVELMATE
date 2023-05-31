@@ -323,11 +323,11 @@
     let reviewPageUrl = 'root/reivew/write?payNo=payNo';
     
     if (searchValue === '1') {
-        reviewPageUrl = '${root}/car/reivew/write?payNo=' + payNo;
+        reviewPageUrl = '${root}/review/write?payNo=' + payNo;
     } else if (searchValue === '2') {
-        reviewPageUrl = '${root}/room/review/write?payNo=' + payNo;
+        reviewPageUrl = '${root}/review/write?payNo=' + payNo;
     } else if (searchValue === '3') {
-        reviewPageUrl = '${root}/souvenir/review/write?payNo=' + payNo;
+        reviewPageUrl = '${root}/review/write?payNo=' + payNo;
     }
     
     window.location.href = reviewPageUrl;

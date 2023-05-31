@@ -55,10 +55,10 @@
             <div><a>|</a></div>
             <div><a data-hover="커뮤니티">커뮤니티</a></div>
             <div><a href="${root}/free/list">자유</a></div>
-            <div><a href="${root}/reivew/list">리뷰</a></div>
+            <div><a href="${root}/review/list">리뷰</a></div>
             <div><a href="${root}/notice/list">공지</a></div>
             <div></div>
-            <c:if test="${loginMember.memberCategoryNo == '2' || loginMember.id eq 'ADMIN' }">
+            <c:if test="${loginMember.memberCategoryNo == '3' || loginMember.id eq 'ADMIN' }">
             <div><a href="${root}/sell/request/list">판매요청</a></div>
             <div><a>|</a></div>
             </c:if>

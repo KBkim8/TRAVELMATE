@@ -9,11 +9,11 @@
 
  /* 내용영역 */
  #content{
-        position: relative;
-	    width: 1390px;
-	    height: 100%;
-	    bottom: 1100px;
-	    left: 400px;
+    position: relative;
+	    width: 1170px;
+	    height: 1000px;
+	    left: 350px;
+	    bottom: 450px;
     }
 
     #first-content>img{
