@@ -31,7 +31,7 @@
         </div>
         <div id="logoCategory">
             <c:if test="${empty loginMember}">
-            <a href="${root}/static/img/logo.png">회원가입</a>
+            <a href="${root}/join">회원가입</a>
             <a>|</a>
              <a href="${root}/login">로그인</a>
             <a>|</a>
