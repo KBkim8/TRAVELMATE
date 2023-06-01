@@ -180,7 +180,7 @@
                     <a>회원가입</a>
                 </div>
 				
-			<form action="" method="POST" id="join-form">
+			<form action="${root}/join" method="POST" id="join-form">
        
 
                 <div id="edit-area">  <span id="idSpan"></span>

@@ -62,7 +62,7 @@ public class JoinController extends HttpServlet {
             //monit
             if (result == 1) {
             	req.setAttribute("alertMsg", "성공 회원가입");
-            	req.getRequestDispatcher("/WEB-INF/views/common/home.jsp").forward(req, resp);
+            	req.getRequestDispatcher("/WEB-INF/views/common/header3.jsp").forward(req, resp);
             } else {
             	throw new Exception();
             }
