@@ -6,6 +6,11 @@ $("ul", this).slideToggle(300);
 });
 });
 
+// 관심상품으로
+cart.addEventListener("click" , () => {
+	location.href="/TravelMate/mypage/favorites";
+});
+
 //상단으로
 uppage.addEventListener("click", () => {
 window.scrollTo({ top: 0, behavior: "smooth" });
