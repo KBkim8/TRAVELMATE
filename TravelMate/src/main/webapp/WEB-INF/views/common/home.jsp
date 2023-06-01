@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="${root}/static/css/header3.css">
 <meta charset="UTF-8">
 <title>Travel_Mate</title>
 
@@ -10,7 +11,6 @@
   #search-area {
   display:flex;
   justify-content: space-evenly;
-
   margin-left: 20px;
 }
 
@@ -158,7 +158,7 @@ height: 450px;
 </head>
 <body>
 
-  	 <%@ include file="/WEB-INF/views/common/header2.jsp" %> 
+  	 <%@ include file="/WEB-INF/views/common/header.jsp" %> 
 
   
    <!-- 내용영역 -->
@@ -218,7 +218,7 @@ height: 450px;
 		
 		<!-- 오른쪽화살표 -->
 		<button id="btn04">
-		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">
+		  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square-fill" viewBox="0 0 16 16">7
 		  <path  d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v12zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1z"/>
 		  </svg>
 		</button>
@@ -235,23 +235,10 @@ height: 450px;
 		</div>
 		 
 		<div id="br">
-
-      로딩중
-
+		
+      		로딩중
       
-      <!-- <a href=""><h2 align="center">여행 정보를 서로 공유해보세요!</h2></a>
-      <a href="/app/test"  style="font-size: 2em;">제주도 차박 여행 후기</a>
-      <br>  
-      <br>  
-      <a href="/app/test" style="font-size: 2em;">강원도 차박 여행 후기</a>  
-      <br>
-      <br>
-      <a href="/app/test" style="font-size: 2em;"> 강릉 차박 여행 후기</a>  
-      <br>
-      <br>
-      <a href="/app/test" style="font-size: 2em;"> 포천 차박 여행 후기</a>  
-    </div> -->
-    </div>
+    	</div>
 </div>
 </div>
 </body>
@@ -365,6 +352,8 @@ height: 450px;
       }
     });
 
+
+    
     btn03.addEventListener('click', function(){
       if (currentRansonImage === 1) {
         ransonImg1.style.display = 'none';

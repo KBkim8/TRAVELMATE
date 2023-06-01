@@ -68,8 +68,6 @@
 
     </div>
 
-${voList}
-
 </body>
 </html>
 <script>

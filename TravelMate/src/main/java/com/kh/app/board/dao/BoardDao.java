@@ -648,18 +648,17 @@ public class BoardDao {
 	}
 
 	//판매 요청글
-	public int sellRequestWrite(Connection conn, BoardVo vo, String title) throws Exception {
+	public int sellRequestWrite(Connection conn, BoardVo vo , BoardImgVo biVo) throws Exception {
 
-//		System.out.println("dao : " + vo);
-//		System.out.println(biVo);
-		String sql = "INSERT INTO BOARD(NO , BOARD_CATEGORY_NO ,BOARD_IMG_NO, MEMBER_NO , TITLE , CONTENT )  VALUES ( SEQ_BOARD_NO.NEXTVAL , 2, ?, ?, ? , ?)";
+		String sql = "INSERT ALL INTO BOARD ( NO , BOARD_CATEGORY_NO , MEMBER_NO , TITLE , CONTENT ) VALUES ( SEQ_BOARD_NO.NEXTVAL , '2', ? , ? , ? ) INTO BOARD_IMG(NO ,TITLE) VALUES(SEQ_BOARD_IMG_NO.NEXTVAL , ?) SELECT *FROM DUAL";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, vo.getBoardImgNo());
-		pstmt.setString(2, vo.getMemberNo());
-		pstmt.setString(3, title);
-		pstmt.setString(4, vo.getContent());
+		pstmt.setString(1, vo.getMemberNo());
+		pstmt.setString(2, vo.getTitle());
+		pstmt.setString(3, vo.getContent());
+		pstmt.setString(4, biVo.getChangeName());
 		int result = pstmt.executeUpdate();
 		return result;
+		
 	}
 
 	//이거 모르겠다
