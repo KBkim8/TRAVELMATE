@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+	<%@ include file="/WEB-INF/views/common/product-header.jsp" %>
 	
     <div id="content">
         <form action="${root}/sell/request/write" method="post" enctype="multipart/form-data">

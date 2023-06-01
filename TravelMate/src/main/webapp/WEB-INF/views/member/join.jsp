@@ -168,7 +168,7 @@
 </head>
 <body>
 
-    <%@ include file="/WEB-INF/views/common/mypage-header.jsp" %>
+    <%@ include file="/WEB-INF/views/common/product-header.jsp" %>
 	
 	<!-- 내용영역 --> 
    
