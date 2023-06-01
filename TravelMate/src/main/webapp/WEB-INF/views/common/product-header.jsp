@@ -55,7 +55,7 @@
             <div><a href="${root}/notice/list">공지</a></div>
             <div></div>
             <c:if test="${loginMember.memberCategoryNo == '3' || loginMember.id eq 'ADMIN' }">
-            <div><a href="${root}/sell/request/list">판매요청</a></div>
+            <div><a href="${root}/sell/request/write">판매요청</a></div>
             <div><a>|</a></div>
             </c:if>
             <div><a href="${root}/online/travel" data-hover="랜선여행">랜선여행</a></div>
