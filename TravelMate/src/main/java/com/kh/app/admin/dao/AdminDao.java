@@ -1273,7 +1273,6 @@ public class AdminDao {
 			String enrollDate = rs.getString("ENROLL_DATE");
 			String changeName = rs.getString("IMG_TITLE");
 
-			
 			vo = new SellRequestDetailVo();
 			vo.setNo(no);
 			vo.setWriter(nick);
